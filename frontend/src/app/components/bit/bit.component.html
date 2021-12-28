@@ -1,0 +1,40 @@
+<mat-card class="card">
+
+  <div class="flex bit-subtitle">
+
+    <mat-card-content class="bit-user">
+      {{bit?.author}}
+      <mat-card-subtitle>
+        <p class="bit-username">@{{bit?.author}}</p>
+      </mat-card-subtitle>
+    </mat-card-content>
+
+    <mat-chip class="bit-category">Travelling</mat-chip>
+  </div>
+
+  <mat-card-title>
+    {{bit?.title}}
+  </mat-card-title>
+
+  <mat-card-content>
+    {{bit?.content}}
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-stroked-button color="warn">
+      <mat-icon>local_fire_department</mat-icon>
+      <!-- whatshot / local_fire_department -->
+      42
+    </button>
+    <button mat-stroked-button color="primary">
+      <mat-icon>bookmark_border</mat-icon>
+      <!-- bookmark_border / bookmark -->
+      23
+    </button>
+    <button mat-stroked-button>
+      <mat-icon>forum</mat-icon>
+      16
+    </button>
+  </mat-card-actions>
+
+</mat-card>
