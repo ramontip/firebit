@@ -413,7 +413,7 @@ paths:
           required: true
           schema:
             type: string
-  /bit/search:
+  /search/bit:
     get:
       summary: Search for bits
       tags:
