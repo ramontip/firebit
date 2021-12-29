@@ -28,6 +28,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ProfileStatsComponent } from './components/profile-stats/profile-stats.component';
 import { PublicProfilePageComponent } from './pages/public-profile-page/public-profile-page.component';
+import { CategoryPageComponent } from './pages/category-page/category-page.component';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { PublicProfilePageComponent } from './pages/public-profile-page/public-p
     ProfilePageComponent,
     AboutMeComponent,
     ProfileStatsComponent,
-    PublicProfilePageComponent
+    PublicProfilePageComponent,
+    CategoryPageComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

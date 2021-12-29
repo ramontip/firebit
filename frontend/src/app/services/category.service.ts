@@ -17,4 +17,8 @@ export class CategoryService {
     ]
   }
 
+  getCategory(name: string): Category | undefined {
+    return this.getCategories().find(c => c.name.toLowerCase() === name.toLowerCase())
+  }
+
 }
