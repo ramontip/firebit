@@ -18,6 +18,10 @@ body {
   margin: 0 auto;
 }
 
+.section {
+  margin-bottom: 2rem;
+}
+
 .mb {
   margin-bottom: 1rem;
 }
@@ -28,4 +32,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
+}
+
+.mat-button-base {
+  mat-icon {
+    font-size: 1.5em;
+  }
 }

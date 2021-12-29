@@ -10,7 +10,7 @@ export class BitComponent implements OnInit {
 
 
   @Input()
-  public bit: Bit | null = null // { title: "Hello world", author: "Xeeija", content: "Lorem ipsum dolor sit amet and some other content" }
+  bit: Bit | null = null
 
   constructor() { }
 

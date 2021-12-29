@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/types';
 
 @Component({
@@ -8,14 +9,11 @@ import { Category } from 'src/types';
 })
 export class CategoryListComponent implements OnInit {
 
-  public categories: Category[] = [
-    { name: "Movies" },
-    { name: "Travelling" },
-    { name: "Food" },
-    { name: "Games" },
-  ]
+  categories: Category[]
 
-  constructor() { }
+  constructor(public categoryService: CategoryService) {
+    this.categories = categoryService.getCategories()
+  }
 
   ngOnInit(): void { }
 

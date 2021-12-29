@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BitService } from 'src/app/services/bit.service';
 import { Bit, Comment } from 'src/types';
 
 @Component({
@@ -8,17 +10,20 @@ import { Bit, Comment } from 'src/types';
 })
 export class BitPageComponent implements OnInit {
 
-  @Input()
-  public bit: Bit | null = { title: "Hello world", author: "Basti", content: "Lorem ipsum dolor sit amet" }
+  bit: Bit
 
-  @Input()
-  public comments: Comment[] = [
-    { author: "Ramon", content: "Super sinnvoller Kommentar" },
-    { author: "Chris", content: "Lorem ipsum dolor sit amet" },
-    { author: "David", content: "Keine Ahnung was da noch hin soll als Text" },
-  ]
+  comments: Comment[]
 
-  constructor() { }
+  constructor(
+    public route: ActivatedRoute,
+    public bitService: BitService,
+  ) {
+    const id = parseInt(this.route.snapshot.params.id)
+    this.bit = bitService.getBitById(id)
+
+    this.comments = bitService.getCommentsByBit()
+
+  }
 
   ngOnInit(): void { }
 

@@ -9,7 +9,7 @@ import { Comment } from 'src/types';
 export class BitCommentComponent implements OnInit {
 
   @Input()
-  public comment: Comment | null = null
+  comment: Comment | null = null
 
   constructor() { }
 
