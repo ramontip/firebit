@@ -13,7 +13,6 @@ class BitSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         bit = Bit.objects.create(**validated_data)
-        # bit.category.add(validated_data.category.pk)
         return bit
 
     def update(self, instance, validated_data):
@@ -44,6 +43,9 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
+    def create(self, validated_data):
+        comment = Comment.objects.create(**validated_data)
+        return comment
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:

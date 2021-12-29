@@ -22,5 +22,5 @@ from firebit_api.urls import router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', obtain_jwt_token),
-    path('', include(router.urls))
+    path('', include(router.urls)),
 ]

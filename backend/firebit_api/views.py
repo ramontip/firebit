@@ -2,6 +2,7 @@ import json
 from rest_framework import viewsets, permissions
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from . import models
 from .serializers import *
@@ -103,21 +104,9 @@ class CommentViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def update(self, request, pk=None, format=None):
-        try:
-            comment = models.Comment.objects.get(
-                pk=pk
-            )
-            serializer = CommentSerializer(comment, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(
-                    serializer.data,
-                    status=201
-                )
-            else:
-                return Response(serializer.errors, status=400)
-        except models.Comment.DoesNotExist:
-            return Response(status=404)
+        # We do not allow updates here
+        # So we return a 405 instead.
+        return Response(status=405)
 
     def partial_update(self, request, pk=None, format=None):
         # We do not allow partial updates here
@@ -133,3 +122,18 @@ class CommentViewSet(viewsets.ViewSet):
             return Response(status=404)
 
         return Response(status=204)
+
+
+class SearchViewSet(viewsets.ViewSet):
+
+    @action(methods=['get'], detail=False, url_path='user', url_name='user')
+    def user(self, request):
+        return Response(status=501)
+
+    @action(methods=['get'], detail=False, url_path='bit', url_name='bit')
+    def bit(self, request):
+        return Response(status=501)
+
+    @action(methods=['get'], detail=False, url_path='category', url_name='category')
+    def category(self, request):
+        return Response(status=501)

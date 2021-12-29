@@ -1,3 +1,8 @@
 The order in which the fixtures should be imported.
 You can paste following command into the console:
+
+Windows
 py manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json images.json likes.json user_thumbnails.json
+
+Mac
+python manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json images.json likes.json user_thumbnails.json
