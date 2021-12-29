@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/types';
 
+type Action = "none" | "edit" | "friend"
+
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
@@ -9,7 +11,13 @@ import { User } from 'src/types';
 export class AboutMeComponent implements OnInit {
 
   @Input()
-  public user: User | null = null
+  user: User | null = null
+
+  @Input()
+  action: Action = "none"
+
+  @Input()
+  isFriend = false
 
   constructor() { }
 

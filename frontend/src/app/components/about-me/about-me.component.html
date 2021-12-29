@@ -15,16 +15,29 @@
     </div>
 
     <!-- Edit Button -->
-    <mat-card-subtitle>
+    <mat-card-subtitle *ngIf="action === 'edit'">
       <button mat-icon-button>
         <mat-icon class="edit">edit</mat-icon>
       </button>
     </mat-card-subtitle>
+
+    <!-- Friend Button -->
+    <mat-card-subtitle *ngIf="action === 'friend'">
+      <button mat-flat-button color="primary" *ngIf="!isFriend">
+        <mat-icon class="edit">person_add</mat-icon>
+        Add as friend
+      </button>
+      <button mat-flat-button color="warn" *ngIf="isFriend">
+        <mat-icon class="edit">person_remove</mat-icon>
+        Remove friend
+      </button>
+    </mat-card-subtitle>
+
   </div>
 
 
   <!-- "Bio" -->
-  <mat-card-content>
+  <div>
     {{user?.aboutme}}
-  </mat-card-content>
+  </div>
 </mat-card>

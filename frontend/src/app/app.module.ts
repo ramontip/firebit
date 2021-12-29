@@ -27,6 +27,7 @@ import { BitFormComponent } from './components/bit-form/bit-form.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ProfileStatsComponent } from './components/profile-stats/profile-stats.component';
+import { PublicProfilePageComponent } from './pages/public-profile-page/public-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProfileStatsComponent } from './components/profile-stats/profile-stats.
     BitFormComponent,
     ProfilePageComponent,
     AboutMeComponent,
-    ProfileStatsComponent
+    ProfileStatsComponent,
+    PublicProfilePageComponent
   ],
   imports: [
     BrowserModule,
