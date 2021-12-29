@@ -2,6 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class UserThumbnail(models.Model):
+    auth_user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    file_name = models.CharField(max_length=100)
+    content_type = models.CharField(max_length=100)
+    path = models.CharField(max_length=100)
+
+    def __str__(self):
+        return '{}'.format(self.file_name)
+
+    class Meta:
+        verbose_name_plural = 'User Thumbnails'
+
+
 class FriendshipStatus(models.Model):
     status = models.CharField(max_length=100)
 
@@ -51,6 +64,7 @@ class Bit(models.Model):
 
     class Meta:
         verbose_name_plural = 'Bits'
+        ordering = ['-created_at']
 
 
 class Comment(models.Model):

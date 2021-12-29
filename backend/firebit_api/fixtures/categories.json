@@ -1,0 +1,42 @@
+[
+  {
+    "model": "firebit_api.category",
+    "pk": 1,
+    "fields": {
+      "title": "Technik",
+      "color": 1
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 2,
+    "fields": {
+      "title": "Movie",
+      "color": 2
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 3,
+    "fields": {
+      "title": "Series",
+      "color": 3
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 4,
+    "fields": {
+      "title": "Coding",
+      "color": 4
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 5,
+    "fields": {
+      "title": "Food",
+      "color": 5
+    }
+  }
+]

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
+from django.contrib.auth.models import User
 
 
 class BitSerializer(serializers.ModelSerializer):
@@ -48,4 +49,11 @@ class FriendshipSerializer(serializers.ModelSerializer):
 class FriendshipStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = FriendshipStatus
+        fields = '__all__'
+
+
+# This one is made with the HyperlinkedModelSerializer
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
         fields = '__all__'

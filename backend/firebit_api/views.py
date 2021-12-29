@@ -69,3 +69,67 @@ class BitViewSet(viewsets.ViewSet):
             return Response(status=404)
 
         return Response(status=204)
+
+
+class CommentViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        queryset = models.Comment.objects.all()
+
+        serializer = CommentSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
+
+    def create(self, request, format=None):
+
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            comment = models.Comment.objects.get(
+                pk=pk
+            )
+            serializer = CommentSerializer(comment)
+            return Response(serializer.data, status=200)
+
+        except models.Comment.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        try:
+            comment = models.Comment.objects.get(
+                pk=pk
+            )
+            serializer = CommentSerializer(comment, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+        except models.Comment.DoesNotExist:
+            return Response(status=404)
+
+    def partial_update(self, request, pk=None, format=None):
+        # We do not allow partial updates here
+        # So we return a 405 instead.
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            comment = models.Comment.objects.filter(
+                pk=pk
+            ).delete()
+        except models.Comment.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
