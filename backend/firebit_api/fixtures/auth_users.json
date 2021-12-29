@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "username": "testicles",
+      "first_name": "John",
+      "last_name": "Test-Snow",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$260000$7wSaUNg2PJYCpsCJ6a9GTB$VGTWDVcCbAW4XCMnfHx5x4aWZdLanQaltCzMRG7glm4=",
+      "email": "a@a.co",
+      "date_joined": "2015-04-23T01:13:43.233Z"
+    }
+  }
+]

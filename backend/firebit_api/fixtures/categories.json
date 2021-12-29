@@ -3,7 +3,7 @@
     "model": "firebit_api.category",
     "pk": 1,
     "fields": {
-      "title": "Technik",
+      "title": "Technical",
       "color": 1
     }
   },

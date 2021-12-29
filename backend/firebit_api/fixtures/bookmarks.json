@@ -1,0 +1,12 @@
+[
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 1,
+    "fields": {
+      "bit_id": 1,
+      "auth_user_id": 2,
+      "created_at": "2017-01-01T00:00:00Z",
+      "updated_at": "2017-01-01T00:00:00Z"
+    }
+  }
+]

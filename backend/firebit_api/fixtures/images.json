@@ -1,0 +1,14 @@
+[
+  {
+    "model": "firebit_api.image",
+    "pk": 1,
+    "fields": {
+      "bit_id": 1,
+      "file_name": "ca7ffcac-1d04-4ce3-bd12-52818767069d.jpeg",
+      "content_type": "image/jpeg",
+      "path": "firebit_api/images/",
+      "created_at": "2017-01-01T00:00:00Z",
+      "updated_at": "2017-01-01T00:00:00Z"
+    }
+  }
+]

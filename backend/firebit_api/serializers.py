@@ -52,8 +52,7 @@ class FriendshipStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# This one is made with the HyperlinkedModelSerializer
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'

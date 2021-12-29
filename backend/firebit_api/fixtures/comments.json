@@ -1,0 +1,12 @@
+[
+  {
+    "model": "firebit_api.comment",
+    "pk": 1,
+    "fields": {
+      "bit_id": 1,
+      "content": "This is an amazing comment, like your graphic card!",
+      "created_at": "2021-01-01T00:00:00Z",
+      "updated_at": "2021-01-01T00:00:00Z"
+    }
+  }
+]

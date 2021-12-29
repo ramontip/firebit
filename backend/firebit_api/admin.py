@@ -30,6 +30,10 @@ class FriendshipStatusAdmin(admin.ModelAdmin):
     pass
 
 
+class UserThumbnailAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.site_header = 'Firebit API'
 admin.site.register(models.Bit, BitAdmin)
 admin.site.register(models.Category, CategoryAdmin)
@@ -38,3 +42,4 @@ admin.site.register(models.Like, LikeAdmin)
 admin.site.register(models.Image, ImageAdmin)
 admin.site.register(models.Friendship, FriendshipAdmin)
 admin.site.register(models.FriendshipStatus, FriendshipStatusAdmin)
+admin.site.register(models.UserThumbnail, UserThumbnailAdmin)
