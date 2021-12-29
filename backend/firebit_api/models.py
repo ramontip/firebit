@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class UserThumbnail(models.Model):
-    auth_user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=100)
     content_type = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
@@ -26,9 +26,9 @@ class FriendshipStatus(models.Model):
 
 
 class Friendship(models.Model):
-    from_auth_user_id = models.ForeignKey(User, related_name='from_auth_user_id', on_delete=models.CASCADE)
-    to_auth_user_id = models.ForeignKey(User, related_name='to_auth_user_id', on_delete=models.CASCADE)
-    friendship_status_id = models.ForeignKey(FriendshipStatus, on_delete=models.PROTECT)
+    from_auth_user = models.ForeignKey(User, related_name='from_auth_user', on_delete=models.CASCADE)
+    to_auth_user = models.ForeignKey(User, related_name='to_auth_user', on_delete=models.CASCADE)
+    friendship_status = models.ForeignKey(FriendshipStatus, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -51,11 +51,11 @@ class Category(models.Model):
 
 
 class Bit(models.Model):
-    auth_user_id = models.ForeignKey(User, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
     content = models.TextField()
     hashtags = models.JSONField()
-    category_id = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -68,7 +68,7 @@ class Bit(models.Model):
 
 
 class Comment(models.Model):
-    bit_id = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -81,8 +81,8 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-    bit_id = models.ForeignKey(Bit, on_delete=models.PROTECT)
-    auth_user_id = models.ForeignKey(User, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -94,8 +94,8 @@ class Like(models.Model):
 
 
 class Bookmark(models.Model):
-    bit_id = models.ForeignKey(Bit, on_delete=models.PROTECT)
-    auth_user_id = models.ForeignKey(User, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -107,7 +107,7 @@ class Bookmark(models.Model):
 
 
 class Image(models.Model):
-    bit_id = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
     file_name = models.CharField(max_length=255)
     content_type = models.CharField(max_length=100)
     path = models.CharField(max_length=255)

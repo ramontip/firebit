@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from datetime import datetime
+
 from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
 from django.contrib.auth.models import User
 
@@ -8,6 +10,21 @@ class BitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bit
         fields = '__all__'
+
+    def create(self, validated_data):
+        bit = Bit.objects.create(**validated_data)
+        # bit.category.add(validated_data.category.pk)
+        return bit
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
+        instance.hashtags = validated_data.get('hashtags', instance.hashtags)
+        instance.category = validated_data.get('category', instance.category)
+        instance.updated_at = datetime.now()
+
+        instance.save()
+        return instance
 
 
 class BookmarkSerializer(serializers.ModelSerializer):

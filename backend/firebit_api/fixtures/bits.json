@@ -8,8 +8,8 @@
       "hashtags": "{'Hashtag 1': 'Nice'}",
       "created_at": "2016-01-01T00:00:00Z",
       "updated_at": "2017-01-01T00:00:00Z",
-      "auth_user_id_id": 1,
-      "category_id_id": 1
+      "auth_user_id": 1,
+      "category_id": 1
     }
   },
   {
@@ -21,8 +21,8 @@
       "hashtags": "{'Hashtag 2': 'NeoIsNice'}",
       "created_at": "2021-12-01T00:00:00Z",
       "updated_at": "2021-12-12T00:00:00Z",
-      "auth_user_id_id": 1,
-      "category_id_id": 2
+      "auth_user_id": 1,
+      "category_id": 2
     }
   },
   {
@@ -34,8 +34,8 @@
       "hashtags": "{'Hashtag 3': 'WelcheSerie'}",
       "created_at": "2018-01-01T00:00:00Z",
       "updated_at": "2020-01-01T00:00:00Z",
-      "auth_user_id_id": 2,
-      "category_id_id": 3
+      "auth_user_id": 2,
+      "category_id": 3
     }
   },
   {
@@ -47,8 +47,8 @@
       "hashtags": "{'Hashtag 4': 'Comedian'}",
       "created_at": "2016-01-01T00:00:00Z",
       "updated_at": "2017-01-01T00:00:00Z",
-      "auth_user_id_id": 1,
-      "category_id_id": 4
+      "auth_user_id": 1,
+      "category_id": 4
     }
   }
 ]
