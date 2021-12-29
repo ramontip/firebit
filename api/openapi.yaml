@@ -177,27 +177,6 @@ paths:
           description: Not permitted to update this bit
         404:
           description: Bit not found
-  /bit/search:
-    get:
-      summary: Get all bits (based on permissions)
-      tags:
-        - bits
-      responses:
-        200:
-          description: OK
-      parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: type
-          in: query
-          schema:
-            type: string
-            enum:
-              - title
-              - hashtag
 
   /bit/{bitId}/comment:
     get:
@@ -370,20 +349,6 @@ paths:
         200:
           description: OK
           content: {}
-  /user/search:
-    get:
-      summary: Get all bits (based on permissions)
-      tags:
-        - user
-      responses:
-        200:
-          description: OK
-      parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
 
   /category:
     get:
@@ -433,9 +398,45 @@ paths:
           content: {}
       security:
         - api_key: []
-  /category/search:
+
+  /search/user:
     get:
-      summary: Get all bits (based on permissions)
+      summary: Search for users
+      tags:
+        - user
+      responses:
+        200:
+          description: OK
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+  /bit/search:
+    get:
+      summary: Search for bits
+      tags:
+        - bits
+      responses:
+        200:
+          description: OK
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - title
+              - hashtag
+  /search/category:
+    get:
+      summary: Search for categories
       tags:
         - category
       responses:
@@ -492,6 +493,7 @@ components:
         - tech
         - games
         - other
+
 #
 # Notes:
 
