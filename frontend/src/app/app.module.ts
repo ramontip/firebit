@@ -10,6 +10,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav"
 import { MatButtonModule } from "@angular/material/button"
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select"
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -19,6 +20,10 @@ import { MatChipsModule } from "@angular/material/chips";
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { BitComponent } from './components/bit/bit.component'
 import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { BitPageComponent } from './pages/bit-page/bit-page.component';
+import { BitCommentComponent } from './components/bit-comment/bit-comment.component';
+import { BitFormComponent } from './components/bit-form/bit-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,10 @@ import { MatCardModule } from "@angular/material/card";
     SidebarComponent,
     HomeComponent,
     CategoryListComponent,
-    BitComponent
+    BitComponent,
+    BitPageComponent,
+    BitCommentComponent,
+    BitFormComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +47,12 @@ import { MatCardModule } from "@angular/material/card";
     MatSidenavModule,
     MatIconModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatInputModule,
     MatListModule,
     MatChipsModule,
     MatCardModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

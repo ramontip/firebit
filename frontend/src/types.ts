@@ -7,3 +7,8 @@ export interface Bit {
   author: string
   content: string
 }
+
+export interface Comment {
+  author: string
+  content: string
+}
