@@ -1,0 +1,30 @@
+<mat-card>
+
+  <div class="flex space-between">
+
+    <!-- User/Username -->
+    <div>
+      <div class="flex mb">
+        <mat-card-title class="user">
+          {{user?.name}}
+        </mat-card-title>
+        <mat-card-subtitle class="username">
+          @{{user?.username}}
+        </mat-card-subtitle>
+      </div>
+    </div>
+
+    <!-- Edit Button -->
+    <mat-card-subtitle>
+      <button mat-icon-button>
+        <mat-icon class="edit">edit</mat-icon>
+      </button>
+    </mat-card-subtitle>
+  </div>
+
+
+  <!-- "Bio" -->
+  <mat-card-content>
+    {{user?.aboutme}}
+  </mat-card-content>
+</mat-card>

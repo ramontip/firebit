@@ -1,0 +1,25 @@
+<div class="container-xl">
+
+  <!-- About me -->
+  <div class="section">
+    <h2>My Profile</h2>
+    <app-about-me [user]="user"></app-about-me>
+  </div>
+
+  <!-- Stats -->
+  <div class="section">
+    <h3>Stats</h3>
+    <app-profile-stats></app-profile-stats>
+  </div>
+
+  <!-- Bits -->
+  <div class="section">
+    <h3>My Bits</h3>
+    <div class="bit-list">
+      <div *ngFor="let bit of bits" class="mb">
+        <app-bit [bit]="bit"></app-bit>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -24,6 +24,9 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { BitPageComponent } from './pages/bit-page/bit-page.component';
 import { BitCommentComponent } from './components/bit-comment/bit-comment.component';
 import { BitFormComponent } from './components/bit-form/bit-form.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { AboutMeComponent } from './components/about-me/about-me.component';
+import { ProfileStatsComponent } from './components/profile-stats/profile-stats.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { BitFormComponent } from './components/bit-form/bit-form.component';
     BitComponent,
     BitPageComponent,
     BitCommentComponent,
-    BitFormComponent
+    BitFormComponent,
+    ProfilePageComponent,
+    AboutMeComponent,
+    ProfileStatsComponent
   ],
   imports: [
     BrowserModule,
