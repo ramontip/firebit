@@ -1,0 +1,16 @@
+.flex {
+  flex-direction: column;
+}
+
+.flex-item {
+  width: 100%;
+
+  mat-form-field {
+    width: 100%
+  }
+}
+
+.header {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}

@@ -30,6 +30,9 @@ import { ProfileStatsComponent } from './components/profile-stats/profile-stats.
 import { PublicProfilePageComponent } from './pages/public-profile-page/public-profile-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { CategoryComponent } from './components/category/category.component';
+import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
+import { ProfileFormComponent } from './components/profile-form/profile-form.component';
+import { PasswordFormComponent } from './components/password-form/password-form.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { CategoryComponent } from './components/category/category.component';
     ProfileStatsComponent,
     PublicProfilePageComponent,
     CategoryPageComponent,
-    CategoryComponent
+    CategoryComponent,
+    ProfileSettingsPageComponent,
+    ProfileFormComponent,
+    PasswordFormComponent
   ],
   imports: [
     BrowserModule,
