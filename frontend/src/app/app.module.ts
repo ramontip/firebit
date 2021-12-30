@@ -33,6 +33,8 @@ import { CategoryComponent } from './components/category/category.component';
 import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
 import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 import { PasswordFormComponent } from './components/password-form/password-form.component';
+import { ProfileFriendsPageComponent } from './pages/profile-friends-page/profile-friends-page.component';
+import { FriendComponent } from './components/friend/friend.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { PasswordFormComponent } from './components/password-form/password-form.
     CategoryComponent,
     ProfileSettingsPageComponent,
     ProfileFormComponent,
-    PasswordFormComponent
+    PasswordFormComponent,
+    ProfileFriendsPageComponent,
+    FriendComponent
   ],
   imports: [
     BrowserModule,

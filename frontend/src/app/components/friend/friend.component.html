@@ -1,0 +1,44 @@
+<mat-card class="card">
+
+  <div class="flex container">
+
+    <div class="flex name-container">
+      <mat-card-content class="name">
+        {{friendship?.user?.name}}
+      </mat-card-content>
+      <mat-card-subtitle class="username">
+        @{{friendship?.user?.username}}
+      </mat-card-subtitle>
+    </div>
+
+    <div class="action">
+
+      <!-- Friend requests -->
+      <button mat-flat-button color="primary" *ngIf="friendship?.status === 'pending'">
+        <mat-icon>checkmark</mat-icon>
+        Accept
+      </button>
+
+      <button mat-flat-button color="warn" *ngIf="friendship?.status === 'pending'">
+        <mat-icon>close</mat-icon>
+        Decline
+      </button>
+
+      <!-- Friends -->
+      <button mat-flat-button color="primary" *ngIf="friendship?.status === 'friend'">
+        <mat-icon>person</mat-icon>
+        Profile
+      </button>
+
+      <button mat-stroked-button color="warn" *ngIf="friendship?.status === 'friend'">
+        Remove
+      </button>
+
+      <!-- "More" menu -->
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</mat-card>

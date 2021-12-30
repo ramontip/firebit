@@ -1,0 +1,36 @@
+.card {
+  margin-bottom: 0.5rem;
+}
+
+.name-container {
+  align-items: baseline;
+
+  > * {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.username {
+  font-size: 1rem;
+}
+
+.container {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action {
+  margin: -0.5rem;
+
+  > * {
+    margin-left: 0.5rem;
+    line-height: 2.25em;
+    padding: 0 0.75rem;
+  }
+}

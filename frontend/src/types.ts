@@ -24,3 +24,8 @@ export interface Stat {
   description: string
   icon?: string
 }
+
+export interface Friendship {
+  user: User
+  status: "friend" | "pending"
+}
