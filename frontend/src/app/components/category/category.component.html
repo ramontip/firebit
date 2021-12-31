@@ -1,3 +1,5 @@
-<mat-chip [routerLink]="'/category/' + category?.name">
-  {{category?.name}}
+<mat-chip>
+  <a class="link" routerLink="/category/{{category?.name}}">
+    {{category?.name}}
+  </a>
 </mat-chip>

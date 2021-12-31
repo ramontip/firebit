@@ -27,7 +27,7 @@ import { BitFormComponent } from './components/bit-form/bit-form.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ProfileStatsComponent } from './components/profile-stats/profile-stats.component';
-import { PublicProfilePageComponent } from './pages/public-profile-page/public-profile-page.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
@@ -35,6 +35,7 @@ import { ProfileFormComponent } from './components/profile-form/profile-form.com
 import { PasswordFormComponent } from './components/password-form/password-form.component';
 import { ProfileFriendsPageComponent } from './pages/profile-friends-page/profile-friends-page.component';
 import { FriendComponent } from './components/friend/friend.component';
+import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
 
 @NgModule({
   declarations: [
@@ -50,14 +51,15 @@ import { FriendComponent } from './components/friend/friend.component';
     ProfilePageComponent,
     AboutMeComponent,
     ProfileStatsComponent,
-    PublicProfilePageComponent,
+    UserPageComponent,
     CategoryPageComponent,
     CategoryComponent,
     ProfileSettingsPageComponent,
     ProfileFormComponent,
     PasswordFormComponent,
     ProfileFriendsPageComponent,
-    FriendComponent
+    FriendComponent,
+    UserFriendsPageComponent
   ],
   imports: [
     BrowserModule,

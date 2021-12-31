@@ -4,11 +4,11 @@ import { UserService } from 'src/app/services/user.service';
 import { Bit } from 'src/types';
 
 @Component({
-  selector: 'app-public-profile-page',
-  templateUrl: './public-profile-page.component.html',
-  styleUrls: ['./public-profile-page.component.scss']
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.scss']
 })
-export class PublicProfilePageComponent implements OnInit {
+export class UserPageComponent implements OnInit {
 
   bits: Bit[]
 

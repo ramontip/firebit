@@ -23,6 +23,7 @@ export interface Stat {
   amount: number
   description: string
   icon?: string
+  link?: string
 }
 
 export interface Friendship {

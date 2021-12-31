@@ -11,6 +11,9 @@ export class FriendComponent implements OnInit {
   @Input()
   friendship?: Friendship
 
+  @Input()
+  editable = false
+
   constructor() { }
 
   ngOnInit(): void { }

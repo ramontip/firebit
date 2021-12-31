@@ -2,12 +2,17 @@
 
   <div class="flex bit-subtitle">
 
-    <mat-card-content class="bit-user">
-      {{bit?.author}}
+    <div>
+      <mat-card-content class="bit-user">
+        <a class="link" routerLink="/user/{{bit?.author}}">
+          {{bit?.author}}
+        </a>
+      </mat-card-content>
       <mat-card-subtitle>
         <p class="bit-username">@{{bit?.author}}</p>
       </mat-card-subtitle>
-    </mat-card-content>
+    </div>
+
     <mat-chip-list>
       <span class="bit-category">
         <app-category></app-category>
@@ -19,7 +24,9 @@
   </div>
 
   <mat-card-title>
+    <!-- <a class="link" routerLink="/bit/1"> -->
     {{bit?.title}}
+    <!-- </a> -->
   </mat-card-title>
 
   <div class="mb">

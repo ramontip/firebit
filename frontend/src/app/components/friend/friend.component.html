@@ -25,12 +25,12 @@
       </button>
 
       <!-- Friends -->
-      <button mat-flat-button color="primary" *ngIf="friendship?.status === 'friend'">
+      <a mat-flat-button color="primary" routerLink="/user/{{friendship?.user?.username}}" *ngIf="friendship?.status === 'friend'">
         <mat-icon>person</mat-icon>
         Profile
-      </button>
+      </a>
 
-      <button mat-stroked-button color="warn" *ngIf="friendship?.status === 'friend'">
+      <button mat-stroked-button color="warn" *ngIf="editable && friendship?.status === 'friend'">
         Remove
       </button>
 

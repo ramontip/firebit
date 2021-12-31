@@ -9,7 +9,7 @@ import { Stat } from 'src/types';
 export class ProfileStatsComponent implements OnInit {
 
   stats: Stat[] = [
-    { description: "friends", amount: 13, icon: "people" },
+    { description: "friends", amount: 13, icon: "people", link: "friends" },
     { description: "bits liked", amount: 42, icon: "local_fire_department" },
     { description: "bits bookmarked", amount: 26, icon: "bookmark" },
   ]
