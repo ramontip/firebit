@@ -3,9 +3,14 @@ export interface Category {
 }
 
 export interface Bit {
+  id: number
+  auth_user: number
   title: string
-  author: string
   content: string
+  hashtags?: string
+  category: number
+  created_at: string
+  updated_at: string
 }
 
 export interface Comment {

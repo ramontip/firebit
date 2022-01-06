@@ -1,37 +1,29 @@
-import { Injectable } from '@angular/core';
-import { Bit, Comment } from 'src/types';
+import {Injectable} from '@angular/core';
+import {Bit, Comment} from 'src/types';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BitService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getBitsByUser(): Bit[] {
-    return [
-      { title: "Hello world", author: "Basti", content: "Lorem ipsum dolor sit amet" },
-      { title: "Second title", author: "Chris", content: "some other content" },
-      { title: "James Webb Telescope launch", author: "Ramon", content: "Third bit content" },
-      { title: "New Matrix film", author: "David", content: "Aaaand another one" },
-    ]
+  // Just for testing purposes
+  getBits() {
+    return this.http.get<Bit[]>(`/api/bit/`);
   }
 
-  getBitById(id: number): Bit {
-    return [
-      { title: "Hello world", author: "Basti", content: "Lorem ipsum dolor sit amet" },
-      { title: "Second title", author: "Chris", content: "some other content" },
-      { title: "James Webb Telescope launch", author: "Ramon", content: "Third bit content" },
-      { title: "New Matrix film", author: "David", content: "Aaaand another one" },
-    ][id - 1]
+  getBitsByUser(): Bit[] {
+    return [];
+  }
+
+  getBitById(id: number): Bit | null {
+    return null;
   }
 
   getCommentsByBit(): Comment[] {
-    return [
-      { author: "Ramon", content: "Super sinnvoller Kommentar" },
-      { author: "Chris", content: "Lorem ipsum dolor sit amet" },
-      { author: "David", content: "Keine Ahnung was da noch hin soll als Text" },
-    ]
+    return [];
   }
 
 }

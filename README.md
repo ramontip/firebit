@@ -1,10 +1,35 @@
-# Firebit 🔥
+<h1 align="center">
+    Firebit 🔥
+</h1>
 
-Firebit is a place to share experiences with your friends.
+<p align="center">
+Firebit is a Django and Angular powered web application, where users can share and browse meaningful recommendations or experiences from their mainly trusted source: their friends.
+</p>
 
-Proud members of the Firebit team:
+<p align="center">
+  <a href="#team">Team</a> •
+  <a href="#prerequisites">Prerequisites</a> •
+  <a href="#installation">Installation</a>
+</p>
 
-- Bastian Lang
-- Chris Rolke
-- David Sebernegg
-- Ramon Tippl  
+## Team
+
+- <a href="https://github.com/xeeija">Bastian Lang</a>
+- <a href="https://github.com/rolkef">Christopher Rolke</a>
+- <a href="https://github.com/DavidSeb2020">David Sebernegg</a>
+- <a href="https://github.com/ramontip">Ramon Tippl</a></b>
+
+## Prerequisites
+
+1. Lorem
+2. Ipsum
+3. Dolor
+
+## Installation
+
+1. Lorem
+2. Ipsum
+3. Dolor
+
+---
+> FH Joanneum, Information Management (IMA19), SWENGS

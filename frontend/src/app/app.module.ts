@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -64,6 +65,7 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -76,7 +78,7 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
     MatListModule,
     MatChipsModule,
     MatCardModule,
-    MatExpansionModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import { BitService } from 'src/app/services/bit.service';
 import { Bit } from 'src/types';
 
@@ -9,12 +10,15 @@ import { Bit } from 'src/types';
 })
 export class HomeComponent implements OnInit {
 
-  bits: Bit[]
+  bits: Bit[] = []
 
-  constructor(public bitService: BitService) {
-    this.bits = bitService.getBitsByUser()
+  constructor(private http: HttpClient, public bitService: BitService) {
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.bitService.getBits().subscribe(bits => {
+      this.bits = bits
+    })
+  }
 
 }

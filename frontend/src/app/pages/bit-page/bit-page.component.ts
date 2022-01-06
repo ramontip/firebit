@@ -10,7 +10,7 @@ import { Bit, Comment } from 'src/types';
 })
 export class BitPageComponent implements OnInit {
 
-  bit: Bit
+  bit: Bit | null
 
   comments: Comment[]
 

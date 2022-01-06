@@ -47,6 +47,7 @@ class CommentSerializer(serializers.ModelSerializer):
         comment = Comment.objects.create(**validated_data)
         return comment
 
+
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
