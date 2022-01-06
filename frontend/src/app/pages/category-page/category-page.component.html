@@ -1,0 +1,9 @@
+<div class="container-xl">
+  <h2>Category {{category?.name}}</h2>
+
+  <div class="flex">
+    <div *ngFor="let bit of bits" class="flex-item">
+      <app-bit [bit]="bit"></app-bit>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<!-- <form [formGroup]="profileFormGroup" (ngSubmit)="updateProfile()"> -->
+
+<div class="flex">
+
+  <div class="flex-item">
+    <h4 class="header">Name</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>Display name</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+  </div>
+
+  <div class="flex-item">
+    <h4 class="header">Description</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea type="text" matInput cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="flex-item">
+    <button mat-flat-button color="primary">Update</button>
+  </div>
+
+</div>
+
+<!-- </form> -->

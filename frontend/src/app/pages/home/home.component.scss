@@ -1,0 +1,19 @@
+.flex {
+  flex-flow: row wrap;
+}
+
+.center {
+  justify-content: center;
+}
+
+.flex-item {
+  flex: 1 1 48%;
+}
+
+.flex-container {
+  margin: -0.5rem;
+}
+
+.item {
+  margin: 0.5rem;
+}

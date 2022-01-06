@@ -1,0 +1,43 @@
+<mat-card>
+
+  <div class="flex space-between">
+
+    <!-- User/Username -->
+    <div>
+      <div class="flex mb">
+        <mat-card-title class="user">
+          {{user?.name}}
+        </mat-card-title>
+        <mat-card-subtitle class="username">
+          @{{user?.username}}
+        </mat-card-subtitle>
+      </div>
+    </div>
+
+    <!-- Edit Button -->
+    <mat-card-subtitle *ngIf="action === 'edit'">
+      <a mat-icon-button routerLink="/profile/settings">
+        <mat-icon class="edit">edit</mat-icon>
+      </a>
+    </mat-card-subtitle>
+
+    <!-- Friend Button -->
+    <mat-card-subtitle *ngIf="action === 'friend'">
+      <button mat-flat-button color="primary" *ngIf="!isFriend">
+        <mat-icon>person_add</mat-icon>
+        Add as friend
+      </button>
+      <button mat-flat-button color="warn" *ngIf="isFriend">
+        <mat-icon>person_remove</mat-icon>
+        Remove friend
+      </button>
+    </mat-card-subtitle>
+
+  </div>
+
+
+  <!-- "Bio" -->
+  <div>
+    {{user?.aboutme}}
+  </div>
+</mat-card>

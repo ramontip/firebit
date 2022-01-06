@@ -1,0 +1,21 @@
+.flex {
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.user, .username {
+  margin-right: 1rem;
+  margin-bottom: 0;
+}
+
+.username {
+  font-size: 1.3rem;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.edit {
+  font-size: 1.125rem;
+}

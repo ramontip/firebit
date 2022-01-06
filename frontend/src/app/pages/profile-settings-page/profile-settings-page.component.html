@@ -1,0 +1,41 @@
+<div class="container-xl">
+  <h2>Settings</h2>
+
+  <div class="section">
+    <!-- Update profile -->
+    <h3>Update Profile</h3>
+    <mat-card>
+
+      <app-profile-form></app-profile-form>
+
+    </mat-card>
+  </div>
+
+  <!-- Change password -->
+  <div class="section">
+    <h3>Update Password</h3>
+    <mat-card>
+      <button mat-flat-button color="primary">
+        Change password
+      </button>
+      <!-- TODO: Show dialog -->
+      <div class="mt">(Opens a dialog)</div>
+    </mat-card>
+  </div>
+
+  <div class="section">
+    <h3>Update password</h3>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>
+            Change password
+          </h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-password-form></app-password-form>
+    </mat-expansion-panel>
+  </div>
+
+</div>

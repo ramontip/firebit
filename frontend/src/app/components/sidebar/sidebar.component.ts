@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 interface SidebarItem {
   name: string
   icon?: string
+  link?: string
 }
 
 @Component({
@@ -13,8 +14,8 @@ interface SidebarItem {
 export class SidebarComponent implements OnInit {
 
   sidebarItems: SidebarItem[] = [
-    { name: "Bitmap", icon: "dashboard" },
-    { name: "Friends", icon: "people" },
+    { name: "Bitmap", icon: "dashboard", link: "/" },
+    { name: "Friends", icon: "people", link: "/profile/friends" },
     { name: "Bookmarks", icon: "bookmark" },
     { name: "Notifications", icon: "notifications" }
   ]

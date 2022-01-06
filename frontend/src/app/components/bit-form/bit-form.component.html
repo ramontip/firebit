@@ -1,0 +1,42 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+
+    <mat-panel-title>
+      <div class="form-header">
+        <mat-form-field class="title-field">
+          <mat-label>Title</mat-label>
+          <input class="title-field" matInput type="text" formControlName="title">
+        </mat-form-field>
+      </div>
+    </mat-panel-title>
+
+    <!-- <mat-panel-description>
+        This is a summary of the content
+      </mat-panel-description> -->
+  </mat-expansion-panel-header>
+
+  <div class="flex">
+
+    <mat-form-field appearance="fill">
+      <mat-label>What do you want to share?</mat-label>
+      <textarea matInput cdkTextareaAutosize formControlName="content"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select type="text" formControlName="category">
+        <mat-option>Movies</mat-option>
+        <mat-option>Food</mat-option>
+        <mat-option>Gaming</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Image</mat-label>
+      <input matInput type="text" formControlName="image">
+    </mat-form-field>
+  </div>
+
+  <button mat-flat-button color="primary">Create</button>
+
+</mat-expansion-panel>
