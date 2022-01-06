@@ -21,8 +21,11 @@ export class CategoryPageComponent implements OnInit {
     public bitService: BitService,
   ) {
 
-    const name: string = this.route.snapshot.params.name
-    this.category = categoryService.getCategory(name)
+    // const title: string = this.route.snapshot.params.title
+    // this.category = categoryService.getCategory(title)
+
+    // temporary tweak
+    this.category = categoryService.availableCategories[0]
 
     this.bits = bitService.getBitsByUser()
   }

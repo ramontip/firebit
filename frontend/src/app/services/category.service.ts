@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Category } from 'src/types';
+import {Bit, Category} from 'src/types';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  constructor() { }
+  availableCategories: Category[] = []
 
-  getCategories(): Category[] {
-    return [
-      { name: "Movies" },
-      { name: "Travelling" },
-      { name: "Food" },
-      { name: "Games" },
-    ]
+  constructor(private http: HttpClient) {
+    this.getCategories().subscribe(categories => this.availableCategories = categories);
   }
 
-  getCategory(name: string): Category | undefined {
-    return this.getCategories().find(c => c.name.toLowerCase() === name.toLowerCase())
+  getCategories() {
+    return this.http.get<Category[]>('/api/category/');
+  }
+
+  getCategory(id:number) {
+    return this.http.get<Category>(`/api/category/${id}/`);
+  }
+
+  // temporary tweak
+  getCategoryTitles(bitCategories: number[]) {
+    return this.availableCategories.filter(category => bitCategories.includes(category.id)).map(category => category.title).join(', ');
   }
 
 }

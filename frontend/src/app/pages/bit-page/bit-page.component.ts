@@ -10,7 +10,7 @@ import { Bit, Comment } from 'src/types';
 })
 export class BitPageComponent implements OnInit {
 
-  bit: Bit | null
+  bit: any;
 
   comments: Comment[]
 
@@ -18,13 +18,14 @@ export class BitPageComponent implements OnInit {
     public route: ActivatedRoute,
     public bitService: BitService,
   ) {
-    const id = parseInt(this.route.snapshot.params.id)
-    this.bit = bitService.getBitById(id)
-
     this.comments = bitService.getCommentsByBit()
-
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const id = parseInt(this.route.snapshot.params.id)
+    this.bitService.getBit(id).subscribe(bit => {
+      this.bit = bit
+    })
+  }
 
 }

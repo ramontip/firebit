@@ -10,7 +10,7 @@ import { Category } from 'src/types';
 export class CategoryComponent implements OnInit {
 
   @Input()
-  category?: Category = { name: "Travelling" }
+  category?: Category
 
   constructor() { }
 

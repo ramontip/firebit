@@ -1,16 +1,18 @@
 export interface Category {
-  name: string
+  id: number
+  title: string
+  color: string
 }
 
 export interface Bit {
-  id: number
-  auth_user: number
+  id?: number
+  auth_user?: number
   title: string
   content: string
   hashtags?: string
   category: number
-  created_at: string
-  updated_at: string
+  created_at?: string
+  updated_at?: string
 }
 
 export interface Comment {

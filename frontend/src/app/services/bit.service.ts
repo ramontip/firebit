@@ -9,21 +9,35 @@ export class BitService {
 
   constructor(private http: HttpClient) { }
 
-  // Just for testing purposes
+  // List all Bits just for testing purposes
   getBits() {
     return this.http.get<Bit[]>(`/api/bit/`);
+  }
+
+  getBit(id:number) {
+    return this.http.get<Bit>(`/api/bit/${id}/`);
+  }
+
+  createBit(bit:Bit) {
+    // current user
+    bit.auth_user = 1;
+    return this.http.post(`/api/bit/`, bit);
+  }
+
+  updateBit(bit:Bit) {
+    bit.auth_user = 1;
+    return this.http.put(`/api/bit/${bit.id}/`, bit);
+  }
+
+  deleteBit(bit:Bit) {
+    return this.http.delete(`/api/bit/${bit.id}/`);
   }
 
   getBitsByUser(): Bit[] {
     return [];
   }
 
-  getBitById(id: number): Bit | null {
-    return null;
-  }
-
   getCommentsByBit(): Comment[] {
     return [];
   }
-
 }

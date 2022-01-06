@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {CategoryService} from "../../services/category.service";
+import {BitService} from "../../services/bit.service";
+import {HttpClient} from "@angular/common/http";
+import {ActivatedRoute} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Category} from "../../../types";
 
 @Component({
   selector: 'app-bit-form',
@@ -7,8 +13,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BitFormComponent implements OnInit {
 
-  constructor() { }
+  bitFormGroup: FormGroup;
+  categoryOptions: Category[] = [];
 
-  ngOnInit(): void { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private bitService: BitService, public categoryService: CategoryService) {
+    this.bitFormGroup = new FormGroup({
+      id: new FormControl(null),
+      title: new FormControl('', Validators.required),
+      content: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
+      image: new FormControl(null),
+    })
+  }
+
+  ngOnInit(): void {
+    const id = parseInt(this.route.snapshot.params.id)
+    if (id) {
+      this.bitService.getBit(id).subscribe(bit => {
+        this.bitFormGroup.patchValue(bit);
+      })
+      this.categoryService.getCategories().subscribe(categories => this.categoryOptions = categories);
+    }
+  }
+
+  createOrUpdateBit() {
+    const id = this.bitFormGroup.controls['id'].value
+    if (id) {
+      this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
+        alert('Bit updated successfully!');
+      })
+    } else {
+      this.bitService.createBit(this.bitFormGroup.value).subscribe(() => {
+        alert('Bit created successfully!');
+      })
+    }
+  }
 
 }
