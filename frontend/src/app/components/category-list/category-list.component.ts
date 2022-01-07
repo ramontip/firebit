@@ -9,14 +9,10 @@ import { Category } from 'src/types';
 })
 export class CategoryListComponent implements OnInit {
 
-  categories: Category[] = []
+  // categories: Category[] = []
 
   constructor(public categoryService: CategoryService) {}
 
-  ngOnInit(): void {
-    this.categoryService.getCategories().subscribe(categories => {
-      this.categories = categories
-    })
-  }
+  ngOnInit(): void {}
 
 }

@@ -11,7 +11,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "bit/:id", component: BitPageComponent },
+  { path: "bits/:id", component: BitPageComponent },
   {
     path: "profile", children: [
       { path: "", component: ProfilePageComponent },
@@ -20,12 +20,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: "user/:username", children: [
+    path: "users/:username", children: [
       { path: "", component: UserPageComponent },
       { path: "friends", component: UserFriendsPageComponent },
     ]
   },
-  { path: "category/:name", component: CategoryPageComponent },
+  { path: "categories/:name", component: CategoryPageComponent },
 ]
 
 @NgModule({

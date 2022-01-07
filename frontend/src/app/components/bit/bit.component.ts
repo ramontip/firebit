@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Bit } from 'src/types';
+import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-bit',
@@ -8,11 +9,10 @@ import { Bit } from 'src/types';
 })
 export class BitComponent implements OnInit {
 
-
   @Input()
-  bit: Bit | null = null
+  bit?: any
 
-  constructor() { }
+  constructor(public categoryService: CategoryService) { }
 
   ngOnInit(): void { }
 
