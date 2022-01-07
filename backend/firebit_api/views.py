@@ -119,15 +119,15 @@ class CommentViewSet(viewsets.ViewSet):
 
 class SearchViewSet(viewsets.ViewSet):
 
-    @action(methods=['get'], detail=False, url_path='user', url_name='user')
+    @action(methods=['get'], detail=False, url_path='users', url_name='users')
     def user(self, request):
         return Response(status=501)
 
-    @action(methods=['get'], detail=False, url_path='bit', url_name='bit')
+    @action(methods=['get'], detail=False, url_path='bits', url_name='bits')
     def bit(self, request):
         return Response(status=501)
 
-    @action(methods=['get'], detail=False, url_path='category', url_name='category')
+    @action(methods=['get'], detail=False, url_path='categories', url_name='categories')
     def category(self, request):
         return Response(status=501)
 
@@ -135,7 +135,11 @@ class SearchViewSet(viewsets.ViewSet):
 class CategoryViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        queryset = models.Category.objects.all()
+
+        if request.GET.get("title") is None:
+            queryset = models.Category.objects.all()
+        else:
+            queryset = models.Category.objects.filter(name=request.GET.get("title"))
 
         serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data, status=200)

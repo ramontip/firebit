@@ -95,7 +95,7 @@ paths:
           description: Invalid bit options supplied
         401:
           description: Not logged in
-  /bit/{bitId}:
+  /bits/{bitId}:
     get:
       summary: Get a bit by ID
       tags:
@@ -178,7 +178,7 @@ paths:
         404:
           description: Bit not found
 
-  /bit/{bitId}/comment:
+  /bits/{bitId}/comment:
     get:
       summary: Get all comments of bit
       tags:
@@ -201,7 +201,7 @@ paths:
         200:
           description: OK
 
-  /bit/{bitId}/like:
+  /bits/{bitId}/like:
     get:
       summary: Get all likes of a bit
       tags:
@@ -224,7 +224,7 @@ paths:
         200:
           description: OK
 
-  /bit/{bitId}/bookmark:
+  /bits/{bitId}/bookmark:
     get:
       summary: Get all bookmarks of a bit
       tags:
@@ -247,7 +247,7 @@ paths:
         200:
           description: OK
 
-  /user/create:
+  /users/create:
     post:
       summary: Create user
       tags:
@@ -271,7 +271,7 @@ paths:
           content: {}
       security:
         - api_key: []
-  /user/{username}:
+  /users/{username}:
     get:
       summary: Get user by user name
       tags:
@@ -316,7 +316,7 @@ paths:
         200:
           description: OK
           content: {}
-  /user/{username}/friends:
+  /users/{username}/friends:
     get:
       summary: Get all friends of a user
       tags:
@@ -350,7 +350,7 @@ paths:
           description: OK
           content: {}
 
-  /category:
+  /categories:
     get:
       summary: Get all categories
       tags:
@@ -369,7 +369,7 @@ paths:
           content: {}
       security:
         - api_key: []
-  /category/{categoryId}:
+  /categories/{categoryId}:
     get:
       summary: Get category by id
       tags:
@@ -399,7 +399,7 @@ paths:
       security:
         - api_key: []
 
-  /search/user:
+  /search/users:
     get:
       summary: Search for users
       tags:
@@ -413,7 +413,7 @@ paths:
           required: true
           schema:
             type: string
-  /search/bit:
+  /search/bits:
     get:
       summary: Search for bits
       tags:
@@ -434,7 +434,7 @@ paths:
             enum:
               - title
               - hashtag
-  /search/category:
+  /search/categories:
     get:
       summary: Search for categories
       tags:
@@ -496,45 +496,4 @@ components:
 
 #
 # Notes:
-
-# # bits
-# /bit
-#   get
-# /bit/create
-#   post/put ?
-# /bit/{bitId}
-#   get
-#   post/put ?
-#   delete
-# /bit/{bitId}/like
-# /bit/{bitId}/bookmark
-# /bit/{bitId}/comment
-
-# # auth
-# /auth/login
-#   post
-# /auth/register
-#   post
-# /auth/resetPassword
-#   post
-
-# # user -> firebit.com/user/xeeija OR firebit.com/xeeija
-# /user/{username}
-#   get
-#   post/put
-#   delete
-# /user/{username}/settings ?
-#   post
-# /user/{username}/friends
-#   get
-# /user/{username}/friends/add
-#   post
-# /user/{username}/activities
-# /user/{username}/activities/likes
-# /user/{username}/activities/bookmarks
-# /user/{username}/activities/comments
-# # OR /user/{username}/activities/{type}
-
-# # search -> /search/foo (returns "mixed" types: user, bit, category) OR /user/search, /bit/search, ...
-# /search/{query}
-#   get
+#

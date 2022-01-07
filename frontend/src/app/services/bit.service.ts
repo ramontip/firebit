@@ -11,26 +11,26 @@ export class BitService {
 
   // List all Bits just for testing purposes
   getBits() {
-    return this.http.get<Bit[]>(`/api/bit/`);
+    return this.http.get<Bit[]>(`/api/bits/`);
   }
 
   getBit(id:number) {
-    return this.http.get<Bit>(`/api/bit/${id}/`);
+    return this.http.get<Bit>(`/api/bits/${id}/`);
   }
 
   createBit(bit:Bit) {
     // current user
     bit.auth_user = 1;
-    return this.http.post(`/api/bit/`, bit);
+    return this.http.post(`/api/bits/`, bit);
   }
 
   updateBit(bit:Bit) {
     bit.auth_user = 1;
-    return this.http.put(`/api/bit/${bit.id}/`, bit);
+    return this.http.put(`/api/bits/${bit.id}/`, bit);
   }
 
   deleteBit(bit:Bit) {
-    return this.http.delete(`/api/bit/${bit.id}/`);
+    return this.http.delete(`/api/bits/${bit.id}/`);
   }
 
   getBitsByUser(): Bit[] {

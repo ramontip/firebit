@@ -14,11 +14,11 @@ export class CategoryService {
   }
 
   getCategories() {
-    return this.http.get<Category[]>('/api/category/');
+    return this.http.get<Category[]>('/api/categories/');
   }
 
   getCategory(id:number) {
-    return this.http.get<Category>(`/api/category/${id}/`);
+    return this.http.get<Category>(`/api/categories/${id}/`);
   }
 
   // temporary tweak
