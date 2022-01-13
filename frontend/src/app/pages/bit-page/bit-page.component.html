@@ -1,6 +1,6 @@
 <div class="container-xl" style="margin-top: 3rem;">
   <div class="mb">
-    <app-bit [bit]="bit"></app-bit>
+    <app-bit [bit]="bit" *ngIf="bit"></app-bit>
   </div>
 
   <!-- Leave comment form -->
@@ -13,8 +13,8 @@
     </button> -->
 
   </mat-form-field>
-
   <div class="comment" *ngFor="let comment of comments">
     <app-bit-comment [comment]="comment"></app-bit-comment>
   </div>
+
 </div>

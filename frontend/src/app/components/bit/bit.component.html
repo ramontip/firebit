@@ -5,18 +5,17 @@
     <div>
       <mat-card-content class="bit-user">
         <a class="link" routerLink="/user/{{bit?.auth_user}}">
-          {{user?.first_name}} {{user?.last_name }}
-
+          {{user?.first_name}} {{user?.last_name}}
         </a>
       </mat-card-content>
       <mat-card-subtitle>
-        <p class="bit-username">@{{bit?.auth_user}}</p>
+        <p class="bit-username">@{{user?.username}}</p>
       </mat-card-subtitle>
     </div>
 
     <mat-chip-list>
       <span class="bit-category">
-        <app-category [id]="bit.category"></app-category>
+        <app-category [id]="bit?.category"></app-category>
         <!-- <mat-chip routerLink="/categories/travelling" class="bit-category">
           Travelling
         </mat-chip> -->
@@ -46,10 +45,10 @@
       23
     </button>
     <a class="link" routerLink="/bits/{{bit?.id}}">
-    <button mat-stroked-button>
-      <mat-icon>forum</mat-icon>
-      16
-    </button>
+      <button mat-stroked-button>
+        <mat-icon>forum</mat-icon>
+        16
+      </button>
     </a>
   </mat-card-actions>
 

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Bit, Category, User} from 'src/types';
-import {CategoryService} from "../../services/category.service";
-import {UserService} from "../../services/user.service";
+import { Bit, User } from 'src/types';
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-bit',
@@ -13,13 +12,13 @@ export class BitComponent implements OnInit {
   user?: User
 
   @Input()
-  bit?: any
+  bit?: Bit
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    if (this.bit.auth_user) {
-      this.userService.getUser(this.bit.auth_user!).subscribe(user => {
+    if (this.bit?.auth_user) {
+      this.userService.getUser(this.bit.auth_user).subscribe(user => {
         this.user = user;
       })
     }
