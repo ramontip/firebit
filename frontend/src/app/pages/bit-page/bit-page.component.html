@@ -1,20 +1,20 @@
 <div class="container-xl" style="margin-top: 3rem;">
   <div class="mb">
-    <app-bit [bit]="bit"></app-bit>
+    <app-bit [bit]="bit" *ngIf="bit"></app-bit>
   </div>
 
-  <!-- Leave comment form
+  <!-- Leave comment form -->
   <mat-form-field appearance="fill" class="comment-field">
     <mat-label>Leave a comment ...</mat-label>
     <textarea matInput cdkTextareaAutosize formControlName="comment"></textarea>
 
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <!-- <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
       <mat-icon>close</mat-icon>
-    </button>
+    </button> -->
 
   </mat-form-field>
-    <div class="comment" *ngFor="let comment of comments">
-      <app-bit-comment [comment]="comment"></app-bit-comment>
+  <div class="comment" *ngFor="let comment of comments">
+    <app-bit-comment [comment]="comment"></app-bit-comment>
   </div>
-  -->
+
 </div>
