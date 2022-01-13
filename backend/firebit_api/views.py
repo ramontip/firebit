@@ -166,3 +166,64 @@ class CategoryViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None, format=None):
         return Response(status=405)
+
+
+class UserViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        queryset = models.User.objects.all()
+
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
+
+    def create(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            user = models.User.objects.get(
+                pk=pk
+            )
+            serializer = UserSerializer(user)
+            return Response(serializer.data, status=200)
+
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        try:
+            user = models.User.objects.get(
+                pk=pk
+            )
+            serializer = UserSerializer(user, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            user = models.User.objects.filter(
+                pk=pk
+            ).delete()
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)

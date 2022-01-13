@@ -2,17 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class UserThumbnail(models.Model):
+# UserThumbnail
+class UserDetails(models.Model):
     auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=100)
     content_type = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
+    about = models.CharField(max_length=255)
 
     def __str__(self):
         return '{}'.format(self.file_name)
 
     class Meta:
-        verbose_name_plural = 'User Thumbnails'
+        verbose_name_plural = 'User Details'
 
 
 class FriendshipStatus(models.Model):
