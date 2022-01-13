@@ -20,8 +20,8 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.id) {
-      this.categoryService.getCategory(this.id!).subscribe(category => {
+    if (this?.id) {
+      this.categoryService.getCategory(this.id).subscribe(category => {
         this.category = category;
       })
     }

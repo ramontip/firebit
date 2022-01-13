@@ -10,6 +10,7 @@ import { ProfileSettingsPageComponent } from './pages/profile-settings-page/prof
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { IndexComponent } from "./pages/index/index.component";
+import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "reset-password", component: IndexComponent },
   { path: "bitmap", component: HomeComponent },
   { path: "bits/:id", component: BitPageComponent },
+  { path: "bits/:id/edit", component: BitEditComponent },
   {
     path: "profile", children: [
       { path: "", component: ProfilePageComponent },

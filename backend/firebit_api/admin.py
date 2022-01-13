@@ -30,7 +30,7 @@ class FriendshipStatusAdmin(admin.ModelAdmin):
     pass
 
 
-class UserThumbnailAdmin(admin.ModelAdmin):
+class UserDetailsAdmin(admin.ModelAdmin):
     pass
 
 
@@ -42,4 +42,4 @@ admin.site.register(models.Like, LikeAdmin)
 admin.site.register(models.Image, ImageAdmin)
 admin.site.register(models.Friendship, FriendshipAdmin)
 admin.site.register(models.FriendshipStatus, FriendshipStatusAdmin)
-admin.site.register(models.UserThumbnail, UserThumbnailAdmin)
+admin.site.register(models.UserDetails, UserDetailsAdmin)

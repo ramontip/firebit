@@ -166,3 +166,213 @@ class CategoryViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None, format=None):
         return Response(status=405)
+
+
+class UserViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        queryset = models.User.objects.all()
+
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
+
+    def create(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            user = models.User.objects.get(
+                pk=pk
+            )
+            serializer = UserSerializer(user)
+            return Response(serializer.data, status=200)
+
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        try:
+            user = models.User.objects.get(
+                pk=pk
+            )
+            serializer = UserSerializer(user, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            user = models.User.objects.filter(
+                pk=pk
+            ).delete()
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
+
+
+class FriendshipViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        queryset = models.Friendship.objects.all()
+
+        serializer = FriendshipSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
+
+    def create(self, request, format=None):
+        serializer = FriendshipSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            friendship = models.Friendship.objects.get(
+                pk=pk
+            )
+            serializer = FriendshipSerializer(friendship)
+            return Response(serializer.data, status=200)
+
+        except models.Friendship.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        try:
+            friendship = models.Friendship.objects.get(
+                pk=pk
+            )
+            serializer = FriendshipSerializer(friendship, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+        except models.Friendship.DoesNotExist:
+            return Response(status=404)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            friendship = models.Friendship.objects.filter(
+                pk=pk
+            ).delete()
+        except models.Friendship.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
+
+
+class LikeViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        return Response(status=405)
+
+    def create(self, request, format=None):
+        serializer = LikeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            like = models.Like.objects.get(
+                pk=pk
+            )
+            serializer = LikeSerializer(like)
+            return Response(serializer.data, status=200)
+
+        except models.Like.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            like = models.Like.objects.filter(
+                pk=pk
+            ).delete()
+        except models.Like.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
+
+
+class BookmarkViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        return Response(status=405)
+
+    def create(self, request, format=None):
+        serializer = BookmarkSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            bookmark = models.Bookmark.objects.get(
+                pk=pk
+            )
+            serializer = BookmarkSerializer(bookmark)
+            return Response(serializer.data, status=200)
+
+        except models.Bookmark.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            bookmark = models.Bookmark.objects.filter(
+                pk=pk
+            ).delete()
+        except models.Bookmark.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)

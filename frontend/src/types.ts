@@ -21,9 +21,17 @@ export interface Comment {
 }
 
 export interface User {
-  name: string
+  id: number
+  first_name: string
+  last_name: string
   username: string
-  aboutme: string
+  email: string
+  password?: string
+  is_superuser: boolean
+  is_staff: boolean
+  is_active: boolean
+  date_joined?: string
+  last_login?: string
 }
 
 export interface Stat {

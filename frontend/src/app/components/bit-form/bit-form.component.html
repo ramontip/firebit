@@ -1,22 +1,15 @@
 <form [formGroup]="bitFormGroup" (ngSubmit)="createOrUpdateBit()" class="movie-form__form">
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-
-    <mat-panel-title>
-      <div class="form-header">
-        <mat-form-field class="title-field">
-          <mat-label>Title</mat-label>
-          <input class="title-field" matInput type="text" formControlName="title">
-        </mat-form-field>
-      </div>
-    </mat-panel-title>
-
-    <!-- <mat-panel-description>
-        This is a summary of the content
-      </mat-panel-description> -->
-  </mat-expansion-panel-header>
 
   <div class="flex">
+
+    <span class="form-title" *ngIf="bitFormGroup.controls.id.value">
+        Edit your bit
+    </span>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>What do you want to share?</mat-label>
@@ -35,7 +28,14 @@
     </mat-form-field>
   </div>
 
-  <button mat-flat-button color="primary">Create</button>
+  <button *ngIf="!bitFormGroup.controls.id.value" mat-flat-button color="primary">Create</button>
+  <button *ngIf="bitFormGroup.controls.id.value" mat-flat-button color="primary" class="w-100">Edit</button>
 
-</mat-expansion-panel>
 </form>
+<div class="w-100 align-center mt-1" *ngIf="bitFormGroup.controls.id.value">
+  <button mat-icon-button (click)="deleteBit()">
+    <mat-icon>delete</mat-icon>
+    Delete
+  </button>
+</div>
+

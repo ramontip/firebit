@@ -333,6 +333,7 @@ paths:
         200:
           description: OK
           content: {}
+  /users/{username}/friends/{friendshipId}:
     put:
       summary: Update friendship (e.g. accept or block, ...)
       tags:

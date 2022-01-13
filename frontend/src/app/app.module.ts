@@ -46,6 +46,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { ForgotPasswordFormComponent } from './components/forgot-password-form/forgot-password-form.component';
 import { IndexComponent } from './pages/index/index.component';
 import { MatCheckboxModule } from "@angular/material/checkbox"
+import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox"
     RegisterFormComponent,
     ForgotPasswordFormComponent,
     IndexComponent,
+    BitEditComponent
   ],
   imports: [
     BrowserModule,
