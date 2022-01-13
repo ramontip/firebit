@@ -1,12 +1,12 @@
 [
   {
-    "model": "firebit_api.userthumbnail",
+    "model": "firebit_api.details",
     "pk": 1,
     "fields": {
       "auth_user_id": 2,
       "file_name": "ca7ffcac-1d04-4ce3-bd12-52818767069d.jpeg",
       "content_type": "image/jpeg",
-      "path": "firebit_api/thumbnails/"
+      "path": "firebit_api/details/"
     }
   }
 ]
