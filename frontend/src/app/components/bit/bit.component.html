@@ -5,7 +5,8 @@
     <div>
       <mat-card-content class="bit-user">
         <a class="link" routerLink="/user/{{bit?.auth_user}}">
-          {{bit?.auth_user}}
+          {{user?.first_name}} {{user?.last_name }}
+
         </a>
       </mat-card-content>
       <mat-card-subtitle>
@@ -24,9 +25,9 @@
   </div>
 
   <mat-card-title>
-    <!-- <a class="link" routerLink="/bits/1"> -->
-    {{bit?.title}}
-    <!-- </a> -->
+    <a class="link" routerLink="/bits/{{bit?.id}}">
+      {{bit?.title}}
+    </a>
   </mat-card-title>
 
   <div class="mb">
@@ -44,10 +45,12 @@
       <!-- bookmark_border / bookmark -->
       23
     </button>
+    <a class="link" routerLink="/bits/{{bit?.id}}">
     <button mat-stroked-button>
       <mat-icon>forum</mat-icon>
       16
     </button>
+    </a>
   </mat-card-actions>
 
 </mat-card>

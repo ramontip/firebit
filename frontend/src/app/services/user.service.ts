@@ -1,14 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Friendship, User } from 'src/types';
+import {Friendship, User} from 'src/types';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  user: User = { name: "Jane Doe", username: "jane", aboutme: "Lorem ipsum dolor sit amet doctetur" }
+  getUser(id:number) {
+    return this.http.get<User>(`/api/users/${id}/`);
+  }
+
+  user: User = {
+    id: 1,
+    first_name: "Max",
+    last_name: "Muster",
+    username: "maxi_m",
+    email: "mm@firebit.net",
+    is_superuser: false,
+    is_staff: false,
+    is_active: true
+  }
 
   getFriendships(): Friendship[] {
     return [
