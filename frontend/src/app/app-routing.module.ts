@@ -8,10 +8,12 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
+import {BitEditComponent} from "./pages/bit-edit/bit-edit.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "bits/:id", component: BitPageComponent },
+  { path: "bits/:id/edit", component: BitEditComponent },
   {
     path: "profile", children: [
       { path: "", component: ProfilePageComponent },

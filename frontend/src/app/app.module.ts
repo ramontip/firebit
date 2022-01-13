@@ -37,6 +37,7 @@ import { PasswordFormComponent } from './components/password-form/password-form.
 import { ProfileFriendsPageComponent } from './pages/profile-friends-page/profile-friends-page.component';
 import { FriendComponent } from './components/friend/friend.component';
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
+import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
     PasswordFormComponent,
     ProfileFriendsPageComponent,
     FriendComponent,
-    UserFriendsPageComponent
+    UserFriendsPageComponent,
+    BitEditComponent
   ],
   imports: [
     BrowserModule,

@@ -33,23 +33,33 @@
     {{bit?.content}}
   </div>
 
-  <mat-card-actions>
-    <button mat-stroked-button color="warn">
-      <mat-icon>local_fire_department</mat-icon>
-      <!-- whatshot / local_fire_department -->
-      42
-    </button>
-    <button mat-stroked-button color="primary">
-      <mat-icon>bookmark_border</mat-icon>
-      <!-- bookmark_border / bookmark -->
-      23
-    </button>
-    <a class="link" routerLink="/bits/{{bit?.id}}">
-      <button mat-stroked-button>
-        <mat-icon>forum</mat-icon>
-        16
+  <mat-card-actions class="space-between">
+    <div>
+      <button mat-stroked-button color="warn">
+        <mat-icon>local_fire_department</mat-icon>
+        <!-- whatshot / local_fire_department -->
+        42
       </button>
-    </a>
+      <button mat-stroked-button color="primary">
+        <mat-icon>bookmark_border</mat-icon>
+        <!-- bookmark_border / bookmark -->
+        23
+      </button>
+      <a class="link" routerLink="/bits/{{bit?.id}}">
+        <button mat-stroked-button>
+          <mat-icon>forum</mat-icon>
+          16
+        </button>
+      </a>
+    </div>
+    <!-- TODO: Check if bit.auth_user == loggedInUser -->
+    <div>
+      <a class="link" routerLink="/bits/{{bit?.id}}/edit">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </a>
+    </div>
   </mat-card-actions>
 
 </mat-card>
