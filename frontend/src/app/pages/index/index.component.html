@@ -1,0 +1,27 @@
+<div class="flex center wrapper">
+  <div class="inner intro">
+    <h1>Firebit</h1>
+    <p>
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam et
+      dolore magna aliquyam erat, sed diam magna. At vero eos et accusam et
+      justo duo dolores et ea rebum.
+    </p>
+    <button mat-flat-button color="accent" routerLink="/register">Get started</button>
+  </div>
+
+  <div class="inner">
+
+    <div *ngIf="path === '' || path === 'login'">
+      <app-login-form></app-login-form>
+    </div>
+
+    <div *ngIf="path === 'register'">
+      <app-register-form></app-register-form>
+    </div>
+
+    <div *ngIf="path === 'reset-password'">
+      <app-forgot-password-form></app-forgot-password-form>
+    </div>
+
+  </div>
+</div>

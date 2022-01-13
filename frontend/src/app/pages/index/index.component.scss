@@ -1,0 +1,20 @@
+.wrapper {
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 2rem); // margin
+  flex-wrap: wrap;
+}
+
+.inner {
+  margin: 2rem;
+  min-width: 24rem;
+  max-width: 100%;
+}
+
+.intro {
+  max-width: 32rem;
+}
+
+.hidden {
+  display: none;
+}

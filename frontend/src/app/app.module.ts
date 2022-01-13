@@ -37,6 +37,15 @@ import { PasswordFormComponent } from './components/password-form/password-form.
 import { ProfileFriendsPageComponent } from './pages/profile-friends-page/profile-friends-page.component';
 import { FriendComponent } from './components/friend/friend.component';
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
+import { ActivitiesPageComponent } from './pages/activities-page/activities-page.component';
+import { MatTabsModule } from "@angular/material/tabs";
+import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
+import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { ForgotPasswordFormComponent } from './components/forgot-password-form/forgot-password-form.component';
+import { IndexComponent } from './pages/index/index.component';
+import { MatCheckboxModule } from "@angular/material/checkbox"
 import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
 
 @NgModule({
@@ -62,6 +71,13 @@ import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
     ProfileFriendsPageComponent,
     FriendComponent,
     UserFriendsPageComponent,
+    ActivitiesPageComponent,
+    ActivitiesLikedComponent,
+    ActivitiesCommentedComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
+    ForgotPasswordFormComponent,
+    IndexComponent,
     BitEditComponent
   ],
   imports: [
@@ -80,7 +96,9 @@ import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
     MatListModule,
     MatChipsModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

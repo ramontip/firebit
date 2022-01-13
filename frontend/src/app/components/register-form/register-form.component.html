@@ -1,0 +1,42 @@
+<mat-card class="register-card">
+  <!-- <mat-card-header class="login-card"> -->
+  <mat-card-title>
+    Register
+  </mat-card-title>
+
+  <!-- </mat-card-header> -->
+  <mat-card-content>
+    <div class="flex form-content">
+      <mat-form-field>
+        <input matInput placeholder="Username" formControlName="username" name="username" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Display name" formControlName="displayname" name="displayname">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email" type="email" name="email" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Confirm password" formControlName="confirmPassword" type="password" name="confirmPassword" required>
+      </mat-form-field>
+
+      <mat-checkbox color="primary" class="mb">I have read and accept the <a routerLink="/terms">terms of service</a>.</mat-checkbox>
+
+      <!-- <mat-card-actions> -->
+      <button mat-raised-button type="button" color="primary">Register</button>
+    </div>
+    <!-- </mat-card-actions> -->
+
+    <p class="center">
+      Already have an account?
+      <a mat-button color="primary" routerLink="/">Login</a>
+    </p>
+  </mat-card-content>
+</mat-card>

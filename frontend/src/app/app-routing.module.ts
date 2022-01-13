@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActivitiesPageComponent } from './pages/activities-page/activities-page.component';
 import { BitPageComponent } from './pages/bit-page/bit-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -8,10 +9,15 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
-import {BitEditComponent} from "./pages/bit-edit/bit-edit.component";
+import { IndexComponent } from "./pages/index/index.component";
+import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
 
 const routes: Routes = [
-  { path: "", component: HomeComponent },
+  { path: "", component: IndexComponent },
+  { path: "login", component: IndexComponent },
+  { path: "register", component: IndexComponent },
+  { path: "reset-password", component: IndexComponent },
+  { path: "bitmap", component: HomeComponent },
   { path: "bits/:id", component: BitPageComponent },
   { path: "bits/:id/edit", component: BitEditComponent },
   {
@@ -28,6 +34,11 @@ const routes: Routes = [
     ]
   },
   { path: "categories/:name", component: CategoryPageComponent },
+  {
+    path: "activities", children: [
+      { path: "", component: ActivitiesPageComponent },
+    ]
+  }
 ]
 
 @NgModule({
