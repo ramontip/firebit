@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -9,9 +10,14 @@ export class IndexComponent implements OnInit {
 
   navigationVisible = false;
 
-  constructor() { }
+  path = ""
+
+  constructor(
+    public activeRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.path = this.activeRoute.snapshot.url[0].path
   }
 
 }

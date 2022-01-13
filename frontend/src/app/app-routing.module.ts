@@ -9,10 +9,13 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
-import {IndexComponent} from "./pages/index/index.component";
+import { IndexComponent } from "./pages/index/index.component";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
+  { path: "login", component: IndexComponent },
+  { path: "register", component: IndexComponent },
+  { path: "reset-password", component: IndexComponent },
   { path: "bitmap", component: HomeComponent },
   { path: "bits/:id", component: BitPageComponent },
   {

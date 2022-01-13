@@ -45,6 +45,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { ForgotPasswordFormComponent } from './components/forgot-password-form/forgot-password-form.component';
 import { IndexComponent } from './pages/index/index.component';
+import { MatCheckboxModule } from "@angular/material/checkbox"
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import { IndexComponent } from './pages/index/index.component';
     LoginFormComponent,
     RegisterFormComponent,
     ForgotPasswordFormComponent,
-    IndexComponent
+    IndexComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +96,7 @@ import { IndexComponent } from './pages/index/index.component';
     MatCardModule,
     MatExpansionModule,
     MatTabsModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
