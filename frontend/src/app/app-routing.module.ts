@@ -4,6 +4,7 @@ import { ActivitiesPageComponent } from './pages/activities-page/activities-page
 import { BitPageComponent } from './pages/bit-page/bit-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ProfileFriendsPageComponent } from './pages/profile-friends-page/profile-friends-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ProfileSettingsPageComponent } from './pages/profile-settings-page/profile-settings-page.component';
@@ -12,6 +13,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
+  { path: "login", component: LoginPageComponent },
   { path: "bits/:id", component: BitPageComponent },
   {
     path: "profile", children: [

@@ -40,7 +40,9 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
 import { ActivitiesPageComponent } from './pages/activities-page/activities-page.component';
 import { MatTabsModule } from "@angular/material/tabs";
 import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
-import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component'
+import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +68,8 @@ import { ActivitiesCommentedComponent } from './components/activities-commented/
     UserFriendsPageComponent,
     ActivitiesPageComponent,
     ActivitiesLikedComponent,
-    ActivitiesCommentedComponent
+    ActivitiesCommentedComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
