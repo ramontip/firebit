@@ -13,13 +13,14 @@ export class BitComponent implements OnInit {
   user?: User
 
   @Input()
-  bit?: any
+  bit?: Bit
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    if (this.bit.auth_user) {
-      this.userService.getUser(this.bit.auth_user!).subscribe(user => {
+    console.log({bit: this.bit});
+    if (this.bit?.auth_user) {
+      this.userService.getUser(this.bit.auth_user).subscribe(user => {
         this.user = user;
       })
     }

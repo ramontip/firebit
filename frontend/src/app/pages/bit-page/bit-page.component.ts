@@ -14,17 +14,16 @@ export class BitPageComponent implements OnInit {
 
   comments: Comment[]
 
-  constructor(
-    public route: ActivatedRoute,
-    public bitService: BitService,
+  constructor(public route: ActivatedRoute, public bitService: BitService,
   ) {
-    this.comments = bitService.getCommentsByBit()
+    this.comments = bitService.getCommentsByBit();
   }
 
   ngOnInit(): void {
     const id = parseInt(this.route.snapshot.params.id)
     this.bitService.getBit(id).subscribe(bit => {
       this.bit = bit
+      console.log("xy" + bit);
     })
   }
 
