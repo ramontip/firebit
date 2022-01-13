@@ -30,7 +30,7 @@ class FriendshipStatus(models.Model):
 class Friendship(models.Model):
     from_auth_user = models.ForeignKey(User, related_name='from_auth_user', on_delete=models.CASCADE)
     to_auth_user = models.ForeignKey(User, related_name='to_auth_user', on_delete=models.CASCADE)
-    friendship_status = models.ForeignKey(FriendshipStatus, on_delete=models.PROTECT)
+    friendship_status = models.ForeignKey(FriendshipStatus, on_delete=models.PROTECT, default=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -31,6 +31,10 @@ class BookmarkSerializer(serializers.ModelSerializer):
         model = Bookmark
         fields = '__all__'
 
+    def create(self, validated_data):
+        bookmark = Bookmark.objects.create(**validated_data)
+        return bookmark
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,11 +63,26 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = '__all__'
 
+    def create(self, validated_data):
+        like = Like.objects.create(**validated_data)
+        return like
+
 
 class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friendship
         fields = '__all__'
+
+    def create(self, validated_data):
+        friendship = Friendship.objects.create(**validated_data)
+        return friendship
+
+    def update(self, instance, validated_data):
+        instance.friendship_status = validated_data.get('friendship_status', instance.friendship_status)
+        instance.updated_at = datetime.now()
+
+        instance.save()
+        return instance
 
 
 class FriendshipStatusSerializer(serializers.ModelSerializer):
