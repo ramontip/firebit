@@ -41,7 +41,10 @@ import { ActivitiesPageComponent } from './pages/activities-page/activities-page
 import { MatTabsModule } from "@angular/material/tabs";
 import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
 import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { ForgotPasswordFormComponent } from './components/forgot-password-form/forgot-password-form.component';
+import { IndexComponent } from './pages/index/index.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     ActivitiesPageComponent,
     ActivitiesLikedComponent,
     ActivitiesCommentedComponent,
-    LoginPageComponent
+    LoginFormComponent,
+    RegisterFormComponent,
+    ForgotPasswordFormComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

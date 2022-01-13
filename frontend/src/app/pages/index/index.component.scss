@@ -6,3 +6,9 @@
 .wrapper {
   height: calc(100% - 2rem); // margin
 }
+
+.inner {
+  margin: 50px;
+  max-width: 50%;
+  text-align: center;
+}

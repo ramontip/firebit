@@ -1,6 +1,6 @@
-<app-toolbar></app-toolbar>
+<app-toolbar *ngIf="navigationVisible"></app-toolbar>
 
-<mat-sidenav-container class="sidebar-container">
+<mat-sidenav-container *ngIf="navigationVisible" class="sidebar-container">
   <mat-sidenav mode="side" opened>
     <app-sidebar></app-sidebar>
   </mat-sidenav>
