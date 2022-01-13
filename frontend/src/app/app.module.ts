@@ -37,7 +37,10 @@ import { PasswordFormComponent } from './components/password-form/password-form.
 import { ProfileFriendsPageComponent } from './pages/profile-friends-page/profile-friends-page.component';
 import { FriendComponent } from './components/friend/friend.component';
 import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends-page.component';
-
+import { ActivitiesPageComponent } from './pages/activities-page/activities-page.component';
+import { MatTabsModule } from "@angular/material/tabs";
+import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
+import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,10 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
     PasswordFormComponent,
     ProfileFriendsPageComponent,
     FriendComponent,
-    UserFriendsPageComponent
+    UserFriendsPageComponent,
+    ActivitiesPageComponent,
+    ActivitiesLikedComponent,
+    ActivitiesCommentedComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +84,8 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
     MatListModule,
     MatChipsModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

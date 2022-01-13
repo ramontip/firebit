@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActivitiesPageComponent } from './pages/activities-page/activities-page.component';
 import { BitPageComponent } from './pages/bit-page/bit-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -26,6 +27,11 @@ const routes: Routes = [
     ]
   },
   { path: "categories/:name", component: CategoryPageComponent },
+  {
+    path: "activities", children: [
+      { path: "", component: ActivitiesPageComponent },
+    ]
+  }
 ]
 
 @NgModule({
