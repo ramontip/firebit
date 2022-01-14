@@ -41,4 +41,8 @@ export class BitService {
   getBitComments(id: number) {
     return this.http.get<Comment[]>(`/api/bits/${id}/comments/`);
   }
+
+  getBitLikes(id: number) {
+    return this.http.get<Comment[]>(`/api/bits/${id}/comments/`);
+  }
 }
