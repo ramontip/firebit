@@ -17,7 +17,7 @@ export interface Bit {
 
 export interface Comment {
   id?: number
-  bitId?: number
+  bit?: number
   auth_user?: number
   content: string
   created_at?: string

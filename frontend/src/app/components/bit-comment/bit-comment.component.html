@@ -3,10 +3,12 @@
 
   <div class="flex">
     <mat-card-content class="user">
-      {{comment?.auth_user}}
+      <a class="link" routerLink="/user/{{comment?.auth_user}}">
+        {{user?.first_name}} {{user?.last_name}}
+      </a>
     </mat-card-content>
     <mat-card-subtitle class="username w-100 space-between">
-      <span>@{{comment?.auth_user}}</span>
+      <span>@{{user?.username}}</span>
       <span>{{comment?.created_at | date : 'dd.MM.yyyy, hh:mm'}}</span>
     </mat-card-subtitle>
   </div>
@@ -14,5 +16,9 @@
   <mat-card-content>
     {{comment?.content}}
   </mat-card-content>
+
+  <button mat-icon-button (click)="deleteComment(comment?.id!)">
+    <mat-icon>delete</mat-icon>
+  </button>
 
 </mat-card>
