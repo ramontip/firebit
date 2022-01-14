@@ -7,13 +7,13 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
- }
+}
 
- .flex {
-   display: flex;
- }
+.flex {
+  display: flex;
+}
 
- .container-xl {
+.container-xl {
   max-width: 1080px;
   margin: 0 auto;
 }
@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-title {
   font-size: 1.25em;
   font-weight: bolder;
-  margin-bottom: 1em;
+  margin: auto auto auto 0;
 }
 
 .w-100 {
@@ -69,7 +69,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .space-between {
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: space-between !important;
 }
 
 .align-center {
@@ -79,4 +80,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .mt-1 {
   margin-top: 1em !important;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.mat-form-field {
+  width: 100%;
 }

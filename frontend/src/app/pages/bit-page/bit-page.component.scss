@@ -5,6 +5,11 @@
 
 .comment-field {
   margin-left: 3rem;
-  margin-bottom: -0.75rem;
+  margin-bottom: 0 !important;
   width: calc(100% - 3rem);
+}
+
+.inline-button {
+  margin-bottom: 1.5em;
+  border-radius: 0;
 }

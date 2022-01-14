@@ -7,29 +7,30 @@ import {HttpClient} from "@angular/common/http";
 })
 export class BitService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  // List all Bits just for testing purposes
   getBits() {
     return this.http.get<Bit[]>(`/api/bits/`);
   }
 
-  getBit(id:number) {
+  getBit(id: number) {
     return this.http.get<Bit>(`/api/bits/${id}/`);
   }
 
-  createBit(bit:Bit) {
-    // current user
+  createBit(bit: Bit) {
+    // TODO: current logged in user
     bit.auth_user = 1;
     return this.http.post(`/api/bits/`, bit);
   }
 
-  updateBit(bit:Bit) {
+  updateBit(bit: Bit) {
+    // TODO: current logged in user
     bit.auth_user = 1;
     return this.http.put(`/api/bits/${bit.id}/`, bit);
   }
 
-  deleteBit(bit:Bit) {
+  deleteBit(bit: Bit) {
     return this.http.delete(`/api/bits/${bit.id}/`);
   }
 
@@ -37,7 +38,7 @@ export class BitService {
     return [];
   }
 
-  getCommentsByBit(): Comment[] {
-    return [];
+  getBitComments(id: number) {
+    return this.http.get<Comment[]>(`/api/bits/${id}/comments/`);
   }
 }

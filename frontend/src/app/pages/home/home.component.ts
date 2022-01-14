@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { BitService } from 'src/app/services/bit.service';
-import { Bit } from 'src/types';
+import {BitService} from 'src/app/services/bit.service';
+import {Bit} from 'src/types';
 
 @Component({
   selector: 'app-home',

@@ -14,7 +14,7 @@ interface SidebarItem {
 export class SidebarComponent implements OnInit {
 
   sidebarItems: SidebarItem[] = [
-    { name: "Bitmap", icon: "dashboard", link: "/" },
+    { name: "Bitmap", icon: "dashboard", link: "/bitmap" },
     { name: "Friends", icon: "people", link: "/profile/friends" },
     { name: "Activities", icon: "history", link: "/activities" },
     { name: "Bookmarks", icon: "bookmark" },

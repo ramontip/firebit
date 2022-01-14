@@ -4,15 +4,19 @@
   </div>
 
   <!-- Leave comment form -->
-  <mat-form-field appearance="fill" class="comment-field">
-    <mat-label>Leave a comment ...</mat-label>
-    <textarea matInput cdkTextareaAutosize formControlName="comment"></textarea>
+  <form [formGroup]="commentFormGroup" (ngSubmit)="createComment()" class="w-100 space-between">
 
-    <!-- <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button> -->
+    <mat-form-field appearance="fill" class="comment-field">
+      <mat-label>Leave a comment ...</mat-label>
+      <textarea matInput cdkTextareaAutosize formControlName="content"></textarea>
+    </mat-form-field>
 
-  </mat-form-field>
+    <button mat-flat-button color="primary" [disabled]="!commentFormGroup.valid" class="inline-button">
+      <span>Create</span>
+    </button>
+
+  </form>
+
   <div class="comment" *ngFor="let comment of comments">
     <app-bit-comment [comment]="comment"></app-bit-comment>
   </div>

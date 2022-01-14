@@ -1,10 +1,13 @@
-<form [formGroup]="bitFormGroup" (ngSubmit)="createOrUpdateBit()" class="movie-form__form">
+<div class="w-100">
 
-  <div class="flex">
+  <div *ngIf="bitFormGroup.controls.id.value" class="w-100 space-between mb">
+    <div class="form-title">Edit your bit</div>
+    <button mat-icon-button (click)="deleteBit()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 
-    <span class="form-title" *ngIf="bitFormGroup.controls.id.value">
-        Edit your bit
-    </span>
+  <form [formGroup]="bitFormGroup" (ngSubmit)="createOrUpdateBit()" class="w-100">
 
     <mat-form-field appearance="fill">
       <mat-label>Title</mat-label>
@@ -17,8 +20,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
       <mat-select placeholder="Category" formControlName="category">
-        <mat-option *ngFor="let category of categoryService.availableCategories" [value]="category.id">{{category.title}}</mat-option>
+        <mat-option *ngFor="let category of categoryService.availableCategories"
+                    [value]="category.id">{{category.title}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -26,16 +31,12 @@
       <mat-label>Image</mat-label>
       <input matInput type="text" formControlName="image">
     </mat-form-field>
-  </div>
 
-  <button *ngIf="!bitFormGroup.controls.id.value" mat-flat-button color="primary">Create</button>
-  <button *ngIf="bitFormGroup.controls.id.value" mat-flat-button color="primary" class="w-100">Edit</button>
+    <button mat-flat-button color="primary" [disabled]="!bitFormGroup.valid" class="w-100">
+      <span *ngIf="!bitFormGroup.controls.id.value">Create</span>
+      <span *ngIf="bitFormGroup.controls.id.value">Update</span>
+    </button>
 
-</form>
-<div class="w-100 align-center mt-1" *ngIf="bitFormGroup.controls.id.value">
-  <button mat-icon-button (click)="deleteBit()">
-    <mat-icon>delete</mat-icon>
-    Delete
-  </button>
+  </form>
+
 </div>
-

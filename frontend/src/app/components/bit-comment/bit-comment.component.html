@@ -3,10 +3,11 @@
 
   <div class="flex">
     <mat-card-content class="user">
-      {{comment?.author}}
+      {{comment?.auth_user}}
     </mat-card-content>
-    <mat-card-subtitle class="username">
-      @{{comment?.author}}
+    <mat-card-subtitle class="username w-100 space-between">
+      <span>@{{comment?.auth_user}}</span>
+      <span>{{comment?.created_at | date : 'dd.MM.yyyy, hh:mm'}}</span>
     </mat-card-subtitle>
   </div>
 
