@@ -1,5 +1,4 @@
-<form>
-  <!--[formGroup]="loginFormGroup" (ngSubmit)="login()"-->
+<form [formGroup]="loginFormGroup" (ngSubmit)="login()">
   <mat-card class="login-card">
     <!-- <mat-card-header class="login-card"> -->
     <mat-card-title>
@@ -11,21 +10,21 @@
         <mat-form-field>
           <input matInput placeholder="Username" formControlName="username" name="username" required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="hint mb">
           <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+          <mat-hint>
+            Forgot your password?
+            <a class="link" routerLink="/reset-password">Reset</a>
+          </mat-hint>
         </mat-form-field>
-        <div class="hint mb">
-          Forgot your password?
-          <a mat-button color="primary" routerLink="/reset-password">Reset</a>
-        </div>
 
         <!-- <mat-card-actions> -->
-        <button mat-raised-button type="button" color="primary">Login</button>
+        <button mat-flat-button type="submit" color="primary">Login</button>
       </div>
       <!-- </mat-card-actions> -->
       <p class="center">
         Dont have an account?
-        <a mat-button color="primary" routerLink="/register">Register</a>
+        <a class="link" routerLink="/register">Register</a>
       </p>
 
     </mat-card-content>
