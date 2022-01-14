@@ -13,23 +13,29 @@ export class CategoryPageComponent implements OnInit {
 
   category?: Category
 
-  bits: Bit[]
+  bits: Bit[] = []
 
   constructor(
     public route: ActivatedRoute,
     public categoryService: CategoryService,
     public bitService: BitService,
-  ) {
+  ) { }
 
-    // const title: string = this.route.snapshot.params.title
-    // this.category = categoryService.getCategory(title)
+  ngOnInit(): void {
+    const categoryTitle: string = this.route.snapshot.params.name
 
-    // temporary tweak
-    this.category = categoryService.availableCategories[0]
+    this.categoryService.getCategoryByTitle(categoryTitle ?? "").subscribe(cat => {
+      // TODO: Clean this up
+      this.category = cat[0]
 
-    this.bits = bitService.getBitsByUser()
+      // if (!this.category)
+      //   alert("Error no category")
+    })
+
+    this.bitService.getBitsByCategory(categoryTitle).subscribe(bits => {
+      this.bits = bits
+    })
+
   }
-
-  ngOnInit(): void { }
 
 }

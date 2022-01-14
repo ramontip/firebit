@@ -1,17 +1,27 @@
 import json
+from unicodedata import category
 from rest_framework import viewsets, permissions
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+
 from . import models
 from .serializers import *
 
+from django.db.models import Q
 
 class BitViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        queryset = models.Bit.objects.all()
+
+        category = request.GET.get("category")
+
+        if category:
+            queryset = models.Bit.objects.filter(category__title__iexact=category)
+            # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
+        else:
+            queryset = models.Bit.objects.all()
 
         serializer = BitSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -139,7 +149,7 @@ class CategoryViewSet(viewsets.ViewSet):
         if request.GET.get("title") is None:
             queryset = models.Category.objects.all()
         else:
-            queryset = models.Category.objects.filter(name=request.GET.get("title"))
+            queryset = models.Category.objects.filter(title__iexact=request.GET.get("title"))
 
         serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data, status=200)

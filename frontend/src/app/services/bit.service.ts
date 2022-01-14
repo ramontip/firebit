@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Bit, Comment} from 'src/types';
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Bit, Comment } from 'src/types';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +41,9 @@ export class BitService {
   getBitComments(id: number) {
     return this.http.get<Comment[]>(`/api/bits/${id}/comments/`);
   }
+
+  getBitsByCategory(title: string) {
+    return this.http.get<Bit[]>(`/api/bits/?category=${title}`)
+  }
+
 }
