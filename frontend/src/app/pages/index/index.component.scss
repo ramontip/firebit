@@ -1,8 +1,11 @@
+// @import "../../../variables";
+
 .wrapper {
   justify-content: center;
   align-items: center;
   height: calc(100% - 2rem); // margin
   flex-wrap: wrap;
+  margin: -1rem;
 }
 
 .inner {
@@ -12,9 +15,20 @@
 }
 
 .intro {
-  max-width: 32rem;
+  max-width: 30rem;
+  text-align: center;
 }
 
 .hidden {
   display: none;
+}
+
+.logo {
+  img {
+    max-height: 6rem;
+  }
+}
+
+.logo-background {
+  // background-color: change-color($color: $primary, $saturation: 30);
 }
