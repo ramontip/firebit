@@ -13,13 +13,13 @@ export class AppService {
 
   refreshRoute() {
     const currentRoute = this.router.url
-    
+
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([currentRoute]); // navigate to same route
     });
   }
 
-  showSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
+  showSnackBar(message: string, action: string, duration: number = 3000) {
+    this.snackBar.open(message, action, {duration: duration});
   }
 }

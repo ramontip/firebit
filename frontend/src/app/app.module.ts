@@ -48,7 +48,11 @@ import {IndexComponent} from './pages/index/index.component';
 import {MatCheckboxModule} from "@angular/material/checkbox"
 import {BitEditComponent} from './pages/bit-edit/bit-edit.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {JwtModule} from "@auth0/angular-jwt";
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -102,6 +106,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatTabsModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    JwtModule.forRoot({
+      config: {tokenGetter: tokenGetter}
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
