@@ -21,7 +21,7 @@ export class BitPageComponent implements OnInit {
     public route: ActivatedRoute,
     public bitService: BitService,
     public commentService: CommentService,
-    private AppService: AppService
+    private appService: AppService
   ) {
     this.commentFormGroup = new FormGroup({
       content: new FormControl('', Validators.required),
@@ -48,17 +48,9 @@ export class BitPageComponent implements OnInit {
     const comment = this.commentFormGroup.value;
     comment.bit = this.bit?.id
     this.commentService.createComment(this.commentFormGroup.value).subscribe(() => {
-      this.AppService.refreshRoute();
-      this.AppService.showSnackBar('Component created successfully!', 'hide');
+      this.appService.refreshRoute();
+      this.appService.showSnackBar('Comment created successfully!', 'hide');
     })
-  }
-
-  deleteComment(id: number) {
-    if (confirm("Are you sure to delete this comment?")) {
-      this.commentService.deleteComment(id).subscribe(() => {
-        this.AppService.showSnackBar('Comment deleted successfully!', 'hide');
-      })
-    }
   }
 
 }
