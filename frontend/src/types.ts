@@ -1,3 +1,28 @@
+export interface User {
+  id: number
+  first_name: string
+  last_name: string
+  username: string
+  email: string
+  password?: string
+  is_superuser: boolean
+  is_staff: boolean
+  is_active: boolean
+  date_joined?: string
+  last_login?: string
+}
+
+export interface UserDetails {
+  id?: number
+  auth_user?: number
+  file_name: string
+  content_type: string
+  path: string
+  about: string
+  created_at?: string
+  updated_at?: string
+}
+
 export interface Category {
   id: number
   title: string
@@ -15,27 +40,39 @@ export interface Bit {
   updated_at?: string
 }
 
+export interface Image {
+  id?: number
+  bit?: number
+  file_name: string
+  content_type: string
+  path: string
+  created_at?: string
+  updated_at?: string
+}
+
 export interface Comment {
   id?: number
-  bitId?: number
+  bit?: number
   auth_user?: number
   content: string
   created_at?: string
   updated_at?: string
 }
 
-export interface User {
-  id: number
-  first_name: string
-  last_name: string
-  username: string
-  email: string
-  password?: string
-  is_superuser: boolean
-  is_staff: boolean
-  is_active: boolean
-  date_joined?: string
-  last_login?: string
+export interface Like {
+  id?: number
+  bit?: number
+  auth_user?: number
+  created_at?: string
+  updated_at?: string
+}
+
+export interface Bookmark {
+  id?: number
+  bit?: number
+  auth_user?: number
+  created_at?: string
+  updated_at?: string
 }
 
 export interface Stat {

@@ -24,7 +24,7 @@
   </div>
 
   <mat-card-title>
-    <a class="link" routerLink="/bits/{{bit?.id}}">
+    <a class="link" routerLink="/bit/{{bit?.id}}">
       {{bit?.title}}
     </a>
   </mat-card-title>
@@ -35,26 +35,27 @@
 
   <mat-card-actions class="space-between">
     <div>
-      <button mat-stroked-button color="warn">
+      <button mat-stroked-button color="warn" (click)="createOrDeleteLike()" [class.bit-liked]="likedByAuthUser">
         <mat-icon>local_fire_department</mat-icon>
-        <!-- whatshot / local_fire_department -->
-        42
+        {{likes.length}}
       </button>
-      <button mat-stroked-button color="primary">
+
+      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()"
+              [class.bit-bookmarked]="bookmarkedByAuthUser">
         <mat-icon>bookmark_border</mat-icon>
         <!-- bookmark_border / bookmark -->
-        23
+        {{bookmarks.length}}
       </button>
-      <a class="link" routerLink="/bits/{{bit?.id}}">
+      <a class="link" routerLink="/bit/{{bit?.id}}">
         <button mat-stroked-button>
           <mat-icon>forum</mat-icon>
-          16
+          {{commentsCount}}
         </button>
       </a>
     </div>
     <!-- TODO: Check if bit.auth_user == loggedInUser -->
     <div>
-      <a class="link" routerLink="/bits/{{bit?.id}}/edit">
+      <a class="link" routerLink="/bit/{{bit?.id}}/edit">
         <button mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>

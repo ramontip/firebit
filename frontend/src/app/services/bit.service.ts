@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Bit, Comment } from 'src/types';
+import { Bit, Bookmark, Comment, Like } from 'src/types';
 import { HttpClient } from "@angular/common/http";
+import { UserService } from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BitService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
   }
 
   getBits() {
@@ -44,6 +45,14 @@ export class BitService {
 
   getBitsByCategory(title: string) {
     return this.http.get<Bit[]>(`/api/bits/?category=${title}`)
+  }
+
+  getBitLikes(id: number) {
+    return this.http.get<Like[]>(`/api/bits/${id}/likes/`);
+  }
+
+  getBitBookmarks(id: number) {
+    return this.http.get<Bookmark[]>(`/api/bits/${id}/bookmarks/`);
   }
 
   // From current user

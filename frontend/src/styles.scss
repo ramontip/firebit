@@ -77,13 +77,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-card {
   margin: auto;
-  width: 22em !important;
+  max-width: 40rem;
   padding: 1.5em !important;
 }
 
 .form-title {
   font-size: 1.25em;
-  font-weight: bolder;
+  font-weight: 500;
   margin: auto auto auto 0;
 }
 

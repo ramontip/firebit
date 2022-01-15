@@ -7,7 +7,7 @@
   <!-- </mat-card-header> -->
   <mat-card-content>
 
-    <form [formGroup]="registerFormGroup" (ngSubmit)="register()">
+    <form [formGroup]="registerFormGroup" (ngSubmit)="registerUser()">
       <div class="flex form-content">
 
         <mat-form-field>
@@ -15,7 +15,11 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput placeholder="Display name" formControlName="displayname" name="displayname">
+          <input matInput placeholder="Firstname" formControlName="first_name" name="first_name" required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Lastname" formControlName="last_name" name="last_name" required>
         </mat-form-field>
 
         <mat-form-field>
@@ -27,7 +31,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput placeholder="Confirm password" formControlName="confirmPassword" type="password" name="confirmPassword" required>
+          <input matInput placeholder="Confirm password" formControlName="confirmPassword" type="password"
+                 name="confirmPassword" required>
         </mat-form-field>
 
         <mat-checkbox color="primary" class="mb" formControlName="acceptTos">

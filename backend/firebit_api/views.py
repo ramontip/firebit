@@ -4,6 +4,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.response import Response
 
 
 from . import models
@@ -80,6 +81,48 @@ class BitViewSet(viewsets.ViewSet):
             return Response(status=404)
 
         return Response(status=204)
+
+    # this creates the url: bits/{bitId}/comments/
+    @action(methods=['get'], detail=True, url_path='comments', url_name='comments')
+    def listComments(self, request, pk=None):
+        try:
+            bit = models.Bit.objects.get(
+                pk=pk
+            )
+            queryset = models.Comment.objects.filter(bit=bit)
+            serializer = CommentSerializer(queryset, many=True)
+            return Response(serializer.data, status=200)
+
+        except models.Bit.DoesNotExist:
+            return Response(status=404)
+
+    # this creates the url: bits/{bitId}/likes/
+    @action(methods=['get'], detail=True, url_path='likes', url_name='likes')
+    def listLikes(self, request, pk=None):
+        try:
+            bit = models.Bit.objects.get(
+                pk=pk
+            )
+            queryset = models.Like.objects.filter(bit=bit)
+            serializer = LikeSerializer(queryset, many=True)
+            return Response(serializer.data, status=200)
+
+        except models.Bit.DoesNotExist:
+            return Response(status=404)
+
+    # this creates the url: bits/{bitId}/bookmarks/
+    @action(methods=['get'], detail=True, url_path='bookmarks', url_name='bookmarks')
+    def listBookmarks(self, request, pk=None):
+        try:
+            bit = models.Bit.objects.get(
+                pk=pk
+            )
+            queryset = models.Bookmark.objects.filter(bit=bit)
+            serializer = BookmarkSerializer(queryset, many=True)
+            return Response(serializer.data, status=200)
+
+        except models.Bit.DoesNotExist:
+            return Response(status=404)
 
 
 class CommentViewSet(viewsets.ViewSet):
@@ -162,10 +205,10 @@ class CategoryViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None, format=None):
         try:
-            comment = models.Category.objects.get(
+            category = models.Category.objects.get(
                 pk=pk
             )
-            serializer = CategorySerializer(comment)
+            serializer = CategorySerializer(category)
             return Response(serializer.data, status=200)
 
         except models.Comment.DoesNotExist:

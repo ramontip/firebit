@@ -17,7 +17,7 @@ export class BitFormComponent implements OnInit {
   bitFormGroup: FormGroup;
   categoryOptions: Category[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private bitService: BitService, public categoryService: CategoryService, private router: Router, private AppService: AppService) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private bitService: BitService, public categoryService: CategoryService, private router: Router, private appService: AppService) {
     this.bitFormGroup = new FormGroup({
       id: new FormControl(null),
       title: new FormControl('', Validators.required),
@@ -41,14 +41,14 @@ export class BitFormComponent implements OnInit {
     const id = this.bitFormGroup.controls['id'].value
     if (id) {
       this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
-        this.AppService.showSnackBar('Bit updated successfully!', 'hide');
+        this.appService.showSnackBar('Bit updated successfully!', 'hide');
       })
     } else {
       this.bitService.createBit(this.bitFormGroup.value).subscribe(() => {
-        this.AppService.showSnackBar('Bit created successfully!', 'hide');
+        this.appService.showSnackBar('Bit created successfully!', 'hide');
       })
     }
-    this.AppService.refreshRoute();
+    this.appService.refreshRoute();
   }
 
   deleteBit() {
@@ -56,7 +56,7 @@ export class BitFormComponent implements OnInit {
       const id = this.bitFormGroup.controls['id'].value
       if (id) {
         this.bitService.deleteBit(this.bitFormGroup.value).subscribe(() => {
-          this.AppService.showSnackBar('Bit deleted successfully!', 'hide');
+          this.appService.showSnackBar('Bit deleted successfully!', 'hide');
           this.router.navigate(['/bitmap']);
         })
       }
