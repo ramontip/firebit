@@ -46,4 +46,19 @@ export class BitService {
     return this.http.get<Bit[]>(`/api/bits/?category=${title}`)
   }
 
+  // From current user
+
+  getLikedBits() {
+    // /bits/?liked_by=2
+    return this.http.get<Bit[]>(`/api/users/2/liked_bits/`)
+  }
+
+  getCommentedBits() {
+    return this.http.get<Bit[]>(`/api/users/1/commented_bits/`)
+  }
+
+  getBookmarkedBits() {
+    return this.http.get<Bit[]>(`/api/users/2/bookmarks/`)
+  }
+
 }

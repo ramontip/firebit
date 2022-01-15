@@ -15,8 +15,9 @@ export class ActivitiesLikedComponent implements OnInit {
     public bitService: BitService,
   ) { }
 
-  ngOnInit(): void {
-    this.bitService.getBits().subscribe(bits => this.likedBits = bits.filter((b, i) => i % 2 === 0))
+  async ngOnInit() {
+    // TODO: Does this really work? xD
+    this.likedBits = await this.bitService.getLikedBits().toPromise()
   }
 
 }

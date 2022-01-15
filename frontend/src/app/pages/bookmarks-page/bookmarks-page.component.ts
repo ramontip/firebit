@@ -12,9 +12,11 @@ export class BookmarksPageComponent implements OnInit {
   bookmarkedBits: Bit[] = []
 
   constructor(
-    public bitService: BitService
+    public bitService: BitService,
   ) {
-
+    this.bitService.getBookmarkedBits().subscribe(bits => {
+      this.bookmarkedBits = bits
+    })
   }
 
   ngOnInit(): void {
