@@ -35,15 +35,16 @@
 
   <mat-card-actions class="space-between">
     <div>
-      <button mat-stroked-button color="warn">
+      <button mat-stroked-button color="warn" (click)="createOrDeleteLike()" [class.bit-liked]="likedByAuthUser">
         <mat-icon>local_fire_department</mat-icon>
-        <!-- whatshot / local_fire_department -->
-        42
+        {{likes.length}}
       </button>
-      <button mat-stroked-button color="primary">
+
+      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()"
+              [class.bit-bookmarked]="bookmarkedByAuthUser">
         <mat-icon>bookmark_border</mat-icon>
         <!-- bookmark_border / bookmark -->
-        23
+        {{bookmarks.length}}
       </button>
       <a class="link" routerLink="/bits/{{bit?.id}}">
         <button mat-stroked-button>

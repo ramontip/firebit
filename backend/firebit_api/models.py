@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 # UserThumbnail
@@ -70,7 +70,8 @@ class Bit(models.Model):
 
 
 class Comment(models.Model):
-    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
+    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -83,7 +84,7 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
     auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -96,7 +97,7 @@ class Like(models.Model):
 
 
 class Bookmark(models.Model):
-    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
     auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -109,7 +110,7 @@ class Bookmark(models.Model):
 
 
 class Image(models.Model):
-    bit = models.ForeignKey(Bit, on_delete=models.PROTECT)
+    bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=255)
     content_type = models.CharField(max_length=100)
     path = models.CharField(max_length=255)
