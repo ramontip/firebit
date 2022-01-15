@@ -34,8 +34,8 @@ export class BitService {
     return this.http.delete(`/api/bits/${bit.id}/`);
   }
 
-  getBitsByUser(): Bit[] {
-    return [];
+  getBitsByUser(username: string) {
+    return this.http.get<Bit[]>(`/api/bits/?auth_user=${username}`)
   }
 
   getBitComments(id: number) {

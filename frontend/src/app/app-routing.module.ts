@@ -11,6 +11,7 @@ import { UserFriendsPageComponent } from './pages/user-friends-page/user-friends
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { IndexComponent } from "./pages/index/index.component";
 import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
+import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
@@ -38,7 +39,8 @@ const routes: Routes = [
     path: "activities", children: [
       { path: "", component: ActivitiesPageComponent },
     ]
-  }
+  },
+  { path: "bookmarks", component: BookmarksPageComponent },
 ]
 
 @NgModule({

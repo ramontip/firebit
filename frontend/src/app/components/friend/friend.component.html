@@ -4,33 +4,34 @@
 
     <div class="flex name-container">
       <mat-card-content class="name">
-        {{friendship?.user?.first_name}}
+        {{friendship?.from_auth_user}}
       </mat-card-content>
       <mat-card-subtitle class="username">
-        @{{friendship?.user?.username}}
+        @{{friendship?.from_auth_user}}
       </mat-card-subtitle>
     </div>
 
     <div class="action">
 
       <!-- Friend requests -->
-      <button mat-flat-button color="primary" *ngIf="friendship?.status === 'pending'">
+      <button mat-flat-button color="primary" *ngIf="friendship?.friendship_status === 1">
         <mat-icon>checkmark</mat-icon>
         Accept
       </button>
 
-      <button mat-flat-button color="warn" *ngIf="friendship?.status === 'pending'">
+      <button mat-flat-button color="warn" *ngIf="friendship?.friendship_status === 1">
         <mat-icon>close</mat-icon>
         Decline
       </button>
 
       <!-- Friends -->
-      <a mat-flat-button color="primary" routerLink="/user/{{friendship?.user?.username}}" *ngIf="friendship?.status === 'friend'">
+      <!-- TODO: which user to display? to_auth_user or from_auth_user -->
+      <a mat-flat-button color="primary" routerLink="/user/{{friendship?.to_auth_user}}" *ngIf="friendship?.friendship_status === 2">
         <mat-icon>person</mat-icon>
         Profile
       </a>
 
-      <button mat-stroked-button color="warn" *ngIf="editable && friendship?.status === 'friend'">
+      <button mat-stroked-button color="warn" *ngIf="editable && friendship?.friendship_status === 2">
         Remove
       </button>
 

@@ -10,15 +10,19 @@ import { Bit } from 'src/types';
 })
 export class ProfilePageComponent implements OnInit {
 
-  bits: Bit[]
+  bits: Bit[] = []
 
   constructor(
     public userService: UserService,
     public bitService: BitService,
-  ) {
-    this.bits = bitService.getBitsByUser()
-  }
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // TODO: Replace with logged in username
+    this.bitService.getBitsByUser("root").subscribe(bits => {
+      this.bits = bits
+    })
+
+  }
 
 }

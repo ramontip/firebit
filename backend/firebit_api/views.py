@@ -15,13 +15,16 @@ class BitViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
 
+        queryset = models.Bit.objects.all()
+
         category = request.GET.get("category")
+        user = request.GET.get("auth_user")
 
         if category:
-            queryset = models.Bit.objects.filter(category__title__iexact=category)
+            queryset = queryset.filter(category__title__iexact=category)
             # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
-        else:
-            queryset = models.Bit.objects.all()
+        if user:
+            queryset = queryset.filter(auth_user__username__iexact=user)
 
         serializer = BitSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -242,7 +245,16 @@ class UserViewSet(viewsets.ViewSet):
 class FriendshipViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
+
+        auth_user = request.GET.get("auth_user")
+        status = request.GET.get("status")
+
         queryset = models.Friendship.objects.all()
+
+        if auth_user:
+            queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
+        if status:
+            queryset = queryset.filter(friendship_status=status)
 
         serializer = FriendshipSerializer(queryset, many=True)
         return Response(serializer.data, status=200)

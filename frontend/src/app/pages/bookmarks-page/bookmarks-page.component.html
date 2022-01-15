@@ -1,0 +1,12 @@
+<div class="container-xl">
+  <div class="section">
+    <h2>Your Bookmarks</h2>
+
+    <div class="section mt">
+      <div class="mb" *ngFor="let bit of bookmarkedBits">
+        <app-bit [bit]="bit"></app-bit>
+      </div>
+    </div>
+
+  </div>
+</div>

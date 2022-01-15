@@ -48,6 +48,7 @@ import {IndexComponent} from './pages/index/index.component';
 import {MatCheckboxModule} from "@angular/material/checkbox"
 import {BitEditComponent} from './pages/bit-edit/bit-edit.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     RegisterFormComponent,
     ForgotPasswordFormComponent,
     IndexComponent,
-    BitEditComponent
+    BitEditComponent,
+    BookmarksPageComponent
   ],
   imports: [
     BrowserModule,
