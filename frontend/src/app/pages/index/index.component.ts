@@ -10,14 +10,15 @@ export class IndexComponent implements OnInit {
 
   navigationVisible = false;
 
-  path = ""
+  path: string
 
   constructor(
     public activeRoute: ActivatedRoute
-  ) { }
+  ) {
+    this.path = this.activeRoute.snapshot.routeConfig?.path ?? ""
+  }
 
   ngOnInit(): void {
-    this.path = this.activeRoute.snapshot.url[0].path
   }
 
 }

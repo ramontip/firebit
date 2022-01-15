@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -7,8 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordFormComponent implements OnInit {
 
-  constructor() { }
+  resetPasswordFormGroup: FormGroup
+
+  constructor() {
+    this.resetPasswordFormGroup = new FormGroup({
+      email: new FormControl("", [Validators.email])
+    })
+  }
 
   ngOnInit(): void { }
+
+
+  resetPassword() {
+
+  }
 
 }

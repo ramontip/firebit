@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Theming
+@import "_variables.scss";
+
 html, body {
   height: 100%;
 }
@@ -43,6 +46,26 @@ h1, h2, h3, h4, h5, h6 {
 .link {
   text-decoration: inherit;
   color: inherit;
+}
+
+// Theme colors
+.primary {
+  color: $primary;
+}
+.accent {
+  color: $accent;
+}
+.warn {
+  color: $warn;
+}
+.bg-primary {
+  background-color: $primary;
+}
+.bg-accent {
+  background-color: $accent;
+}
+.bg-warn {
+  background-color: $warn;
 }
 
 .fully-center {

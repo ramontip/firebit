@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-login-form',
@@ -7,8 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor() { }
+  loginFormGroup: FormGroup
 
-  ngOnInit(): void { }
+  constructor(private http: HttpClient, public userService: UserService) {
+    this.loginFormGroup = new FormGroup({
+      username: new FormControl("", Validators.required),
+      password: new FormControl("", Validators.required),
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+  login() {
+    this.userService.login(this.loginFormGroup.value);
+  }
 
 }

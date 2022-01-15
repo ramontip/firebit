@@ -1,0 +1,6 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- flame -->
+  <path fill="#ff7043" stroke="transparent" d="M 4,12 h6 v-2 h2 v-6 h-2 v-2 h-2 v-2 h-2 v4 h-2 v2 h-2 v4 h2 Z" />
+  <!-- wood -->
+  <path fill="#6e5035" stroke="transparent" d="M 2,16 h4 v-2 h4 v2 h4 v-2 h-2 v-2 h-8 v2 h-2 Z" />
+</svg>
