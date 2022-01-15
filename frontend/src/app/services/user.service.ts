@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Friendship, User} from 'src/types';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {AppService} from "./app.service";
+import { Injectable } from '@angular/core';
+import { Friendship, User } from 'src/types';
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { AppService } from "./app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +27,9 @@ export class UserService {
       this.isLoggedIn.next(true);
       localStorage.setItem('accessToken', res.token);
       this.router.navigate(['bitmap']);
-      this.appService.showSnackBar('Logged in successfully', 'hide', 3000);
+      this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
     }, () => {
-      this.appService.showSnackBar('Wrong username or password', 'hide', 3000);
+      this.appService.showSnackBar('Wrong username or password', 'Hide', 3000);
     });
   }
 
@@ -40,6 +40,10 @@ export class UserService {
 
   getUser(id: number) {
     return this.http.get<User>(`/api/users/${id}/`);
+  }
+
+  getCurrentUser() {
+    return this.http.get<User>(`/api/users/1/`)
   }
 
   getAllUsers() {
@@ -58,14 +62,12 @@ export class UserService {
     is_active: true
   }
 
-  getFriendships(): Friendship[] {
-    return [
-      {user: this.user, status: 'pending'},
-      {user: this.user, status: 'pending'},
-      {user: this.user, status: 'friend'},
-      {user: this.user, status: 'friend'},
-      {user: this.user, status: 'friend'},
-    ]
+  getFriendships() {
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=root`)
+  }
+
+  getFriendsByUser(username: string) {
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}&status=2`)
   }
 
 }

@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Bit, Bookmark, Comment, Like} from 'src/types';
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
+import { Injectable } from '@angular/core';
+import { Bit, Bookmark, Comment, Like } from 'src/types';
+import { HttpClient } from "@angular/common/http";
+import { UserService } from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +35,16 @@ export class BitService {
     return this.http.delete(`/api/bits/${bit.id}/`);
   }
 
-  getBitsByUser(): Bit[] {
-    return [];
+  getBitsByUser(username: string) {
+    return this.http.get<Bit[]>(`/api/bits/?auth_user=${username}`)
   }
 
   getBitComments(id: number) {
     return this.http.get<Comment[]>(`/api/bits/${id}/comments/`);
+  }
+
+  getBitsByCategory(title: string) {
+    return this.http.get<Bit[]>(`/api/bits/?category=${title}`)
   }
 
   getBitLikes(id: number) {
@@ -50,4 +54,20 @@ export class BitService {
   getBitBookmarks(id: number) {
     return this.http.get<Bookmark[]>(`/api/bits/${id}/bookmarks/`);
   }
+
+  // From current user
+
+  getLikedBits() {
+    // /bits/?liked_by=2
+    return this.http.get<Bit[]>(`/api/users/2/liked_bits/`)
+  }
+
+  getCommentedBits() {
+    return this.http.get<Bit[]>(`/api/users/1/commented_bits/`)
+  }
+
+  getBookmarkedBits() {
+    return this.http.get<Bit[]>(`/api/users/2/bookmarks/`)
+  }
+
 }

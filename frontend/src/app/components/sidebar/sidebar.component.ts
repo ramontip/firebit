@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
     { name: "Bitmap", icon: "dashboard", link: "/bitmap" },
     { name: "Friends", icon: "people", link: "/profile/friends" },
     { name: "Activities", icon: "history", link: "/activities" },
-    { name: "Bookmarks", icon: "bookmark" },
+    { name: "Bookmarks", icon: "bookmark", link: "/bookmarks" },
     { name: "Notifications", icon: "notifications" }
   ]
 

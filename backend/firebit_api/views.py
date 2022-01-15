@@ -1,15 +1,31 @@
-from rest_framework import viewsets
+import json
+from unicodedata import category
+from rest_framework import viewsets, permissions
+from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
 
 from . import models
 from .serializers import *
 
+from django.db.models import Q
 
 class BitViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
+
         queryset = models.Bit.objects.all()
+
+        category = request.GET.get("category")
+        user = request.GET.get("auth_user")
+
+        if category:
+            queryset = queryset.filter(category__title__iexact=category)
+            # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
+        if user:
+            queryset = queryset.filter(auth_user__username__iexact=user)
 
         serializer = BitSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -179,7 +195,7 @@ class CategoryViewSet(viewsets.ViewSet):
         if request.GET.get("title") is None:
             queryset = models.Category.objects.all()
         else:
-            queryset = models.Category.objects.filter(name=request.GET.get("title"))
+            queryset = models.Category.objects.filter(title__iexact=request.GET.get("title"))
 
         serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -269,10 +285,66 @@ class UserViewSet(viewsets.ViewSet):
         return Response(status=204)
 
 
+    # this creates the url: user/{userId}/liked_bits/
+    @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits')
+    def list_liked_bits(self, request, pk=None):
+        try:
+            likes = models.Like.objects.filter(auth_user=pk)
+
+            # "map" likes to the respective bits
+            liked_bits = [l.bit for l in likes]
+
+            # queryset = models.Bit.objects.filter(pk__in=liked_bits)
+            serializer = BitSerializer(liked_bits, many=True)
+            return Response(serializer.data, status=200)
+
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+    # this creates the url: user/{userId}/liked_bits/
+    @action(methods=['get'], detail=True, url_path='commented_bits', url_name='Commented Bits')
+    def list_commented_bits(self, request, pk=None):
+        try:
+            # TODO: Comments have no auth_user attribute yet
+            likes = models.Like.objects.filter(auth_user=pk)
+
+            # "map" likes to the respective bits
+            liked_bits = [l.bit for l in likes]
+
+            # queryset = models.Bit.objects.filter(pk__in=liked_bits)
+            serializer = BitSerializer(liked_bits, many=True)
+            return Response(serializer.data, status=200)
+
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+    # this creates the url: user/{userId}/bookmarks/
+    @action(methods=['get'], detail=True, url_path='bookmarks', url_name='Bookmarks')
+    def list_bookmarks(self, request, pk=None):
+        try:
+            bookmarks = models.Bookmark.objects.filter(auth_user=pk)
+
+            queryset = models.Bit.objects.filter(pk__in=bookmarks)
+            serializer = BitSerializer(queryset, many=True)
+            return Response(serializer.data, status=200)
+
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
+
 class FriendshipViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
+
+        auth_user = request.GET.get("auth_user")
+        status = request.GET.get("status")
+
         queryset = models.Friendship.objects.all()
+
+        if auth_user:
+            queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
+        if status:
+            queryset = queryset.filter(friendship_status=status)
 
         serializer = FriendshipSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -333,7 +405,11 @@ class FriendshipViewSet(viewsets.ViewSet):
 class LikeViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        return Response(status=405)
+        # return Response(status=405)
+
+        queryset = models.Like.objects.all()
+        serializer = LikeSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
 
     def create(self, request, format=None):
         serializer = LikeSerializer(data=request.data)
@@ -377,7 +453,11 @@ class LikeViewSet(viewsets.ViewSet):
 class BookmarkViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        return Response(status=405)
+        # return Response(status=405)
+
+        queryset = models.Bookmark.objects.all()
+        serializer = BookmarkSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
 
     def create(self, request, format=None):
         serializer = BookmarkSerializer(data=request.data)

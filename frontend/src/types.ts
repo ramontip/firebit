@@ -83,6 +83,12 @@ export interface Stat {
 }
 
 export interface Friendship {
-  user: User
-  status: "friend" | "pending"
+  // user: User
+  // status: "friend" | "pending"
+  id: number,
+  from_auth_user: number,
+  to_auth_user: number,
+  friendship_status: number,
+  created_at: Date,
+  updated_at: Date,
 }

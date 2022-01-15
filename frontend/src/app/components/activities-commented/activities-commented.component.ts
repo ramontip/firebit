@@ -15,8 +15,8 @@ export class ActivitiesCommentedComponent implements OnInit {
     public bitService: BitService,
   ) { }
 
-  ngOnInit(): void {
-    this.bitService.getBits().subscribe(bits => this.commentedBits = bits.filter((b, i) => i % 2 !== 0))
+  async ngOnInit() {
+    this.commentedBits = await this.bitService.getCommentedBits().toPromise()
   }
 
 }
