@@ -111,6 +111,3 @@ class UserSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
-
-    def current_user(self, request):
-        return request.user
