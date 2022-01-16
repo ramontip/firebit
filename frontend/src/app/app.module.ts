@@ -52,6 +52,7 @@ import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.co
 import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu"
 import { MatBadgeModule } from "@angular/material/badge"
+import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -112,6 +113,7 @@ function tokenGetter() {
     MatSnackBarModule,
     MatMenuModule,
     MatBadgeModule,
+    MatSlideToggleModule,
     JwtModule.forRoot({
       config: { tokenGetter: tokenGetter }
     }),

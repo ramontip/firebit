@@ -33,13 +33,35 @@
         <mat-icon>person</mat-icon>
         <span>Profile</span>
       </a>
+      <a mat-menu-item routerLink="/profile/friends">
+        <mat-icon>people</mat-icon>
+        <span>Friends</span>
+
+        <!-- Ugly spacing, because width/min-width doesnt work -->
+        <span style="visibility: hidden">______________</span>
+      </a>
+      <div mat-menu-item disabled>
+        <div class="flex menu-list-spacer">
+          <div>
+            <mat-icon>nights_stay</mat-icon>
+            <span>Dark Mode</span>
+          </div>
+
+          <mat-slide-toggle color="primary"></mat-slide-toggle>
+        </div>
+      </div>
+
+      <p></p>
+      <mat-divider></mat-divider>
+      <p></p>
+
       <a mat-menu-item routerLink="/profile/settings">
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
       </a>
-      <mat-divider></mat-divider>
-      <button mat-menu-item (click)="userService.logout()">
-        <mat-icon>logout</mat-icon>
+      <button mat-menu-item class="warn" (click)="userService.logout()">
+        <!-- <mat-icon color="warn">power_settings_new</mat-icon> -->
+        <mat-icon color="warn">logout</mat-icon>
         <span>Logout</span>
       </button>
     </mat-menu>

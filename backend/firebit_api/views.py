@@ -18,6 +18,8 @@ class BitViewSet(viewsets.ViewSet):
 
         queryset = models.Bit.objects.all()
 
+        # TODO: "type" filter -> [own,other,liked,commented,bookmarked]
+
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
 
