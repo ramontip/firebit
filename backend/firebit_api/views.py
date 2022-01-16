@@ -1,16 +1,11 @@
-import json
-from unicodedata import category
-from rest_framework import viewsets, permissions
-from rest_framework.permissions import DjangoModelPermissions
-from rest_framework.response import Response
+from django.db.models import Q
+from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
 
 from . import models
 from .serializers import *
 
-from django.db.models import Q
 
 class BitViewSet(viewsets.ViewSet):
 
@@ -283,7 +278,6 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
         return Response(status=204)
-
 
     # this creates the url: user/{userId}/liked_bits/
     @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits')

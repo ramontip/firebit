@@ -1,9 +1,9 @@
-from rest_framework import serializers
-
 from datetime import datetime
 
-from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
+from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
 
 
 class BitSerializer(serializers.ModelSerializer):
@@ -111,3 +111,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+    def current_user(self, request):
+        return request.user
