@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {UserService} from "../../services/user.service";
+
 
 @Component({
   selector: 'app-toolbar',
@@ -10,7 +12,8 @@ export class ToolbarComponent implements OnInit {
 
   searchForm = new FormControl("")
 
-  constructor() { }
+  constructor(public userService: UserService) {
+  }
 
   ngOnInit(): void {
 

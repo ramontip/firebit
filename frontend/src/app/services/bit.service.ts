@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Bit, Bookmark, Comment, Like } from 'src/types';
-import { HttpClient } from "@angular/common/http";
-import { UserService } from "./user.service";
+import {Injectable} from '@angular/core';
+import {Bit, Bookmark, Comment, Like} from 'src/types';
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,8 @@ export class BitService {
 
   createBit(bit: Bit) {
     // TODO: current logged in user
-    bit.auth_user = 1;
+    bit.auth_user = this.userService.currentUser!.id;
+    console.log(bit.auth_user);
     return this.http.post(`/api/bits/`, bit);
   }
 

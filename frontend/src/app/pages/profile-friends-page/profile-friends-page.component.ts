@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { Friendship, User } from 'src/types';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from 'src/app/services/user.service';
+import {Friendship} from 'src/types';
 
 @Component({
   selector: 'app-profile-friends-page',
@@ -17,6 +17,7 @@ export class ProfileFriendsPageComponent implements OnInit {
 
     // TODO: Is there a better way than nesting subscribe's?
 
+    // @ts-ignore
     userService.getCurrentUser().subscribe(user => {
 
       userService.getFriendships().subscribe(friendships => {
@@ -34,6 +35,7 @@ export class ProfileFriendsPageComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
 }

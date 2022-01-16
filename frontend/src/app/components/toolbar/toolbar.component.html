@@ -22,8 +22,12 @@
     <button mat-icon-button>
       <mat-icon>mail_outline</mat-icon>
     </button>
-    <a mat-icon-button routerLink="/profile">
+    <button mat-button [matMenuTriggerFor]="beforeMenu"><a mat-icon-button>
       <mat-icon>person</mat-icon>
-    </a>
+    </a></button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button mat-menu-item routerLink="/profile">Profile</button>
+      <button mat-menu-item (click)="userService.logout()">Logout</button>
+    </mat-menu>
   </div>
 </mat-toolbar>
