@@ -22,8 +22,27 @@
     <button mat-icon-button>
       <mat-icon>mail_outline</mat-icon>
     </button>
-    <a mat-icon-button routerLink="/profile">
-      <mat-icon>person</mat-icon>
-    </a>
+
+    <!-- <span matBadge="0" matBadgeColor="warn" matBadgeSize="small"> -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="profile-menu-btn">
+      <img class="profile-img" [src]="profileImageUrl">
+    </button>
+    <!-- </span> -->
+    <mat-menu #menu="matMenu" xPosition="before" class="profile-menu">
+      <a mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </a>
+      <a mat-menu-item routerLink="/profile/settings">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="userService.logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+
   </div>
 </mat-toolbar>

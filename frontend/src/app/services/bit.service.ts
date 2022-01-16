@@ -8,7 +8,10 @@ import { UserService } from "./user.service";
 })
 export class BitService {
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    private userService: UserService
+  ) {
   }
 
   getBits() {
@@ -59,15 +62,15 @@ export class BitService {
 
   getLikedBits() {
     // /bits/?liked_by=2
-    return this.http.get<Bit[]>(`/api/users/2/liked_bits/`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.user.value?.id ?? -1}/liked_bits/`)
   }
 
   getCommentedBits() {
-    return this.http.get<Bit[]>(`/api/users/1/commented_bits/`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.user.value?.id ?? -1}/commented_bits/`)
   }
 
   getBookmarkedBits() {
-    return this.http.get<Bit[]>(`/api/users/2/bookmarks/`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.user.value?.id ?? -1}/bookmarks/`)
   }
 
 }

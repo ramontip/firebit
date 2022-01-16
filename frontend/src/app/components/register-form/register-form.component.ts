@@ -33,7 +33,7 @@ export class RegisterFormComponent implements OnInit {
 
   registerUser() {
     this.userService.registerUser(this.registerFormGroup.value).subscribe(() => {
-      this.appService.showSnackBar('Registered successfully', 'hide', 3000);
+      this.appService.showSnackBar('Registered successfully', 'Hide', 3000);
       this.userService.isLoggedIn.next(true);
     }, (error) => {
       console.log(error);
@@ -45,7 +45,7 @@ export class RegisterFormComponent implements OnInit {
       return this.userService.getAllUsers().pipe(map(users => {
         const currentUsername = this.registerFormGroup.controls['username'].value;
         const existingUser = users.find(user => user.username === currentUsername);
-        return existingUser ? {userAlreadyExists: true} : null
+        return existingUser ? { userAlreadyExists: true } : null
       }))
     }
   }
@@ -55,7 +55,7 @@ export class RegisterFormComponent implements OnInit {
       return this.userService.getAllUsers().pipe(map(users => {
         const currentEmail = this.registerFormGroup.controls['email'].value;
         const existingEmail = users.find(user => user.email === currentEmail);
-        return existingEmail ? {emailAlreadyExists: true} : null
+        return existingEmail ? { emailAlreadyExists: true } : null
       }))
     }
   }

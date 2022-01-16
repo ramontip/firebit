@@ -17,3 +17,29 @@ mat-form-field {
 .logo {
   height: 2rem;
 }
+
+// .profile-img {
+//   border: 2px solid rgb(242, 192, 40);
+//   border-radius: 25%;
+// }
+
+.profile-menu-btn {
+  margin-left: 1rem;
+  margin-right: 0.25rem;
+
+}
+
+// doesnt work
+.profile-menu {
+  .mat-menu-content {
+    min-width: 10rem !important;
+  }
+}
+
+// Unused
+.mat-badge.hide-text .mat-badge-content {
+  color: transparent;
+  height: 1em;
+  width: 1em;
+  border: 2px solid purple;
+}

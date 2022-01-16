@@ -85,10 +85,17 @@ export interface Stat {
 export interface Friendship {
   // user: User
   // status: "friend" | "pending"
-  id: number,
-  from_auth_user: number,
-  to_auth_user: number,
-  friendship_status: number,
-  created_at: Date,
-  updated_at: Date,
+  id: number
+  from_auth_user: number
+  to_auth_user: number
+  friendship_status: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface JWTToken {
+  user_id: number
+  username: string
+  exp: number // seconds since 1970 -> Date(exp * 1000)
+  email: string
 }

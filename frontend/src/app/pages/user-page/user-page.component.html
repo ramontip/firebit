@@ -2,7 +2,7 @@
   <!-- About me -->
   <div class="section">
     <h2>About</h2>
-    <app-about-me [user]="userService.user" action="friend" [isFriend]="isFriend"></app-about-me>
+    <app-about-me [user]="userService.user | async" action="friend" [isFriend]="isFriend"></app-about-me>
   </div>
 
   <!-- Stats -->
@@ -17,7 +17,7 @@
       <div class="flex">
         <mat-icon>lock</mat-icon>
         <div>
-          Only friends can see {{userService.user.username}}'s bits.
+          Only friends can see {{userService.user.value?.username}}'s bits.
         </div>
       </div>
     </mat-card>

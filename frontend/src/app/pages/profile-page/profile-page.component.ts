@@ -19,7 +19,7 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO: Replace with logged in username
-    this.bitService.getBitsByUser("root").subscribe(bits => {
+    this.bitService.getBitsByUser(this.userService.user.value?.username ?? "").subscribe(bits => {
       this.bits = bits
     })
 

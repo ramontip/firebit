@@ -41,11 +41,11 @@ export class BitFormComponent implements OnInit {
     const id = this.bitFormGroup.controls['id'].value
     if (id) {
       this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
-        this.appService.showSnackBar('Bit updated successfully!', 'hide');
+        this.appService.showSnackBar('Bit updated successfully!', 'Hide');
       })
     } else {
       this.bitService.createBit(this.bitFormGroup.value).subscribe(() => {
-        this.appService.showSnackBar('Bit created successfully!', 'hide');
+        this.appService.showSnackBar('Bit created successfully!', 'Hide');
       })
     }
     this.appService.refreshRoute();
@@ -56,7 +56,7 @@ export class BitFormComponent implements OnInit {
       const id = this.bitFormGroup.controls['id'].value
       if (id) {
         this.bitService.deleteBit(this.bitFormGroup.value).subscribe(() => {
-          this.appService.showSnackBar('Bit deleted successfully!', 'hide');
+          this.appService.showSnackBar('Bit deleted successfully!', 'Hide');
           this.router.navigate(['/bitmap']);
         })
       }

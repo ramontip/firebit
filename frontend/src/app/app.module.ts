@@ -50,8 +50,10 @@ import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { JwtModule } from "@auth0/angular-jwt";
+import { MatMenuModule } from "@angular/material/menu"
+import { MatBadgeModule } from "@angular/material/badge"
 
-export function tokenGetter() {
+function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
@@ -108,6 +110,8 @@ export function tokenGetter() {
     MatTabsModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatMenuModule,
+    MatBadgeModule,
     JwtModule.forRoot({
       config: { tokenGetter: tokenGetter }
     }),

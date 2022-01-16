@@ -66,7 +66,7 @@ export class BitComponent implements OnInit {
     // check if bit was already liked
     if (like != null) {
       this.likeService.deleteLike(like).subscribe(() => {
-        this.appService.showSnackBar('Bit has been unliked!', 'hide');
+        this.appService.showSnackBar('Bit has been unliked!', 'Hide');
         this.likedByAuthUser = false;
       })
     } else {
@@ -75,7 +75,7 @@ export class BitComponent implements OnInit {
         auth_user: auth_user
       }
       this.likeService.createLike(like).subscribe(() => {
-        this.appService.showSnackBar('Bit has been liked!', 'hide');
+        this.appService.showSnackBar('Bit has been liked!', 'Hide');
         this.likedByAuthUser = true;
       })
     }
@@ -94,7 +94,7 @@ export class BitComponent implements OnInit {
     // check if bit was already bookmarked
     if (bookmark != null) {
       this.bookmarkService.deleteBookmark(bookmark).subscribe(() => {
-        this.appService.showSnackBar('Bookmark has been removed!', 'hide');
+        this.appService.showSnackBar('Bookmark has been removed!', 'Hide');
         this.bookmarkedByAuthUser = false;
       })
     } else {
@@ -103,7 +103,7 @@ export class BitComponent implements OnInit {
         auth_user: auth_user
       }
       this.bookmarkService.createBookmark(bookmark).subscribe(() => {
-        this.appService.showSnackBar('Bit has been bookmarked!', 'hide');
+        this.appService.showSnackBar('Bit has been bookmarked!', 'Hide');
         this.bookmarkedByAuthUser = true;
       })
     }
