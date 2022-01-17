@@ -14,21 +14,21 @@ export class UserService {
   readonly accessTokenLocalStorageKey = 'accessToken';
   isLoggedIn = new BehaviorSubject(false);
 
-  currentUser?: User;
+  // currentUser?: User;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private appService: AppService) {
-    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
-    if (token) {
-      const tokenValid = !this.jwtHelperService.isTokenExpired(token);
-      this.isLoggedIn.next(tokenValid);
-    }
+    // const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    // if (token) {
+    //   const tokenValid = !this.jwtHelperService.isTokenExpired(token);
+    //   this.isLoggedIn.next(tokenValid);
+//    }
   }
 
-  ngOnInit() {
-    this.getCurrentUser().subscribe(user => {
-      this.currentUser = user
-    })
-  }
+  // ngOnInit() {
+  //   this.getCurrentUser().subscribe(user => {
+  //     this.currentUser = user
+  //   })
+  // }
 
   login(userData: { username: string, password: string }): void {
     this.http.post('/api/token/', userData).subscribe((res: any) => {
@@ -51,10 +51,10 @@ export class UserService {
   }
 
   getCurrentUser() {
-    let token = localStorage.getItem(this.accessTokenLocalStorageKey);
-    let decodedToken = this.jwtHelperService.decodeToken(token!);
-    console.log("x" + decodedToken.user_id);
-    return this.getUser(decodedToken.user_id);
+    // let token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    // let decodedToken = this.jwtHelperService.decodeToken(token!);
+    // console.log("x" + decodedToken.user_id);
+    // return this.getUser(decodedToken.user_id);
   }
 
   getAllUsers() {
