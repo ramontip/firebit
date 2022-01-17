@@ -1,7 +1,7 @@
-<app-toolbar *ngIf="navigationVisible"></app-toolbar>
+<app-toolbar *ngIf="userService.isLoggedIn | async"></app-toolbar>
 
-<mat-sidenav-container *ngIf="navigationVisible" class="sidebar-container">
-  <mat-sidenav mode="side" opened>
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav mode="side" opened *ngIf="userService.isLoggedIn | async">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 

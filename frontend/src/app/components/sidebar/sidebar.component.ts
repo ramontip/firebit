@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 interface SidebarItem {
   name: string
@@ -14,15 +14,17 @@ interface SidebarItem {
 export class SidebarComponent implements OnInit {
 
   sidebarItems: SidebarItem[] = [
-    { name: "Bitmap", icon: "dashboard", link: "/bitmap" },
-    { name: "Friends", icon: "people", link: "/profile/friends" },
-    { name: "Activities", icon: "history", link: "/activities" },
-    { name: "Bookmarks", icon: "bookmark", link: "/bookmarks" },
-    { name: "Notifications", icon: "notifications" }
+    {name: "Bitmap", icon: "dashboard", link: "/bitmap"},
+    {name: "Friends", icon: "people", link: "/profile/friends"},
+    {name: "Activities", icon: "history", link: "/activities"},
+    {name: "Bookmarks", icon: "bookmark", link: "/bookmarks"},
+    // { name: "Notifications", icon: "notifications" }
   ]
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
 }

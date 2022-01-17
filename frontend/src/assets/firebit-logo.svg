@@ -1,6 +1,10 @@
-<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-  <!-- flame -->
-  <path fill="#ff7043" stroke="transparent" d="M 4,12 h6 v-2 h2 v-6 h-2 v-2 h-2 v-2 h-2 v4 h-2 v2 h-2 v4 h2 Z" />
-  <!-- wood -->
-  <path fill="#6e5035" stroke="transparent" d="M 2,16 h4 v-2 h4 v2 h4 v-2 h-2 v-2 h-8 v2 h-2 Z" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="350px" height="350px" viewBox="0 0 350 350" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Logo</title>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="firebit-logo-v1" transform="translate(54.000000, 13.000000)" fill-rule="nonzero">
+            <polygon id="Path" fill="#FF7043" points="40.4 242 161.6 242 161.6 201.666667 202 201.666667 202 80.6666667 161.6 80.6666667 161.6 40.3333333 121.2 40.3333333 121.2 0 80.8 0 80.8 80.6666667 40.4 80.6666667 40.4 121 0 121 0 201.666667 40.4 201.666667"></polygon>
+            <polygon id="Path" fill="#BF5332" points="0 324 80.6666667 324 80.6666667 283 161.333333 283 161.333333 324 242 324 242 283 201.666667 283 201.666667 242 40.3333333 242 40.3333333 283 0 283"></polygon>
+        </g>
+    </g>
 </svg>

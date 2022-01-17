@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -7,8 +7,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-
-  navigationVisible = false;
 
   path: string
 
