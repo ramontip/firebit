@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile-form',
@@ -26,8 +26,8 @@ export class ProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const user = this.userService.user.value
-    console.log({ profileForm: user })
+    const user = this.userService.currentUser.value
+    console.log({profileForm: user})
 
     if (user) {
       this.profileFormGroup.patchValue(user)
@@ -35,9 +35,9 @@ export class ProfileFormComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log({ submit: this.profileFormGroup.controls })
+    console.log({submit: this.profileFormGroup.controls})
 
-    let user = this.userService.user.value
+    let user = this.userService.currentUser.value
 
     if (!user) {
       console.error(`Could not update user, user is ${user}`)

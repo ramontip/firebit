@@ -24,14 +24,12 @@ export class BitService {
   }
 
   createBit(bit: Bit) {
-    bit.auth_user = this.userService.user.value!.id;
-    console.log(bit.auth_user);
+    bit.auth_user = this.userService.currentUser.value!.id;
     return this.http.post(`/api/bits/`, bit);
   }
 
   updateBit(bit: Bit) {
-    // TODO: current logged in user
-    bit.auth_user = this.userService.user.value!.id;
+    bit.auth_user = this.userService.currentUser.value!.id;
     return this.http.put(`/api/bits/${bit.id}/`, bit);
   }
 
@@ -63,15 +61,15 @@ export class BitService {
 
   getLikedBits() {
     // /bits/?liked_by=2
-    return this.http.get<Bit[]>(`/api/users/${this.userService.user.value?.id ?? -1}/liked_bits/`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/liked_bits/`)
   }
 
   getCommentedBits() {
-    return this.http.get<Bit[]>(`/api/users/${this.userService.user.value?.id ?? -1}/commented_bits/`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/commented_bits/`)
   }
 
   getBookmarkedBits() {
-    return this.http.get<Bit[]>(`/api/users/${this.userService.user.value?.id ?? -1}/bookmarks/`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/bookmarks/`)
   }
 
 }

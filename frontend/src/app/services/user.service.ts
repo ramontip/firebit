@@ -14,7 +14,7 @@ export class UserService {
   readonly ACCESS_TOKEN_KEY = 'accessToken';
 
   isLoggedIn = new BehaviorSubject(false);
-  user = new BehaviorSubject<User | null>(null)
+  currentUser = new BehaviorSubject<User | null>(null)
 
   constructor(
     private http: HttpClient,
@@ -55,7 +55,7 @@ export class UserService {
     // TODO: Maybe inform server about logout, to delete tokens or something?
 
     this.isLoggedIn.next(false);
-    this.user.next(null)
+    this.currentUser.next(null)
 
     this.router.navigate(['/login']);
 
@@ -76,8 +76,8 @@ export class UserService {
 
 
     this.http.get<User>(`/api/users/${decodedToken.user_id}/`).subscribe(user => {
-      this.user.next(user)
-      console.log({currentUser: this.user.value})
+      this.currentUser.next(user)
+      console.log({currentUser: this.currentUser.value})
     })
   }
 
@@ -118,7 +118,7 @@ export class UserService {
   // Friendships
 
   getFriendships() {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.user.value?.username}`)
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.currentUser.value?.username}`)
   }
 
   getFriendsByUser(username: string) {

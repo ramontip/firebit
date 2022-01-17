@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { Friendship, User } from 'src/types';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from 'src/app/services/user.service';
+import {Friendship} from 'src/types';
 
 @Component({
   selector: 'app-profile-friends-page',
@@ -19,13 +19,13 @@ export class ProfileFriendsPageComponent implements OnInit {
 
     // userService.getCurrentUser().subscribe(user => {
 
-    const user = userService.user.value
+    const user = userService.currentUser.value
 
     userService.getFriendships().subscribe(friendships => {
       this.friendships = friendships
 
-      console.log({ friendships })
-      console.log({ user })
+      console.log({friendships})
+      console.log({user})
 
       // TODO: show only incoming requests -> && f.to_auth_user === current user
       this.friendRequests = friendships.filter(f => f.friendship_status === 1 && f.to_auth_user === user?.id)
@@ -37,7 +37,7 @@ export class ProfileFriendsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const user = await this.userService.user.toPromise()
+    // const user = await this.userService.currentUser.toPromise()
 
     // this.userService.getFriendships().subscribe(fs => {
 

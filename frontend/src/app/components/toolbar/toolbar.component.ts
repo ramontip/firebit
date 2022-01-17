@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     public userService: UserService
   ) {
-    userService.user.subscribe(user => {
+    userService.currentUser.subscribe(user => {
       this.profileImageUrl = `https://avatars.dicebear.com/api/pixel-art/${user?.username ?? "firebit"}.svg?translateY=-5`
     })
   }

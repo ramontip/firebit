@@ -41,8 +41,7 @@ export class BitComponent implements OnInit {
       this.commentsCount = comments.length
     })
 
-    // TODO: current logged in user
-    let auth_user = 1;
+    let auth_user = this.userService.currentUser.value!.id;
 
     // get likes and handle button style
     this.bitService.getBitLikes(this.bit?.id!).subscribe(likes => {
@@ -58,8 +57,7 @@ export class BitComponent implements OnInit {
   }
 
   createOrDeleteLike() {
-    // TODO: current logged in user
-    let auth_user = 1;
+    let auth_user = this.userService.currentUser.value!.id;
 
     let like = this.likes.find(like => like.auth_user == auth_user)
 
@@ -86,8 +84,7 @@ export class BitComponent implements OnInit {
   }
 
   createOrDeleteBookmark() {
-    // TODO: current logged in user
-    let auth_user = 1;
+    let auth_user = this.userService.currentUser.value!.id;
 
     let bookmark = this.bookmarks.find(bookmark => bookmark.auth_user == auth_user)
 

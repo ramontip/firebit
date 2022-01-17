@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Like} from "../../types";
 import {HttpClient} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LikeService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
   }
 
   createLike(like: Like) {
-    // TODO: current logged in user
-    like.auth_user = 1;
+    like.auth_user = this.userService.currentUser.value!.id;
     return this.http.post(`/api/likes/`, like);
   }
 
