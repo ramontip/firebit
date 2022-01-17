@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {UserService} from "../../services/user.service";
-
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,11 +11,17 @@ export class ToolbarComponent implements OnInit {
 
   searchForm = new FormControl("")
 
-  constructor(public userService: UserService) {
+  profileImageUrl: string = ""
+
+  constructor(
+    public userService: UserService
+  ) {
+    userService.user.subscribe(user => {
+      this.profileImageUrl = `https://avatars.dicebear.com/api/pixel-art/${user?.username ?? "firebit"}.svg?translateY=-5`
+    })
   }
 
   ngOnInit(): void {
-
   }
 
   clearSearch() {

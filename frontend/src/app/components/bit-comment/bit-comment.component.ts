@@ -30,7 +30,7 @@ export class BitCommentComponent implements OnInit {
   deleteComment(id: number) {
     if (confirm("Are you sure to delete this comment?")) {
       this.commentService.deleteComment(id).subscribe(() => {
-        this.appService.showSnackBar('Comment deleted successfully!', 'hide');
+        this.appService.showSnackBar('Comment deleted successfully!', 'Hide');
       })
     }
     this.appService.refreshRoute();

@@ -1,32 +1,45 @@
-<!-- <form [formGroup]="profileFormGroup" (ngSubmit)="updateProfile()"> -->
+<form [formGroup]="profileFormGroup" (ngSubmit)="updateProfile()">
 
-<div class="flex">
+  <div class="flex">
 
-  <div class="flex-item">
-    <h4 class="header">Name</h4>
-    <mat-form-field appearance="fill">
-      <mat-label>Display name</mat-label>
-      <input matInput type="text">
-    </mat-form-field>
+    <div class="flex-item">
+      <h4 class="header">Name</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>First name</mat-label>
+        <input matInput type="text" formControlName="first_name">
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Username</mat-label>
-      <input matInput type="text">
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input matInput type="text" formControlName="last_name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username">
+      </mat-form-field>
+
+    </div>
+
+    <div class="flex-item">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" formControlName="email">
+      </mat-form-field>
+    </div>
+
+    <div class="flex-item">
+      <h4 class="header">Description</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Tell us a bit about yourself</mat-label>
+        <textarea matInput type="text" formControlName="aboutme" cdkTextareaAutosize></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-item">
+      <button mat-flat-button color="primary">Update</button>
+    </div>
+
   </div>
 
-  <div class="flex-item">
-    <h4 class="header">Description</h4>
-    <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
-      <textarea type="text" matInput cdkTextareaAutosize></textarea>
-    </mat-form-field>
-  </div>
-
-  <div class="flex-item">
-    <button mat-flat-button color="primary">Update</button>
-  </div>
-
-</div>
-
-<!-- </form> -->
+</form>

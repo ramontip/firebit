@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from 'src/types';
 import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators"
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,9 @@ export class CategoryService {
 
   // TODO: Clean up the type or what is coming from the API
   getCategoryByTitle(title: string) {
-    return this.http.get<Category[]>(`/api/categories/?title=${title}`)
+    return this.http.get<Category[]>(`/api/categories/?title=${title}`).pipe(
+      map(categories => categories.length ? categories[0] : undefined)
+    )
   }
 
   // temporary tweak

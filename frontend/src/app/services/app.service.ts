@@ -20,6 +20,7 @@ export class AppService {
   }
 
   showSnackBar(message: string, action: string, duration: number = 3000) {
+    // Add class to snackbar: panelClass: ["mat-toolbar"]
     this.snackBar.open(message, action, {duration: duration});
   }
 }

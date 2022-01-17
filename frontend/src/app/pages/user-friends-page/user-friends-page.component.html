@@ -1,7 +1,7 @@
 <div class="container-xl">
 
   <div class="section">
-    <h3>{{userService.user?.first_name}}'s friends</h3>
+    <h3>{{(userService.user | async)?.first_name}}'s friends</h3>
     <app-friend *ngFor="let friend of friends" [friendship]="friend"></app-friend>
   </div>
 

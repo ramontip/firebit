@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Friendship, User} from 'src/types';
+import {Friendship, JWTToken, User} from 'src/types';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
 import {Router} from "@angular/router";
@@ -11,34 +11,56 @@ import {AppService} from "./app.service";
 })
 export class UserService {
 
-  readonly accessTokenLocalStorageKey = 'accessToken';
+  readonly ACCESS_TOKEN_KEY = 'accessToken';
+
   isLoggedIn = new BehaviorSubject(false);
+  user = new BehaviorSubject<User | null>(null)
 
-  // currentUser?: User;
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private jwtHelperService: JwtHelperService,
+    private appService: AppService
+  ) {
+    const token = localStorage.getItem(this.ACCESS_TOKEN_KEY);
 
-  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private appService: AppService) {
-    // const token = localStorage.getItem(this.accessTokenLocalStorageKey);
-    // if (token) {
-    //   const tokenValid = !this.jwtHelperService.isTokenExpired(token);
-    //   this.isLoggedIn.next(tokenValid);
-//    }
+    if (token) {
+      const tokenValid = !this.jwtHelperService.isTokenExpired(token);
+      this.isLoggedIn.next(tokenValid);
+
+      this.setCurrentUser()
+    }
   }
 
-  // ngOnInit() {
-  //   this.getCurrentUser().subscribe(user => {
-  //     this.currentUser = user
-  //   })
-  // }
+  // Authentication
 
   login(userData: { username: string, password: string }): void {
-    this.http.post('/api/token/', userData).subscribe((res: any) => {
-      this.isLoggedIn.next(true);
-      localStorage.setItem('accessToken', res.token);
-      this.router.navigate(['bitmap']);
-      this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
-    }, () => {
-      this.appService.showSnackBar('Wrong username or password', 'Hide', 3000);
-    });
+    this.http.post('/api/token/', userData).subscribe(
+      (res: any) => {
+        this.isLoggedIn.next(true);
+        localStorage.setItem('accessToken', res.token);
+
+        this.setCurrentUser()
+
+        this.router.navigate(['bitmap']);
+        this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
+      },
+      () => this.appService.showSnackBar('Invalid username or password', 'Hide', 3000)
+    );
+  }
+
+  logout() {
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+
+    // TODO: Maybe inform server about logout, to delete tokens or something?
+
+    this.isLoggedIn.next(false);
+    this.user.next(null)
+
+    this.router.navigate(['/login']);
+
+    this.appService.showSnackBar("Logged out successfully", "Hide")
+
   }
 
   registerUser(userData: User) {
@@ -46,49 +68,57 @@ export class UserService {
     return this.http.post('/api/users/', userData);
   }
 
+
+  setCurrentUser() {
+    const token = localStorage.getItem(this.ACCESS_TOKEN_KEY)
+
+    const decodedToken = this.jwtHelperService.decodeToken<JWTToken>(token ?? undefined)
+
+
+    this.http.get<User>(`/api/users/${decodedToken.user_id}/`).subscribe(user => {
+      this.user.next(user)
+      console.log({currentUser: this.user.value})
+    })
+  }
+
+  // Users
+
   getUser(id: number) {
     return this.http.get<User>(`/api/users/${id}/`);
   }
 
-  getCurrentUser() {
-    // let token = localStorage.getItem(this.accessTokenLocalStorageKey);
-    // let decodedToken = this.jwtHelperService.decodeToken(token!);
-    // console.log("x" + decodedToken.user_id);
-    // return this.getUser(decodedToken.user_id);
-  }
+  // getCurrentUser() {
+  //   return this.http.get<User>(`/api/users/1/`)
+  // }
 
   getAllUsers() {
     return this.http.get<User[]>('/api/users/');
   }
 
-  logout(): void {
-    localStorage.removeItem(this.accessTokenLocalStorageKey);
-    this.isLoggedIn.next(false);
-    this.router.navigate(['/login']);
-    this.appService.showSnackBar('Logged out successfully', 'Hide', 3000);
-  }
 
   hasPermission(permission: string): boolean {
-    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    const token = localStorage.getItem(this.ACCESS_TOKEN_KEY);
     const decodedToken = this.jwtHelperService.decodeToken(token ? token : '');
     const permissions = decodedToken ? decodedToken.permissions : {};
     return permission in permissions;
   }
 
 
-  user: User = {
-    id: 1,
-    first_name: "Max",
-    last_name: "Muster",
-    username: "maxi_m",
-    email: "mm@firebit.net",
-    is_superuser: false,
-    is_staff: false,
-    is_active: true
-  }
+  // user: User = {
+  //   id: 1,
+  //   first_name: "Max",
+  //   last_name: "Muster",
+  //   username: "maxi_m",
+  //   email: "mm@firebit.net",
+  //   is_superuser: false,
+  //   is_staff: false,
+  //   is_active: true
+  // }
+
+  // Friendships
 
   getFriendships() {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=root`)
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.user.value?.username}`)
   }
 
   getFriendsByUser(username: string) {

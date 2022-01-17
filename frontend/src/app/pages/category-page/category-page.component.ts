@@ -21,20 +21,24 @@ export class CategoryPageComponent implements OnInit {
     public bitService: BitService,
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const categoryTitle: string = this.route.snapshot.params.name
 
-    this.categoryService.getCategoryByTitle(categoryTitle ?? "").subscribe(cat => {
-      // TODO: Clean this up
-      this.category = cat[0]
+    this.category = await this.categoryService.getCategoryByTitle(categoryTitle).toPromise()
 
-      // if (!this.category)
-      //   alert("Error no category")
-    })
+    this.bits = await this.bitService.getBitsByCategory(categoryTitle).toPromise()
 
-    this.bitService.getBitsByCategory(categoryTitle).subscribe(bits => {
-      this.bits = bits
-    })
+    // this.categoryService.getCategoryByTitle(categoryTitle ?? "").subscribe(cat => {
+    //   // TODO: Clean this up
+    //   this.category = cat
+
+    //   // if (!this.category)
+    //   //   alert("Error no category")
+    // })
+
+    // this.bitService.getBitsByCategory(categoryTitle).subscribe(bits => {
+    //   this.bits = bits
+    // })
 
   }
 

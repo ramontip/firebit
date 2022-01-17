@@ -22,12 +22,49 @@
     <button mat-icon-button>
       <mat-icon>mail_outline</mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="beforeMenu"><a mat-icon-button>
-      <mat-icon>person</mat-icon>
-    </a></button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/profile">Profile</button>
-      <button mat-menu-item (click)="userService.logout()">Logout</button>
+
+    <!-- <span matBadge="0" matBadgeColor="warn" matBadgeSize="small"> -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="profile-menu-btn">
+      <img class="profile-img" [src]="profileImageUrl">
+    </button>
+    <!-- </span> -->
+    <mat-menu #menu="matMenu" xPosition="before" class="profile-menu">
+      <a mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </a>
+      <a mat-menu-item routerLink="/profile/friends">
+        <mat-icon>people</mat-icon>
+        <span>Friends</span>
+
+        <!-- Ugly spacing, because width/min-width doesnt work -->
+        <span style="visibility: hidden">______________</span>
+      </a>
+      <div mat-menu-item disabled>
+        <div class="flex menu-list-spacer">
+          <div>
+            <mat-icon>nights_stay</mat-icon>
+            <span>Dark Mode</span>
+          </div>
+
+          <mat-slide-toggle color="primary"></mat-slide-toggle>
+        </div>
+      </div>
+
+      <p></p>
+      <mat-divider></mat-divider>
+      <p></p>
+
+      <a mat-menu-item routerLink="/profile/settings">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+      <button mat-menu-item class="warn" (click)="userService.logout()">
+        <!-- <mat-icon color="warn">power_settings_new</mat-icon> -->
+        <mat-icon color="warn">logout</mat-icon>
+        <span>Logout</span>
+      </button>
     </mat-menu>
+
   </div>
 </mat-toolbar>

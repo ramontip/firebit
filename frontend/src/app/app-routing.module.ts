@@ -12,7 +12,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { IndexComponent } from "./pages/index/index.component";
 import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
-import { AuthGuard } from "./auth.guard";
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
@@ -20,28 +20,32 @@ const routes: Routes = [
   { path: "register", component: IndexComponent },
   { path: "reset-password", component: IndexComponent },
   { path: "bitmap", component: HomeComponent, canActivate: [AuthGuard] },
-  { path: "bit/:id", component: BitPageComponent, canActivate: [AuthGuard] },
-  { path: "bit/:id/edit", component: BitEditComponent, canActivate: [AuthGuard] },
   {
-    path: "profile", children: [
-      { path: "", component: ProfilePageComponent, canActivate: [AuthGuard] },
-      { path: "settings", component: ProfileSettingsPageComponent, canActivate: [AuthGuard] },
-      { path: "friends", component: ProfileFriendsPageComponent, canActivate: [AuthGuard] },
+    path: "bit/:id", canActivate: [AuthGuard], children: [
+      { path: "", component: BitPageComponent },
+      { path: "edit", component: BitEditComponent },
     ]
   },
   {
-    path: "user/:username", children: [
-      { path: "", component: UserPageComponent, canActivate: [AuthGuard] },
-      { path: "friends", component: UserFriendsPageComponent, canActivate: [AuthGuard] },
+    path: "profile", canActivate: [AuthGuard], children: [
+      { path: "", component: ProfilePageComponent },
+      { path: "settings", component: ProfileSettingsPageComponent },
+      { path: "friends", component: ProfileFriendsPageComponent },
+    ]
+  },
+  {
+    path: "user/:username", canActivate: [AuthGuard], children: [
+      { path: "", component: UserPageComponent },
+      { path: "friends", component: UserFriendsPageComponent },
     ]
   },
   { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard] },
   {
-    path: "activities", children: [
-      { path: "", component: ActivitiesPageComponent, canActivate: [AuthGuard] },
+    path: "activities", canActivate: [AuthGuard], children: [
+      { path: "", component: ActivitiesPageComponent },
     ]
   },
-  { path: "bookmarks", component: BookmarksPageComponent },
+  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({

@@ -30,15 +30,15 @@ export class BitPageComponent implements OnInit {
 
   ngOnInit(): void {
     const id = parseInt(this.route.snapshot.params.id)
-    console.log({id})
+    console.log({ id })
 
     this.bitService.getBit(id).subscribe(bit => {
-      console.log({bit})
+      console.log({ bit })
       this.bit = bit
     })
 
     this.bitService.getBitComments(id).subscribe(comments => {
-      console.log({comments})
+      console.log({ comments })
       this.comments = comments
     })
     console.log(this.comments)
@@ -49,7 +49,7 @@ export class BitPageComponent implements OnInit {
     comment.bit = this.bit?.id
     this.commentService.createComment(this.commentFormGroup.value).subscribe(() => {
       this.appService.refreshRoute();
-      this.appService.showSnackBar('Comment created successfully!', 'hide');
+      this.appService.showSnackBar('Comment created successfully!', 'Hide');
     })
   }
 
