@@ -1,7 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 
-// Theming
-@import "_variables.scss";
+@import "firebit.scss";
+
+$primary: #285368;
+$primary-lighter: #94a9b4;
+$secondary: #214557;
+$accent: #ff7043;
+$accent-lighter: #ffb8a1;
+
+.text-primary {
+  color: $primary !important;
+}
+
+.text-primary-lighter {
+  color: $primary-lighter !important;
+}
+
+.text-secondary {
+  color: $secondary !important;
+}
+
+.text-accent {
+  color: $accent !important;
+}
+
+.text-accent-lighter {
+  color: $accent-lighter !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.bg-primary {
+  background-color: $primary !important;
+}
+
+.bg-primary-lighter {
+  background-color: $primary-lighter !important;
+}
+
+.bg-secondary {
+  background-color: $secondary !important;
+}
+
+.bg-accent {
+  background-color: $accent !important;
+}
+
+.bg-accent-lighter {
+  background-color: $accent-lighter !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
 
 html, body {
   height: 100%;
@@ -29,6 +82,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
 .mt {
   margin-top: 1rem;
 }
@@ -46,26 +103,6 @@ h1, h2, h3, h4, h5, h6 {
 .link {
   text-decoration: inherit;
   color: inherit;
-}
-
-// Theme colors
-.primary {
-  color: $primary;
-}
-.accent {
-  color: $accent;
-}
-.warn {
-  color: $warn;
-}
-.bg-primary {
-  background-color: $primary;
-}
-.bg-accent {
-  background-color: $accent;
-}
-.bg-warn {
-  background-color: $warn;
 }
 
 .fully-center {
@@ -111,4 +148,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .mat-form-field {
   width: 100%;
+}
+
+.bg-primary {
+  background-color: $primary !important;
 }

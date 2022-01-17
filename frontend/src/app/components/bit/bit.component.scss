@@ -3,7 +3,7 @@
 }
 
 .bit-owned {
-  background-color: #FFF8F7;
+  border-bottom: 1px solid #285368;
 }
 
 .bit-user, .bit-username {
@@ -21,6 +21,11 @@
   font-size: 0.8rem;
 }
 
+.bit-category-chip {
+  background-color: #FF855F !important;
+  color: #fff !important;
+}
+
 .bit-subtitle {
   justify-content: space-between;
 }
@@ -30,5 +35,5 @@
 }
 
 .bit-bookmarked {
-  background: #EBE5F5 !important;
+  background: #E3E8EB !important;
 }

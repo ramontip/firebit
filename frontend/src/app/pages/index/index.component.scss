@@ -1,17 +1,16 @@
-// @import "../../../variables";
-
 .wrapper {
   justify-content: center;
   align-items: center;
-  height: calc(100% - 2rem); // margin
+  height: 100%;
   flex-wrap: wrap;
-  margin: -1rem;
+  z-index: 1;
 }
 
 .inner {
   margin: 2rem;
   min-width: 24rem;
   max-width: 100%;
+  z-index: inherit;
 }
 
 .intro {
@@ -23,12 +22,18 @@
   display: none;
 }
 
+.background-pattern {
+  position: fixed;
+  height: 90%;
+  z-index: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.8;
+}
+
 .logo {
   img {
     max-height: 6rem;
   }
-}
-
-.logo-background {
-  // background-color: change-color($color: $primary, $saturation: 30);
 }

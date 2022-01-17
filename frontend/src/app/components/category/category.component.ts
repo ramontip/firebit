@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { Category } from 'src/types';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Category} from 'src/types';
 import {CategoryService} from "../../services/category.service";
 
 @Component({
@@ -14,6 +14,9 @@ export class CategoryComponent implements OnInit {
 
   @Input()
   id?: number
+
+  @Input()
+  cssClass?: string
 
   constructor(public categoryService: CategoryService) {
 

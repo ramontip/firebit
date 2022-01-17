@@ -1,4 +1,15 @@
+@import "../../../firebit.scss";
+
 .space-between {
   display: flex;
   justify-content: space-between;
+}
+
+.category-list-chip {
+  background-color: $accent !important;
+  color: #fff !important;
+}
+
+.category-bit-chip {
+  color: $primary !important;
 }
