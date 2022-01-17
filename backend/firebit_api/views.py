@@ -24,6 +24,8 @@ class BitViewSet(viewsets.ViewSet):
         if user:
             queryset = queryset.filter(auth_user__username__iexact=user)
 
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
         serializer = BitSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
 
@@ -81,12 +83,14 @@ class BitViewSet(viewsets.ViewSet):
 
     # this creates the url: bits/{bitId}/comments/
     @action(methods=['get'], detail=True, url_path='comments', url_name='comments')
-    def listComments(self, request, pk=None):
+    def list_comments(self, request, pk=None):
         try:
             bit = models.Bit.objects.get(
                 pk=pk
             )
             queryset = models.Comment.objects.filter(bit=bit)
+            queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
             serializer = CommentSerializer(queryset, many=True)
             return Response(serializer.data, status=200)
 
@@ -95,12 +99,14 @@ class BitViewSet(viewsets.ViewSet):
 
     # this creates the url: bits/{bitId}/likes/
     @action(methods=['get'], detail=True, url_path='likes', url_name='likes')
-    def listLikes(self, request, pk=None):
+    def list_likes(self, request, pk=None):
         try:
             bit = models.Bit.objects.get(
                 pk=pk
             )
             queryset = models.Like.objects.filter(bit=bit)
+            queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
             serializer = LikeSerializer(queryset, many=True)
             return Response(serializer.data, status=200)
 
@@ -109,12 +115,15 @@ class BitViewSet(viewsets.ViewSet):
 
     # this creates the url: bits/{bitId}/bookmarks/
     @action(methods=['get'], detail=True, url_path='bookmarks', url_name='bookmarks')
-    def listBookmarks(self, request, pk=None):
+    def list_bookmarks(self, request, pk=None):
         try:
             bit = models.Bit.objects.get(
                 pk=pk
             )
+
             queryset = models.Bookmark.objects.filter(bit=bit)
+            queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
             serializer = BookmarkSerializer(queryset, many=True)
             return Response(serializer.data, status=200)
 
@@ -126,6 +135,7 @@ class CommentViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
         queryset = models.Comment.objects.all()
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = CommentSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -194,6 +204,8 @@ class CategoryViewSet(viewsets.ViewSet):
         else:
             queryset = models.Category.objects.filter(title__iexact=request.GET.get("title"))
 
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
         serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data, status=200)
 
@@ -225,6 +237,7 @@ class UserViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
         queryset = models.User.objects.all()
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -286,6 +299,7 @@ class UserViewSet(viewsets.ViewSet):
     def list_liked_bits(self, request, pk=None):
         try:
             likes = models.Like.objects.filter(auth_user=pk)
+            likes = likes.order_by(request.GET.get("order_by") or "pk")
 
             # "map" likes to the respective bits
             liked_bits = [l.bit for l in likes]
@@ -302,13 +316,14 @@ class UserViewSet(viewsets.ViewSet):
     def list_commented_bits(self, request, pk=None):
         try:
             # TODO: Comments have no auth_user attribute yet
-            likes = models.Like.objects.filter(auth_user=pk)
+            comments = models.Comment.objects.filter(auth_user=pk)
+            comments = comments.order_by(request.GET.get("order_by") or "pk")
 
             # "map" likes to the respective bits
-            liked_bits = [l.bit for l in likes]
+            # convert to a set to remove duplicates
+            commented_bits = set([c.bit for c in comments])
 
-            # queryset = models.Bit.objects.filter(pk__in=liked_bits)
-            serializer = BitSerializer(liked_bits, many=True)
+            serializer = BitSerializer(commented_bits, many=True)
             return Response(serializer.data, status=200)
 
         except models.User.DoesNotExist:
@@ -319,9 +334,11 @@ class UserViewSet(viewsets.ViewSet):
     def list_bookmarks(self, request, pk=None):
         try:
             bookmarks = models.Bookmark.objects.filter(auth_user=pk)
+            bookmarks = bookmarks.order_by(request.GET.get("order_by") or "pk")
 
-            queryset = models.Bit.objects.filter(pk__in=bookmarks)
-            serializer = BitSerializer(queryset, many=True)
+            bookmarked_bits = [b.bit for b in bookmarks]
+
+            serializer = BitSerializer(bookmarked_bits, many=True)
             return Response(serializer.data, status=200)
 
         except models.User.DoesNotExist:
@@ -341,6 +358,8 @@ class FriendshipViewSet(viewsets.ViewSet):
             queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
         if status:
             queryset = queryset.filter(friendship_status=status)
+
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = FriendshipSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
@@ -404,6 +423,8 @@ class LikeViewSet(viewsets.ViewSet):
         # return Response(status=405)
 
         queryset = models.Like.objects.all()
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
         serializer = LikeSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
 
@@ -452,6 +473,8 @@ class BookmarkViewSet(viewsets.ViewSet):
         # return Response(status=405)
 
         queryset = models.Bookmark.objects.all()
+        queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+
         serializer = BookmarkSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
 
