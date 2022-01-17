@@ -23,14 +23,23 @@
     <mat-form-field appearance="fill">
       <mat-label>Category</mat-label>
       <mat-select placeholder="Category" formControlName="category">
-        <mat-option *ngFor="let category of categoryService.availableCategories" [value]="category.id">{{category.title}}</mat-option>
+        <mat-option *ngFor="let category of categoryService.availableCategories"
+                    [value]="category.id">{{category.title}}</mat-option>
       </mat-select>
     </mat-form-field>
+
 
     <mat-form-field appearance="fill">
       <mat-label>Image</mat-label>
       <input matInput type="text" formControlName="image">
     </mat-form-field>
+
+    <!-- File Upload not available with material form
+<div>
+  <input class="ng-hide" id="image" type="file"/>
+  <label for="image" class="md-button md-raised md-primary">Choose Files</label>
+</div>
+    -->
 
     <button mat-flat-button color="primary" [disabled]="!bitFormGroup.valid">
       <span *ngIf="!bitFormGroup.controls.id.value">Create</span>

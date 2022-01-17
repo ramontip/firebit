@@ -17,23 +17,32 @@ export class BitComponent implements OnInit {
 
   commentsCount = 0;
   likes: Like[] = [];
-  likedByAuthUser = false;
+  likedByCurrentUser = false;
+  createdByCurrentUser = false;
   bookmarks: Bookmark[] = [];
-  bookmarkedByAuthUser = false;
+  bookmarkedByCurrentUser = false;
 
 
   @Input()
   bit?: Bit
 
-  constructor(private userService: UserService, private appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
+  constructor(public userService: UserService, private appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
   }
 
   ngOnInit(): void {
-    // get user
+    // get current user
+    let currentUser = this.userService.currentUser.value!;
+
+    // get bit user
     if (this.bit?.auth_user) {
       this.userService.getUser(this.bit.auth_user).subscribe(user => {
         this.user = user;
       })
+    }
+
+    // check if created by currentUser
+    if (this.bit?.auth_user === currentUser.id) {
+      this.createdByCurrentUser = true;
     }
 
     // get comments
@@ -41,18 +50,16 @@ export class BitComponent implements OnInit {
       this.commentsCount = comments.length
     })
 
-    let auth_user = this.userService.currentUser.value!.id;
-
     // get likes and handle button style
     this.bitService.getBitLikes(this.bit?.id!).subscribe(likes => {
       this.likes = likes;
-      this.likedByAuthUser = this.likes.find(like => like.auth_user == auth_user) != null;
+      this.likedByCurrentUser = this.likes.find(like => like.auth_user == currentUser.id) != null;
     })
 
     // get bookmarks and handle button style
     this.bitService.getBitBookmarks(this.bit?.id!).subscribe(bookmarks => {
       this.bookmarks = bookmarks;
-      this.bookmarkedByAuthUser = this.bookmarks.find(bookmarks => bookmarks.auth_user == auth_user) != null;
+      this.bookmarkedByCurrentUser = this.bookmarks.find(bookmarks => bookmarks.auth_user == currentUser.id) != null;
     })
   }
 
@@ -65,7 +72,7 @@ export class BitComponent implements OnInit {
     if (like != null) {
       this.likeService.deleteLike(like).subscribe(() => {
         this.appService.showSnackBar('Bit has been unliked!', 'Hide');
-        this.likedByAuthUser = false;
+        this.likedByCurrentUser = false;
       })
     } else {
       let like: Like = {
@@ -74,7 +81,7 @@ export class BitComponent implements OnInit {
       }
       this.likeService.createLike(like).subscribe(() => {
         this.appService.showSnackBar('Bit has been liked!', 'Hide');
-        this.likedByAuthUser = true;
+        this.likedByCurrentUser = true;
       })
     }
 
@@ -92,7 +99,7 @@ export class BitComponent implements OnInit {
     if (bookmark != null) {
       this.bookmarkService.deleteBookmark(bookmark).subscribe(() => {
         this.appService.showSnackBar('Bookmark has been removed!', 'Hide');
-        this.bookmarkedByAuthUser = false;
+        this.bookmarkedByCurrentUser = false;
       })
     } else {
       let bookmark: Bookmark = {
@@ -101,7 +108,7 @@ export class BitComponent implements OnInit {
       }
       this.bookmarkService.createBookmark(bookmark).subscribe(() => {
         this.appService.showSnackBar('Bit has been bookmarked!', 'Hide');
-        this.bookmarkedByAuthUser = true;
+        this.bookmarkedByCurrentUser = true;
       })
     }
 
