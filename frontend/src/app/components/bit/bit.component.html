@@ -29,8 +29,8 @@
     </a>
   </mat-card-title>
 
-  <div class="mb">
-    {{bit?.content}}
+  <!-- TODO: potential safety risks because HTML is escaped, however it's needed for hashtags -->
+  <div class="mb" [innerHTML]="contentFormatted">
   </div>
 
   <mat-card-actions class="space-between">

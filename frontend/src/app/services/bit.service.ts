@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Bit, Bookmark, Comment, Like } from 'src/types';
-import { HttpClient } from "@angular/common/http";
-import { UserService } from "./user.service";
+import {Injectable} from '@angular/core';
+import {Bit, Bookmark, Comment, Like} from 'src/types';
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +47,10 @@ export class BitService {
 
   getBitsByCategory(title: string) {
     return this.http.get<Bit[]>(`/api/bits/?category=${title}&order_by=-created_at`)
+  }
+
+  getBitsByHashtag(hashtag: string) {
+    return this.http.get<Bit[]>(`/api/bits/?hashtag=${hashtag}&order_by=-created_at`)
   }
 
   getBitLikes(id: number) {

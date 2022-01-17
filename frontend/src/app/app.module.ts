@@ -52,7 +52,8 @@ import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.co
 import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu"
 import { MatBadgeModule } from "@angular/material/badge"
-import { MatSlideToggleModule } from "@angular/material/slide-toggle"
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { HashtagPageComponent } from './pages/hashtag-page/hashtag-page.component'
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -89,7 +90,8 @@ function tokenGetter() {
     ForgotPasswordFormComponent,
     IndexComponent,
     BitEditComponent,
-    BookmarksPageComponent
+    BookmarksPageComponent,
+    HashtagPageComponent
   ],
   imports: [
     BrowserModule,
