@@ -27,6 +27,7 @@ export class FriendComponent implements OnInit {
     // temp
     this.friendshipService.otherUser(this.friendship).subscribe(user => {
       this.friendUser = user
+      // console.log({ friendUser: user })
     })
   }
 
@@ -34,7 +35,7 @@ export class FriendComponent implements OnInit {
     console.log({ f: this.friendship })
     if (this.friendship) {
       this.friendshipService.acceptFriendRequest(this.friendship).subscribe(friend => {
-        console.log({ data: friend })
+        // console.log({ friend })
         this.friendship = friend
 
         this.appService.refreshRoute()

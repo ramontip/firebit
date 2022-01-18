@@ -4,12 +4,10 @@
 
     <div class="flex name-container">
       <mat-card-content class="name">
-        {{friendship?.from_auth_user}}
-        <!-- {{friendUser?.first_name}} {{friendUser?.last_name}} -->
+        {{friendUser?.first_name}} {{friendUser?.last_name}}
       </mat-card-content>
       <mat-card-subtitle class="username">
-        @{{friendship?.from_auth_user}}
-        <!-- @{{friendUser?.username}} -->
+        @{{friendUser?.username}}
       </mat-card-subtitle>
     </div>
 
@@ -28,7 +26,7 @@
 
       <!-- Friends -->
       <!-- TODO: which user to display? to_auth_user or from_auth_user -->
-      <a mat-flat-button color="primary" routerLink="/user/{{friendship?.to_auth_user}}" *ngIf="friendship?.friendship_status === 2">
+      <a mat-flat-button color="primary" routerLink="/user/{{friendUser?.username}}" *ngIf="friendship?.friendship_status === 2">
         <mat-icon>person</mat-icon>
         Profile
       </a>
