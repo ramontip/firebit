@@ -15,22 +15,27 @@ export class ProfileFriendsPageComponent implements OnInit {
 
   constructor(
     public friendshipService: FriendshipService,
-    // public userService: UserService,
-  ) {
+    public userService: UserService,
+  ) { }
+
+  ngOnInit(): void {
 
     // TODO: Is there a better way than nesting subscribe's?
 
-  }
+    this.userService.currentUser.subscribe(user => {
+      if (!user) return
 
-  ngOnInit(): void {
-    this.friendshipService.getFriendRequests().subscribe(requests => {
-      this.friendRequests = requests
-      console.log({ requests })
+      this.friendshipService.getFriendRequests(user).subscribe(requests => {
+        this.friendRequests = requests
+        console.log({ requests })
+      })
+
+      this.friendshipService.getFriends(user).subscribe(friends => {
+        this.friends = friends
+      })
+
     })
 
-    this.friendshipService.getFriends().subscribe(friends => {
-      this.friends = friends
-    })
 
   }
 

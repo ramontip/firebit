@@ -2,7 +2,9 @@
 
   <div class="section">
     <h3>Pending friend requests</h3>
-    <app-friend *ngFor="let request of friendRequests" [friendship]="request"></app-friend>
+    <div *ngIf="friendRequests.length">
+      <app-friend *ngFor="let request of friendRequests" [friendship]="request"></app-friend>
+    </div>
   </div>
 
   <div class="section">

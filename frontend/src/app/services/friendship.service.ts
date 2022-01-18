@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Friendship } from 'src/types';
+import { Friendship, User } from 'src/types';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -30,8 +30,12 @@ export class FriendshipService {
 
   // Friend requests
 
-  getFriendRequests() {
-    return this.http.get<Friendship[]>(`/api/friendships/?to_auth_user=${this.userService.currentUser.value?.id}&status=1`)
+  // TODO: Refactor passing in the current user instead of getting it directly
+  // because currentUser.value is still undefined by the time this is called in onInit of profile friends page 
+  getFriendRequests(currentUser: User) {
+    return this.http.get<Friendship[]>(`/api/friendships/?to_auth_user=${currentUser?.id ?? ""}&status=1`)
+
+    // return this.http.get<Friendship[]>(`/api/friendships/?to_auth_user=${this.userService.currentUser.value?.id ?? ""}&status=1`)
   }
 
   getSentFriendRequests() {
@@ -60,8 +64,11 @@ export class FriendshipService {
 
   // Friends
 
-  getFriends() {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.userService.currentUser.value?.username}&status=2`)
+  // TODO: Refactor see getFriendRequests() above
+  getFriends(currentUser: User) {
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${currentUser?.username ?? ""}&status=2`)
+
+    // return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.userService.currentUser.value?.username}&status=2`)
   }
 
   getFriendsByUser(username: string) {

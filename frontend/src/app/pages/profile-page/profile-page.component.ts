@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {BitService} from 'src/app/services/bit.service';
-import {UserService} from 'src/app/services/user.service';
-import {Bit} from 'src/types';
+import { Component, OnInit } from '@angular/core';
+import { BitService } from 'src/app/services/bit.service';
+import { UserService } from 'src/app/services/user.service';
+import { Bit } from 'src/types';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,14 +15,12 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     public userService: UserService,
     public bitService: BitService,
-  ) {
-  }
+  ) { }
 
-  ngOnInit(): void {
-    this.bitService.getBitsByUser(this.userService.currentUser.value?.username ?? "-").subscribe(bits => {
-      this.bits = bits
+  ngOnInit() {
+    this.userService.currentUser.subscribe(user => {
+      this.bitService.getBitsByUser(user?.username ?? "").subscribe(bits => this.bits = bits)
     })
-
   }
 
 }

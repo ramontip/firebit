@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Bit, Bookmark, Comment, Like } from 'src/types';
+import { Bit, Bookmark, Comment, Like, User } from 'src/types';
 import { HttpClient } from "@angular/common/http";
 import { UserService } from "./user.service";
 
@@ -59,16 +59,19 @@ export class BitService {
 
   // From current user
 
-  getLikedBits() {
+  getLikedBits(currentUser: User) {
     // /bits/?liked_by=2
-    return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/liked_bits/?order_by=-created_at`)
+    return this.http.get<Bit[]>(`/api/users/${currentUser?.id ?? "-1"}/liked_bits/?order_by=-created_at`)
+    // return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/liked_bits/?order_by=-created_at`)
   }
 
-  getCommentedBits() {
+  getCommentedBits(currentUser: User) {
+    // return this.http.get<Bit[]>(`/api/users/${currentUser?.id ?? "-1"}/commented_bits/?order_by=-created_at`)
     return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/commented_bits/?order_by=-created_at`)
   }
 
-  getBookmarkedBits() {
+  getBookmarkedBits(currentUser?: User) {
+    // return this.http.get<Bit[]>(`/api/users/${currentUser?.id ?? "-1"}/bookmarks/?order_by=-created_at`)
     return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/bookmarks/?order_by=-created_at`)
   }
 
