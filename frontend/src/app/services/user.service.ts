@@ -64,7 +64,7 @@ export class UserService {
   }
 
   registerUser(userData: User) {
-    this.router.navigate(['bitmap']);
+    //this.router.navigate(['bitmap']);
     return this.http.post('/api/users/', userData);
   }
 

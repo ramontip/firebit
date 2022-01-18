@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import {UserService} from "../../services/user.service";
 import {AppService} from "../../services/app.service";
 import {Observable} from "rxjs";
@@ -15,7 +23,7 @@ export class RegisterFormComponent implements OnInit {
 
   registerFormGroup: FormGroup
 
-  constructor(private userService: UserService, private appService: AppService) {
+  constructor(private userService: UserService, private appService: AppService, private fb: FormBuilder) {
     this.registerFormGroup = new FormGroup({
       username: new FormControl("", Validators.required, [this.userValidator()]),
       first_name: new FormControl("", Validators.required),
@@ -45,7 +53,7 @@ export class RegisterFormComponent implements OnInit {
       return this.userService.getAllUsers().pipe(map(users => {
         const currentUsername = this.registerFormGroup.controls['username'].value;
         const existingUser = users.find(user => user.username === currentUsername);
-        return existingUser ? { userAlreadyExists: true } : null
+        return existingUser ? {userAlreadyExists: true} : null
       }))
     }
   }
@@ -55,9 +63,18 @@ export class RegisterFormComponent implements OnInit {
       return this.userService.getAllUsers().pipe(map(users => {
         const currentEmail = this.registerFormGroup.controls['email'].value;
         const existingEmail = users.find(user => user.email === currentEmail);
-        return existingEmail ? { emailAlreadyExists: true } : null
+        return existingEmail ? {emailAlreadyExists: true} : null
       }))
     }
   }
+
+  // passwordMatchValidator(): ValidatorFn {
+  //   return (control: AbstractControl): ValidationErrors | null => {
+  //     const password = this.registerFormGroup.controls['password'].value;
+  //     const confirmPassword = this.registerFormGroup.controls['confirmPassword'].value;
+  //     return password === confirmPassword ? null : {passwordMismatch: true}
+  //   }
+  // }
+
 
 }
