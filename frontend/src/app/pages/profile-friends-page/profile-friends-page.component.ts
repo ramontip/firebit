@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from 'src/app/services/user.service';
-import {Friendship} from 'src/types';
+import { Component, OnInit } from '@angular/core';
+import { FriendshipService } from 'src/app/services/friendship.service';
+import { UserService } from 'src/app/services/user.service';
+import { Friendship } from 'src/types';
 
 @Component({
   selector: 'app-profile-friends-page',
@@ -9,46 +10,28 @@ import {Friendship} from 'src/types';
 })
 export class ProfileFriendsPageComponent implements OnInit {
 
-  friendships: Friendship[] = []
   friends: Friendship[] = []
   friendRequests: Friendship[] = []
 
-  constructor(public userService: UserService) {
+  constructor(
+    public friendshipService: FriendshipService,
+    // public userService: UserService,
+  ) {
 
     // TODO: Is there a better way than nesting subscribe's?
-
-    // userService.getCurrentUser().subscribe(user => {
-
-    const user = userService.currentUser.value
-
-    userService.getFriendships().subscribe(friendships => {
-      this.friendships = friendships
-
-      console.log({friendships})
-      console.log({user})
-
-      // TODO: show only incoming requests -> && f.to_auth_user === current user
-      this.friendRequests = friendships.filter(f => f.friendship_status === 1 && f.to_auth_user === user?.id)
-      this.friends = friendships.filter(f => f.friendship_status === 2)
-    })
-
-    // })
 
   }
 
   ngOnInit(): void {
-    // const user = await this.userService.currentUser.toPromise()
+    this.friendshipService.getFriendRequests().subscribe(requests => {
+      this.friendRequests = requests
+      console.log({ requests })
+    })
 
-    // this.userService.getFriendships().subscribe(fs => {
+    this.friendshipService.getFriends().subscribe(friends => {
+      this.friends = friends
+    })
 
-    //   this.friendships = fs
-
-    //   console.log({ fs })
-
-    //   this.friendRequests = this.friendships.filter(f => f.friendship_status === 1 && f.to_auth_user === user?.id)
-    //   this.friends = this.friendships.filter(f => f.friendship_status === 2)
-
-    // })
   }
 
 }

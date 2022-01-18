@@ -18,10 +18,10 @@ class BitViewSet(viewsets.ViewSet):
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
 
-        if category:
+        if category is not None:
             queryset = queryset.filter(category__title__iexact=category)
             # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
-        if user:
+        if user is not None:
             queryset = queryset.filter(auth_user__username__iexact=user)
 
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
@@ -237,6 +237,12 @@ class UserViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
         queryset = models.User.objects.all()
+
+        if request.GET.get("username") is not None:
+            queryset = queryset.filter(username=request.GET.get("username"))
+        if request.GET.get("email") is not None:
+            queryset = queryset.filter(email=request.GET.get("email"))
+
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = UserSerializer(queryset, many=True)
@@ -344,19 +350,48 @@ class UserViewSet(viewsets.ViewSet):
         except models.User.DoesNotExist:
             return Response(status=404)
 
+    # this creates the url: user/{userId}/add-friend/
+    # @action(methods=['post'], detail=True, url_path='add-friend', url_name='Add friend')
+    # def add_friend(self, request, pk=None):
+
+    #     friend_request = {
+    #         "to_auth_user": pk,
+    #         "from_auth_user": request.data["from_auth_user"],
+    #         "friendship_status": 1,
+    #     }
+
+    #     serializer = FriendshipSerializer(data=friend_request)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data,status=201)
+    #     else:
+    #         return Response(serializer.errors, status=400)
+
 
 class FriendshipViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
 
         auth_user = request.GET.get("auth_user")
+        from_auth_user = request.GET.get("from_auth_user")
+        to_auth_user = request.GET.get("to_auth_user")
+
         status = request.GET.get("status")
+
+        # friendshipType = request.GET.get("type")
 
         queryset = models.Friendship.objects.all()
 
-        if auth_user:
+        # with username to request 
+        if auth_user is not None:
             queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
-        if status:
+        
+        if from_auth_user is not None:
+            queryset = queryset.filter(from_auth_user=from_auth_user)
+        if to_auth_user is not None:
+            queryset = queryset.filter(to_auth_user=to_auth_user)
+        
+        if status is not None:
             queryset = queryset.filter(friendship_status=status)
 
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
@@ -416,6 +451,38 @@ class FriendshipViewSet(viewsets.ViewSet):
 
         return Response(status=204)
 
+    # this creates the url: friendships/{Id}/accept/
+    @action(methods=['post'], detail=True, url_path='accept', url_name='accept')
+    def accept(self, request, pk=None):
+        try:
+            friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
+            
+            if friendship.friendship_status.id != 1:
+                return Response({"error": "Must be a request to accept"}, status=400)
+
+            friendship.friendship_status = models.FriendshipStatus.objects.get(pk=2)
+            friendship.save()
+
+            serializer = FriendshipSerializer(friendship)
+            return Response(serializer.data, status=201)
+
+        except (models.Friendship.DoesNotExist, AttributeError):
+            return Response(status=404)
+
+
+    # this creates the url: friendships/{Id}/decline/
+    @action(methods=['post'], detail=True, url_path='decline', url_name='decline')
+    def decline(self, request, pk=None, format=None):
+        try:
+            friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
+            
+            if friendship.friendship_status.id != 1:
+                return Response({"error": "Must be a request to decline"}, status=400)
+
+            return self.destroy(request, pk, format)
+        
+        except (models.Friendship.DoesNotExist, AttributeError):
+            return Response(status=404)
 
 class LikeViewSet(viewsets.ViewSet):
 
