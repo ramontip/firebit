@@ -5,21 +5,23 @@
     <div class="flex name-container">
       <mat-card-content class="name">
         {{friendship?.from_auth_user}}
+        <!-- {{friendUser?.first_name}} {{friendUser?.last_name}} -->
       </mat-card-content>
       <mat-card-subtitle class="username">
         @{{friendship?.from_auth_user}}
+        <!-- @{{friendUser?.username}} -->
       </mat-card-subtitle>
     </div>
 
     <div class="action">
 
       <!-- Friend requests -->
-      <button mat-flat-button color="primary" *ngIf="friendship?.friendship_status === 1">
+      <button mat-flat-button color="primary" (click)="this.acceptRequest()" *ngIf="friendship?.friendship_status === 1">
         <mat-icon>checkmark</mat-icon>
         Accept
       </button>
 
-      <button mat-flat-button color="warn" *ngIf="friendship?.friendship_status === 1">
+      <button mat-flat-button color="warn" (click)="this.declineRequest()" *ngIf="friendship?.friendship_status === 1">
         <mat-icon>close</mat-icon>
         Decline
       </button>
@@ -31,7 +33,7 @@
         Profile
       </a>
 
-      <button mat-stroked-button color="warn" *ngIf="editable && friendship?.friendship_status === 2">
+      <button mat-stroked-button color="warn" (click)="this.removeFriend()" *ngIf="editable && friendship?.friendship_status === 2">
         Remove
       </button>
 

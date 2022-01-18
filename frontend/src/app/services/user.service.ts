@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Friendship, JWTToken, User} from 'src/types';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {AppService} from "./app.service";
+import { Injectable } from '@angular/core';
+import { Friendship, JWTToken, User } from 'src/types';
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { AppService } from "./app.service";
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +78,7 @@ export class UserService {
 
     this.http.get<User>(`/api/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
-      console.log({currentUser: this.currentUser.value})
+      console.log({ currentUser: this.currentUser.value })
     })
   }
 
@@ -85,6 +86,12 @@ export class UserService {
 
   getUser(id: number) {
     return this.http.get<User>(`/api/users/${id}/`);
+  }
+
+  getUserByUsername(username: string) {
+    return this.http.get<User[]>(`/api/users/?username=${username}`).pipe(
+      map(users => users.length ? users[0] : undefined)
+    )
   }
 
   // getCurrentUser() {
@@ -103,6 +110,13 @@ export class UserService {
     return permission in permissions;
   }
 
+  hasFriend(username: string) {
+
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}`).pipe(
+      map(f => f.length > 0)
+    )
+
+  }
 
   // user: User = {
   //   id: 1,
@@ -117,12 +131,12 @@ export class UserService {
 
   // Friendships
 
-  getFriendships() {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.currentUser.value?.username}`)
-  }
+  // getFriendships() {
+  //   return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.currentUser.value?.username}`)
+  // }
 
-  getFriendsByUser(username: string) {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}&status=2`)
-  }
+  // getFriendsByUser(username: string) {
+  //   return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}&status=2`)
+  // }
 
 }

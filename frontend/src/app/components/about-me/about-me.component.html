@@ -23,11 +23,15 @@
 
     <!-- Friend Button -->
     <mat-card-subtitle *ngIf="action === 'friend'">
-      <button mat-flat-button color="primary" *ngIf="!isFriend">
+      <button mat-flat-button color="primary" (click)="this.addFriend()" *ngIf="friendship === undefined">
         <mat-icon>person_add</mat-icon>
         Add as friend
       </button>
-      <button mat-flat-button color="warn" *ngIf="isFriend">
+      <button mat-stroked-button color="primary" *ngIf="friendship?.friendship_status === 1" disabled>
+        <mat-icon>checkmark</mat-icon>
+        Request sent
+      </button>
+      <button mat-flat-button color="warn" (click)="this.removeFriend()" *ngIf="friendship?.friendship_status === 2">
         <mat-icon>person_remove</mat-icon>
         Remove friend
       </button>
