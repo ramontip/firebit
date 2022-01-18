@@ -59,19 +59,16 @@ export class BitService {
 
   // From current user
 
-  getLikedBits(currentUser: User) {
+  getLikedBits() {
     // /bits/?liked_by=2
-    return this.http.get<Bit[]>(`/api/users/${currentUser?.id ?? "-1"}/liked_bits/?order_by=-created_at`)
-    // return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/liked_bits/?order_by=-created_at`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/liked_bits/?order_by=-created_at`)
   }
 
-  getCommentedBits(currentUser: User) {
-    // return this.http.get<Bit[]>(`/api/users/${currentUser?.id ?? "-1"}/commented_bits/?order_by=-created_at`)
+  getCommentedBits() {
     return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/commented_bits/?order_by=-created_at`)
   }
 
-  getBookmarkedBits(currentUser?: User) {
-    // return this.http.get<Bit[]>(`/api/users/${currentUser?.id ?? "-1"}/bookmarks/?order_by=-created_at`)
+  getBookmarkedBits() {
     return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/bookmarks/?order_by=-created_at`)
   }
 

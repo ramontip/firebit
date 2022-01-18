@@ -18,9 +18,10 @@ export class ActivitiesCommentedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.currentUser.subscribe(user => {
-      if (user)
-        this.bitService.getCommentedBits(user).subscribe(bits => this.commentedBits = bits)
+    // Just make sure to load user first
+    this.userService.currentUser.subscribe(() => {
+      // if (user)
+      this.bitService.getCommentedBits().subscribe(bits => this.commentedBits = bits)
     })
   }
 

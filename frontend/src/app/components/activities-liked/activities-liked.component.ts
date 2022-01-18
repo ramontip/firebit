@@ -18,10 +18,10 @@ export class ActivitiesLikedComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    // TODO: Does this really work?
-    this.userService.currentUser.subscribe(user => {
-      if (user)
-        this.bitService.getLikedBits(user).subscribe(bits => this.likedBits = bits)
+    // Just make sure to load user first
+    this.userService.currentUser.subscribe(() => {
+      // if (user)
+      this.bitService.getLikedBits().subscribe(bits => this.likedBits = bits)
     })
   }
 

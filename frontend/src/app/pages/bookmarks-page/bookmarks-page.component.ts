@@ -18,9 +18,10 @@ export class BookmarksPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(user => {
-      if (user)
-        this.bitService.getBookmarkedBits(user).subscribe(bits => this.bookmarkedBits = bits)
+    // Just make sure to load user first
+    this.userService.currentUser.subscribe(() => {
+      // if (user)
+      this.bitService.getBookmarkedBits().subscribe(bits => this.bookmarkedBits = bits)
     })
   }
 
