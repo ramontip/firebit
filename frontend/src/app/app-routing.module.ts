@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: "profile", canActivate: [AuthGuard], children: [
       { path: "", component: ProfilePageComponent },
-      { path: "settings", component: ProfileSettingsPageComponent },
+      { path: "settings", component: ProfileSettingsPageComponent, data: { breadcrumbs: "Settings" } },
       { path: "friends", component: ProfileFriendsPageComponent, data: { breadcrumbs: "Friends" } },
     ],
     data: { breadcrumbs: "Profile" },
@@ -38,15 +38,20 @@ const routes: Routes = [
     path: "user/:username", canActivate: [AuthGuard], children: [
       { path: "", component: UserPageComponent },
       { path: "friends", component: UserFriendsPageComponent },
-    ]
+    ],
+    // data: { breadcrumbs: "User", isLink: false }
   },
-  { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard] },
+  { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Category", isLink: false } },
   {
-    path: "activities", canActivate: [AuthGuard], children: [
-      { path: "", component: ActivitiesPageComponent },
-    ]
+    path: "", children: [
+      { path: "activities", component: ActivitiesPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Activities" } },
+      // children: [
+      //   { path: "", component: ActivitiesPageComponent },
+      // ]
+      { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
+    ],
+    // data: { breadcrumbs: "Activities" }
   },
-  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({

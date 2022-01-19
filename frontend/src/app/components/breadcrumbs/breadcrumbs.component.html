@@ -1,5 +1,6 @@
 <div class="flex breadcrumbs-container">
   <div *ngFor="let b of breadcrumbs">
-    <a class="link text-primary" routerLink="/{{b.path}}">{{b.display}}</a>
+    <a class="link text-primary" routerLink="/{{b.path}}" *ngIf="b.isLink">{{b.display}}</a>
+    <span *ngIf="!b.isLink">{{b.display}}</span>
   </div>
 </div>
