@@ -12,15 +12,26 @@ class BitSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        hashtags = ' '
+        for i in validated_data['content'].split():
+            if i.startswith('#'):
+                hashtags += i[1:] + ' '
+        validated_data['hashtags'] = hashtags
+
         bit = Bit.objects.create(**validated_data)
         return bit
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
-        instance.hashtags = validated_data.get('hashtags', instance.hashtags)
         instance.category = validated_data.get('category', instance.category)
         instance.updated_at = datetime.now()
+
+        hashtags = ' '
+        for i in validated_data['content'].split():
+            if i.startswith('#'):
+                hashtags += i[1:] + ' '
+        instance.hashtags = hashtags
 
         instance.save()
         return instance

@@ -17,12 +17,15 @@ class BitViewSet(viewsets.ViewSet):
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
+        hashtag = request.GET.get("hashtag")
 
         if category:
             queryset = queryset.filter(category__title__iexact=category)
             # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
         if user:
             queryset = queryset.filter(auth_user__username__iexact=user)
+        if hashtag:
+            queryset = queryset.filter(hashtags__contains=' ' + hashtag + ' ')
 
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
