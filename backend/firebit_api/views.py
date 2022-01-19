@@ -1,6 +1,7 @@
 from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 
 from . import models
@@ -135,6 +136,7 @@ class BitViewSet(viewsets.ViewSet):
 
 
 class ImageViewSet(viewsets.ViewSet):
+    parser_class = (FileUploadParser,)
 
     def list(self, request, format=None):
         queryset = models.Image.objects.all()

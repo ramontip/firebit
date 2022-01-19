@@ -65,18 +65,14 @@ export class BitFormComponent implements OnInit {
         this.appService.showSnackBar('Bit updated successfully!', 'Hide');
       })
     } else {
-      this.bitService.createBit(this.bitFormGroup.value).subscribe(() => {
-        /*
-        const imageForm = new FormData();
-        imageForm.append("file", this.file);
-        imageForm.append("bit", 3);
-        this.bitService.createImage(this.bitFormGroup.value).subscribe(() => {
-          if (this.file) {
-            // this.f
-          }
+      this.bitService.createBit(this.bitFormGroup.value).subscribe((res: any) => {
+        const formData = new FormData();
+        formData.append("bit", res.id);
+        formData.append("file", this.file, this.file.name);
+        this.bitService.createImage(formData).subscribe(() => {
+          console.log("file shoud have been stored");
         })
 
-         */
         this.appService.showSnackBar('Bit created successfully!', 'Hide');
       })
     }

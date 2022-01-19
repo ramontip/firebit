@@ -111,14 +111,12 @@ class Bookmark(models.Model):
 
 class Image(models.Model):
     bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
-    file_name = models.CharField(max_length=255)
-    content_type = models.CharField(max_length=100)
-    path = models.CharField(max_length=255)
+    file = models.FileField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{}'.format(self.file_name)
+        return '{}'.format(self.file.name)
 
     class Meta:
         verbose_name_plural = 'Images'
