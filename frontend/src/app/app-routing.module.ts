@@ -13,6 +13,8 @@ import { IndexComponent } from "./pages/index/index.component";
 import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { AuthGuard } from "./guards/auth.guard";
+import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
+import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
@@ -43,15 +45,16 @@ const routes: Routes = [
   },
   { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Category", isLink: false } },
   {
-    path: "", children: [
-      { path: "activities", component: ActivitiesPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Activities" } },
-      // children: [
-      //   { path: "", component: ActivitiesPageComponent },
-      // ]
-      { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
-    ],
+    // path: "", children: [
+    //   {
+    path: "activities", component: ActivitiesPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Activities" }, children: [
+      { path: "", redirectTo: "liked", pathMatch: "full" },
+      { path: "liked", component: ActivitiesLikedComponent, data: { name: "Bits I Liked" } },
+      { path: "commented", component: ActivitiesCommentedComponent, data: { name: "Bits I Commented" } },
+    ]
     // data: { breadcrumbs: "Activities" }
   },
+  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
 ]
 
 @NgModule({

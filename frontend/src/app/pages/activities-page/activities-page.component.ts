@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+interface TabLink {
+  name: string
+  path?: string
+}
 
 @Component({
   selector: 'app-activities-page',
@@ -7,8 +13,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivitiesPageComponent implements OnInit {
 
-  constructor() { }
+  activeLink?= ""
+  links?: TabLink[]
 
-  ngOnInit(): void { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
+
+  ngOnInit(): void {
+
+    this.links = this.route.routeConfig?.children
+      ?.filter(r => r.data?.name)
+      ?.map(r => {
+        if (r.path && this.router.url.endsWith(r.path)) {
+          this.activeLink = r.path
+        }
+        return { name: r.data?.name, path: r.path, }
+      })
+  }
 
 }

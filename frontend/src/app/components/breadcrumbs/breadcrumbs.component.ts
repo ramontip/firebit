@@ -28,7 +28,7 @@ export class BreadcrumbsComponent implements OnInit {
     // Create breadcrumb items from route object
     route.snapshot.pathFromRoot.forEach(r => {
 
-      console.log({ r })
+      // console.log({ r })
 
       // Skip if it current object has no url (e.g. from nesting/grouping etc.)
       if (!r.url.length) {
@@ -45,7 +45,7 @@ export class BreadcrumbsComponent implements OnInit {
 
       // Url can haz multiple parts, divided by "/" in app-routing's path
       r.url.forEach(u => {
-        console.log({ u })
+        // console.log({ u })
 
         path += u.path + "/"
 
