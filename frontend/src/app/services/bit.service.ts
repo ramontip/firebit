@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Bit, Bookmark, Comment, Like} from 'src/types';
+import {Bit, Bookmark, Comment, Image, Like} from 'src/types';
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
 
@@ -59,6 +59,12 @@ export class BitService {
 
   getBitBookmarks(id: number) {
     return this.http.get<Bookmark[]>(`/api/bits/${id}/bookmarks/`);
+  }
+
+  // Image
+
+  createImage(image: Image) {
+    return this.http.post(`/api/images/`, image);
   }
 
   // From current user

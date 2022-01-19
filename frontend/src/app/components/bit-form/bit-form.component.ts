@@ -16,6 +16,8 @@ export class BitFormComponent implements OnInit {
 
   bitFormGroup: FormGroup;
   categoryOptions: Category[] = [];
+  fileName = '';
+  file: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private bitService: BitService, public categoryService: CategoryService, private router: Router, private appService: AppService) {
     this.bitFormGroup = new FormGroup({
@@ -23,7 +25,7 @@ export class BitFormComponent implements OnInit {
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
-      image: new FormControl(null),
+      // image: new FormControl(null)
     })
   }
 
@@ -37,14 +39,44 @@ export class BitFormComponent implements OnInit {
     }
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.file = file;
+      this.fileName = file.name + ' added';
+      // this.bitFormGroup.value.image = file.name;
+
+
+      /*
+          const formData = new FormData();
+
+          formData.append("thumbnail", file);
+
+          const upload$ = this.http.post("/api/thumbnail-upload", formData);
+
+          upload$.subscribe();
+       */
+    }
+  }
+
   createOrUpdateBit() {
-    const id = this.bitFormGroup.controls['id'].value
-    if (id) {
+    if (this.bitFormGroup.controls['id'].value) {
       this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
         this.appService.showSnackBar('Bit updated successfully!', 'Hide');
       })
     } else {
       this.bitService.createBit(this.bitFormGroup.value).subscribe(() => {
+        /*
+        const imageForm = new FormData();
+        imageForm.append("file", this.file);
+        imageForm.append("bit", 3);
+        this.bitService.createImage(this.bitFormGroup.value).subscribe(() => {
+          if (this.file) {
+            // this.f
+          }
+        })
+
+         */
         this.appService.showSnackBar('Bit created successfully!', 'Hide');
       })
     }
@@ -53,8 +85,7 @@ export class BitFormComponent implements OnInit {
 
   deleteBit() {
     if (confirm("Are you sure to delete this bit?")) {
-      const id = this.bitFormGroup.controls['id'].value
-      if (id) {
+      if (this.bitFormGroup.controls['id'].value) {
         this.bitService.deleteBit(this.bitFormGroup.value).subscribe(() => {
           this.appService.showSnackBar('Bit deleted successfully!', 'Hide');
           this.router.navigate(['/bitmap']);

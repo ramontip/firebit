@@ -6,7 +6,22 @@ from rest_framework import serializers
 from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
 
 
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = '__all__'
+
+    def create(self, validated_data):
+        print("image serializer:")
+        print(validated_data)
+
+        image = Image.objects.create(**validated_data)
+        return image
+
+
 class BitSerializer(serializers.ModelSerializer):
+    # image = ImageSerializer(source='image_set', many=True, required=False)
+
     class Meta:
         model = Bit
         fields = '__all__'
@@ -18,7 +33,14 @@ class BitSerializer(serializers.ModelSerializer):
                 hashtags += i[1:] + ' '
         validated_data['hashtags'] = hashtags
 
+        print("bit serializer:")
+        print(validated_data)
+
+        # image = validated_data.pop('image_set')
+
         bit = Bit.objects.create(**validated_data)
+        # Image.objects.create(bit=bit, file_name="test.png", content_type="image/png", path="files/test.png", **image)
+
         return bit
 
     def update(self, instance, validated_data):
@@ -61,12 +83,6 @@ class CommentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         comment = Comment.objects.create(**validated_data)
         return comment
-
-
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = '__all__'
 
 
 class LikeSerializer(serializers.ModelSerializer):

@@ -134,6 +134,54 @@ class BitViewSet(viewsets.ViewSet):
             return Response(status=404)
 
 
+class ImageViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        queryset = models.Image.objects.all()
+        serializer = ImageSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
+        # return Response(status=405)
+
+    def create(self, request, format=None):
+
+        serializer = ImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        try:
+            image = models.Image.objects.get(
+                pk=pk
+            )
+            serializer = ImageSerializer(image)
+            return Response(serializer.data, status=200)
+
+        except models.Image.DoesNotExist:
+            return Response(status=404)
+
+    def update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            image = models.Image.objects.filter(
+                pk=pk
+            ).delete()
+        except models.Image.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
+
+
 class CommentViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):

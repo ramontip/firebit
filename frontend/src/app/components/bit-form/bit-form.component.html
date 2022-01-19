@@ -28,20 +28,18 @@
       </mat-select>
     </mat-form-field>
 
+    <div class="mb">
+      <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" #fileUpload>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Image</mat-label>
-      <input matInput type="text" formControlName="image">
-    </mat-form-field>
+      <div class="file-upload">
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" type="button">
+          <mat-icon>photo_camera</mat-icon>
+        </button>
+        {{fileName || "Add an image to your bit …"}}
+      </div>
+    </div>
 
-    <!-- File Upload not available with material form
-<div>
-  <input class="ng-hide" id="image" type="file"/>
-  <label for="image" class="md-button md-raised md-primary">Choose Files</label>
-</div>
-    -->
-
-    <button mat-flat-button color="primary" [disabled]="!bitFormGroup.valid">
+    <button mat-flat-button color="primary" [disabled]="!bitFormGroup.valid" type="submit">
       <span *ngIf="!bitFormGroup.controls.id.value">Create</span>
       <span *ngIf="bitFormGroup.controls.id.value">Update</span>
     </button>

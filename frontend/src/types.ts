@@ -36,13 +36,14 @@ export interface Bit {
   content: string
   hashtags?: string
   category: number
+  // image?: string
   created_at?: string
   updated_at?: string
 }
 
 export interface Image {
   id?: number
-  bit?: number
+  bit: number
   file_name: string
   content_type: string
   path: string
