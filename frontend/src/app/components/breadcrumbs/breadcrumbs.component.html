@@ -1,0 +1,5 @@
+<div class="flex breadcrumbs-container">
+  <div *ngFor="let b of breadcrumbs">
+    <a class="link text-primary" routerLink="/{{b.path}}">{{b.display}}</a>
+  </div>
+</div>

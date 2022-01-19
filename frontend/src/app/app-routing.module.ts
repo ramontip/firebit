@@ -30,8 +30,9 @@ const routes: Routes = [
     path: "profile", canActivate: [AuthGuard], children: [
       { path: "", component: ProfilePageComponent },
       { path: "settings", component: ProfileSettingsPageComponent },
-      { path: "friends", component: ProfileFriendsPageComponent },
-    ]
+      { path: "friends", component: ProfileFriendsPageComponent, data: { breadcrumbs: "Friends" } },
+    ],
+    data: { breadcrumbs: "Profile" },
   },
   {
     path: "user/:username", canActivate: [AuthGuard], children: [
