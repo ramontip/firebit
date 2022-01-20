@@ -288,7 +288,22 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def partial_update(self, request, pk=None, format=None):
-        return Response(status=405)
+        try:
+            user = models.User.objects.get(
+                pk=pk
+            )
+            serializer = UserSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+        except models.User.DoesNotExist:
+            return Response(status=404)
+
 
     def destroy(self, request, pk=None, format=None):
         try:

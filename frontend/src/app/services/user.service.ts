@@ -43,8 +43,10 @@ export class UserService {
 
         this.setCurrentUser()
 
-        this.router.navigate(['bitmap']);
-        this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
+        this.router.navigate(['/bitmap']).then(() => {
+          this.appService.showSnackBar('Logged in successfully', 'Hide', 3000)
+        })
+        //this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
       },
       () => this.appService.showSnackBar('Invalid username or password', 'Hide', 3000)
     );
@@ -65,8 +67,7 @@ export class UserService {
   }
 
   registerUser(userData: User) {
-    //this.router.navigate(['bitmap']);
-    return this.http.post('/api/users/', userData);
+    return this.http.post<User>('/api/users/', userData);
   }
 
 
@@ -80,6 +81,10 @@ export class UserService {
       this.currentUser.next(user)
       console.log({ currentUser: this.currentUser.value })
     })
+  }
+
+  updateUser(userData: User) {
+    return this.http.patch(`/api/users/${userData.id}/`, userData)
   }
 
   // Users

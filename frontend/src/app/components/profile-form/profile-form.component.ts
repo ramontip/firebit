@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import {User} from "../../../types";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-profile-form',
@@ -36,12 +38,18 @@ export class ProfileFormComponent implements OnInit {
 
     let user = this.userService.currentUser.value
 
+
+    console.log(user)
+
     if (!user) {
-      console.error(`Could not update user, user is ${user}`)
-      return
+      return console.error(`Could not update user, user is ${user}`)
+    } else {
+      this.userService.updateUser(user)
     }
 
+
     // TODO: Partial update on user -> "password is required" but not shown from API
+
 
   }
 
