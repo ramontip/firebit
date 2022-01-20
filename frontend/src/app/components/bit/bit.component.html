@@ -33,7 +33,7 @@
   <div class="mb" [innerHTML]="contentFormatted"></div>
 
   <div *ngFor="let image of bit?.images">
-    <img src="/api/{{image.file}}" alt="Bit Image" class="w-100">
+    <img src="{{this.appService.baseUrl}}/{{image.file}}" alt="Bit Image" class="w-100">
   </div>
 
 

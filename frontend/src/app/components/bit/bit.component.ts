@@ -21,14 +21,12 @@ export class BitComponent implements OnInit {
   createdByCurrentUser = false;
   bookmarks: Bookmark[] = [];
   bookmarkedByCurrentUser = false;
-
   contentFormatted?: String
-
 
   @Input()
   bit?: Bit
 
-  constructor(public userService: UserService, private appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
+  constructor(public userService: UserService, public appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
   }
 
   ngOnInit(): void {

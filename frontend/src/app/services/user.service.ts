@@ -35,7 +35,7 @@ export class UserService {
   // Authentication
 
   login(userData: { username: string, password: string }): void {
-    this.http.post('/api/token/', userData).subscribe(
+    this.http.post(this.appService.baseUrl + '/token/', userData).subscribe(
       (res: any) => {
         this.isLoggedIn.next(true);
         localStorage.setItem('accessToken', res.token);
@@ -65,7 +65,7 @@ export class UserService {
 
   registerUser(userData: User) {
     this.router.navigate(['bitmap']);
-    return this.http.post('/api/users/', userData);
+    return this.http.post(this.appService.baseUrl + '/users/', userData);
   }
 
 
@@ -75,7 +75,7 @@ export class UserService {
     const decodedToken = this.jwtHelperService.decodeToken<JWTToken>(token ?? undefined)
 
 
-    this.http.get<User>(`/api/users/${decodedToken.user_id}/`).subscribe(user => {
+    this.http.get<User>(this.appService.baseUrl + `/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
       console.log({currentUser: this.currentUser.value})
     })
@@ -84,15 +84,15 @@ export class UserService {
   // Users
 
   getUser(id: number) {
-    return this.http.get<User>(`/api/users/${id}/`);
+    return this.http.get<User>(this.appService.baseUrl + `/users/${id}/`);
   }
 
   // getCurrentUser() {
-  //   return this.http.get<User>(`/api/users/1/`)
+  //   return this.http.get<User>(this.appService.baseUrl + `/users/1/`)
   // }
 
   getAllUsers() {
-    return this.http.get<User[]>('/api/users/');
+    return this.http.get<User[]>(this.appService.baseUrl + '/users/');
   }
 
 
@@ -118,11 +118,11 @@ export class UserService {
   // Friendships
 
   getFriendships() {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.currentUser.value?.username}`)
+    return this.http.get<Friendship[]>(this.appService.baseUrl + `/friendships/?auth_user=${this.currentUser.value?.username}`)
   }
 
   getFriendsByUser(username: string) {
-    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}&status=2`)
+    return this.http.get<Friendship[]>(this.appService.baseUrl + `/friendships/?auth_user=${username}&status=2`)
   }
 
 }
