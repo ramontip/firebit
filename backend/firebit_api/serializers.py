@@ -20,7 +20,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class BitSerializer(serializers.ModelSerializer):
-    # image = ImageSerializer(source='image_set', many=True, required=False)
+    images = ImageSerializer(source='image_set', many=True, required=False)
 
     class Meta:
         model = Bit
@@ -33,13 +33,7 @@ class BitSerializer(serializers.ModelSerializer):
                 hashtags += i[1:] + ' '
         validated_data['hashtags'] = hashtags
 
-        print("bit serializer:")
-        print(validated_data)
-
-        # image = validated_data.pop('image_set')
-
         bit = Bit.objects.create(**validated_data)
-        # Image.objects.create(bit=bit, file_name="test.png", content_type="image/png", path="files/test.png", **image)
 
         return bit
 

@@ -8,6 +8,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class AppService {
 
+  baseUrl = '/api/';
+
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
   }
 

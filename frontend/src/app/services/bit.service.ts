@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Bit, Bookmark, Comment, Like} from 'src/types';
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
+import {AppService} from "./app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class BitService {
 
   constructor(
     private http: HttpClient,
+    private appService: AppService,
     private userService: UserService
   ) {
 

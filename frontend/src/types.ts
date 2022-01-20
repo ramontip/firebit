@@ -36,7 +36,7 @@ export interface Bit {
   content: string
   hashtags?: string
   category: number
-  // image?: string
+  images?: Image[]
   created_at?: string
   updated_at?: string
 }
@@ -44,9 +44,7 @@ export interface Bit {
 export interface Image {
   id?: number
   bit: number
-  file_name: string
-  content_type: string
-  path: string
+  file: string
   created_at?: string
   updated_at?: string
 }
