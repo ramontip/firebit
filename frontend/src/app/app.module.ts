@@ -53,6 +53,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu"
 import { MatBadgeModule } from "@angular/material/badge"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component'
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -89,7 +90,8 @@ function tokenGetter() {
     ForgotPasswordFormComponent,
     IndexComponent,
     BitEditComponent,
-    BookmarksPageComponent
+    BookmarksPageComponent,
+    BreadcrumbsComponent,
   ],
   imports: [
     BrowserModule,
