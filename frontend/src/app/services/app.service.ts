@@ -8,7 +8,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class AppService {
 
-  baseUrl = '/api/';
+  baseUrl = '/api';
 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
   }
@@ -25,4 +25,16 @@ export class AppService {
     // Add class to snackbar: panelClass: ["mat-toolbar"]
     this.snackBar.open(message, action, {duration: duration});
   }
+
+  generateUniqueString(length: number): string {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() *
+        charactersLength));
+    }
+    return result;
+  }
 }
+

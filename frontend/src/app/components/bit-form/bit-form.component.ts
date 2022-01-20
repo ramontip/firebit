@@ -51,18 +51,17 @@ export class BitFormComponent implements OnInit {
       this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
         this.appService.showSnackBar('Bit updated successfully!', 'Hide');
       })
+      this.appService.refreshRoute();
     } else {
-      this.bitService.createBit(this.bitFormGroup.value).subscribe((res: any) => {
-        const formData = new FormData();
-        formData.append("bit", res.id);
-        formData.append("file", this.file, this.file.name);
-        this.bitService.createImage(formData).subscribe(() => {
-          console.log("Image should have been stored.");
-        })
-        this.appService.showSnackBar('Bit created successfully!', 'Hide');
+      this.bitService.createBit(this.bitFormGroup.value).subscribe((bit: any) => {
+        if (this.file) {
+          this.createImageForBit(bit.id);
+          this.appService.showSnackBar('Bit created successfully!', 'Hide');
+        } else {
+          this.appService.refreshRoute();
+        }
       })
     }
-    this.appService.refreshRoute();
   }
 
   deleteBit() {
@@ -74,6 +73,18 @@ export class BitFormComponent implements OnInit {
         })
       }
     }
+  }
+
+  createImageForBit(bitId: number) {
+    const uniqueFileName = bitId + '-' + this.appService.generateUniqueString(16) + '.' + this.file.name.split('.').pop();
+    const formData = new FormData();
+    formData.append('bit', bitId.toString());
+    formData.append('file', this.file, uniqueFileName);
+
+    this.bitService.createImage(formData).subscribe(() => {
+      console.log("Image should have been stored.");
+      this.appService.refreshRoute();
+    })
   }
 
 }

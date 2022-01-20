@@ -1,3 +1,5 @@
+import os
+
 from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -77,9 +79,16 @@ class BitViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None, format=None):
         try:
-            bit = models.Bit.objects.filter(
+            bit = models.Bit.objects.get(
                 pk=pk
-            ).delete()
+            )
+
+            for image in bit.image_set.all():
+                if os.path.isfile(image.file.path):
+                    os.remove(image.file.path)
+
+            bit.delete()
+
         except models.Bit.DoesNotExist:
             return Response(status=404)
 
