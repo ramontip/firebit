@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BitService } from 'src/app/services/bit.service';
+import { UserService } from 'src/app/services/user.service';
 import { Bit } from 'src/types';
 
 @Component({
@@ -13,11 +14,15 @@ export class ActivitiesLikedComponent implements OnInit {
 
   constructor(
     public bitService: BitService,
+    public userService: UserService,
   ) { }
 
   async ngOnInit() {
-    // TODO: Does this really work? xD
-    this.likedBits = await this.bitService.getLikedBits().toPromise()
+    // Just make sure to load user first
+    this.userService.currentUser.subscribe(() => {
+      // if (user)
+      this.bitService.getLikedBits().subscribe(bits => this.likedBits = bits)
+    })
   }
 
 }

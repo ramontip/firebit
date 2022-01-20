@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Bit, Bookmark, Comment, Like} from 'src/types';
+import {Bit, Bookmark, Comment, Like, User} from 'src/types';
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {AppService} from "./app.service";
@@ -87,7 +87,7 @@ export class BitService {
   }
 
   getBookmarkedBits() {
-    return this.http.get<Bit[]>(this.appService.baseUrl + `/users/${this.userService.currentUser.value?.id ?? -1}/bookmarks/?order_by=-created_at`)
+    return this.http.get<Bit[]>(`/api/users/${this.userService.currentUser.value?.id ?? -1}/bookmarks/?order_by=-created_at`)
   }
 
 }

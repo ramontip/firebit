@@ -9,9 +9,11 @@
       <div class="flex form-content">
         <mat-form-field>
           <input matInput placeholder="Username" formControlName="username" name="username" required>
+          <mat-error *ngIf="this.loginFormGroup.controls['username'].invalid">{{usernameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field class="hint mb">
           <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+          <mat-error *ngIf="this.loginFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}</mat-error>
           <mat-hint>
             Forgot your password?
             <a class="link primary" routerLink="/reset-password">Reset</a>

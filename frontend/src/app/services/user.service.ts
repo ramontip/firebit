@@ -5,6 +5,7 @@ import {BehaviorSubject} from "rxjs";
 import {Router} from "@angular/router";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {AppService} from "./app.service";
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,10 @@ export class UserService {
 
         this.setCurrentUser()
 
-        this.router.navigate(['bitmap']);
-        this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
+        this.router.navigate(['/bitmap']).then(() => {
+          this.appService.showSnackBar('Logged in successfully', 'Hide', 3000)
+        })
+        //this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
       },
       () => this.appService.showSnackBar('Invalid username or password', 'Hide', 3000)
     );
@@ -64,7 +67,6 @@ export class UserService {
   }
 
   registerUser(userData: User) {
-    this.router.navigate(['bitmap']);
     return this.http.post(this.appService.baseUrl + '/users/', userData);
   }
 
@@ -77,14 +79,24 @@ export class UserService {
 
     this.http.get<User>(this.appService.baseUrl + `/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
-      console.log({currentUser: this.currentUser.value})
+      console.log({ currentUser: this.currentUser.value })
     })
+  }
+
+  updateUser(userData: User) {
+    return this.http.patch(`/api/users/${userData.id}/`, userData)
   }
 
   // Users
 
   getUser(id: number) {
     return this.http.get<User>(this.appService.baseUrl + `/users/${id}/`);
+  }
+
+  getUserByUsername(username: string) {
+    return this.http.get<User[]>(`/api/users/?username=${username}`).pipe(
+      map(users => users.length ? users[0] : undefined)
+    )
   }
 
   // getCurrentUser() {
@@ -103,6 +115,13 @@ export class UserService {
     return permission in permissions;
   }
 
+  hasFriend(username: string) {
+
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}`).pipe(
+      map(f => f.length > 0)
+    )
+
+  }
 
   // user: User = {
   //   id: 1,
@@ -117,6 +136,7 @@ export class UserService {
 
   // Friendships
 
+  /*
   getFriendships() {
     return this.http.get<Friendship[]>(this.appService.baseUrl + `/friendships/?auth_user=${this.currentUser.value?.username}`)
   }
@@ -124,5 +144,6 @@ export class UserService {
   getFriendsByUser(username: string) {
     return this.http.get<Friendship[]>(this.appService.baseUrl + `/friendships/?auth_user=${username}&status=2`)
   }
+   */
 
 }

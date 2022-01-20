@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BitService } from 'src/app/services/bit.service';
+import { UserService } from 'src/app/services/user.service';
 import { Bit } from 'src/types';
 
 @Component({
@@ -13,14 +14,15 @@ export class BookmarksPageComponent implements OnInit {
 
   constructor(
     public bitService: BitService,
-  ) {
-    this.bitService.getBookmarkedBits().subscribe(bits => {
-      this.bookmarkedBits = bits
-    })
-  }
+    public userService: UserService,
+  ) { }
 
   ngOnInit(): void {
-
+    // Just make sure to load user first
+    this.userService.currentUser.subscribe(() => {
+      // if (user)
+      this.bitService.getBookmarkedBits().subscribe(bits => this.bookmarkedBits = bits)
+    })
   }
 
 }

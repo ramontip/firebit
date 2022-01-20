@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/types';
+import { FriendshipService } from 'src/app/services/friendship.service';
+import { Friendship, User } from 'src/types';
 
 type Action = "none" | "edit" | "friend"
 
@@ -17,10 +18,28 @@ export class AboutMeComponent implements OnInit {
   action: Action = "none"
 
   @Input()
-  isFriend = false
+  friendship?: Friendship
 
-  constructor() { }
+  constructor(
+    private friendshipService: FriendshipService,
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log({ f: this.friendship })
+  }
+
+  addFriend() {
+    this.friendshipService.sendFriendRequest(this.user?.id ?? -1).subscribe(f => {
+      this.friendship = f
+    })
+  }
+
+  removeFriend() {
+    if (this.friendship) {
+      this.friendshipService.removeFriend(this.friendship).subscribe(() => {
+        this.friendship = undefined
+      })
+    }
+  }
 
 }

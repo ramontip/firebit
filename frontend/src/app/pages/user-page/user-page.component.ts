@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BitService } from 'src/app/services/bit.service';
+import { FriendshipService } from 'src/app/services/friendship.service';
 import { UserService } from 'src/app/services/user.service';
-import { Bit } from 'src/types';
+import { Bit, Friendship, User } from 'src/types';
 
 @Component({
   selector: 'app-user-page',
@@ -13,11 +14,13 @@ export class UserPageComponent implements OnInit {
 
   bits: Bit[] = []
 
-  isFriend = false
+  user?: User
+  friendship?: Friendship
 
   constructor(
     public userService: UserService,
     public bitService: BitService,
+    public friendshipService: FriendshipService,
     public route: ActivatedRoute,
   ) { }
 
@@ -25,8 +28,22 @@ export class UserPageComponent implements OnInit {
 
     const username: string = this.route.snapshot.params.username
 
-    this.bitService.getBitsByUser(username).subscribe(bits => {
-      this.bits = bits
+    this.userService.getUserByUsername(username).subscribe(user => {
+      this.user = user
+      console.log({ user })
+
+      this.friendshipService.getFriendship(user?.username ?? "").subscribe(friendship => {
+        this.friendship = friendship
+
+        console.log({ friendship })
+
+        if (friendship?.friendship_status === 2) {
+          this.bitService.getBitsByUser(username).subscribe(bits => {
+            this.bits = bits
+          })
+        }
+      })
+
     })
 
   }
