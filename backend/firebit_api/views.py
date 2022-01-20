@@ -360,7 +360,6 @@ class UserViewSet(viewsets.ViewSet):
         except models.User.DoesNotExist:
             return Response(status=404)
 
-
     def destroy(self, request, pk=None, format=None):
         try:
             user = models.User.objects.filter(
@@ -378,6 +377,7 @@ class UserViewSet(viewsets.ViewSet):
             likes = models.Like.objects.filter(auth_user=pk)
             likes = likes.order_by(request.GET.get("order_by") or "pk")
 
+            print(likes)
             # "map" likes to the respective bits
             liked_bits = [l.bit for l in likes]
 
@@ -456,12 +456,12 @@ class FriendshipViewSet(viewsets.ViewSet):
         # with username to request 
         if auth_user is not None:
             queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
-        
+
         if from_auth_user is not None:
             queryset = queryset.filter(from_auth_user=from_auth_user)
         if to_auth_user is not None:
             queryset = queryset.filter(to_auth_user=to_auth_user)
-        
+
         if status is not None:
             queryset = queryset.filter(friendship_status=status)
 
@@ -527,7 +527,7 @@ class FriendshipViewSet(viewsets.ViewSet):
     def accept(self, request, pk=None):
         try:
             friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
-            
+
             if friendship.friendship_status.id != 1:
                 return Response({"error": "Must be a request to accept"}, status=400)
 
@@ -540,20 +540,20 @@ class FriendshipViewSet(viewsets.ViewSet):
         except (models.Friendship.DoesNotExist, AttributeError):
             return Response(status=404)
 
-
     # this creates the url: friendships/{Id}/decline/
     @action(methods=['post'], detail=True, url_path='decline', url_name='decline')
     def decline(self, request, pk=None, format=None):
         try:
             friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
-            
+
             if friendship.friendship_status.id != 1:
                 return Response({"error": "Must be a request to decline"}, status=400)
 
             return self.destroy(request, pk, format)
-        
+
         except (models.Friendship.DoesNotExist, AttributeError):
             return Response(status=404)
+
 
 class LikeViewSet(viewsets.ViewSet):
 
