@@ -82,11 +82,9 @@ class BitViewSet(viewsets.ViewSet):
             bit = models.Bit.objects.get(
                 pk=pk
             )
-
             for image in bit.image_set.all():
                 if os.path.isfile(image.file.path):
                     os.remove(image.file.path)
-
             bit.delete()
 
         except models.Bit.DoesNotExist:
@@ -176,9 +174,13 @@ class ImageViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None, format=None):
         try:
-            image = models.Image.objects.filter(
+            image = models.Image.objects.get(
                 pk=pk
-            ).delete()
+            )
+            if os.path.isfile(image.file.path):
+                os.remove(image.file.path)
+            image.delete()
+
         except models.Image.DoesNotExist:
             return Response(status=404)
 

@@ -17,6 +17,8 @@ export class BitService {
 
   }
 
+  // Bit
+
   getBits() {
     return this.http.get<Bit[]>(this.appService.baseUrl + `/bits/?order_by=-created_at`);
   }
@@ -63,10 +65,14 @@ export class BitService {
     return this.http.get<Bookmark[]>(this.appService.baseUrl + `/bits/${id}/bookmarks/`);
   }
 
-  // Image
+  // Bit Image
 
   createImage(formData: any) {
     return this.http.post(this.appService.baseUrl + `/images/`, formData);
+  }
+
+  deleteImage(imageId: number) {
+    return this.http.delete(this.appService.baseUrl + `/images/${imageId}/`);
   }
 
   // From current user

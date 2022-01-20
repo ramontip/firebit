@@ -1,7 +1,7 @@
 <div class="w-100">
 
-  <div *ngIf="bitFormGroup.controls.id.value" class="w-100 space-between mb">
-    <div class="form-title">Edit your bit</div>
+  <div *ngIf="bit" class="w-100 space-between mb">
+    <div class="form-title">Edit your Bit</div>
     <button mat-stroked-button color="warn" (click)="deleteBit()">
       Delete
       <mat-icon>delete</mat-icon>
@@ -28,20 +28,30 @@
       </mat-select>
     </mat-form-field>
 
-    <div class="mb">
-      <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" #fileUpload>
+    <div *ngIf="bit">
+      <mat-form-field class="example-form-field" appearance="fill" *ngFor="let image of bit.images">
+        <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="form-image">
+        <input matInput type="text" readonly>
+        <button matSuffix mat-icon-button aria-label="delete" type="button" (click)="deleteImage(image.id!)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="mb" *ngIf="(bit?.images?.length ?? 0) < this.imageLimit">
+      <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" multiple #fileUpload>
 
       <div class="file-upload">
         <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" type="button">
           <mat-icon>photo_camera</mat-icon>
         </button>
-        {{fileName || "Add an image to your bit …"}}
+        {{imageField || "Add images to your Bit"}}
       </div>
     </div>
 
     <button mat-flat-button color="primary" [disabled]="!bitFormGroup.valid" type="submit">
-      <span *ngIf="!bitFormGroup.controls.id.value">Create</span>
-      <span *ngIf="bitFormGroup.controls.id.value">Update</span>
+      <span *ngIf="!bit">Create</span>
+      <span *ngIf="bit">Update</span>
     </button>
 
   </form>
