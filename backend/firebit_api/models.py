@@ -5,13 +5,11 @@ from django.db import models
 # UserThumbnail
 class UserDetails(models.Model):
     auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    file_name = models.CharField(max_length=100)
-    content_type = models.CharField(max_length=100)
-    path = models.CharField(max_length=100)
+    file = models.FileField(blank=True, null=True)
     about = models.CharField(max_length=255)
 
     def __str__(self):
-        return '{}'.format(self.file_name)
+        return '{}'.format(self.file.name)
 
     class Meta:
         verbose_name_plural = 'User Details'

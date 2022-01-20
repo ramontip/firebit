@@ -45,8 +45,7 @@ db.sqlite3-journal
 media
 
 # Firebit Backend
-# <django-project-name>/staticfiles/
-# /backend/static/*
+/backend/static/*
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
