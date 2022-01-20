@@ -145,7 +145,6 @@ class ImageViewSet(viewsets.ViewSet):
         # return Response(status=405)
 
     def create(self, request, format=None):
-
         serializer = ImageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -157,15 +156,8 @@ class ImageViewSet(viewsets.ViewSet):
             return Response(serializer.errors, status=400)
 
     def retrieve(self, request, pk=None, format=None):
-        try:
-            image = models.Image.objects.get(
-                pk=pk
-            )
-            serializer = ImageSerializer(image)
-            return Response(serializer.data, status=200)
-
-        except models.Image.DoesNotExist:
-            return Response(status=404)
+        # images are only retrieved through bits
+        return Response(status=405)
 
     def update(self, request, pk=None, format=None):
         return Response(status=405)
