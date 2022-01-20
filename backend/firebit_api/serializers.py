@@ -67,6 +67,14 @@ class LikeSerializer(serializers.ModelSerializer):
         like = Like.objects.create(**validated_data)
         return like
 
+    # TODO: Dont think, that is called
+    def validate(self, data):
+        # Check that to and from users are different
+        print(data)
+        if data["from_auth_user"] == data["to_auth_user"]:
+            raise serializers.ValidationError("'from_auth_user' and 'to_auth_user' must be different")        
+        return data
+
 
 class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:

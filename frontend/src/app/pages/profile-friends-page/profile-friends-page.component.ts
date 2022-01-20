@@ -12,6 +12,7 @@ export class ProfileFriendsPageComponent implements OnInit {
 
   friends: Friendship[] = []
   friendRequests: Friendship[] = []
+  sentFriendRequests: Friendship[] = []
 
   constructor(
     public friendshipService: FriendshipService,
@@ -25,8 +26,9 @@ export class ProfileFriendsPageComponent implements OnInit {
     this.userService.currentUser.subscribe(user => {
       if (!user) return
 
-      this.friendshipService.getFriendRequests(user).subscribe(requests => {
-        this.friendRequests = requests
+      this.friendshipService.getFriendRequests().subscribe(requests => {
+        this.friendRequests = requests.filter(r => r.to_auth_user == user.id)
+        this.sentFriendRequests = requests.filter(r => r.from_auth_user == user.id)
         console.log({ requests })
       })
 

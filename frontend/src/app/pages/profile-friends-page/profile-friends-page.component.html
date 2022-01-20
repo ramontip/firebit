@@ -2,11 +2,24 @@
 
   <app-breadcrumbs></app-breadcrumbs>
 
-  <div class="section">
+  <div class="section" *ngIf="friendRequests.length || sentFriendRequests.length">
     <h3>Pending friend requests</h3>
-    <div *ngIf="friendRequests.length">
-      <app-friend *ngFor="let request of friendRequests" [friendship]="request"></app-friend>
-    </div>
+    <mat-tab-group dynamicHeight>
+      <mat-tab label="Recieved" [disabled]="friendRequests.length === 0">
+        <ng-template mat-tab-label>
+          <span>Recieved</span>
+        </ng-template>
+
+        <app-friend *ngFor="let request of friendRequests" [friendship]="request"></app-friend>
+      </mat-tab>
+      <mat-tab [disabled]="sentFriendRequests.length === 0">
+        <ng-template mat-tab-label>
+          <span>Sent</span>
+        </ng-template>
+
+        <app-friend *ngFor="let request of sentFriendRequests" [friendship]="request"></app-friend>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
   <div class="section">

@@ -32,8 +32,8 @@ export class FriendshipService {
 
   // TODO: Refactor passing in the current user instead of getting it directly
   // because currentUser.value is still undefined by the time this is called in onInit of profile friends page 
-  getFriendRequests(currentUser: User) {
-    return this.http.get<Friendship[]>(`/api/friendships/?to_auth_user=${currentUser?.id ?? ""}&status=1`)
+  getFriendRequests() {
+    return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.userService.currentUser.value?.username ?? ""}&status=1`)
 
     // return this.http.get<Friendship[]>(`/api/friendships/?to_auth_user=${this.userService.currentUser.value?.id ?? ""}&status=1`)
   }
@@ -57,6 +57,7 @@ export class FriendshipService {
     return this.http.post<Friendship>(`/api/friendships/${request.id}/accept/`, {})
   }
 
+  // Also does reject
   declineFriendRequest(request: Friendship) {
     // return this.http.post(`/api/friendships/${request.id}/decline/`, {})
     return this.http.delete(`/api/friendships/${request.id}/`)

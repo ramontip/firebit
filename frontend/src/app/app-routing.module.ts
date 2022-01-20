@@ -15,11 +15,14 @@ import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.co
 import { AuthGuard } from "./guards/auth.guard";
 import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
 import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
+import { NotAuthGuard } from './guards/not-auth.guard';
 
 const routes: Routes = [
-  { path: "", component: IndexComponent },
-  { path: "login", component: IndexComponent },
-  { path: "register", component: IndexComponent },
+  // TODO: Guard for logged in -> redirect login/redirect to bitmap
+  // Maybe group all auth guard routes in one route as child routes
+  { path: "", component: IndexComponent, canActivate: [NotAuthGuard] },
+  { path: "login", component: IndexComponent, canActivate: [NotAuthGuard] },
+  { path: "register", component: IndexComponent, canActivate: [NotAuthGuard] },
   { path: "reset-password", component: IndexComponent },
   { path: "bitmap", component: HomeComponent, canActivate: [AuthGuard] },
   {
