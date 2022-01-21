@@ -28,3 +28,10 @@
   width: auto;
   margin: -1rem auto -1.25rem auto;
 }
+
+.image-form-container {
+  flex-direction: row;
+  gap: 1rem;
+
+  // See global styles.scss for width setting
+}

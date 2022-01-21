@@ -5,10 +5,6 @@
     <h2>Your Activities</h2>
 
     <nav mat-tab-nav-bar>
-      <!-- TODO: set active attribute based on route  -->
-      <!-- <a mat-tab-link routerLink="liked">Bits I Liked</a>
-      <a mat-tab-link routerLink="commented">Bits I Commented</a> -->
-
       <a mat-tab-link [routerLink]="l.path" [active]="l.path === activeLink" (click)="activeLink = l.path" *ngFor="let l of links">
         {{l.name}}
       </a>

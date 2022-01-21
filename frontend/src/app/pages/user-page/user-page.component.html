@@ -1,4 +1,6 @@
-<div class="container-xl">
+<div class="container-xl" *ngIf="user">
+  <app-breadcrumbs></app-breadcrumbs>
+
   <!-- About me -->
   <div class="section">
     <!-- <app-breadcrumbs></app-breadcrumbs> -->
@@ -15,7 +17,7 @@
 
   <div class="section">
     <h3>Bits</h3>
-    <mat-card *ngIf="friendship?.friendship_status !== 2">
+    <mat-card *ngIf="friendship?.friendship_status !== 2 && friendship">
       <div class="flex">
         <mat-icon>lock</mat-icon>
         <div>
@@ -24,11 +26,14 @@
       </div>
     </mat-card>
 
-    <div class="bit-list" *ngIf="friendship?.friendship_status === 2">
+    <div class="bit-list" *ngIf="(friendship?.friendship_status === 2 || user?.id === (userService.currentUser | async)?.id) && friendship">
       <div *ngFor="let bit of bits" class="mb">
         <app-bit [bit]="bit"></app-bit>
       </div>
     </div>
+
+    <app-no-data title="{{user?.first_name}} has not posted any bits yet." image="undraw_post-accent.svg" *ngIf="bits.length === 0">
+    </app-no-data>
 
   </div>
 

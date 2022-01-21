@@ -42,7 +42,7 @@ export class BitService {
   }
 
   getBitsByUser(username: string) {
-    return this.http.get<Bit[]>(this.appService.baseUrl + `/bits/?auth_user=${username}`)
+    return this.http.get<Bit[]>(this.appService.baseUrl + `/bits/?auth_user=${username}&order_by=-created_at`)
   }
 
   getBitComments(id: number) {

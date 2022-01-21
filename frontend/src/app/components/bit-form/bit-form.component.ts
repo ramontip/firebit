@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {CategoryService} from "../../services/category.service";
-import {BitService} from "../../services/bit.service";
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Bit, Category} from "../../../types";
-import {AppService} from "../../services/app.service";
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from "../../services/category.service";
+import { BitService } from "../../services/bit.service";
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Bit, Category } from "../../../types";
+import { AppService } from "../../services/app.service";
 
 @Component({
   selector: 'app-bit-form',
@@ -66,11 +66,14 @@ export class BitFormComponent implements OnInit {
   }
 
   createOrUpdateBit() {
-    if (this.bitFormGroup.controls['id'].value) {
+    const id = this.bitFormGroup.controls['id'].value
+
+    if (id) {
       this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
-        this.createImagesForBit(this.bitFormGroup.controls['id'].value);
+        this.createImagesForBit(id);
         this.appService.showSnackBar('Bit updated successfully!', 'Hide');
-        this.ngOnInit();
+        this.ngOnInit(); // TODO: on init should only be called once (by angular)
+        this.router.navigate(["bit", id])
       })
     } else {
       this.bitService.createBit(this.bitFormGroup.value).subscribe((bit: any) => {

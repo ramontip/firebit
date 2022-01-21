@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BitService } from 'src/app/services/bit.service';
 import { FriendshipService } from 'src/app/services/friendship.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,6 +22,7 @@ export class UserPageComponent implements OnInit {
     public bitService: BitService,
     public friendshipService: FriendshipService,
     public route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +32,11 @@ export class UserPageComponent implements OnInit {
     this.userService.getUserByUsername(username).subscribe(user => {
       this.user = user
       console.log({ user })
+
+      if (!user) {
+        this.router.navigate(["**"], { skipLocationChange: true })
+        return
+      }
 
       this.friendshipService.getFriendship(user?.username ?? "").subscribe(friendship => {
         this.friendship = friendship
@@ -44,7 +50,11 @@ export class UserPageComponent implements OnInit {
         }
       })
 
-    })
+    },
+      err => {
+        this.router.navigate(["**"], { skipLocationChange: true })
+      }
+    )
 
   }
 

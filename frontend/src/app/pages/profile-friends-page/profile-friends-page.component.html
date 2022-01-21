@@ -25,6 +25,8 @@
   <div class="section">
     <h3>My friends</h3>
     <app-friend *ngFor="let friend of friends" [friendship]="friend" [editable]="true"></app-friend>
+
+    <app-no-data title="You don't have any friends." image="undraw_mic_drop-accent.svg" *ngIf="friends.length === 0"></app-no-data>
   </div>
 
 </div>

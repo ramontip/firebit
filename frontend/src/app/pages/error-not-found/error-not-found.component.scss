@@ -4,6 +4,7 @@
   height: 100%;
   flex-wrap: wrap;
   z-index: 1;
+
 }
 
 .inner {
@@ -17,6 +18,10 @@
 .error-text {
   max-width: 30rem;
   text-align: center;
+
+  @media (max-width: 1063px) {
+   order: -1;
+  }
 }
 
 .hidden {
