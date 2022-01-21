@@ -5,7 +5,7 @@ import {BehaviorSubject} from "rxjs";
 import {Router} from "@angular/router";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {AppService} from "./app.service";
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +79,7 @@ export class UserService {
 
     this.http.get<User>(this.appService.baseUrl + `/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
-      console.log({ currentUser: this.currentUser.value })
+      console.log({currentUser: this.currentUser.value})
     })
   }
 
@@ -116,11 +116,19 @@ export class UserService {
   }
 
   hasFriend(username: string) {
-
     return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${username}`).pipe(
       map(f => f.length > 0)
     )
+  }
 
+  // User Details
+
+  createUserDetails(formData: any) {
+    return this.http.post(this.appService.baseUrl + `/userDetails/`, formData);
+  }
+
+  updateUserDetails(id: number, formData: any) {
+    return this.http.patch(this.appService.baseUrl + `/userDetails/${id}/`, formData);
   }
 
   // user: User = {

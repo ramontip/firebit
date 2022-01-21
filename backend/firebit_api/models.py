@@ -4,7 +4,7 @@ from django.db import models
 
 # UserThumbnail
 class UserDetails(models.Model):
-    auth_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    auth_user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     file = models.FileField(blank=True, null=True)
     about = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)

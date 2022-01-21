@@ -146,10 +146,7 @@ class ImageViewSet(viewsets.ViewSet):
     parser_class = (FileUploadParser,)
 
     def list(self, request, format=None):
-        queryset = models.Image.objects.all()
-        serializer = ImageSerializer(queryset, many=True)
-        return Response(serializer.data, status=200)
-        # return Response(status=405)
+        return Response(status=405)
 
     def create(self, request, format=None):
         serializer = ImageSerializer(data=request.data)
@@ -437,6 +434,71 @@ class UserViewSet(viewsets.ViewSet):
     #         return Response(serializer.data,status=201)
     #     else:
     #         return Response(serializer.errors, status=400)
+
+
+class UserDetailsViewSet(viewsets.ViewSet):
+    parser_class = (FileUploadParser,)
+
+    def list(self, request, format=None):
+        return Response(status=405)
+
+    def create(self, request, format=None):
+        serializer = UserDetailsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        # userdetails are only retrieved through users
+        return Response(status=405)
+
+    def update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def partial_update(self, request, pk=None, format=None):
+        try:
+            userdetails = models.UserDetails.objects.get(
+                pk=pk
+            )
+
+            serializer = UserDetailsSerializer(userdetails, data=request.data)
+            if serializer.is_valid():
+                # delete old thumbnail if new one is uploaded
+                if 'file' in request.data:
+                    # additional check because file could be empty
+                    if userdetails.file:
+                        if os.path.isfile(userdetails.file.path):
+                            os.remove(userdetails.file.path)
+
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+
+        except models.Bit.DoesNotExist:
+            return Response(status=404)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            userdetails = models.UserDetails.objects.get(
+                pk=pk
+            )
+            if os.path.isfile(userdetails.file.path):
+                os.remove(userdetails.file.path)
+            userdetails.delete()
+
+        except models.UserDetails.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
 
 
 class FriendshipViewSet(viewsets.ViewSet):

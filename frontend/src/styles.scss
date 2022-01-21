@@ -148,8 +148,13 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between !important;
 }
 
-.align-center {
+.horizontal-center {
   justify-content: center;
+  display: flex;
+}
+
+.vertical-center {
+  align-items: center;
   display: flex;
 }
 
@@ -167,4 +172,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-primary {
   background-color: $primary !important;
+}
+
+.user-thumbnail {
+  margin-right: 1rem;
+}
+
+.user-thumbnail img {
+  border-radius: 10%;
+}
+
+.user-thumbnail-s {
+  width: 3rem;
+  height: 3rem;
+}
+
+.user-thumbnail-m {
+  width: 5rem;
+  height: 5rem;
 }

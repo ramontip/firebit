@@ -84,7 +84,7 @@ export class BitFormComponent implements OnInit {
   createImagesForBit(bitId: number) {
     if (this.files.length > 0) {
       this.files.forEach((file: File) => {
-        const uniqueFileName = bitId + '-' + this.appService.generateUniqueString(16) + '.' + file.name.split('.').pop();
+        const uniqueFileName = 'bit-' + bitId + '-' + this.appService.generateUniqueString(16) + '.' + file.name.split('.').pop();
         const formData = new FormData();
         formData.append('bit', bitId.toString());
         formData.append('file', file, uniqueFileName);

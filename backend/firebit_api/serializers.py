@@ -132,12 +132,8 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        instance.password = validated_data.get('password', instance.password)
-        instance.username = validated_data.get('username', instance.username)
-        instance.last_name = validated_data.get('last_name', instance.last_name)
-        instance.email = validated_data.get('email', instance.email)
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        # instance.updated_at = datetime.now()
+        instance.about = validated_data.get('about', instance.about)
+        instance.file = validated_data.get('file', instance.file)
 
         instance.save()
         return instance
