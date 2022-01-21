@@ -10,7 +10,7 @@ import { Bit } from 'src/types';
 })
 export class HomeComponent implements OnInit {
 
-  bits: Bit[] = []
+  bits?: Bit[]
 
   constructor(
     private http: HttpClient,
