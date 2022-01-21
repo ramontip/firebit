@@ -43,7 +43,7 @@ export class RegisterFormComponent implements OnInit {
 
   registerUser() {
     if (this.registerFormGroup.controls["password"].value === this.registerFormGroup.controls["confirmPassword"].value && this.registerFormGroup.controls["acceptTos"].value === true) {
-      this.userService.registerUser(this.registerFormGroup.value).subscribe((user) => {
+      this.userService.registerUser(this.registerFormGroup.value).subscribe((user: any) => {
         this.appService.showSnackBar('Registered successfully', 'Hide', 3000);
         console.log(user);
         console.log(this.registerFormGroup.controls["password"].value);
@@ -66,19 +66,19 @@ export class RegisterFormComponent implements OnInit {
     return this.registerFormGroup.controls["last_name"].hasError('required') ? 'Lastname required' : '';
   }
 
-  passwordErrorMessage(){
+  passwordErrorMessage() {
     return this.registerFormGroup.controls["password"].hasError('required') ? 'Password required' :
       this.registerFormGroup.controls["password"].hasError('minlength') ? 'Password must be at least 6 characters long' :
         this.registerFormGroup.controls["password"].hasError('maxlength') ? 'Password must be at most 20 characters long' :
           this.registerFormGroup.controls["password"].hasError('passwordMismatch') ? 'Passwords do not match' : '';
   }
 
-  passwordConfirmErrorMessage(){
+  passwordConfirmErrorMessage() {
     return this.registerFormGroup.controls["confirmPassword"].hasError('required') ? 'Password required' :
       this.registerFormGroup.controls["confirmPassword"].hasError('mismatch') ? 'Passwords do not match' : '';
   }
 
-  acceptTosErrorMessage(){
+  acceptTosErrorMessage() {
     return this.registerFormGroup.controls["acceptTos"].hasError('required') ? 'You must accept the terms of service' : '';
   }
 
@@ -119,7 +119,6 @@ export class RegisterFormComponent implements OnInit {
     }
     return this.registerFormGroup.controls["email"].hasError('required') ? 'Email required' : '';
   }
-
 
 
 }

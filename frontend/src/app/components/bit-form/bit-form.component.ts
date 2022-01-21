@@ -60,6 +60,11 @@ export class BitFormComponent implements OnInit {
     }
   }
 
+  removeFiles() {
+    this.files = [];
+    this.imageField = "Add images to your Bit";
+  }
+
   createOrUpdateBit() {
     if (this.bitFormGroup.controls['id'].value) {
       this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {

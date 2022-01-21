@@ -55,6 +55,7 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import {HashtagPageComponent} from './pages/hashtag-page/hashtag-page.component';
+import { ThumbnailFormComponent } from './components/thumbnail-form/thumbnail-form.component';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -94,6 +95,7 @@ function tokenGetter() {
     BookmarksPageComponent,
     HashtagPageComponent,
     BreadcrumbsComponent,
+    ThumbnailFormComponent,
   ],
   imports: [
     BrowserModule,

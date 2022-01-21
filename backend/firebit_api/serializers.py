@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
+from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus, UserDetails
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -109,7 +109,19 @@ class FriendshipStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserDetails
+        fields = '__all__'
+
+    def create(self, validated_data):
+        user_details = UserDetails.objects.create(**validated_data)
+        return user_details
+
+
 class UserSerializer(serializers.ModelSerializer):
+    userdetails = UserDetailsSerializer(required=True)
+
     class Meta:
         model = User
         fields = '__all__'

@@ -38,14 +38,18 @@
       </mat-form-field>
     </div>
 
-    <div class="mb" *ngIf="(bit?.images?.length ?? 0) < this.imageLimit">
+    <div class="mb flex-start" *ngIf="(bit?.images?.length ?? 0) < this.imageLimit">
       <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" multiple #fileUpload>
 
       <div class="file-upload">
-        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" type="button">
+        <span class="file-label">{{imageField || "Add images to your Bit"}}</span>
+        <button mat-mini-fab color="primary" class="rounded-btn" (click)="fileUpload.click()" type="button">
           <mat-icon>photo_camera</mat-icon>
         </button>
-        {{imageField || "Add images to your Bit"}}
+        <button mat-mini-fab color="warn" class="rounded-btn" [disabled]="!(this.files.length > 0)" type="button"
+                (click)="removeFiles()">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
 

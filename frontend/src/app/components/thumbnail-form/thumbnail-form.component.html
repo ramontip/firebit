@@ -1,1 +1,20 @@
-<p>thumbnail-form works!</p>
+<form (submit)="createOrUpdateThumbnail()" class="w-100 space-between">
+
+  <div class="flex-start">
+    <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" #fileUpload>
+
+    <div class="file-upload">
+      <button mat-flat-button color="primary" class="file-button" (click)="fileUpload.click()" type="button">
+        <mat-icon>photo_camera</mat-icon>
+      </button>
+      <span class="file-label">{{imageField || "Update your thumbnail"}}</span>
+    </div>
+  </div>
+
+  <div>
+    <button mat-flat-button color="primary" [disabled]="!(this.file)" type="button" class="me-1">Update</button>
+    <!-- TODO: only show if userDetails->file is not null -->
+    <button mat-flat-button color="warn" [disabled]="" type="button">Delete</button>
+  </div>
+
+</form>
