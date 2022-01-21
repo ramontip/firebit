@@ -1,24 +1,35 @@
-<div class="container-xl" style="margin-top: 3rem;">
-  <div class="mb">
-    <app-bit [bit]="bit" *ngIf="bit"></app-bit>
+<div *ngIf="bit">
+  <div class="container-xl">
+    <app-breadcrumbs></app-breadcrumbs>
   </div>
 
-  <!-- Leave comment form -->
-  <form [formGroup]="commentFormGroup" (ngSubmit)="createComment()" class="w-100 space-between">
+  <div class="container-xl" style="margin-top: 1.5rem;">
 
-    <mat-form-field appearance="fill" class="comment-field">
-      <mat-label>Leave a comment ...</mat-label>
-      <textarea matInput cdkTextareaAutosize formControlName="content"></textarea>
-    </mat-form-field>
+    <div class="mb">
+      <app-bit [bit]="bit" *ngIf="bit"></app-bit>
+    </div>
 
-    <button mat-flat-button color="primary" [disabled]="!commentFormGroup.valid" class="inline-button">
+    <!-- Leave comment form -->
+    <form [formGroup]="commentFormGroup" (ngSubmit)="createComment()" class="w-100 space-between">
+
+      <mat-form-field appearance="fill" class="comment-field">
+        <mat-label>Leave a comment ...</mat-label>
+        <textarea matInput cdkTextareaAutosize formControlName="content"></textarea>
+        <button matSuffix mat-icon-button aria-label="Send" [disabled]="!this.commentFormGroup.controls['content'].value">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- !commentFormGroup.valid -->
+      <!-- <button mat-flat-button color="primary" [disabled]="!this.commentFormGroup.controls['content'].value" class="inline-button">
       <span>Create</span>
-    </button>
+    </button> -->
 
-  </form>
+    </form>
 
-  <div class="comment" *ngFor="let comment of comments">
-    <app-bit-comment [comment]="comment" *ngIf="comment"></app-bit-comment>
+    <div class="comment" *ngFor="let comment of comments">
+      <app-bit-comment [comment]="comment" *ngIf="comment"></app-bit-comment>
+    </div>
+
   </div>
-
 </div>

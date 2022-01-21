@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FriendshipService } from 'src/app/services/friendship.service';
 import { UserService } from 'src/app/services/user.service';
 import { Friendship, User } from 'src/types';
@@ -19,19 +19,29 @@ export class UserFriendsPageComponent implements OnInit {
     public userService: UserService,
     public friendshipService: FriendshipService,
     public route: ActivatedRoute,
+    private router: Router,
   ) {
     // this.friends = userService.getFriendships().filter(f => f.status === "friend")
 
     const username: string = route.snapshot.params.username
 
-    friendshipService.getFriendsByUser(username).subscribe(friendships => {
-      this.friends = friendships
-    })
+    userService.getUserByUsername(username).subscribe(
+      user => {
+        if (!user) {
+          this.router.navigate(["**"], { skipLocationChange: true })
+          return
+        }
 
-    userService.getUserByUsername(username).subscribe(user => {
-      this.user = user
-    })
+        this.user = user
 
+        friendshipService.getFriendsByUser(username).subscribe(friendships => {
+          this.friends = friendships
+        })
+      },
+      err => {
+        this.router.navigate(["**"], { skipLocationChange: true })
+      }
+    )
   }
 
   ngOnInit(): void { }

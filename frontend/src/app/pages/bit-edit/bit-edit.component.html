@@ -1,5 +1,11 @@
-<div class="fully-center">
-  <mat-card class="form-card">
-    <app-bit-form></app-bit-form>
-  </mat-card>
+<div *ngIf="bit">
+  <div class="breadcrumbs">
+    <app-breadcrumbs></app-breadcrumbs>
+  </div>
+
+  <div class="mt-2">
+    <mat-card class="form-card mt mb">
+      <app-bit-form></app-bit-form>
+    </mat-card>
+  </div>
 </div>

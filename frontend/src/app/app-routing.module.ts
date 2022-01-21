@@ -31,8 +31,9 @@ const routes: Routes = [
   {
     path: "bit/:id", canActivate: [AuthGuard], children: [
       { path: "", component: BitPageComponent },
-      { path: "edit", component: BitEditComponent },
-    ]
+      { path: "edit", component: BitEditComponent, data: { breadcrumbs: "Edit", isLink: true } },
+    ],
+    data: { breadcrumbs: "Bit", isLink: false }
   },
   {
     path: "profile", canActivate: [AuthGuard], children: [

@@ -92,6 +92,10 @@ a {
   margin-top: 1rem;
 }
 
+.mt-2 {
+  margin-top: 2rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
@@ -154,4 +158,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .fw-medium {
   font-weight: 500;
+}
+
+// Image form-fields
+
+.form-field-min-content {
+  mat-form-field, .mat-form-field-infix {
+    width: min-content;
+  }
 }

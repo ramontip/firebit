@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { BitService } from 'src/app/services/bit.service';
 import { Bit, Category } from 'src/types';
@@ -17,14 +17,22 @@ export class CategoryPageComponent implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
+    private router: Router,
     public categoryService: CategoryService,
     public bitService: BitService,
   ) { }
 
   async ngOnInit() {
+
     const categoryTitle: string = this.route.snapshot.params.name
 
-    this.category = await this.categoryService.getCategoryByTitle(categoryTitle).toPromise()
+    const cat = await this.categoryService.getCategoryByTitle(categoryTitle).toPromise()
+
+    if (!cat) {
+      this.router.navigate(["**"], { skipLocationChange: true })
+    }
+
+    this.category = cat
 
     this.bits = await this.bitService.getBitsByCategory(categoryTitle).toPromise()
 

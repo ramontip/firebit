@@ -4,7 +4,7 @@
 
     <div>
       <mat-card-content class="bit-user">
-        <a class="link" routerLink="/user/{{bit?.auth_user}}">
+        <a class="link" routerLink="/user/{{user?.username}}">
           {{user?.first_name}} {{user?.last_name}}
         </a>
       </mat-card-content>
@@ -33,7 +33,7 @@
   <div class="mb" [innerHTML]="contentFormatted"></div>
 
   <div *ngFor="let image of bit?.images" class="mb">
-    <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="w-100">
+    <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image w-100" draggable="false" unselectable>
   </div>
 
   <mat-card-actions class="space-between">
@@ -43,8 +43,7 @@
         {{likes.length}}
       </button>
 
-      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()"
-              [class.bit-bookmarked]="bookmarkedByCurrentUser">
+      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()" [class.bit-bookmarked]="bookmarkedByCurrentUser">
         <mat-icon>bookmark_border</mat-icon>
         <!-- bookmark_border / bookmark -->
         {{bookmarks.length}}
