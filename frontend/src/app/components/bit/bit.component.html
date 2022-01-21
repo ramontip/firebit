@@ -2,7 +2,8 @@
 
   <div class="flex bit-subtitle">
 
-    <div>
+    <div class="vertical-center mb">
+      <app-user-thumbnail [user]="user!" class="user-thumbnail user-thumbnail-s"></app-user-thumbnail>
       <mat-card-content class="bit-user">
         <a class="link" routerLink="/user/{{user?.username}}">
           {{user?.first_name}} {{user?.last_name}}
@@ -36,6 +37,10 @@
     <div *ngFor="let image of bit?.images" class="mb">
       <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image" draggable="false" unselectable>
     </div>
+
+    <!-- <div *ngFor="let image of bit?.images" class="mb">
+      <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="w-100" draggable="false">
+    </div> -->
   </div>
 
   <mat-card-actions class="space-between">

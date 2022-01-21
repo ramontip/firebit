@@ -10,14 +10,13 @@ export interface User {
   is_active: boolean
   date_joined?: string
   last_login?: string
+  userdetails?: UserDetails
 }
 
 export interface UserDetails {
   id?: number
   auth_user?: number
-  file_name: string
-  content_type: string
-  path: string
+  file: string
   about: string
   created_at?: string
   updated_at?: string
@@ -36,9 +35,9 @@ export interface Bit {
   content: string
   hashtags?: string
   category: number
-  images?: Image[]
   created_at?: string
   updated_at?: string
+  images?: Image[]
 }
 
 export interface Image {

@@ -33,7 +33,7 @@ export class BitService {
   }
 
   updateBit(bit: Bit) {
-    bit.auth_user = this.userService.currentUser.value!.id;
+    // bit.auth_user = this.userService.currentUser.value!.id;
     return this.http.put(this.appService.baseUrl + `/bits/${bit.id}/`, bit);
   }
 

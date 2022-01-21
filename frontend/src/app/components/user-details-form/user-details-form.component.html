@@ -1,0 +1,32 @@
+<form [formGroup]="userDetailsFormGroup" (ngSubmit)="createOrUpdateUserDetails()" class="w-100">
+
+  <div class="space-between mb">
+    <div class="flex-start">
+      <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" #fileUpload>
+
+      <div class="file-upload">
+        <span class="file-label">{{imageField || "Update your thumbnail"}}</span>
+        <button mat-mini-fab color="primary" class="file-button" (click)="fileUpload.click()" type="button">
+          <mat-icon>photo_camera</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="userDetails?.file">
+      <button mat-stroked-button color="warn" type="button" (click)="deleteThumbnail()">
+        Delete Thumbnail
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="flex-item">
+    <mat-form-field appearance="fill">
+      <mat-label>Tell us a bit about yourself …</mat-label>
+      <textarea matInput type="text" formControlName="about" cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </div>
+
+  <button mat-flat-button color="primary" type="submit" class="me-1">Update</button>
+
+</form>

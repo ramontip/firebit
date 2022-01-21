@@ -4,7 +4,8 @@
 
     <!-- User/Username -->
     <div>
-      <div class="flex mb">
+      <div class="mb vertical-center">
+        <app-user-thumbnail [user]="user!" class="user-thumbnail user-thumbnail-m"></app-user-thumbnail>
         <mat-card-title class="user">
           {{user?.first_name}} {{user?.last_name}}
         </mat-card-title>
@@ -41,7 +42,7 @@
 
 
   <!-- "Bio" -->
-  <div>
-    To be implemented…
+  <div *ngIf="user?.userdetails?.about">
+    <p>{{user?.userdetails?.about}}</p>
   </div>
 </mat-card>

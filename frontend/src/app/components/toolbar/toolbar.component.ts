@@ -11,14 +11,9 @@ export class ToolbarComponent implements OnInit {
 
   searchForm = new FormControl("")
 
-  profileImageUrl: string = ""
-
   constructor(
     public userService: UserService
   ) {
-    userService.currentUser.subscribe(user => {
-      this.profileImageUrl = `https://avatars.dicebear.com/api/pixel-art/${user?.username ?? "firebit"}.svg?translateY=-5`
-    })
   }
 
   ngOnInit(): void {
