@@ -31,7 +31,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" type="password" name="password" required>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" type="password"
+            name="password" required>
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -39,12 +40,15 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm password" formControlName="confirmPassword" type="password" name="confirmPassword" required>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm password" formControlName="confirmPassword"
+            type="password" name="confirmPassword" required>
           <mat-error *ngIf="this.registerFormGroup.controls['confirmPassword'].invalid">{{passwordConfirmErrorMessage()}}</mat-error>
         </mat-form-field>
 
-        <mat-checkbox color="primary" class="mb" [class.text-warn]="this.registerFormGroup.controls['acceptTos'].touched && this.registerFormGroup.controls['acceptTos'].invalid" formControlName="acceptTos">
-          I have read and accept the <a class="link primary" routerLink="/terms">terms of service</a>.
+        <mat-checkbox color="primary" class="mb"
+          [class.text-warn]="this.registerFormGroup.controls['acceptTos'].touched && this.registerFormGroup.controls['acceptTos'].invalid"
+          formControlName="acceptTos">
+          I have read and accept the <a class="link text-primary" routerLink="/terms">terms of service</a>.
         </mat-checkbox>
 
         <!-- <mat-card-actions> -->
@@ -56,7 +60,7 @@
 
     <p class="center">
       Already have an account?
-      <a class="link primary" routerLink="/">Login</a>
+      <a class="link text-primary fw-medium" routerLink="/">Login</a>
     </p>
   </mat-card-content>
 </mat-card>

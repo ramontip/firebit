@@ -1,0 +1,16 @@
+.background-pattern {
+  position: fixed;
+  height: 90%;
+  z-index: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.8;
+}
+
+.background-color {
+  position: fixed;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+}

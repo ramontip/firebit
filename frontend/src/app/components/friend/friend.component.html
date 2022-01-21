@@ -14,14 +14,22 @@
     <div class="action">
 
       <!-- Friend requests -->
-      <button mat-flat-button color="primary" (click)="this.acceptRequest()" *ngIf="friendship?.friendship_status === 1">
+      <button mat-flat-button color="primary" (click)="this.acceptRequest()"
+        *ngIf="friendship?.friendship_status === 1 && friendship?.from_auth_user === friendUser?.id">
         <mat-icon>checkmark</mat-icon>
         Accept
       </button>
 
-      <button mat-flat-button color="warn" (click)="this.declineRequest()" *ngIf="friendship?.friendship_status === 1">
+      <button mat-flat-button color="warn" (click)="this.declineRequest()"
+        *ngIf="friendship?.friendship_status === 1 && friendship?.from_auth_user === friendUser?.id">
         <mat-icon>close</mat-icon>
         Decline
+      </button>
+
+      <button mat-flat-button color="warn" (click)="this.declineRequest()"
+        *ngIf="friendship?.friendship_status === 1 && friendship?.to_auth_user === friendUser?.id">
+        <mat-icon>close</mat-icon>
+        Reject
       </button>
 
       <!-- Friends -->

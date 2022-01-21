@@ -13,14 +13,21 @@ import { IndexComponent } from "./pages/index/index.component";
 import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { AuthGuard } from "./guards/auth.guard";
-import {HashtagPageComponent} from "./pages/hashtag-page/hashtag-page.component";
+import { NotAuthGuard } from './guards/not-auth.guard';
+import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
+import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
+import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
+import { HashtagPageComponent } from "./pages/hashtag-page/hashtag-page.component";
+
 
 const routes: Routes = [
-  {path: "", component: IndexComponent},
-  {path: "login", component: IndexComponent},
-  {path: "register", component: IndexComponent},
-  {path: "reset-password", component: IndexComponent},
-  {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
+  // TODO: Guard for logged in -> redirect login/redirect to bitmap
+  // Maybe group all auth guard routes in one route as child routes
+  { path: "", component: IndexComponent, canActivate: [NotAuthGuard] },
+  { path: "login", component: IndexComponent, canActivate: [NotAuthGuard] },
+  { path: "register", component: IndexComponent, canActivate: [NotAuthGuard] },
+  { path: "reset-password", component: IndexComponent },
+  { path: "bitmap", component: HomeComponent, canActivate: [AuthGuard] },
   {
     path: "bit/:id", canActivate: [AuthGuard], children: [
       { path: "", component: BitPageComponent },
@@ -37,24 +44,25 @@ const routes: Routes = [
   },
   {
     path: "user/:username", canActivate: [AuthGuard], children: [
-      {path: "", component: UserPageComponent},
-      {path: "friends", component: UserFriendsPageComponent},
+      { path: "", component: UserPageComponent },
+      { path: "friends", component: UserFriendsPageComponent },
     ],
     // data: { breadcrumbs: "User", isLink: false }
   },
-  {path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard]},
-  {path: "hashtag/:hashtag", component: HashtagPageComponent, canActivate: [AuthGuard]},
+  { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard] },
+  { path: "hashtag/:hashtag", component: HashtagPageComponent, canActivate: [AuthGuard] },
   {
-    path: "", children: [
-      { path: "activities", component: ActivitiesPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Activities" } },
-      // children: [
-      //   { path: "", component: ActivitiesPageComponent },
-      // ]
-      { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
-    ],
+    // path: "", children: [
+    //   {
+    path: "activities", component: ActivitiesPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Activities" }, children: [
+      { path: "", redirectTo: "liked", pathMatch: "full" },
+      { path: "liked", component: ActivitiesLikedComponent, data: { name: "Bits I Liked" } },
+      { path: "commented", component: ActivitiesCommentedComponent, data: { name: "Bits I Commented" } },
+    ]
     // data: { breadcrumbs: "Activities" }
   },
-  {path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard]},
+  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
+  { path: "**", component: ErrorNotFoundComponent } // 404 Must be the last entry, because "**" matches everything
 ]
 
 @NgModule({

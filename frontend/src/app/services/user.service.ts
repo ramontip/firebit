@@ -67,7 +67,7 @@ export class UserService {
   }
 
   registerUser(userData: User) {
-    return this.http.post(this.appService.baseUrl + '/users/', userData);
+    return this.http.post<User>(this.appService.baseUrl + '/users/', userData);
   }
 
 

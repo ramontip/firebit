@@ -23,7 +23,7 @@
     </mat-card-subtitle>
 
     <!-- Friend Button -->
-    <mat-card-subtitle *ngIf="action === 'friend'">
+    <mat-card-subtitle *ngIf="action === 'friend' && currentUser?.id !== user?.id">
       <button mat-flat-button color="primary" (click)="this.addFriend()" *ngIf="friendship === undefined">
         <mat-icon>person_add</mat-icon>
         Add as friend
