@@ -50,11 +50,13 @@ import { BitEditComponent } from './pages/bit-edit/bit-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { JwtModule } from "@auth0/angular-jwt";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatBadgeModule } from "@angular/material/badge";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatMenuModule } from "@angular/material/menu"
+import { MatBadgeModule } from "@angular/material/badge"
+import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import {HashtagPageComponent} from './pages/hashtag-page/hashtag-page.component';
+import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
+import { BackgroundPatternComponent } from './components/background-pattern/background-pattern.component'
+import { HashtagPageComponent } from './pages/hashtag-page/hashtag-page.component';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -94,6 +96,9 @@ function tokenGetter() {
     BookmarksPageComponent,
     HashtagPageComponent,
     BreadcrumbsComponent,
+    ErrorNotFoundComponent,
+    BackgroundPatternComponent,
+    HashtagPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,7 +124,7 @@ function tokenGetter() {
     MatBadgeModule,
     MatSlideToggleModule,
     JwtModule.forRoot({
-      config: {tokenGetter: tokenGetter}
+      config: { tokenGetter: tokenGetter }
     }),
   ],
   providers: [],

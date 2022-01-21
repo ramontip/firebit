@@ -1,7 +1,7 @@
 <app-toolbar *ngIf="userService.isLoggedIn | async"></app-toolbar>
 
 <mat-sidenav-container class="full-height" [class.sidebar-container]="userService.isLoggedIn | async">
-  <mat-sidenav mode="side" opened *ngIf="userService.isLoggedIn | async">
+  <mat-sidenav mode="side" opened class="bg-primary" *ngIf="userService.isLoggedIn | async">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 
