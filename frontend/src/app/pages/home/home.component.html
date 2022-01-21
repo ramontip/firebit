@@ -18,8 +18,8 @@
             This is a summary of the content
           </mat-panel-description> -->
       </mat-expansion-panel-header>
-        <app-bit-form></app-bit-form>
-      </mat-expansion-panel>
+      <app-bit-form></app-bit-form>
+    </mat-expansion-panel>
   </div>
 
   <!-- Bit list -->
@@ -27,8 +27,17 @@
     <h2>Discover your Bitmap</h2>
     <div class="flex flex-container">
       <!-- <div fxFlex="1 1 49%" class="item" *ngFor="let bit of bits"> -->
-      <app-bit class="flex-item item" *ngFor="let bit of bits" [bit]="bit"></app-bit>
+      <app-bit class="flex-item item" *ngFor="let bit of []" [bit]="bit"></app-bit>
       <!-- </div> -->
+    </div>
+    <div class="mt">
+      <!--
+         Welcome to your bitmap.
+         Here you see the latest bits of your friends.
+         -->
+      <app-no-data title="Your bitmap is totally not connected."
+        message="But don't worry! Just start by exploring Firebit and adding your friends." image="undraw_into_the_night-accent.svg"
+        *ngIf="bits.length> 0"></app-no-data>
     </div>
   </div>
 

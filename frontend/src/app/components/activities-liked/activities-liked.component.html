@@ -2,4 +2,7 @@
   <div class="mb" *ngFor="let bit of likedBits">
     <app-bit [bit]="bit"></app-bit>
   </div>
+
+  <app-no-data title="You have not liked any bits." image="undraw_loving_it_firebit-accent.svg" *ngIf="likedBits.length === 0">
+  </app-no-data>
 </div>

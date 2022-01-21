@@ -46,9 +46,9 @@ const routes: Routes = [
   {
     path: "user/:username", canActivate: [AuthGuard], children: [
       { path: "", component: UserPageComponent },
-      { path: "friends", component: UserFriendsPageComponent },
+      { path: "friends", component: UserFriendsPageComponent, data: { breadcrumbs: "Friends", isLink: true } },
     ],
-    // data: { breadcrumbs: "User", isLink: false }
+    data: { breadcrumbs: "User", isLink: false }
   },
   { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard] },
   { path: "hashtag/:hashtag", component: HashtagPageComponent, canActivate: [AuthGuard] },

@@ -8,6 +8,9 @@
       <div class="mb" *ngFor="let bit of bookmarkedBits">
         <app-bit [bit]="bit"></app-bit>
       </div>
+
+      <app-no-data title="You have not bookmarked any bits." image="undraw_bookmarks-accent.svg" *ngIf="bookmarkedBits.length === 0">
+      </app-no-data>
     </div>
 
   </div>

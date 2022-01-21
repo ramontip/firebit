@@ -32,8 +32,10 @@
   <!-- TODO: potential safety risks because HTML is escaped, however it's needed for hashtags -->
   <div class="mb" [innerHTML]="contentFormatted"></div>
 
-  <div *ngFor="let image of bit?.images" class="mb">
-    <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image w-100" draggable="false" unselectable>
+  <div class="flex bit-image-container">
+    <div *ngFor="let image of bit?.images" class="mb">
+      <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image" draggable="false" unselectable>
+    </div>
   </div>
 
   <mat-card-actions class="space-between">

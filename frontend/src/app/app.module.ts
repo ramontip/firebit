@@ -57,6 +57,7 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
 import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
 import { BackgroundPatternComponent } from './components/background-pattern/background-pattern.component'
 import { HashtagPageComponent } from './pages/hashtag-page/hashtag-page.component';
+import { NoDataComponent } from './components/no-data/no-data.component';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -99,6 +100,7 @@ function tokenGetter() {
     ErrorNotFoundComponent,
     BackgroundPatternComponent,
     HashtagPageComponent,
+    NoDataComponent,
   ],
   imports: [
     BrowserModule,
