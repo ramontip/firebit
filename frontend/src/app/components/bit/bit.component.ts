@@ -21,12 +21,12 @@ export class BitComponent implements OnInit {
   createdByCurrentUser = false;
   bookmarks: Bookmark[] = [];
   bookmarkedByCurrentUser = false;
-
+  contentFormatted?: String
 
   @Input()
   bit?: Bit
 
-  constructor(public userService: UserService, private appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
+  constructor(public userService: UserService, public appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
   }
 
   ngOnInit(): void {
@@ -61,6 +61,11 @@ export class BitComponent implements OnInit {
       this.bookmarks = bookmarks;
       this.bookmarkedByCurrentUser = this.bookmarks.find(bookmarks => bookmarks.auth_user == currentUser.id) != null;
     })
+
+    // manage hashtags
+    // ToDo: optimize hashtag extraction
+    this.contentFormatted = this.bit?.content.replace(/#(\S*)/g, '<a class="text-accent" href="/hashtag/$1">#$1</a>');
+
   }
 
   createOrDeleteLike() {

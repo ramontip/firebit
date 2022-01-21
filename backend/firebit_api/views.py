@@ -1,6 +1,9 @@
+import os
+
 from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 
 from . import models
@@ -17,12 +20,15 @@ class BitViewSet(viewsets.ViewSet):
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
+        hashtag = request.GET.get("hashtag")
 
         if category is not None:
             queryset = queryset.filter(category__title__iexact=category)
             # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
         if user is not None:
             queryset = queryset.filter(auth_user__username__iexact=user)
+        if hashtag:
+            queryset = queryset.filter(hashtags__contains=' ' + hashtag + ' ')
 
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
@@ -73,9 +79,14 @@ class BitViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None, format=None):
         try:
-            bit = models.Bit.objects.filter(
+            bit = models.Bit.objects.get(
                 pk=pk
-            ).delete()
+            )
+            for image in bit.image_set.all():
+                if os.path.isfile(image.file.path):
+                    os.remove(image.file.path)
+            bit.delete()
+
         except models.Bit.DoesNotExist:
             return Response(status=404)
 
@@ -129,6 +140,51 @@ class BitViewSet(viewsets.ViewSet):
 
         except models.Bit.DoesNotExist:
             return Response(status=404)
+
+
+class ImageViewSet(viewsets.ViewSet):
+    parser_class = (FileUploadParser,)
+
+    def list(self, request, format=None):
+        queryset = models.Image.objects.all()
+        serializer = ImageSerializer(queryset, many=True)
+        return Response(serializer.data, status=200)
+        # return Response(status=405)
+
+    def create(self, request, format=None):
+        serializer = ImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=201
+            )
+        else:
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None, format=None):
+        # images are only retrieved through bits
+        return Response(status=405)
+
+    def update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def partial_update(self, request, pk=None, format=None):
+        return Response(status=405)
+
+    def destroy(self, request, pk=None, format=None):
+        try:
+            image = models.Image.objects.get(
+                pk=pk
+            )
+            if os.path.isfile(image.file.path):
+                os.remove(image.file.path)
+            image.delete()
+
+        except models.Image.DoesNotExist:
+            return Response(status=404)
+
+        return Response(status=204)
 
 
 class CommentViewSet(viewsets.ViewSet):
@@ -288,7 +344,21 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def partial_update(self, request, pk=None, format=None):
-        return Response(status=405)
+        try:
+            user = models.User.objects.get(
+                pk=pk
+            )
+            serializer = UserSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=201
+                )
+            else:
+                return Response(serializer.errors, status=400)
+        except models.User.DoesNotExist:
+            return Response(status=404)
 
     def destroy(self, request, pk=None, format=None):
         try:
@@ -307,6 +377,7 @@ class UserViewSet(viewsets.ViewSet):
             likes = models.Like.objects.filter(auth_user=pk)
             likes = likes.order_by(request.GET.get("order_by") or "pk")
 
+            print(likes)
             # "map" likes to the respective bits
             liked_bits = [l.bit for l in likes]
 
@@ -385,12 +456,12 @@ class FriendshipViewSet(viewsets.ViewSet):
         # with username to request 
         if auth_user is not None:
             queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
-        
+
         if from_auth_user is not None:
             queryset = queryset.filter(from_auth_user=from_auth_user)
         if to_auth_user is not None:
             queryset = queryset.filter(to_auth_user=to_auth_user)
-        
+
         if status is not None:
             queryset = queryset.filter(friendship_status=status)
 
@@ -456,7 +527,7 @@ class FriendshipViewSet(viewsets.ViewSet):
     def accept(self, request, pk=None):
         try:
             friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
-            
+
             if friendship.friendship_status.id != 1:
                 return Response({"error": "Must be a request to accept"}, status=400)
 
@@ -469,20 +540,20 @@ class FriendshipViewSet(viewsets.ViewSet):
         except (models.Friendship.DoesNotExist, AttributeError):
             return Response(status=404)
 
-
     # this creates the url: friendships/{Id}/decline/
     @action(methods=['post'], detail=True, url_path='decline', url_name='decline')
     def decline(self, request, pk=None, format=None):
         try:
             friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
-            
+
             if friendship.friendship_status.id != 1:
                 return Response({"error": "Must be a request to decline"}, status=400)
 
             return self.destroy(request, pk, format)
-        
+
         except (models.Friendship.DoesNotExist, AttributeError):
             return Response(status=404)
+
 
 class LikeViewSet(viewsets.ViewSet):
 

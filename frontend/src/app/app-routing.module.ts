@@ -13,10 +13,12 @@ import { IndexComponent } from "./pages/index/index.component";
 import { BitEditComponent } from "./pages/bit-edit/bit-edit.component";
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { AuthGuard } from "./guards/auth.guard";
+import { NotAuthGuard } from './guards/not-auth.guard';
 import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
 import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
-import { NotAuthGuard } from './guards/not-auth.guard';
 import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
+import { HashtagPageComponent } from "./pages/hashtag-page/hashtag-page.component";
+
 
 const routes: Routes = [
   // TODO: Guard for logged in -> redirect login/redirect to bitmap
@@ -47,7 +49,8 @@ const routes: Routes = [
     ],
     // data: { breadcrumbs: "User", isLink: false }
   },
-  { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Category", isLink: false } },
+  { path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard] },
+  { path: "hashtag/:hashtag", component: HashtagPageComponent, canActivate: [AuthGuard] },
   {
     // path: "", children: [
     //   {

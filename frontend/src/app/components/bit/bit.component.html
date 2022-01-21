@@ -29,8 +29,11 @@
     </a>
   </mat-card-title>
 
-  <div class="mb">
-    {{bit?.content}}
+  <!-- TODO: potential safety risks because HTML is escaped, however it's needed for hashtags -->
+  <div class="mb" [innerHTML]="contentFormatted"></div>
+
+  <div *ngFor="let image of bit?.images" class="mb">
+    <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="w-100">
   </div>
 
   <mat-card-actions class="space-between">

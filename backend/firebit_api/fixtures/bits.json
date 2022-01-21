@@ -5,7 +5,7 @@
     "fields": {
       "title": "Meine lieblings Grafikkarte",
       "content": "Diese Grafikkarte ist meine Lieblingskarte. Sie ist einzigartig und hat eine sehr hohe Leistung.",
-      "hashtags": "{'Hashtag 1': 'Nice'}",
+      "hashtags": "#Grafikkarte",
       "created_at": "2016-01-01T00:00:00Z",
       "updated_at": "2017-01-01T00:00:00Z",
       "auth_user_id": 1,
@@ -18,7 +18,7 @@
     "fields": {
       "title": "Beschte Film",
       "content": "Matrix Resurrection ist echt ein guter Film!",
-      "hashtags": "{'Hashtag 2': 'NeoIsNice'}",
+      "hashtags": "#Matrix",
       "created_at": "2021-12-01T00:00:00Z",
       "updated_at": "2021-12-12T00:00:00Z",
       "auth_user_id": 1,
@@ -31,7 +31,7 @@
     "fields": {
       "title": "Nice Serie gefunden",
       "content": "Diese Serie ist echt ein guter Film! Bitte was?!",
-      "hashtags": "{'Hashtag 3': 'WelcheSerie'}",
+      "hashtags": "#Serie #Film",
       "created_at": "2018-01-01T00:00:00Z",
       "updated_at": "2020-01-01T00:00:00Z",
       "auth_user_id": 2,
@@ -44,7 +44,7 @@
     "fields": {
       "title": "Python ist gar nicht schleimig",
       "content": "Alle sagen Schlangen sind schleimig, is aber gar nt so! Übrigens: Ein Mann wird in einen Heißluftballon abgetrieben. Als er völlig die Orientierung verloren hat, reduziert er die Höhe und sieht einen Mann auf einem Feld. Er ruft ihm zu: „Entschuldigung, können Sie mir sagen, wo ich bin?“\n\nDer Mann unten antwortet: „Ja, Sie schweben mit einem Heißluftballon ca. 20m über diesem Feld.“\n\n„Sie müssen in der EDV Branche arbeiten“, sagt der Mann im Heißluftballon.\n\n„Stimmt, woher wissen Sie das?“\n\n„Naja, alles was Sie mir gesagt haben, ist aus technischer Sicht richtig, aber kein Mensch kann damit etwas anfangen.“\n\nDer Mann von unten antwortet: „Und Sie müssen im Marketing arbeiten!“\n\n„Ja stimmt, aber wie kommen Sie darauf?“, fragt der Ballonfahrer.\n\n„Wissen Sie, Sie wissen weder wo Sie sind, noch wo Sie hin wollen, aber erwarten von mir, dass ich Ihnen helfen kann. Jetzt sind Sie in der gleichen Lage wie bevor wir uns getroffen haben, aber jetzt geben Sie mir die Schuld daran.“\n",
-      "hashtags": "{'Hashtag 4': 'Comedian'}",
+      "hashtags": "#Python",
       "created_at": "2016-01-01T00:00:00Z",
       "updated_at": "2017-01-01T00:00:00Z",
       "auth_user_id": 1,

@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-login-form',
@@ -24,6 +26,14 @@ export class LoginFormComponent implements OnInit {
 
   login() {
     this.userService.login(this.loginFormGroup.value);
+  }
+
+  usernameErrorMessage() {
+    return this.loginFormGroup.controls["username"].hasError('required') ? 'Username required' : '';
+  }
+
+  passwordErrorMessage() {
+    return this.loginFormGroup.controls["password"].hasError('required') ? 'Password required' : '';
   }
 
 }

@@ -6,21 +6,45 @@ from rest_framework import serializers
 from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus
 
 
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = '__all__'
+
+    def create(self, validated_data):
+        image = Image.objects.create(**validated_data)
+        return image
+
+
 class BitSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(source='image_set', many=True, required=False)
+
     class Meta:
         model = Bit
         fields = '__all__'
 
     def create(self, validated_data):
+        hashtags = ' '
+        for i in validated_data['content'].split():
+            if i.startswith('#'):
+                hashtags += i[1:] + ' '
+        validated_data['hashtags'] = hashtags
+
         bit = Bit.objects.create(**validated_data)
+
         return bit
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
-        instance.hashtags = validated_data.get('hashtags', instance.hashtags)
         instance.category = validated_data.get('category', instance.category)
         instance.updated_at = datetime.now()
+
+        hashtags = ' '
+        for i in validated_data['content'].split():
+            if i.startswith('#'):
+                hashtags += i[1:] + ' '
+        instance.hashtags = hashtags
 
         instance.save()
         return instance
@@ -50,12 +74,6 @@ class CommentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         comment = Comment.objects.create(**validated_data)
         return comment
-
-
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = '__all__'
 
 
 class LikeSerializer(serializers.ModelSerializer):
