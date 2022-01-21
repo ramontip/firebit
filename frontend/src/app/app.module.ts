@@ -53,7 +53,9 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu"
 import { MatBadgeModule } from "@angular/material/badge"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component'
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
+import { BackgroundPatternComponent } from './components/background-pattern/background-pattern.component'
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -92,6 +94,8 @@ function tokenGetter() {
     BitEditComponent,
     BookmarksPageComponent,
     BreadcrumbsComponent,
+    ErrorNotFoundComponent,
+    BackgroundPatternComponent,
   ],
   imports: [
     BrowserModule,

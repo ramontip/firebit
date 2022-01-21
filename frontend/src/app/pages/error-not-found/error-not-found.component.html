@@ -1,0 +1,41 @@
+<div class="wrapper" [class.remove-margin]="userService.isLoggedIn | async">
+  <app-background-pattern *ngIf="!(userService.isLoggedIn | async)"></app-background-pattern>
+
+  <div class="flex center wrapper">
+    <div class="inner error-img">
+      <img src="../../../assets/undraw_light_the_fire-accent.svg" alt="Camping" draggable="false">
+    </div>
+
+    <div class="inner error-text">
+      <h1 class="logo text-accent">
+        <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" draggable="false">
+      </h1>
+      <h1 [class.text-white]="!(userService.isLoggedIn | async)" [class.text-primary]="userService.isLoggedIn | async">
+        Looking for the meaning of life?<br>
+        We're sorry, it is not here.
+      </h1>
+      <h3 class="mb-2" [class.text-white]="!(userService.isLoggedIn | async)">
+        But you are pretty close here on Firebit.
+      </h3>
+
+      <!-- Back -->
+      <button mat-flat-button color="accent" (click)="back()" *ngIf="userService.isLoggedIn |async">
+        <mat-icon>undo</mat-icon>
+        Go back
+      </button>
+
+      <!-- Login -->
+      <div *ngIf="!(userService.isLoggedIn |async)">
+        <a mat-flat-button color="accent" routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Login
+        </a>
+
+        <div class="register-link text-white">
+          or <a class="link text-accent fw-medium" routerLink="/register">Register</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

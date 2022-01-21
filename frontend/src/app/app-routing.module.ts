@@ -16,6 +16,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { ActivitiesLikedComponent } from './components/activities-liked/activities-liked.component';
 import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
 import { NotAuthGuard } from './guards/not-auth.guard';
+import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
 
 const routes: Routes = [
   // TODO: Guard for logged in -> redirect login/redirect to bitmap
@@ -58,6 +59,7 @@ const routes: Routes = [
     // data: { breadcrumbs: "Activities" }
   },
   { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
+  { path: "**", component: ErrorNotFoundComponent } // 404 Must be the last entry, because "**" matches everything
 ]
 
 @NgModule({
