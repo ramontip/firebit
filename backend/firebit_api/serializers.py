@@ -90,7 +90,7 @@ class LikeSerializer(serializers.ModelSerializer):
         # Check that to and from users are different
         print(data)
         if data["from_auth_user"] == data["to_auth_user"]:
-            raise serializers.ValidationError("'from_auth_user' and 'to_auth_user' must be different")        
+            raise serializers.ValidationError("'from_auth_user' and 'to_auth_user' must be different")
         return data
 
 
@@ -128,7 +128,11 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    userdetails = UserDetailsSerializer(required=True)
+    # required = False -> cause otherwise no registration possible
+    # userdetails = UserDetailsSerializer(required=False)
+
+    # TODO: userdetails isnt working in combination with normal user data
+    # userdetails = serializers.PrimaryKeyRelatedField(queryset=UserDetails.objects.all(), required=False)
 
     class Meta:
         model = User
@@ -140,8 +144,13 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        instance.about = validated_data.get('about', instance.about)
-        instance.file = validated_data.get('file', instance.file)
+        # instance.about = validated_data.get('about', instance.about)
+        # instance.file = validated_data.get('file', instance.file)
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        instance.password = validated_data.get('password', instance.password)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
 
         instance.save()
         return instance
