@@ -75,25 +75,28 @@ export class BitComponent implements OnInit {
     let like = this.likes.find(like => like.auth_user == auth_user)
 
     // check if bit was already liked
-    if (like != null) {
+    if (like) {
       this.likeService.deleteLike(like).subscribe(() => {
         this.appService.showSnackBar('Bit has been unliked!', 'Hide');
         this.likedByCurrentUser = false;
+        this.likes = this.likes.filter(l => l.id !== like?.id)
       })
     } else {
-      let like: Like = {
+      like = {
         bit: this.bit?.id,
         auth_user: auth_user
       }
-      this.likeService.createLike(like).subscribe(() => {
+
+      this.likeService.createLike(like).subscribe(l => {
         this.appService.showSnackBar('Bit has been liked!', 'Hide');
         this.likedByCurrentUser = true;
+        this.likes.push(l)
       })
     }
 
     // TODO: refresh likes without refreshing route (issues with subscribe)
     // this.ngOnInit()
-    this.appService.refreshRoute();
+    // this.appService.refreshRoute();
   }
 
   createOrDeleteBookmark() {
@@ -102,24 +105,27 @@ export class BitComponent implements OnInit {
     let bookmark = this.bookmarks.find(bookmark => bookmark.auth_user == auth_user)
 
     // check if bit was already bookmarked
-    if (bookmark != null) {
+    if (bookmark) {
       this.bookmarkService.deleteBookmark(bookmark).subscribe(() => {
         this.appService.showSnackBar('Bookmark has been removed!', 'Hide');
         this.bookmarkedByCurrentUser = false;
+        // remove from list
+        this.bookmarks = this.bookmarks.filter(b => b.id !== bookmark?.id)
       })
     } else {
-      let bookmark: Bookmark = {
+      bookmark = {
         bit: this.bit?.id,
         auth_user: auth_user
       }
-      this.bookmarkService.createBookmark(bookmark).subscribe(() => {
+      this.bookmarkService.createBookmark(bookmark).subscribe(b => {
         this.appService.showSnackBar('Bit has been bookmarked!', 'Hide');
         this.bookmarkedByCurrentUser = true;
+        this.bookmarks.push(b)
       })
     }
 
     // TODO: refresh bookmarks without refreshing route (issues with subscribe)
     // this.ngOnInit()
-    this.appService.refreshRoute();
+    // this.appService.refreshRoute();
   }
 }

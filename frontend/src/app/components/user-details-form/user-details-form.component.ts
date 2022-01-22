@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AppService} from "../../services/app.service";
-import {UserDetails} from "../../../types";
-import {UserService} from "../../services/user.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AppService } from "../../services/app.service";
+import { UserDetails } from "../../../types";
+import { UserService } from "../../services/user.service";
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-user-details-form',
@@ -28,7 +28,7 @@ export class UserDetailsFormComponent implements OnInit {
     this.userService.currentUser.subscribe(user => {
       if (user?.userdetails) {
         this.userDetails = user.userdetails;
-        this.userDetailsFormGroup.setValue({about: user.userdetails.about});
+        this.userDetailsFormGroup.setValue({ about: user.userdetails.about });
       }
     });
   }
@@ -50,15 +50,28 @@ export class UserDetailsFormComponent implements OnInit {
 
     if (this.userDetails) {
       console.log(formData.get('file'))
-      this.userService.updateUserDetails(this.userDetails.auth_user!, formData).subscribe(() => {
+      this.userService.updateUserDetails(this.userDetails.auth_user!, formData).subscribe(details => {
         console.log("Details updated");
+        console.log({ details });
+
+        this.appService.showSnackBar("Profile updated successfully", "Hide")
+
+        this.userDetailsFormGroup.controls["about"].setValue(details.about)
+
+        // this.appService.refreshRoute()
       })
     } else {
-      this.userService.createUserDetails(formData).subscribe(() => {
-        console.log("Details created");
+      this.userService.createUserDetails(formData).subscribe(details => {
+        console.log("Details created", { details });
+        this.appService.showSnackBar("Details created successfully", "Hide")
+
+        this.userDetailsFormGroup.controls["about"].setValue(details.about)
+
+        // TODO: Update profile image in top toolbar without refresh?
+        this.appService.refreshRoute()
       })
     }
-    this.goToProfile();
+    // this.goToProfile();
   }
 
   deleteThumbnail() {
@@ -69,7 +82,9 @@ export class UserDetailsFormComponent implements OnInit {
       formData.append('file', '');
       this.userService.updateUserDetails(this.userDetails.auth_user!, formData).subscribe(() => {
         console.log("Thumbnail deleted");
-        this.goToProfile();
+        this.appService.showSnackBar("Profile image deleted successfully", "Hide")
+        this.appService.refreshRoute()
+        // this.goToProfile();
       })
     }
   }

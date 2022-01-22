@@ -33,7 +33,8 @@
         <mat-form-field>
           <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" type="password"
             name="password" required>
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+            tabindex="-1">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="this.registerFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}</mat-error>

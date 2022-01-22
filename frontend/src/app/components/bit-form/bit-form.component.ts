@@ -69,10 +69,18 @@ export class BitFormComponent implements OnInit {
     const id = this.bitFormGroup.controls['id'].value
 
     if (id) {
-      this.bitService.updateBit(this.bitFormGroup.value).subscribe(() => {
+      console.log({ form: this.bitFormGroup.value })
+
+      let bitValue = {
+        ...this.bitFormGroup.value,
+        auth_user: this.bit?.auth_user
+      }
+
+      this.bitService.updateBit(bitValue).subscribe(bit => {
         this.createImagesForBit(id);
         this.appService.showSnackBar('Bit updated successfully!', 'Hide');
-        this.ngOnInit(); // TODO: on init should only be called once (by angular)
+        this.bit = bit
+        // this.ngOnInit(); // TODO: on init should only be called once (by angular)
         this.router.navigate(["bit", id])
       })
     } else {

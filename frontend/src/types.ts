@@ -75,7 +75,7 @@ export interface Bookmark {
 
 export interface Stat {
   amount: number
-  description: string
+  description: (amount: number) => string,
   icon?: string
   link?: string
 }

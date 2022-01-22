@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Like} from "../../types";
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
-import {AppService} from "./app.service";
+import { Injectable } from '@angular/core';
+import { Like } from "../../types";
+import { HttpClient } from "@angular/common/http";
+import { UserService } from "./user.service";
+import { AppService } from "./app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class LikeService {
 
   createLike(like: Like) {
     like.auth_user = this.userService.currentUser.value!.id;
-    return this.http.post(this.appService.baseUrl + `/likes/`, like);
+    return this.http.post<Like>(this.appService.baseUrl + `/likes/`, like);
   }
 
   deleteLike(like: Like) {

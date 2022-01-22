@@ -42,12 +42,11 @@
   border-radius: 4px;
   max-width: 100%; // max-width maybe
   max-height: 18rem;
-  object-fit: scale-down
+  object-fit: scale-down;
 }
 
 .bit-image-container {
-  justify-content: center;
-  gap: 1rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
   flex-wrap: wrap;
-  flex-basis: 0.5;
 }

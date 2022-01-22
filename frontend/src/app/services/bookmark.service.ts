@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Bookmark} from "../../types";
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
-import {AppService} from "./app.service";
+import { Injectable } from '@angular/core';
+import { Bookmark } from "../../types";
+import { HttpClient } from "@angular/common/http";
+import { UserService } from "./user.service";
+import { AppService } from "./app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class BookmarkService {
 
   createBookmark(bookmark: Bookmark) {
     bookmark.auth_user = this.userService.currentUser.value!.id;
-    return this.http.post(this.appService.baseUrl + `/bookmarks/`, bookmark);
+    return this.http.post<Bookmark>(this.appService.baseUrl + `/bookmarks/`, bookmark);
   }
 
   deleteBookmark(bookmark: Bookmark) {

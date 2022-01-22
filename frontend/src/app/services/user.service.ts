@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Friendship, JWTToken, User} from 'src/types';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {AppService} from "./app.service";
-import {map} from 'rxjs/operators';
-import {CookieService} from "ngx-cookie-service";
+import { Injectable } from '@angular/core';
+import { Friendship, JWTToken, User, UserDetails } from 'src/types';
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { AppService } from "./app.service";
+import { map } from 'rxjs/operators';
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -37,20 +37,17 @@ export class UserService {
 
   // Authentication
 
-  login(userData: { username: string, password: string }): void {
-    this.http.post(this.appService.baseUrl + '/token/', userData).subscribe(
-      (res: any) => {
+  login(userData: { username: string, password: string }) {
+    return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
+      map((res) => {
+        console.log({ loginResponse: res })
+
         this.isLoggedIn.next(true);
         localStorage.setItem('accessToken', res.token);
 
         this.setCurrentUser()
-
-        this.router.navigate(['/bitmap']).then(() => {
-          this.appService.showSnackBar('Logged in successfully', 'Hide', 3000)
-        })
-        //this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
-      },
-      () => this.appService.showSnackBar('Invalid username or password', 'Hide', 3000)
+        return res
+      })
     );
   }
 
@@ -81,14 +78,20 @@ export class UserService {
 
     this.http.get<User>(this.appService.baseUrl + `/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
-      console.log({currentUser: this.currentUser.value})
+      console.log({ currentUser: this.currentUser.value })
     })
   }
 
-  updateUser(userData: User) {
-    return this.http.patch<User>(`/api/users/${userData.id}/`, userData, {headers:{"X-CSRFToken": this.cookieService.get('csrftoken')} }).subscribe(() => {
-      this.appService.showSnackBar("User updated successfully", "Hide")
-    })
+  updateUser(id: number, userData: User) {
+    return this.http.patch<User>(`/api/users/${id}/`, userData, {
+      headers: { "X-CSRFToken": this.cookieService.get('csrftoken') }
+    }).pipe(
+      map(user => {
+        console.log({ nextUser: user });
+        this.currentUser.next(user)
+        return user
+      })
+    )
   }
 
   // Users
@@ -127,12 +130,39 @@ export class UserService {
 
   // User Details
 
-  createUserDetails(formData: any) {
-    return this.http.post(this.appService.baseUrl + `/userDetails/`, formData);
+  createUserDetails(formData: FormData) {
+    return this.http.post<UserDetails>(this.appService.baseUrl + `/userDetails/`, formData);
   }
 
   updateUserDetails(id: number, formData: any) {
-    return this.http.patch(this.appService.baseUrl + `/userDetails/${id}/`, formData);
+    return this.http.patch<UserDetails>(this.appService.baseUrl + `/userDetails/${id}/`, formData);
+  }
+
+  // Counters
+  // TODO: Put here for stats to be all in one place, maybe move to respective service?
+
+  getFriendCount(username: string) {
+    return this.http.get<{ friendships: number }>(`/api/friendships/?auth_user=${username}&status=2&count=true`)
+      .pipe(map(res => {
+        console.log({ res })
+        return res.friendships
+      }))
+  }
+
+  getLikeCount(id: number) {
+    return this.http.get<{ liked_bits: number }>(this.appService.baseUrl + `/users/${id}/liked_bits/?count=true`)
+      .pipe(map(res => {
+        console.log({ res })
+        return res.liked_bits
+      }))
+  }
+
+  getBookmarkCount(id: number) {
+    return this.http.get<{ bookmarks: number }>(this.appService.baseUrl + `/users/${id}/bookmarks/?count=true`)
+      .pipe(map(res => {
+        console.log({ res })
+        return res.bookmarks
+      }))
   }
 
   // user: User = {

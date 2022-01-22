@@ -38,7 +38,7 @@
   <div class="mb" [innerHTML]="contentFormatted"></div>
 
   <div class="flex bit-image-container">
-    <div *ngFor="let image of bit?.images" class="mb">
+    <div *ngFor="let image of bit?.images">
       <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image" draggable="false" unselectable>
     </div>
 

@@ -9,9 +9,9 @@
   </div>
 
   <!-- Stats -->
-  <div class="section">
+  <div class="section" *ngIf="user">
     <h3>Stats</h3>
-    <app-profile-stats></app-profile-stats>
+    <app-profile-stats [user]="user"></app-profile-stats>
   </div>
 
   <!-- Bits -->
