@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BitService } from 'src/app/services/bit.service';
 import { UserService } from 'src/app/services/user.service';
-import { Bit } from 'src/types';
+import { Bit, User } from 'src/types';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,6 +11,7 @@ import { Bit } from 'src/types';
 export class ProfilePageComponent implements OnInit {
 
   bits?: Bit[]
+  user?: User
 
   constructor(
     public userService: UserService,
@@ -19,6 +20,10 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit() {
     this.userService.currentUser.subscribe(user => {
+      if (user) {
+        this.user = user
+      }
+
       this.bitService.getBitsByUser(user?.username ?? "").subscribe(bits => this.bits = bits)
     })
   }

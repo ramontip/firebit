@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Bit, Bookmark, Comment, Like} from 'src/types';
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
-import {AppService} from "./app.service";
+import { Injectable } from '@angular/core';
+import { Bit, Bookmark, Comment, Like } from 'src/types';
+import { HttpClient } from "@angular/common/http";
+import { UserService } from "./user.service";
+import { AppService } from "./app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -29,17 +29,19 @@ export class BitService {
 
   createBit(bit: Bit) {
     bit.auth_user = this.userService.currentUser.value!.id;
-    return this.http.post(this.appService.baseUrl + `/bits/`, bit);
+    return this.http.post<Bit>(this.appService.baseUrl + `/bits/`, bit);
   }
 
   updateBit(bit: Bit) {
     // bit.auth_user = this.userService.currentUser.value!.id;
-    return this.http.put(this.appService.baseUrl + `/bits/${bit.id}/`, bit);
+    return this.http.put<Bit>(this.appService.baseUrl + `/bits/${bit.id}/`, bit);
   }
 
   deleteBit(bit: Bit) {
     return this.http.delete(this.appService.baseUrl + `/bits/${bit.id}/`);
   }
+
+  // Bit related
 
   getBitsByUser(username: string) {
     return this.http.get<Bit[]>(this.appService.baseUrl + `/bits/?auth_user=${username}&order_by=-created_at`)

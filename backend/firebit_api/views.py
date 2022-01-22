@@ -371,10 +371,15 @@ class UserViewSet(viewsets.ViewSet):
     @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits')
     def list_liked_bits(self, request, pk=None):
         try:
+            # only get count
+            if request.GET.get("count") == "true":
+                like_count = models.Like.objects.filter(auth_user=pk).count()
+                return Response({"liked_bits": like_count}, status=200)
+
             likes = models.Like.objects.filter(auth_user=pk)
             likes = likes.order_by(request.GET.get("order_by") or "pk")
 
-            print(likes)
+            # print(likes)
             # "map" likes to the respective bits
             liked_bits = [l.bit for l in likes]
 
@@ -389,6 +394,12 @@ class UserViewSet(viewsets.ViewSet):
     @action(methods=['get'], detail=True, url_path='commented_bits', url_name='Commented Bits')
     def list_commented_bits(self, request, pk=None):
         try:
+            # only get count
+            if request.GET.get("count") == "true":
+                comment_count = models.Comment.objects.filter(auth_user=pk).count()
+                return Response({"commented_bits": comment_count}, status=200)
+
+
             # TODO: Comments have no auth_user attribute yet
             comments = models.Comment.objects.filter(auth_user=pk)
             comments = comments.order_by(request.GET.get("order_by") or "pk")
@@ -407,6 +418,11 @@ class UserViewSet(viewsets.ViewSet):
     @action(methods=['get'], detail=True, url_path='bookmarks', url_name='Bookmarks')
     def list_bookmarks(self, request, pk=None):
         try:
+            # only get count
+            if request.GET.get("count") == "true":
+                bookmark_count = models.Bookmark.objects.filter(auth_user=pk).count()
+                return Response({"bookmarks": bookmark_count}, status=200)
+
             bookmarks = models.Bookmark.objects.filter(auth_user=pk)
             bookmarks = bookmarks.order_by(request.GET.get("order_by") or "pk")
 
@@ -527,6 +543,11 @@ class FriendshipViewSet(viewsets.ViewSet):
         if status is not None:
             queryset = queryset.filter(friendship_status=status)
 
+        # only get count
+        if request.GET.get("count") == "true":
+            friendship_count = queryset.count()
+            return Response({"friendships": friendship_count}, status=200)
+
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = FriendshipSerializer(queryset, many=True)
@@ -632,10 +653,7 @@ class LikeViewSet(viewsets.ViewSet):
         serializer = LikeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(
-                serializer.data,
-                status=201
-            )
+            return Response(serializer.data,status=201)
         else:
             return Response(serializer.errors, status=400)
 
