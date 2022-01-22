@@ -10,7 +10,7 @@ import { Bit } from 'src/types';
 })
 export class ActivitiesLikedComponent implements OnInit {
 
-  likedBits: Bit[] = []
+  likedBits?: Bit[]
 
   constructor(
     public bitService: BitService,

@@ -10,7 +10,7 @@ import { Bit } from 'src/types';
 })
 export class ProfilePageComponent implements OnInit {
 
-  bits: Bit[] = []
+  bits?: Bit[]
 
   constructor(
     public userService: UserService,

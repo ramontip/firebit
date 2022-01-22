@@ -96,6 +96,22 @@ a {
   margin-top: 2rem;
 }
 
+.pb {
+  padding-bottom: 1rem;
+}
+
+.pb-2 {
+  padding-bottom: 2rem;
+}
+
+.pt {
+  padding-top: 1rem;
+}
+
+.pt-2 {
+  padding-top: 2rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
@@ -193,6 +209,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .user-thumbnail img {
   border-radius: 10%;
+}
+
+.user-thumbnail-xs {
+  width: 2rem;
+  height: 2rem;
 }
 
 .user-thumbnail-s {

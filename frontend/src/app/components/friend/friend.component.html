@@ -3,6 +3,8 @@
   <div class="flex container">
 
     <div class="flex name-container">
+      <app-user-thumbnail [user]="friendUser" class="user-thumbnail user-thumbnail-xs" *ngIf="friendUser"></app-user-thumbnail>
+
       <mat-card-content class="name">
         {{friendUser?.first_name}} {{friendUser?.last_name}}
       </mat-card-content>

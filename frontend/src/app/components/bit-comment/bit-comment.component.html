@@ -1,24 +1,40 @@
 <mat-card class="card">
 
+  <div class="flex space-between header-container">
 
-  <div class="flex">
-    <mat-card-content class="user">
-      <a class="link" routerLink="/user/{{comment?.auth_user}}">
-        {{user?.first_name}} {{user?.last_name}}
+    <div class="flex user-container">
+      <a class="link" routerLink="/user/{{user?.username}}" class="user-thumbnail user-thumbnail-xs" draggable="false" unselectable
+        *ngIf="user">
+        <app-user-thumbnail [user]="user"></app-user-thumbnail>
       </a>
-    </mat-card-content>
-    <mat-card-subtitle class="username w-100 space-between">
-      <span>@{{user?.username}}</span>
+
+      <div class="flex name-container">
+        <mat-card-content class="user">
+          <a class="link" routerLink="/user/{{user?.username}}">
+            {{user?.first_name}} {{user?.last_name}}
+          </a>
+        </mat-card-content>
+        <mat-card-subtitle class="username">
+          <span>@{{user?.username}}</span>
+        </mat-card-subtitle>
+      </div>
+    </div>
+
+    <!-- <div class="flex"> -->
+    <mat-card-subtitle>
       <span>{{comment?.created_at | date : 'dd.MM.yyyy, HH:mm'}}</span>
     </mat-card-subtitle>
+    <!-- </div> -->
   </div>
 
-  <mat-card-content>
-    {{comment?.content}}
-  </mat-card-content>
+  <div class="flex content-container">
+    <mat-card-content class="content">
+      {{comment?.content}}
+    </mat-card-content>
 
-  <button mat-icon-button (click)="deleteComment(comment?.id!)">
-    <mat-icon>delete</mat-icon>
-  </button>
+    <button mat-icon-button class="delete-btn" (click)="deleteComment(comment?.id!)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 
 </mat-card>

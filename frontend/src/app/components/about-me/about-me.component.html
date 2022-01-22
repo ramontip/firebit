@@ -6,12 +6,14 @@
     <div>
       <div class="mb vertical-center">
         <app-user-thumbnail [user]="user!" class="user-thumbnail user-thumbnail-m"></app-user-thumbnail>
-        <mat-card-title class="user">
-          {{user?.first_name}} {{user?.last_name}}
-        </mat-card-title>
-        <mat-card-subtitle class="username">
-          @{{user?.username}}
-        </mat-card-subtitle>
+        <div>
+          <mat-card-title class="user">
+            {{user?.first_name}} {{user?.last_name}}
+          </mat-card-title>
+          <mat-card-subtitle class="username">
+            @{{user?.username}}
+          </mat-card-subtitle>
+        </div>
       </div>
     </div>
 
@@ -23,7 +25,7 @@
     </mat-card-subtitle>
 
     <!-- Friend Button -->
-    <mat-card-subtitle *ngIf="action === 'friend' && currentUser?.id !== user?.id">
+    <mat-card-subtitle class="friend-button-container" *ngIf="action === 'friend' && currentUser?.id !== user?.id">
       <button mat-flat-button color="primary" (click)="this.addFriend()" *ngIf="friendship === undefined">
         <mat-icon>person_add</mat-icon>
         Add as friend

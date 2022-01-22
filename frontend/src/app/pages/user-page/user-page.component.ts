@@ -12,7 +12,7 @@ import { Bit, Friendship, User } from 'src/types';
 })
 export class UserPageComponent implements OnInit {
 
-  bits: Bit[] = []
+  bits?: Bit[]
 
   user?: User
   friendship?: Friendship

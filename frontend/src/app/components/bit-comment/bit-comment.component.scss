@@ -6,3 +6,42 @@
   margin-top: 0;
   margin-left: 0.5rem;
 }
+
+.user-container {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  .user-thumbnail {
+    margin-right: 0;
+  }
+  
+}
+
+.name-container {
+  flex-direction: row;
+}
+
+.header-container {
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  mat-card-content, mat-card-subtitle {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+.content-container {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  .content {
+    flex-grow: 1;
+  }
+
+  .delete-btn {
+    align-self: flex-end;
+  }
+}

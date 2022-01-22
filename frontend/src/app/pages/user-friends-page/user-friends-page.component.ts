@@ -11,7 +11,7 @@ import { Friendship, User } from 'src/types';
 })
 export class UserFriendsPageComponent implements OnInit {
 
-  friends: Friendship[] = []
+  friends?: Friendship[]
 
   user?: User
 

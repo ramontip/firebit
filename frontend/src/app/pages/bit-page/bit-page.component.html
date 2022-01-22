@@ -30,7 +30,9 @@
     <div class="comment" *ngFor="let comment of comments">
       <app-bit-comment [comment]="comment" *ngIf="comment"></app-bit-comment>
     </div>
-    <app-no-data title="Start a discussion by leaving a comment." image="undraw_texting-accent.svg" *ngIf="comments.length === 0">
+
+    <app-no-data title="Start a discussion by leaving a comment." image="undraw_texting-accent.svg"
+      *ngIf="comments?.length === 0 && comments">
     </app-no-data>
 
   </div>

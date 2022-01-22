@@ -10,7 +10,7 @@ import { Bit } from 'src/types';
 })
 export class BookmarksPageComponent implements OnInit {
 
-  bookmarkedBits: Bit[] = []
+  bookmarkedBits?: Bit[]
 
   constructor(
     public bitService: BitService,

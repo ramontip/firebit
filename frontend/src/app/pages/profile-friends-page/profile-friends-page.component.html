@@ -2,17 +2,17 @@
 
   <app-breadcrumbs></app-breadcrumbs>
 
-  <div class="section" *ngIf="friendRequests.length || sentFriendRequests.length">
+  <div class="section" *ngIf="friendRequests?.length || sentFriendRequests?.length">
     <h3>Pending friend requests</h3>
     <mat-tab-group dynamicHeight>
-      <mat-tab label="Recieved" [disabled]="friendRequests.length === 0">
+      <mat-tab label="Recieved" [disabled]="friendRequests?.length === 0">
         <ng-template mat-tab-label>
           <span>Recieved</span>
         </ng-template>
 
         <app-friend *ngFor="let request of friendRequests" [friendship]="request"></app-friend>
       </mat-tab>
-      <mat-tab [disabled]="sentFriendRequests.length === 0">
+      <mat-tab [disabled]="sentFriendRequests?.length === 0">
         <ng-template mat-tab-label>
           <span>Sent</span>
         </ng-template>
@@ -26,7 +26,8 @@
     <h3>My friends</h3>
     <app-friend *ngFor="let friend of friends" [friendship]="friend" [editable]="true"></app-friend>
 
-    <app-no-data title="You don't have any friends." image="undraw_mic_drop-accent.svg" *ngIf="friends.length === 0"></app-no-data>
+    <app-no-data title="You don't have any friends." image="undraw_mic_drop-accent.svg" *ngIf="friends?.length === 0 && friends">
+    </app-no-data>
   </div>
 
 </div>

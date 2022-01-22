@@ -10,9 +10,9 @@ import { Friendship } from 'src/types';
 })
 export class ProfileFriendsPageComponent implements OnInit {
 
-  friends: Friendship[] = []
-  friendRequests: Friendship[] = []
-  sentFriendRequests: Friendship[] = []
+  friends?: Friendship[]
+  friendRequests?: Friendship[]
+  sentFriendRequests?: Friendship[]
 
   constructor(
     public friendshipService: FriendshipService,

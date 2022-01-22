@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Bit, Bookmark, Like, User} from 'src/types';
-import {UserService} from "../../services/user.service";
-import {BitService} from "../../services/bit.service";
-import {AppService} from "../../services/app.service";
-import {LikeService} from "../../services/like.service";
-import {BookmarkService} from "../../services/bookmark.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { Bit, Bookmark, Like, User } from 'src/types';
+import { UserService } from "../../services/user.service";
+import { BitService } from "../../services/bit.service";
+import { AppService } from "../../services/app.service";
+import { LikeService } from "../../services/like.service";
+import { BookmarkService } from "../../services/bookmark.service";
 
 @Component({
   selector: 'app-bit',
@@ -37,6 +37,7 @@ export class BitComponent implements OnInit {
     if (this.bit?.auth_user) {
       this.userService.getUser(this.bit.auth_user).subscribe(user => {
         this.user = user;
+        console.log({ user })
       })
     }
 

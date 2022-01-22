@@ -14,7 +14,7 @@ import { AppService } from "../../services/app.service";
 export class BitPageComponent implements OnInit {
 
   bit?: Bit;
-  comments: Comment[] = [];
+  comments?: Comment[]
   commentFormGroup: FormGroup;
 
   constructor(

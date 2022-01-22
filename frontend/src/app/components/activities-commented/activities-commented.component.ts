@@ -10,7 +10,7 @@ import { Bit } from 'src/types';
 })
 export class ActivitiesCommentedComponent implements OnInit {
 
-  commentedBits: Bit[] = []
+  commentedBits?: Bit[]
 
   constructor(
     public bitService: BitService,

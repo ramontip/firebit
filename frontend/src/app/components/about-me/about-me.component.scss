@@ -1,11 +1,11 @@
 .flex {
   flex-direction: row;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
 .user, .username {
   margin-right: 1rem;
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
 }
 
 .username {
@@ -18,4 +18,8 @@
 
 .edit {
   font-size: 1.125rem;
+}
+
+.friend-button-container {
+  margin-top: 0 !important;
 }

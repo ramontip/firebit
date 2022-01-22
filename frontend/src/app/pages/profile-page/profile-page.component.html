@@ -23,7 +23,7 @@
       </div>
 
       <app-no-data title="You have not posted any bits yet." message="Start by posting your first experience."
-        image="undraw_post-accent.svg" *ngIf="bits.length === 0"></app-no-data>
+        image="undraw_post-accent.svg" *ngIf="bits?.length === 0 && bits"></app-no-data>
     </div>
   </div>
 
