@@ -1,7 +1,8 @@
 import os
 
 from django.db.models import Q
-from rest_framework import viewsets
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
@@ -237,7 +238,16 @@ class SearchViewSet(viewsets.ViewSet):
 
     @action(methods=['get'], detail=False, url_path='users', url_name='users')
     def user(self, request):
-        return Response(status=501)
+        try:
+            search_filters = ['username', 'first_name', 'last_name']
+            filter_backends = (filters.SearchFilter,)
+
+            queryset = models.User.objects.all()
+            queryset = queryset.order_by(request.GET.get("order_by") or "pk")
+            serializers = UserSerializer(queryset, many=True)
+            return Response(serializers.data, status=200)
+        except models.User.DoesNotExist:
+            return Response(status=404)
 
     @action(methods=['get'], detail=False, url_path='bits', url_name='bits')
     def bit(self, request):
@@ -482,7 +492,7 @@ class UserDetailsViewSet(viewsets.ViewSet):
                 pk=pk
             )
 
-            serializer = UserDetailsSerializer(userdetails, data=request.data)
+            serializer = UserDetailsSerializer(userdetails, data=request.data, partial=True)
             if serializer.is_valid():
                 # delete old thumbnail if new one is uploaded
                 if 'file' in request.data:

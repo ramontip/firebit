@@ -17,10 +17,10 @@ export class ProfileFormComponent implements OnInit {
     public userService: UserService
   ) {
     this.profileFormGroup = new FormGroup({
-      first_name: new FormControl("", Validators.required),
+      first_name: new FormControl(""),
       last_name: new FormControl(""),
-      username: new FormControl("", Validators.required),
-      email: new FormControl("", [Validators.required, Validators.email]),
+      username: new FormControl(""),
+      email: new FormControl("",  Validators.email),
       aboutme: new FormControl(""),
     })
 
@@ -38,18 +38,17 @@ export class ProfileFormComponent implements OnInit {
 
     let user = this.userService.currentUser.value
 
-
-    console.log(user)
-
     if (!user) {
       return console.error(`Could not update user, user is ${user}`)
     } else {
+      user.first_name = this.profileFormGroup.controls.first_name.value
+      user.last_name = this.profileFormGroup.controls.last_name.value
+      user.username = this.profileFormGroup.controls.username.value
+      user.email = this.profileFormGroup.controls.email.value
+      console.log(user)
+
       this.userService.updateUser(user)
     }
-
-
-    // TODO: Partial update on user -> "password is required" but not shown from API
-
 
   }
 

@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AppService } from "./app.service";
 import { map } from 'rxjs/operators';
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class UserService {
     private http: HttpClient,
     private router: Router,
     private jwtHelperService: JwtHelperService,
-    private appService: AppService
+    private appService: AppService,
+    private cookieService: CookieService,
   ) {
     const token = localStorage.getItem(this.ACCESS_TOKEN_KEY);
 
@@ -83,8 +85,16 @@ export class UserService {
     })
   }
 
-  updateUser(userData: User) {
-    return this.http.patch(`/api/users/${userData.id}/`, userData)
+  updateUser(id: number, userData: User) {
+    return this.http.patch<User>(`/api/users/${id}/`, userData, {
+      headers: { "X-CSRFToken": this.cookieService.get('csrftoken') }
+    }).pipe(
+      map(user => {
+        console.log({ nextUser: user });
+        this.currentUser.next(user)
+        return user
+      })
+    )
   }
 
   // Users

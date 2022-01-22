@@ -23,4 +23,14 @@ export class ToolbarComponent implements OnInit {
     this.searchForm.setValue("")
   }
 
+  search() {
+    console.log(this.searchForm.value)
+  }
+
+  handleKeyUp(e: { keyCode: number; }) {
+    if (e.keyCode === 13) {
+      this.search()
+    }
+  }
+
 }
