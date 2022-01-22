@@ -30,7 +30,7 @@ export class RegisterFormComponent implements OnInit {
       username: new FormControl("", Validators.required, [this.userValidator()]),
       first_name: new FormControl("", Validators.required),
       last_name: new FormControl("", Validators.required),
-      email: new FormControl("", [Validators.email], [this.emailValidator()]),
+      email: new FormControl("", [Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")], [this.emailValidator()]),
       password: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
       confirmPassword: new FormControl("", Validators.required),
       acceptTos: new FormControl(false, Validators.requiredTrue)
@@ -115,6 +115,9 @@ export class RegisterFormComponent implements OnInit {
       return 'Email already taken';
     }
     if (this.registerFormGroup.controls["email"].hasError('email')) {
+      return 'You must enter a valid email';
+    }
+    if (this.registerFormGroup.controls["email"].hasError('pattern')) {
       return 'You must enter a valid email';
     }
     return this.registerFormGroup.controls["email"].hasError('required') ? 'Email required' : '';
