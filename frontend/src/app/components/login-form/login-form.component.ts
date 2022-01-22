@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "../../services/user.service";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { HttpClient } from "@angular/common/http";
+import { UserService } from "../../services/user.service";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Router } from '@angular/router';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,7 +16,12 @@ export class LoginFormComponent implements OnInit {
 
   loginFormGroup: FormGroup
 
-  constructor(private http: HttpClient, public userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    public userService: UserService,
+    private appService: AppService,
+    private router: Router,
+  ) {
     this.loginFormGroup = new FormGroup({
       username: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required),
@@ -25,7 +32,20 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    this.userService.login(this.loginFormGroup.value);
+    console.log("logging in...")
+    this.userService.login(this.loginFormGroup.value).subscribe(
+      res => {
+        console.log({ loginFormResponse: res })
+
+        this.appService.showSnackBar('Logged in successfully', 'Hide');
+
+        this.router.navigate(["/bitmap"])
+      },
+      (err) => {
+        this.appService.showSnackBar('Invalid username or password', 'Hide')
+        console.log({ loginError: err })
+      }
+    );
   }
 
   usernameErrorMessage() {

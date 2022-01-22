@@ -37,20 +37,17 @@ export class UserService {
 
   // Authentication
 
-  login(userData: { username: string, password: string }): void {
-    this.http.post(this.appService.baseUrl + '/token/', userData).subscribe(
-      (res: any) => {
+  login(userData: { username: string, password: string }) {
+    return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
+      map((res) => {
+        console.log({ loginResponse: res })
+
         this.isLoggedIn.next(true);
         localStorage.setItem('accessToken', res.token);
 
         this.setCurrentUser()
-
-        this.router.navigate(['/bitmap']).then(() => {
-          this.appService.showSnackBar('Logged in successfully', 'Hide', 3000)
-        })
-        //this.appService.showSnackBar('Logged in successfully', 'Hide', 3000);
-      },
-      () => this.appService.showSnackBar('Invalid username or password', 'Hide', 3000)
+        return res
+      })
     );
   }
 
