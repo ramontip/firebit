@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Friendship, JWTToken, User } from 'src/types';
+import { Friendship, JWTToken, User, UserDetails } from 'src/types';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
@@ -133,12 +133,12 @@ export class UserService {
 
   // User Details
 
-  createUserDetails(formData: any) {
-    return this.http.post(this.appService.baseUrl + `/userDetails/`, formData);
+  createUserDetails(formData: FormData) {
+    return this.http.post<UserDetails>(this.appService.baseUrl + `/userDetails/`, formData);
   }
 
   updateUserDetails(id: number, formData: any) {
-    return this.http.patch(this.appService.baseUrl + `/userDetails/${id}/`, formData);
+    return this.http.patch<UserDetails>(this.appService.baseUrl + `/userDetails/${id}/`, formData);
   }
 
   // Counters
