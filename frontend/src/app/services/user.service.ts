@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Friendship, JWTToken, User, UserDetails } from 'src/types';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Credentials, Friendship, JWTToken, User, UserDetails } from 'src/types';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -38,7 +38,7 @@ export class UserService {
 
   // Authentication
 
-  login(userData: { username: string, password: string }) {
+  login(userData: Credentials) {
     return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
       map((res) => {
         console.log({ loginResponse: res })
@@ -95,6 +95,10 @@ export class UserService {
     )
   }
 
+  checkPassword(credentials: Credentials) {
+    return this.http.post<{ error?: string }>(this.appService.baseUrl + "/users/check_password/", credentials)
+  }
+
   // Users
 
   getUser(id: number) {
@@ -111,7 +115,7 @@ export class UserService {
 
   resetUserPassword(email: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({ email }), {headers: headers}).pipe(
+    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({ email }), { headers: headers }).pipe(
       map(res => {
         console.log({ resetUserPasswordResponse: res })
         return res
@@ -177,28 +181,5 @@ export class UserService {
         return res.bookmarks
       }))
   }
-
-  // user: User = {
-  //   id: 1,
-  //   first_name: "Max",
-  //   last_name: "Muster",
-  //   username: "maxi_m",
-  //   email: "mm@firebit.net",
-  //   is_superuser: false,
-  //   is_staff: false,
-  //   is_active: true
-  // }
-
-  // Friendships
-
-  /*
-  getFriendships() {
-    return this.http.get<Friendship[]>(this.appService.baseUrl + `/friendships/?auth_user=${this.currentUser.value?.username}`)
-  }
-
-  getFriendsByUser(username: string) {
-    return this.http.get<Friendship[]>(this.appService.baseUrl + `/friendships/?auth_user=${username}&status=2`)
-  }
-   */
 
 }

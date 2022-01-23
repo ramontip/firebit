@@ -2,7 +2,8 @@ import { ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from "@angu
 
 // Validators
 
-export function matchValidator(fieldname: string, not = false): ValidatorFn {
+// { match_fieldname: true }
+export function matchValidator(fieldname: string, options?: { not?: boolean }): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const formGroup = control.parent
 
@@ -11,9 +12,12 @@ export function matchValidator(fieldname: string, not = false): ValidatorFn {
       return null
     }
 
-    if ((!not && control.value !== formGroup.controls[fieldname].value) ||
-      (not && control.value === formGroup.controls[fieldname].value)) {
-      return { ["match_" + fieldname]: true }
+    const splitFieldname = fieldname.split(/(?=[A-Z])/g).join(" ").toLowerCase()
+
+    const validate = (a: any, b: any) => options?.not ? a === b : a !== b
+
+    if (validate(control.value, formGroup.controls[fieldname].value)) {
+      return { [`match_${fieldname}`]: `Must ${options?.not ? "differ from" : "match"} ${splitFieldname}` }
     }
 
     return null

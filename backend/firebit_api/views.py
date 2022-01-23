@@ -6,6 +6,8 @@ from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
+
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
@@ -361,11 +363,8 @@ class UserViewSet(viewsets.ViewSet):
             user = models.User.objects.get(pk=pk)
 
             # update password
-            password = request.data["password"]
-            if password is not None:
-                print(password)
-                user.set_password(password)
-                print(user.password)
+            if "password" in request.data:
+                user.set_password(request.data["password"])
                 request.data["password"] = user.password
 
             serializer = UserSerializer(user, data=request.data, partial=True)
@@ -454,22 +453,28 @@ class UserViewSet(viewsets.ViewSet):
         except models.User.DoesNotExist:
             return Response(status=404)
 
-    # this creates the url: user/{userId}/add-friend/
-    # @action(methods=['post'], detail=True, url_path='add-friend', url_name='Add friend')
-    # def add_friend(self, request, pk=None):
+    # Check password without generating a token
+    # Not sure if this is the optimal way
+    @action(methods=['post'], detail=False, url_path='check_password', url_name='Check password')
+    def check_password(self, request, pk=None):
+        # Check required fields
+        error = {}
 
-    #     friend_request = {
-    #         "to_auth_user": pk,
-    #         "from_auth_user": request.data["from_auth_user"],
-    #         "friendship_status": 1,
-    #     }
+        if "username" not in request.data:
+            error["username"] = "Username is required"
+        if "password" not in request.data:
+            error["password"] = "Password is required"
 
-    #     serializer = FriendshipSerializer(data=friend_request)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data,status=201)
-    #     else:
-    #         return Response(serializer.errors, status=400)
+        if error != {}:
+            return Response({"field_error":error} ,status=400)
+
+        # Check credentials
+        user = authenticate(username=request.data["username"], password=request.data["password"])
+
+        if user is None:
+            return Response({"error":"Invalid username or password"} ,status=200)
+        else:
+            return Response({}, status=200)
 
 
 class PasswordResetViewSet(viewsets.ViewSet):

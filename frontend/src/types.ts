@@ -91,6 +91,11 @@ export interface Friendship {
   updated_at: Date
 }
 
+export interface Credentials {
+  username: string
+  password: string
+}
+
 export interface JWTToken {
   user_id: number
   username: string
