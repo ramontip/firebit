@@ -1,5 +1,6 @@
 from rest_framework import routers
 
+
 from . import views
 
 router = routers.DefaultRouter()
@@ -13,3 +14,4 @@ router.register('userDetails', views.UserDetailsViewSet, basename="userDetails")
 router.register('friendships', views.FriendshipViewSet, basename='friendships')
 router.register('likes', views.LikeViewSet, basename='likes')
 router.register('bookmarks', views.BookmarkViewSet, basename='bookmarks')
+
