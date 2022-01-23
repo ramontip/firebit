@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('token/', obtain_jwt_token),
     path('', include(router.urls)),
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

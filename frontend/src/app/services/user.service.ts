@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Credentials, Friendship, JWTToken, User, UserDetails } from 'src/types';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AppService } from "./app.service";
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { CookieService } from "ngx-cookie-service";
+//import * as url from "url";
 
 @Injectable({
   providedIn: 'root'
@@ -107,6 +108,18 @@ export class UserService {
   getUserByUsername(username: string) {
     return this.http.get<User[]>(`/api/users/?username=${username}`).pipe(
       map(users => users.length ? users[0] : undefined)
+    )
+  }
+
+  // return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
+
+  resetUserPassword(email: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({ email }), { headers: headers }).pipe(
+      map(res => {
+        console.log({ resetUserPasswordResponse: res })
+        return res
+      })
     )
   }
 

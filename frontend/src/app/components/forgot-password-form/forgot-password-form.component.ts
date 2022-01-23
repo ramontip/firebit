@@ -16,7 +16,7 @@ export class ForgotPasswordFormComponent implements OnInit {
 
   constructor(private userService: UserService) {
     this.resetPasswordFormGroup = new FormGroup({
-      email: new FormControl("", [Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")], [this.emailValidator()]),
+      email: new FormControl("", [Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     })
   }
 
@@ -25,23 +25,18 @@ export class ForgotPasswordFormComponent implements OnInit {
 
 
   resetPassword() {
+    this.userService.resetUserPassword(this.resetPasswordFormGroup.controls["email"].value).subscribe(
+      (data) => {
+        console.log(data)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
 
-  }
-
-  emailValidator(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.userService.getAllUsers().pipe(map(users => {
-        const currentEmail = this.resetPasswordFormGroup.controls['email'].value;
-        const existingEmail = users.find(user => user.email === currentEmail);
-        return existingEmail ? {emailAlreadyExists: true} : null
-      }))
-    }
   }
 
   getEmailErrorMessage() {
-    if (this.resetPasswordFormGroup.controls["email"].hasError('emailAlreadyExists')) {
-      return 'Email already taken';
-    }
     if (this.resetPasswordFormGroup.controls["email"].hasError('email')) {
       return 'You must enter a valid email';
     }

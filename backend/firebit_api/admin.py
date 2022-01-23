@@ -34,6 +34,7 @@ class UserDetailsAdmin(admin.ModelAdmin):
     pass
 
 
+
 admin.site.site_header = 'Firebit API'
 admin.site.register(models.Bit, BitAdmin)
 admin.site.register(models.Category, CategoryAdmin)

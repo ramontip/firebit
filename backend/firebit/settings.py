@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_rest_passwordreset',
     'firebit_api',
 ]
 
@@ -136,4 +137,6 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3)
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
