@@ -14,6 +14,8 @@ export class ProfileFriendsPageComponent implements OnInit {
   friendRequests?: Friendship[]
   sentFriendRequests?: Friendship[]
 
+  friendRequestsTabIndex = 0
+
   constructor(
     public friendshipService: FriendshipService,
     public userService: UserService,
@@ -29,6 +31,11 @@ export class ProfileFriendsPageComponent implements OnInit {
       this.friendshipService.getFriendRequests().subscribe(requests => {
         this.friendRequests = requests.filter(r => r.to_auth_user == user.id)
         this.sentFriendRequests = requests.filter(r => r.from_auth_user == user.id)
+
+        if (this.friendRequests.length === 0 && this.sentFriendRequests.length > 0) {
+          this.friendRequestsTabIndex = 1
+        }
+
         console.log({ requests })
       })
 

@@ -4,7 +4,7 @@
 
   <div class="section" *ngIf="friendRequests?.length || sentFriendRequests?.length">
     <h3>Pending friend requests</h3>
-    <mat-tab-group dynamicHeight>
+    <mat-tab-group dynamicHeight [selectedIndex]="friendRequestsTabIndex">
       <mat-tab label="Recieved" [disabled]="friendRequests?.length === 0">
         <ng-template mat-tab-label>
           <span>Recieved</span>
