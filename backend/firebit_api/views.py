@@ -352,16 +352,21 @@ class UserViewSet(viewsets.ViewSet):
 
     def partial_update(self, request, pk=None, format=None):
         try:
-            user = models.User.objects.get(
-                pk=pk
-            )
+            user = models.User.objects.get(pk=pk)
+
+            # update password
+            password = request.data["password"]
+            if password is not None:
+                print(password)
+                user.set_password(password)
+                print(user.password)
+                request.data["password"] = user.password
+
             serializer = UserSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
+                
                 serializer.save()
-                return Response(
-                    serializer.data,
-                    status=201
-                )
+                return Response(serializer.data,status=201)
             else:
                 return Response(serializer.errors, status=400)
         except models.User.DoesNotExist:

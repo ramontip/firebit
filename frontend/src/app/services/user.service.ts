@@ -82,7 +82,7 @@ export class UserService {
     })
   }
 
-  updateUser(id: number, userData: User) {
+  updateUser(id: number, userData: User | { password: string }) {
     return this.http.patch<User>(`/api/users/${id}/`, userData, {
       headers: { "X-CSRFToken": this.cookieService.get('csrftoken') }
     }).pipe(

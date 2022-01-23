@@ -43,6 +43,7 @@ export class LoginFormComponent implements OnInit {
       },
       (err) => {
         this.appService.showSnackBar('Invalid username or password', 'Hide')
+        this.loginFormGroup.controls["password"].setValue("")
         console.log({ loginError: err })
       }
     );

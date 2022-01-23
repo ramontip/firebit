@@ -28,6 +28,9 @@ export class RegisterFormComponent implements OnInit {
   registerFormGroup: FormGroup
   hide = true;
 
+  readonly passwordPattern = /(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/
+  readonly emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
+
   constructor(
     private userService: UserService,
     private appService: AppService,
@@ -39,8 +42,8 @@ export class RegisterFormComponent implements OnInit {
       username: new FormControl("", Validators.required, [this.userValidator()]),
       first_name: new FormControl("", Validators.required),
       last_name: new FormControl("", Validators.required),
-      email: new FormControl("", [Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")], [this.emailValidator()]),
-      password: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(this.emailPattern)], [this.emailValidator()]),
+      password: new FormControl("", [Validators.required, Validators.pattern(this.passwordPattern)]),
       confirmPassword: new FormControl("", Validators.required),
       acceptTos: new FormControl(false, Validators.requiredTrue)
     })
@@ -82,6 +85,8 @@ export class RegisterFormComponent implements OnInit {
 
       }, (error) => {
         console.log(error);
+        this.registerFormGroup.controls["password"].setValue("")
+        this.registerFormGroup.controls["confirmPassword"].setValue("")
       })
     } else if (password === confirmPassword) {
       this.registerFormGroup.controls["confirmPassword"].setErrors({ 'mismatch': true });
