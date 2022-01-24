@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BitService} from 'src/app/services/bit.service';
-import {Bit} from 'src/types';
+import {Bit, Comment} from 'src/types';
 import {FormControl, FormGroup} from "@angular/forms";
 import {CommentService} from "../../services/comment.service";
 import {AppService} from "../../services/app.service";
@@ -45,7 +45,7 @@ export class BitPageComponent implements OnInit {
   }
 
   createComment() {
-    const comment = this.commentFormGroup.value;
+    const comment: Comment = this.commentFormGroup.value;
     // this.commentFormGroup.controls['content'].value
 
     if (!comment) {
@@ -53,9 +53,10 @@ export class BitPageComponent implements OnInit {
     }
 
     comment.bit = this.bit?.id
+
     this.commentService.createComment(this.commentFormGroup.value).subscribe(() => {
-      this.appService.refreshRoute();
       this.appService.showSnackBar('Comment created successfully!', 'Hide');
+      this.appService.refreshRoute();
     })
   }
 

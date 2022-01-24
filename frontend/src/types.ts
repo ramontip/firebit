@@ -56,7 +56,7 @@ export interface Comment {
   id?: number
   bit?: number
   auth_user?: number
-  content: string
+  content?: string
   created_at?: string
   updated_at?: string
   user_details?: User
