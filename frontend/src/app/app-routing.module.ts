@@ -18,7 +18,7 @@ import { ActivitiesLikedComponent } from './components/activities-liked/activiti
 import { ActivitiesCommentedComponent } from './components/activities-commented/activities-commented.component';
 import { ErrorNotFoundComponent } from './pages/error-not-found/error-not-found.component';
 import { HashtagPageComponent } from "./pages/hashtag-page/hashtag-page.component";
-
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 const routes: Routes = [
   // TODO: Guard for logged in -> redirect login/redirect to bitmap
@@ -63,6 +63,7 @@ const routes: Routes = [
     // data: { breadcrumbs: "Activities" }
   },
   { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
+  { path: "admin", component: AdminPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Admin" } },
   { path: "**", component: ErrorNotFoundComponent } // 404 Must be the last entry, because "**" matches everything
 ]
 

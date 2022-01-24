@@ -210,14 +210,14 @@ class ImageViewSet(viewsets.ViewSet):
 class CommentViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        '''
+        
         queryset = models.Comment.objects.all()
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = CommentSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
-        '''
-        return Response(status=405)
+        
+        # return Response(status=405)
 
     def create(self, request, format=None):
         serializer = CommentSerializer(data=request.data)
