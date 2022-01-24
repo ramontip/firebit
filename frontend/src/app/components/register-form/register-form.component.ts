@@ -18,9 +18,6 @@ export class RegisterFormComponent implements OnInit {
   registerFormGroup: FormGroup
   hidePassword = true;
 
-  readonly passwordPattern = /(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/
-  readonly emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
-
   constructor(
     private userService: UserService,
     private appService: AppService,
@@ -31,8 +28,8 @@ export class RegisterFormComponent implements OnInit {
       username: new FormControl("", [Validators.required, Validators.minLength(4)], [userValidator(userService)]),
       first_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
       last_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-      email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(this.emailPattern)], [emailValidator(userService)]),
-      password: new FormControl("", [Validators.required, Validators.pattern(this.passwordPattern)]),
+      email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(this.appService.EMAIL_PATTERN)], [emailValidator(userService)]),
+      password: new FormControl("", [Validators.required, Validators.pattern(this.appService.PASSWORD_PATTERN)]),
       confirmPassword: new FormControl("", [Validators.required, matchValidator("password")]),
       acceptTos: new FormControl(false, Validators.requiredTrue)
     })
@@ -155,7 +152,6 @@ export class RegisterFormComponent implements OnInit {
     return ''
   }
 
-
   emailErrorMessage() {
     const email = this.registerFormGroup.controls["email"]
 
@@ -170,6 +166,5 @@ export class RegisterFormComponent implements OnInit {
 
     return ''
   }
-
 
 }

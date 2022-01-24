@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AppService } from 'src/app/services/app.service';
 import { Router } from '@angular/router';
+import { emailValidator, userValidator } from 'src/app/validators/validators';
 
 @Component({
   selector: 'app-profile-form',
@@ -19,10 +20,10 @@ export class ProfileFormComponent implements OnInit {
     private router: Router,
   ) {
     this.profileFormGroup = new FormGroup({
-      first_name: new FormControl(""),
-      last_name: new FormControl(""),
-      username: new FormControl(""),
-      email: new FormControl("", Validators.email),
+      first_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
+      last_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
+      username: new FormControl("", [Validators.required, Validators.minLength(4)], [userValidator(userService)]),
+      email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(appService.EMAIL_PATTERN)], [emailValidator(userService)]),
       aboutme: new FormControl(""),
     })
 
@@ -40,13 +41,13 @@ export class ProfileFormComponent implements OnInit {
 
     const user = this.userService.currentUser.value
 
+    if (this.profileFormGroup.invalid) {
+      return
+    }
+
     if (!user) {
       return console.error(`Could not update profile, user is ${user}`)
     } else {
-      // user.first_name = this.profileFormGroup.controls.first_name.value
-      // user.last_name = this.profileFormGroup.controls.last_name.value
-      // user.username = this.profileFormGroup.controls.username.value
-      // user.email = this.profileFormGroup.controls.email.value
 
       this.userService.updateUser(user.id, this.profileFormGroup.value).subscribe(
         user => {
@@ -58,6 +59,62 @@ export class ProfileFormComponent implements OnInit {
       )
     }
 
+  }
+
+  // Error messages
+
+  firstnameErrorMessage() {
+    const firstname = this.profileFormGroup.controls["first_name"]
+
+    if (firstname.hasError('required'))
+      return 'First name is required'
+
+    if (firstname.hasError('minlength'))
+      return 'Must be at least 2 Characters longs'
+
+    return ""
+  }
+
+  lastnameErrorMessage() {
+    const lastname = this.profileFormGroup.controls["last_name"]
+
+    if (lastname.hasError('required'))
+      return 'First name is required'
+
+    if (lastname.hasError('minlength'))
+      return 'Must be at least 2 Characters longs'
+
+    return ""
+  }
+
+  usernameErrorMessage() {
+    const username = this.profileFormGroup.controls["username"]
+
+    if (username.hasError('required'))
+      return 'Username is required'
+
+    if (username.hasError('minlength'))
+      return 'Must be at least 4 characters long'
+
+    if (username.hasError('userAlreadyExists'))
+      return 'Username already taken';
+
+    return ''
+  }
+
+  emailErrorMessage() {
+    const email = this.profileFormGroup.controls["email"]
+
+    if (email.hasError('required'))
+      return "Email is required"
+
+    if (email.hasError('email') || email.hasError("pattern"))
+      return 'You must enter a valid email';
+
+    if (email.hasError('emailAlreadyExists'))
+      return 'Email already taken';
+
+    return ''
   }
 
 }

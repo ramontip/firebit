@@ -41,7 +41,7 @@ export function userValidator(userService: UserService): AsyncValidatorFn {
         return userService.getUserByUsername(username).pipe(
           map(user => {
             console.log({ user })
-            return user ? { userAlreadyExists: true } : null
+            return user && user.id !== userService.currentUser.value?.id ? { userAlreadyExists: true } : null
           })
         )
 
@@ -64,7 +64,7 @@ export function emailValidator(userService: UserService): AsyncValidatorFn {
           delay(500),
           map(user => {
             console.log({ emailUser: user })
-            return user ? { emailAlreadyExists: true } : null
+            return user && user.id !== userService.currentUser.value?.id ? { emailAlreadyExists: true } : null
           })
         )
 

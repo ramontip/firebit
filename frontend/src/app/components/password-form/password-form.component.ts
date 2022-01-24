@@ -17,9 +17,6 @@ export class PasswordFormComponent implements OnInit {
 
   passwordFormGroup: FormGroup
 
-  readonly passwordPattern = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/
-  // minLength part: (?=.{8,})
-
   constructor(
     private userService: UserService,
     private appService: AppService,
@@ -30,7 +27,7 @@ export class PasswordFormComponent implements OnInit {
       newPassword: new FormControl("", [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(this.passwordPattern),
+        Validators.pattern(this.appService.PASSWORD_PATTERN),
         matchValidator("oldPassword", { not: true }),
       ]),
       confirmPassword: new FormControl("", [Validators.required, matchValidator("newPassword")]),
