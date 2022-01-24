@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Category} from 'src/types';
-import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-category',
@@ -10,24 +9,17 @@ import {CategoryService} from "../../services/category.service";
 })
 export class CategoryComponent implements OnInit {
 
-  category?: Category
-
   @Input()
-  id?: number
+  category?: Category
 
   @Input()
   cssClass?: string
 
-  constructor(public categoryService: CategoryService) {
+  constructor() {
 
   }
 
   ngOnInit(): void {
-    if (this?.id) {
-      this.categoryService.getCategory(this.id).subscribe(category => {
-        this.category = category;
-      })
-    }
   }
 
 }

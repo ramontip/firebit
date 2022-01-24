@@ -1,7 +1,4 @@
 <mat-chip-list aria-label="Fish selection">
-  <app-category *ngFor="let c of categoryService.availableCategories" [id]="c.id"
+  <app-category *ngFor="let category of categoryService.availableCategories" [category]="category"
                 cssClass="category-list-chip"></app-category>
-  <!-- <mat-chip *ngFor="let c of categories">
-    {{c.name}}
-  </mat-chip> -->
 </mat-chip-list>

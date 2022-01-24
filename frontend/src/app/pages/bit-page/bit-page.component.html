@@ -15,7 +15,8 @@
       <mat-form-field appearance="fill" class="comment-field">
         <mat-label>Leave a comment ...</mat-label>
         <textarea matInput cdkTextareaAutosize formControlName="content"></textarea>
-        <button matSuffix mat-icon-button aria-label="Send" [disabled]="!this.commentFormGroup.controls['content'].value">
+        <button matSuffix mat-icon-button aria-label="Send"
+                [disabled]="!this.commentFormGroup.controls['content'].value">
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>
@@ -27,12 +28,12 @@
 
     </form>
 
-    <div class="comment" *ngFor="let comment of comments">
+    <div class="comment" *ngFor="let comment of bit.comments">
       <app-bit-comment [comment]="comment" *ngIf="comment"></app-bit-comment>
     </div>
 
     <app-no-data title="Start a discussion by leaving a comment." image="undraw_texting-accent.svg"
-      *ngIf="comments?.length === 0 && comments">
+                 *ngIf="bit.comments?.length === 0">
     </app-no-data>
 
   </div>

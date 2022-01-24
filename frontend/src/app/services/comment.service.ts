@@ -13,7 +13,7 @@ export class CommentService {
   }
 
   createComment(comment: Comment) {
-    comment.auth_user = this.userService.currentUser.value!.id;
+    comment.auth_user = this.userService.currentUser.value?.id!;
     return this.http.post(this.appService.baseUrl + `/comments/`, comment);
   }
 
