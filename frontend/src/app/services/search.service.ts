@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AppService} from "./app.service";
 import {UserService} from "./user.service";
+import {SearchResult} from "../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,7 @@ export class SearchService {
   }
 
   getSearchResults(q: string) {
-    return this.http.get<JSON>(this.appService.baseUrl + `/search/?q=${q}`).subscribe(
-      data => {
-        console.log(data)
-      },
-      error => {
-        console.log(error)
-      }
-    )
+    return this.http.get<SearchResult>(this.appService.baseUrl + `/search/?q=${q}`)
 
   }
 

@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {UserService} from 'src/app/services/user.service';
 import {User} from 'src/types';
 import {SearchService} from "../../services/search.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
@@ -16,7 +17,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     public userService: UserService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
   ) {
   }
 
@@ -31,7 +33,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   search() {
-    this.searchService.getSearchResults(this.searchForm.value)
+    this.router.navigate(['/search/' + this.searchForm.value])
+    //this.searchService.getSearchResults(this.searchForm.value)
   }
 
   handleKeyUp(e: { keyCode: number; }) {
