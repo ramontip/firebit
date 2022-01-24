@@ -168,7 +168,9 @@ export class UserService {
   }
 
   updateUserDetails(id: number, formData: any) {
-    return this.http.patch<UserDetails>(this.appService.baseUrl + `/userDetails/${id}/`, formData);
+    return this.http.patch<UserDetails>(this.appService.baseUrl + `/userDetails/${id}/`, formData).pipe(
+
+    );
   }
 
   // Counters
