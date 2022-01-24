@@ -59,10 +59,11 @@ import {ErrorNotFoundComponent} from "./pages/error-not-found/error-not-found.co
 import {UserThumbnailComponent} from "./components/user-thumbnail/user-thumbnail.component";
 import {UserDetailsFormComponent} from "./components/user-details-form/user-details-form.component";
 import {BackgroundPatternComponent} from "./components/background-pattern/background-pattern.component";
-import { NoDataComponent } from './components/no-data/no-data.component';
+import {NoDataComponent} from './components/no-data/no-data.component';
 import {CookieService} from "ngx-cookie-service";
-import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
+import {PasswordResetFormComponent} from './components/password-reset-form/password-reset-form.component';
+import {SearchPageComponent} from './pages/search-page/search-page.component';
+import {TermsPageComponent} from './pages/terms-page/terms-page.component';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -109,6 +110,7 @@ function tokenGetter() {
     NoDataComponent,
     PasswordResetFormComponent,
     SearchPageComponent,
+    TermsPageComponent,
   ],
   imports: [
     BrowserModule,
