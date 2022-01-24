@@ -19,6 +19,7 @@ import {ActivitiesCommentedComponent} from './components/activities-commented/ac
 import {ErrorNotFoundComponent} from './pages/error-not-found/error-not-found.component';
 import {HashtagPageComponent} from "./pages/hashtag-page/hashtag-page.component";
 import {SearchPageComponent} from "./pages/search-page/search-page.component";
+import {TermsPageComponent} from "./pages/terms-page/terms-page.component";
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: "register", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "reset-password", component: IndexComponent},
   {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
+  {path: "terms", component: TermsPageComponent, canActivate: [NotAuthGuard]},
   {
     path: "bit/:id", canActivate: [AuthGuard], children: [
       {path: "", component: BitPageComponent},
