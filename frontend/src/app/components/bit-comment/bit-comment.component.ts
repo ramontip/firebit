@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Comment, User} from 'src/types';
+import {Comment} from 'src/types';
 import {UserService} from "../../services/user.service";
 import {CommentService} from "../../services/comment.service";
 import {AppService} from "../../services/app.service";
@@ -11,8 +11,6 @@ import {AppService} from "../../services/app.service";
 })
 export class BitCommentComponent implements OnInit {
 
-  user?: User
-
   @Input()
   comment?: Comment
 
@@ -20,11 +18,6 @@ export class BitCommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.comment?.auth_user) {
-      this.userService.getUser(this.comment.auth_user).subscribe(user => {
-        this.user = user;
-      })
-    }
   }
 
   deleteComment(id: number) {

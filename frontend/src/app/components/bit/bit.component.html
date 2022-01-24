@@ -2,25 +2,27 @@
 
   <div class="flex bit-subtitle">
 
-    <div class="vertical-center mb" *ngIf="user">
-      <a class="link" routerLink="/user/{{user?.username}}" class="user-thumbnail user-thumbnail-s" draggable="false" unselectable>
-        <app-user-thumbnail [user]="user"></app-user-thumbnail>
+    <div class="vertical-center mb">
+      <a class="link" routerLink="/user/{{bit?.user_details?.username}}" class="user-thumbnail user-thumbnail-s" draggable="false"
+        unselectable>
+        <app-user-thumbnail [user]="bit?.user_details"></app-user-thumbnail>
       </a>
       <div>
         <mat-card-content class="bit-user">
-          <!-- <a class="link" routerLink="/user/{{user?.username}}"> -->
-          {{user?.first_name}} {{user?.last_name}}
-          <!-- </a> -->
+          <a class="link" routerLink="/user/{{bit?.user_details?.username}}">
+            {{bit?.user_details?.first_name}} {{bit?.user_details?.last_name}}
+          </a>
         </mat-card-content>
         <mat-card-subtitle class="bit-user-subtitle">
-          <div class="bit-username">@{{user?.username}} &bull; {{bit?.created_at | date : 'dd.MM.yyyy, HH:mm'}}</div>
+          <div class="bit-username">@{{bit?.user_details?.username}}
+            &bull; {{bit?.created_at | date : 'dd.MM.yyyy, HH:mm'}}</div>
         </mat-card-subtitle>
       </div>
     </div>
 
     <mat-chip-list>
       <span class="bit-category">
-        <app-category [id]="bit?.category" cssClass="category-bit-chip"></app-category>
+        <app-category [category]="bit?.category_details" cssClass="category-bit-chip"></app-category>
         <!-- <mat-chip routerLink="/categories/travelling" class="bit-category">
           Travelling
         </mat-chip> -->
@@ -39,30 +41,26 @@
 
   <div class="flex bit-image-container">
     <div *ngFor="let image of bit?.images">
-      <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image" draggable="false" unselectable>
+      <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="bit-image" draggable="false">
     </div>
-
-    <!-- <div *ngFor="let image of bit?.images" class="mb">
-      <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="w-100" draggable="false">
-    </div> -->
   </div>
 
   <mat-card-actions class="space-between">
     <div>
       <button mat-stroked-button color="warn" (click)="createOrDeleteLike()" [class.bit-liked]="likedByCurrentUser">
         <mat-icon>local_fire_department</mat-icon>
-        {{likes.length}}
+        {{likes?.length ?? 0}}
       </button>
 
       <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()" [class.bit-bookmarked]="bookmarkedByCurrentUser">
         <mat-icon>bookmark_border</mat-icon>
         <!-- bookmark_border / bookmark -->
-        {{bookmarks.length}}
+        {{bookmarks?.length ?? 0}}
       </button>
       <a class="link" routerLink="/bit/{{bit?.id}}">
         <button mat-stroked-button>
           <mat-icon>forum</mat-icon>
-          {{commentsCount}}
+          {{bit?.comments?.length ?? 0}}
         </button>
       </a>
     </div>

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
 import { catchError, delay, map, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/services/app.service';
@@ -16,19 +17,17 @@ export class PasswordFormComponent implements OnInit {
 
   passwordFormGroup: FormGroup
 
-  readonly passwordPattern = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/
-  // minLength part: (?=.{8,})
-
   constructor(
     private userService: UserService,
     private appService: AppService,
+    private router: Router,
   ) {
     this.passwordFormGroup = new FormGroup({
       oldPassword: new FormControl("", [Validators.required, Validators.minLength(8)], [this.passwordValidator()]),
       newPassword: new FormControl("", [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(this.passwordPattern),
+        Validators.pattern(this.appService.PASSWORD_PATTERN),
         matchValidator("oldPassword", { not: true }),
       ]),
       confirmPassword: new FormControl("", [Validators.required, matchValidator("newPassword")]),
@@ -61,6 +60,8 @@ export class PasswordFormComponent implements OnInit {
       this.passwordFormGroup.reset()
 
       this.appService.showSnackBar("Password updated successfully", "Hide")
+      this.router.navigate(["/profile"])
+
     })
 
   }

@@ -16,8 +16,8 @@ export interface User {
 export interface UserDetails {
   id?: number
   auth_user?: number
-  file: string
-  about: string
+  file?: string
+  about?: string
   created_at?: string
   updated_at?: string
 }
@@ -34,10 +34,14 @@ export interface Bit {
   title: string
   content: string
   hashtags?: string
-  category: number
   created_at?: string
   updated_at?: string
+  user_details?: User
+  category_details?: Category
   images?: Image[]
+  likes?: Like[]
+  bookmarks?: Bookmark[]
+  comments?: Comment[]
 }
 
 export interface Image {
@@ -52,9 +56,10 @@ export interface Comment {
   id?: number
   bit?: number
   auth_user?: number
-  content: string
+  content?: string
   created_at?: string
   updated_at?: string
+  user_details?: User
 }
 
 export interface Like {
@@ -81,8 +86,6 @@ export interface Stat {
 }
 
 export interface Friendship {
-  // user: User
-  // status: "friend" | "pending"
   id: number
   from_auth_user: number
   to_auth_user: number

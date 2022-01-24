@@ -15,7 +15,6 @@ export class BitComponent implements OnInit {
 
   user?: User;
 
-  commentsCount = 0;
   likes: Like[] = [];
   likedByCurrentUser = false;
   createdByCurrentUser = false;
@@ -33,46 +32,37 @@ export class BitComponent implements OnInit {
     // get current user
     let currentUser = this.userService.currentUser.value!;
 
-    // get bit user
-    if (this.bit?.auth_user) {
-      this.userService.getUser(this.bit.auth_user).subscribe(user => {
-        this.user = user;
-        console.log({ user })
-      })
-    }
-
     // check if created by currentUser
     if (this.bit?.auth_user === currentUser.id) {
       this.createdByCurrentUser = true;
     }
 
-    // get comments
-    this.bitService.getBitComments(this.bit?.id!).subscribe(comments => {
-      this.commentsCount = comments.length
-    })
+    // check if liked
+    this.likes = this.bit?.likes ?? []
+    this.likedByCurrentUser = this.likes?.find(like => like.auth_user == currentUser.id) != null;
 
-    // get likes and handle button style
-    this.bitService.getBitLikes(this.bit?.id!).subscribe(likes => {
-      this.likes = likes;
-      this.likedByCurrentUser = this.likes.find(like => like.auth_user == currentUser.id) != null;
-    })
+    // check if bookmarked
+    this.bookmarks = this.bit?.bookmarks ?? []
+    this.bookmarkedByCurrentUser = this.likes?.find(bookmark => bookmark.auth_user == currentUser.id) != null;
 
-    // get bookmarks and handle button style
-    this.bitService.getBitBookmarks(this.bit?.id!).subscribe(bookmarks => {
-      this.bookmarks = bookmarks;
-      this.bookmarkedByCurrentUser = this.bookmarks.find(bookmarks => bookmarks.auth_user == currentUser.id) != null;
-    })
+    // manage hashtags and @
 
-    // manage hashtags
-    // ToDo: optimize hashtag extraction
-    this.contentFormatted = this.bit?.content.replace(/#(\S*)/g, '<a class="text-accent" href="/hashtag/$1">#$1</a>');
+    // console.log({ content: this.bit?.content })
+
+    this.contentFormatted = this.appService.replaceTags(this.bit?.content ?? "")
+
+    // console.log({ formatted: this.contentFormatted })
+
+    // const classes = "text-accent fw-medium"
+    // this.contentFormatted = this.bit?.content.replace(this.appService.HASHTAG_PATTERN, ` <a class="${classes}" href="/hashtag/$1">#$1</a>`)
+    // this.contentFormatted = this.contentFormatted?.replace(this.appService.USERTAG_PATTERN, ` <a class="${classes}" href="/user/$1">@$1</a>`)
 
   }
 
   createOrDeleteLike() {
     let auth_user = this.userService.currentUser.value!.id;
 
-    let like = this.likes.find(like => like.auth_user == auth_user)
+    let like = this.likes?.find(like => like.auth_user == auth_user)
 
     // check if bit was already liked
     if (like) {
@@ -93,10 +83,6 @@ export class BitComponent implements OnInit {
         this.likes.push(l)
       })
     }
-
-    // TODO: refresh likes without refreshing route (issues with subscribe)
-    // this.ngOnInit()
-    // this.appService.refreshRoute();
   }
 
   createOrDeleteBookmark() {
@@ -109,7 +95,6 @@ export class BitComponent implements OnInit {
       this.bookmarkService.deleteBookmark(bookmark).subscribe(() => {
         this.appService.showSnackBar('Bookmark has been removed!', 'Hide');
         this.bookmarkedByCurrentUser = false;
-        // remove from list
         this.bookmarks = this.bookmarks.filter(b => b.id !== bookmark?.id)
       })
     } else {
@@ -123,9 +108,5 @@ export class BitComponent implements OnInit {
         this.bookmarks.push(b)
       })
     }
-
-    // TODO: refresh bookmarks without refreshing route (issues with subscribe)
-    // this.ngOnInit()
-    // this.appService.refreshRoute();
   }
 }

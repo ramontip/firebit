@@ -32,6 +32,7 @@
 .image-form-container {
   flex-direction: row;
   gap: 1rem;
+  flex-wrap: wrap;
 
   // See global styles.scss for width setting
 }

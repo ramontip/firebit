@@ -16,40 +16,6 @@ class ImageSerializer(serializers.ModelSerializer):
         return image
 
 
-class BitSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(source='image_set', many=True, required=False)
-
-    class Meta:
-        model = Bit
-        fields = '__all__'
-
-    def create(self, validated_data):
-        hashtags = ' '
-        for i in validated_data['content'].split():
-            if i.startswith('#'):
-                hashtags += i[1:] + ' '
-        validated_data['hashtags'] = hashtags
-
-        bit = Bit.objects.create(**validated_data)
-
-        return bit
-
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.content = validated_data.get('content', instance.content)
-        instance.category = validated_data.get('category', instance.category)
-        instance.updated_at = datetime.now()
-
-        hashtags = ' '
-        for i in validated_data['content'].split():
-            if i.startswith('#'):
-                hashtags += i[1:] + ' '
-        instance.hashtags = hashtags
-
-        instance.save()
-        return instance
-
-
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
@@ -64,16 +30,6 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
-    def create(self, validated_data):
-        comment = Comment.objects.create(**validated_data)
-        return comment
 
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -127,7 +83,6 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # required = False -> cause otherwise no registration possible
     userdetails = UserDetailsSerializer(required=False)
 
     # TODO: userdetails isnt working in combination with normal user data
@@ -150,6 +105,59 @@ class UserSerializer(serializers.ModelSerializer):
         instance.password = validated_data.get('password', instance.password)
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
+
+        instance.save()
+        return instance
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    # get objects
+    user_details = UserSerializer(source='auth_user', required=False)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+    def create(self, validated_data):
+        comment = Comment.objects.create(**validated_data)
+        return comment
+
+
+class BitSerializer(serializers.ModelSerializer):
+    # get objects
+    user_details = UserSerializer(source='auth_user', required=False)
+    category_details = CategorySerializer(source='category', required=False)
+    images = ImageSerializer(source='image_set', many=True, required=False)
+    likes = LikeSerializer(source='like_set', many=True, required=False)
+    bookmarks = BookmarkSerializer(source='bookmark_set', many=True, required=False)
+    comments = CommentSerializer(source='comment_set', many=True, required=False)
+
+    class Meta:
+        model = Bit
+        fields = '__all__'
+
+    def create(self, validated_data):
+        hashtags = ' '
+        for i in validated_data['content'].split():
+            if i.startswith('#'):
+                hashtags += i[1:] + ' '
+        validated_data['hashtags'] = hashtags
+
+        bit = Bit.objects.create(**validated_data)
+
+        return bit
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
+        instance.category = validated_data.get('category', instance.category)
+        instance.updated_at = datetime.now()
+
+        hashtags = ' '
+        for i in validated_data['content'].split():
+            if i.startswith('#'):
+                hashtags += i[1:] + ' '
+        instance.hashtags = hashtags
 
         instance.save()
         return instance

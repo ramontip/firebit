@@ -112,6 +112,12 @@ export class UserService {
     )
   }
 
+  getUserByEmail(email: string) {
+    return this.http.get<User[]>(`/api/users/?email=${email}`).pipe(
+      map(users => users.length ? users[0] : undefined)
+    )
+  }
+
   // return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
 
   resetUserPassword(email: string) {
@@ -122,6 +128,21 @@ export class UserService {
         return res
       })
     )
+  }
+
+  confirmResetUser(token: string, password: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post<{ status: string }>(this.appService.baseUrl + '/password_reset/confirm/', JSON.stringify({
+      token,
+      password
+    }), {headers: headers})
+  }
+
+  validateResetToken(token: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post<{ status: string }>(this.appService.baseUrl + '/password_reset/validate_token/', JSON.stringify({
+      token
+    }), {headers: headers})
   }
 
   // getCurrentUser() {

@@ -1,4 +1,7 @@
-import { ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from "@angular/forms"
+import { ValidatorFn, AbstractControl, ValidationErrors, FormGroup, AsyncValidatorFn } from "@angular/forms"
+import { from, Observable } from "rxjs"
+import { delay, map, switchMap } from "rxjs/operators"
+import { UserService } from "../services/user.service"
 
 // Validators
 
@@ -25,3 +28,48 @@ export function matchValidator(fieldname: string, options?: { not?: boolean }): 
 }
 
 // Async Validators
+
+export function userValidator(userService: UserService): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
+    return from([control.value]).pipe(
+      delay(500),
+      switchMap<string, Observable<ValidationErrors | null>>(username => {
+
+        console.log({ username })
+
+        return userService.getUserByUsername(username).pipe(
+          map(user => {
+            console.log({ user })
+            return user && user.id !== userService.currentUser.value?.id ? { userAlreadyExists: true } : null
+          })
+        )
+
+      })
+    )
+
+  }
+}
+
+export function emailValidator(userService: UserService): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
+    return from([control.value]).pipe(
+      delay(500),
+      switchMap<string, Observable<ValidationErrors | null>>(email => {
+
+        console.log({ email })
+
+        return userService.getUserByEmail(email).pipe(
+          delay(500),
+          map(user => {
+            console.log({ emailUser: user })
+            return user && user.id !== userService.currentUser.value?.id ? { emailAlreadyExists: true } : null
+          })
+        )
+
+      })
+    )
+
+  }
+}

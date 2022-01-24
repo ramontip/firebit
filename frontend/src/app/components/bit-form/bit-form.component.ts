@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoryService } from "../../services/category.service";
-import { BitService } from "../../services/bit.service";
-import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Bit, Category } from "../../../types";
-import { AppService } from "../../services/app.service";
+import {Component, OnInit} from '@angular/core';
+import {CategoryService} from "../../services/category.service";
+import {BitService} from "../../services/bit.service";
+import {HttpClient} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Bit, Category} from "../../../types";
+import {AppService} from "../../services/app.service";
 
 @Component({
   selector: 'app-bit-form',
@@ -69,11 +69,11 @@ export class BitFormComponent implements OnInit {
     const id = this.bitFormGroup.controls['id'].value
 
     if (id) {
-      console.log({ form: this.bitFormGroup.value })
+      console.log({form: this.bitFormGroup.value})
 
       let bitValue = {
         ...this.bitFormGroup.value,
-        auth_user: this.bit?.auth_user
+        auth_user: this.bit?.user_details
       }
 
       this.bitService.updateBit(bitValue).subscribe(bit => {

@@ -3,19 +3,19 @@
   <div class="flex space-between header-container">
 
     <div class="flex user-container">
-      <a class="link" routerLink="/user/{{user?.username}}" class="user-thumbnail user-thumbnail-xs" draggable="false" unselectable
-        *ngIf="user">
-        <app-user-thumbnail [user]="user"></app-user-thumbnail>
+      <a class="link" routerLink="/user/{{comment?.user_details?.username}}" class="user-thumbnail user-thumbnail-xs"
+         draggable="false" unselectable>
+        <app-user-thumbnail [user]="comment?.user_details"></app-user-thumbnail>
       </a>
 
       <div class="flex name-container">
         <mat-card-content class="user">
-          <a class="link" routerLink="/user/{{user?.username}}">
-            {{user?.first_name}} {{user?.last_name}}
+          <a class="link" routerLink="/user/{{comment?.user_details?.username}}">
+            {{comment?.user_details?.first_name}} {{comment?.user_details?.last_name}}
           </a>
         </mat-card-content>
         <mat-card-subtitle class="username">
-          <span>@{{user?.username}}</span>
+          <span>@{{comment?.user_details?.username}}</span>
         </mat-card-subtitle>
       </div>
     </div>
