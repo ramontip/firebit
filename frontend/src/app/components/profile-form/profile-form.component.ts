@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AppService } from 'src/app/services/app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-form',
@@ -15,6 +16,7 @@ export class ProfileFormComponent implements OnInit {
   constructor(
     public userService: UserService,
     private appService: AppService,
+    private router: Router,
   ) {
     this.profileFormGroup = new FormGroup({
       first_name: new FormControl(""),
@@ -39,7 +41,7 @@ export class ProfileFormComponent implements OnInit {
     const user = this.userService.currentUser.value
 
     if (!user) {
-      return console.error(`Could not update user, user is ${user}`)
+      return console.error(`Could not update profile, user is ${user}`)
     } else {
       // user.first_name = this.profileFormGroup.controls.first_name.value
       // user.last_name = this.profileFormGroup.controls.last_name.value
@@ -49,7 +51,8 @@ export class ProfileFormComponent implements OnInit {
       this.userService.updateUser(user.id, this.profileFormGroup.value).subscribe(
         user => {
           this.profileFormGroup.patchValue(user)
-          this.appService.showSnackBar("User updated successfully", "Hide")
+          this.appService.showSnackBar("Profile updated successfully", "Hide")
+          this.router.navigate(["/profile"])
         },
         err => { console.log({ err }) }
       )

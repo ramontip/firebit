@@ -8,9 +8,9 @@
       </a>
       <div>
         <mat-card-content class="bit-user">
-          <!-- <a class="link" routerLink="/user/{{user?.username}}"> -->
-          {{user?.first_name}} {{user?.last_name}}
-          <!-- </a> -->
+          <a class="link" routerLink="/user/{{user?.username}}">
+            {{user?.first_name}} {{user?.last_name}}
+          </a>
         </mat-card-content>
         <mat-card-subtitle class="bit-user-subtitle">
           <div class="bit-username">@{{user?.username}} &bull; {{bit?.created_at | date : 'dd.MM.yyyy, HH:mm'}}</div>
