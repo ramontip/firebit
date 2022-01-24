@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/types';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
+import {User} from 'src/types';
+import {SearchService} from "../../services/search.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -10,12 +11,14 @@ import { User } from 'src/types';
 })
 export class ToolbarComponent implements OnInit {
 
-  searchForm = new FormControl("")
+  searchForm = new FormControl("", Validators.minLength(3));
   user?: User
 
   constructor(
-    public userService: UserService
-  ) { }
+    public userService: UserService,
+    private searchService: SearchService
+  ) {
+  }
 
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user => {
@@ -28,7 +31,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchForm.value)
+    this.searchService.getSearchResults(this.searchForm.value)
   }
 
   handleKeyUp(e: { keyCode: number; }) {

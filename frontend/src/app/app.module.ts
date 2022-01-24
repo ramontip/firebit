@@ -62,6 +62,7 @@ import {BackgroundPatternComponent} from "./components/background-pattern/backgr
 import { NoDataComponent } from './components/no-data/no-data.component';
 import {CookieService} from "ngx-cookie-service";
 import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -107,6 +108,7 @@ function tokenGetter() {
     BackgroundPatternComponent,
     NoDataComponent,
     PasswordResetFormComponent,
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,

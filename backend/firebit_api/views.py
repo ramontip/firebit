@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django_rest_passwordreset.signals import reset_password_token_created
-from rest_framework import viewsets, filters
+from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
@@ -240,26 +240,24 @@ class CommentViewSet(viewsets.ViewSet):
 
 class SearchViewSet(viewsets.ViewSet):
 
-    @action(methods=['get'], detail=False, url_path='users', url_name='users')
-    def user(self, request):
-        try:
-            search_filters = ['username', 'first_name', 'last_name']
-            filter_backends = (filters.SearchFilter,)
+    def list(self, request, format=None):
+        query = request.GET.get("q", None)
+        print(query)
 
-            queryset = models.User.objects.all()
-            queryset = queryset.order_by(request.GET.get("order_by") or "pk")
-            serializers = UserSerializer(queryset, many=True)
-            return Response(serializers.data, status=200)
-        except models.User.DoesNotExist:
+        if len(query) > 2:
+            users = models.User.objects.filter(
+                Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+            bits = models.Bit.objects.filter(title__icontains=query)
+            users = UserSerializer(users, many=True).data
+            bits = BitSerializer(bits, many=True).data
+
+            response = {'users': users, 'bits': bits}
+            return Response(response, status=200)
+        elif len(query) < 2:
+            response = "Search term must be at least 3 characters long"
+            return Response(response, status=404)
+        else:
             return Response(status=404)
-
-    @action(methods=['get'], detail=False, url_path='bits', url_name='bits')
-    def bit(self, request):
-        return Response(status=501)
-
-    @action(methods=['get'], detail=False, url_path='categories', url_name='categories')
-    def category(self, request):
-        return Response(status=501)
 
 
 class CategoryViewSet(viewsets.ViewSet):
