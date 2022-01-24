@@ -1,50 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  AsyncValidatorFn,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from "../../services/user.service";
 import { AppService } from "../../services/app.service";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JWTToken } from 'src/types';
+import { emailValidator, matchValidator, userValidator } from 'src/app/validators/validators';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
-  // providers: [UserService]
 })
 
 export class RegisterFormComponent implements OnInit {
 
   registerFormGroup: FormGroup
-  hide = true;
-
-  readonly passwordPattern = /(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/
-  readonly emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
+  hidePassword = true;
 
   constructor(
     private userService: UserService,
     private appService: AppService,
-    private fb: FormBuilder,
     private router: Router,
     private jwtHelperService: JwtHelperService,
   ) {
     this.registerFormGroup = new FormGroup({
-      username: new FormControl("", Validators.required, [this.userValidator()]),
-      first_name: new FormControl("", Validators.required),
-      last_name: new FormControl("", Validators.required),
-      email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(this.emailPattern)], [this.emailValidator()]),
-      password: new FormControl("", [Validators.required, Validators.pattern(this.passwordPattern)]),
-      confirmPassword: new FormControl("", Validators.required),
+      username: new FormControl("", [Validators.required, Validators.minLength(4), Validators.pattern(appService.USERNAME_PATTERN)], [userValidator(userService)]),
+      first_name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.pattern(appService.NAME_PATTERN)]),
+      last_name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.pattern(appService.NAME_PATTERN)]),
+      email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(this.appService.EMAIL_PATTERN)], [emailValidator(userService)]),
+      password: new FormControl("", [Validators.required, Validators.pattern(this.appService.PASSWORD_PATTERN)]),
+      confirmPassword: new FormControl("", [Validators.required, matchValidator("password")]),
       acceptTos: new FormControl(false, Validators.requiredTrue)
     })
   }
@@ -55,110 +41,139 @@ export class RegisterFormComponent implements OnInit {
 
   registerUser() {
 
-    const password = this.registerFormGroup.controls["password"].value
-    const confirmPassword = this.registerFormGroup.controls["confirmPassword"].value
-    const acceptTos = this.registerFormGroup.controls["acceptTos"].value
+    if (this.registerFormGroup.invalid) {
+      return
+    }
 
-    if (password === confirmPassword && acceptTos === true) {
-      this.userService.registerUser(this.registerFormGroup.value).subscribe((user) => {
-        console.log(user);
+    this.userService.registerUser(this.registerFormGroup.value).subscribe((user) => {
+      console.log(user);
 
-        // console.log(this.registerFormGroup.controls["password"].value);
-        this.userService.login({
-          username: user.username,
-          password: this.registerFormGroup.controls["password"].value
-        }).subscribe(res => {
-          console.log({ registerLoginResponse: res })
+      // console.log(this.registerFormGroup.controls["password"].value);
+      this.userService.login({
+        username: user.username,
+        password: this.registerFormGroup.controls["password"].value
+      }).subscribe(res => {
+        console.log({ registerLoginResponse: res })
 
-          const decodedToken = this.jwtHelperService.decodeToken<JWTToken>(res.token)
+        const decodedToken = this.jwtHelperService.decodeToken<JWTToken>(res.token)
 
-          this.userService.getUser(decodedToken.user_id).subscribe(user => {
-            this.userService.currentUser.next(user)
-            console.log("finally set currentUser", { user })
+        this.userService.getUser(decodedToken.user_id).subscribe(user => {
+          this.userService.currentUser.next(user)
+          console.log("finally set currentUser", { user })
 
-            this.appService.showSnackBar('Registered successfully', 'Hide');
+          this.appService.showSnackBar('Registered successfully', 'Hide');
 
-            this.router.navigate(["/bitmap"])
-          })
-
+          this.router.navigate(["/bitmap"])
         })
 
-      }, (error) => {
-        console.log(error);
-        this.registerFormGroup.controls["password"].setValue("")
-        this.registerFormGroup.controls["confirmPassword"].setValue("")
       })
-    } else if (password === confirmPassword) {
-      this.registerFormGroup.controls["confirmPassword"].setErrors({ 'mismatch': true });
-    } else if (acceptTos === false) {
-      this.appService.showSnackBar('You must accept the terms of service', 'Hide');
-    }
+
+    }, error => {
+      this.appService.showSnackBar("An error occured while registering", "Hide")
+      console.log(error);
+      this.registerFormGroup.controls["password"].setValue("")
+      this.registerFormGroup.controls["confirmPassword"].setValue("")
+    })
   };
 
+  updateConfirmPassword() {
+    if (this.registerFormGroup.controls['confirmPassword'].value !== "")
+      this.registerFormGroup.controls['confirmPassword'].updateValueAndValidity()
+  }
+
+  // Error messages
+
   firstnameErrorMessage() {
-    return this.registerFormGroup.controls["first_name"].hasError('required') ? 'Firstname required' : '';
+    const firstname = this.registerFormGroup.controls["first_name"]
+
+    if (firstname.hasError('required'))
+      return 'First name is required'
+
+    if (firstname.hasError('minlength'))
+      return 'Must be at least 2 Characters longs'
+
+    if (firstname.hasError('pattern'))
+      return 'May only contain letters'
+
+    return ""
   }
 
   lastnameErrorMessage() {
-    return this.registerFormGroup.controls["last_name"].hasError('required') ? 'Lastname required' : '';
+    const lastname = this.registerFormGroup.controls["last_name"]
+
+    if (lastname.hasError('required'))
+      return 'First name is required'
+
+    if (lastname.hasError('minlength'))
+      return 'Must be at least 2 Characters longs'
+
+    if (lastname.hasError('pattern'))
+      return 'May only contain letters'
+
+    return ""
   }
 
   passwordErrorMessage() {
-    return this.registerFormGroup.controls["password"].hasError('required') ? 'Password required' :
-      this.registerFormGroup.controls["password"].hasError('minlength') ? 'Password must be at least 6 characters long' :
-        this.registerFormGroup.controls["password"].hasError('maxlength') ? 'Password must be at most 20 characters long' :
-          this.registerFormGroup.controls["password"].hasError('passwordMismatch') ? 'Passwords do not match' : '';
+    const password = this.registerFormGroup.controls["password"]
+    if (password.hasError('required'))
+      return 'Password required'
+
+    if (password.hasError('minlength'))
+      return 'Password must be at least 8 characters long'
+
+    if (password.hasError('pattern'))
+      return 'Must contain at least one lowercase, uppercase, special character and digit'
+
+    return ""
   }
 
   passwordConfirmErrorMessage() {
-    return this.registerFormGroup.controls["confirmPassword"].hasError('required') ? 'Password required' :
-      this.registerFormGroup.controls["confirmPassword"].hasError('mismatch') ? 'Passwords do not match' : '';
+    const confirmPassword = this.registerFormGroup.controls["confirmPassword"]
+
+    if (confirmPassword.hasError('required'))
+      return 'Password required'
+
+    if (confirmPassword.hasError('match_password'))
+      return "Must match password"
+
+    return '';
   }
 
   acceptTosErrorMessage() {
     return this.registerFormGroup.controls["acceptTos"].hasError('required') ? 'You must accept the terms of service' : '';
   }
 
+  usernameErrorMessage() {
+    const username = this.registerFormGroup.controls["username"]
 
-  userValidator(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.userService.getAllUsers().pipe(map(users => {
-        const currentUsername = this.registerFormGroup.controls['username'].value;
-        const existingUser = users.find(user => user.username === currentUsername);
-        return existingUser ? { userAlreadyExists: true } : null
-      }))
-    }
-  }
+    if (username.hasError('required'))
+      return 'Username is required'
 
-  getUserErrorMessage() {
-    if (this.registerFormGroup.controls["username"].hasError('userAlreadyExists')) {
+    if (username.hasError('minlength'))
+      return 'Must be at least 4 characters long'
+
+    if (username.hasError('pattern'))
+      return 'May only contain letters, digits and underline (_)'
+
+    if (username.hasError('userAlreadyExists'))
       return 'Username already taken';
-    }
-    return this.registerFormGroup.controls["username"].hasError('required') ? 'Username required' : '';
+
+    return ''
   }
 
-  emailValidator(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.userService.getAllUsers().pipe(map(users => {
-        const currentEmail = this.registerFormGroup.controls['email'].value;
-        const existingEmail = users.find(user => user.email === currentEmail);
-        return existingEmail ? { emailAlreadyExists: true } : null
-      }))
-    }
-  }
+  emailErrorMessage() {
+    const email = this.registerFormGroup.controls["email"]
 
-  getEmailErrorMessage() {
-    if (this.registerFormGroup.controls["email"].hasError('emailAlreadyExists')) {
+    if (email.hasError('required'))
+      return "Email is required"
+
+    if (email.hasError('email') || email.hasError("pattern"))
+      return 'You must enter a valid email';
+
+    if (email.hasError('emailAlreadyExists'))
       return 'Email already taken';
-    }
-    if (this.registerFormGroup.controls["email"].hasError('email')) {
-      return 'You must enter a valid email';
-    }
-    if (this.registerFormGroup.controls["email"].hasError('pattern')) {
-      return 'You must enter a valid email';
-    }
-    return this.registerFormGroup.controls["email"].hasError('required') ? 'Email required' : '';
-  }
 
+    return ''
+  }
 
 }

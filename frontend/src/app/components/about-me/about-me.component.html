@@ -42,9 +42,8 @@
 
   </div>
 
-
   <!-- "Bio" -->
-  <div *ngIf="user?.userdetails?.about">
-    <p>{{user?.userdetails?.about}}</p>
+  <div *ngIf="formattedAbout">
+    <p [innerHtml]="formattedAbout"></p>
   </div>
 </mat-card>

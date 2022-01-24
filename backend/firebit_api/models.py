@@ -6,7 +6,7 @@ from django.db import models
 class UserDetails(models.Model):
     auth_user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     file = models.FileField(blank=True, null=True)
-    about = models.CharField(max_length=255)
+    about = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

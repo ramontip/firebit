@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Bit, Bookmark, Like, User} from 'src/types';
-import {UserService} from "../../services/user.service";
-import {BitService} from "../../services/bit.service";
-import {AppService} from "../../services/app.service";
-import {LikeService} from "../../services/like.service";
-import {BookmarkService} from "../../services/bookmark.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { Bit, Bookmark, Like, User } from 'src/types';
+import { UserService } from "../../services/user.service";
+import { BitService } from "../../services/bit.service";
+import { AppService } from "../../services/app.service";
+import { LikeService } from "../../services/like.service";
+import { BookmarkService } from "../../services/bookmark.service";
 
 @Component({
   selector: 'app-bit',
@@ -45,9 +45,18 @@ export class BitComponent implements OnInit {
     this.bookmarks = this.bit?.bookmarks ?? []
     this.bookmarkedByCurrentUser = this.likes?.find(bookmark => bookmark.auth_user == currentUser.id) != null;
 
-    // manage hashtags
-    // ToDo: optimize hashtag extraction
-    this.contentFormatted = this.bit?.content.replace(/#(\S*)/g, '<a class="text-accent" href="/hashtag/$1">#$1</a>');
+    // manage hashtags and @
+
+    // console.log({ content: this.bit?.content })
+
+    this.contentFormatted = this.appService.replaceTags(this.bit?.content ?? "")
+
+    // console.log({ formatted: this.contentFormatted })
+
+    // const classes = "text-accent fw-medium"
+    // this.contentFormatted = this.bit?.content.replace(this.appService.HASHTAG_PATTERN, ` <a class="${classes}" href="/hashtag/$1">#$1</a>`)
+    // this.contentFormatted = this.contentFormatted?.replace(this.appService.USERTAG_PATTERN, ` <a class="${classes}" href="/user/$1">@$1</a>`)
+
   }
 
   createOrDeleteLike() {

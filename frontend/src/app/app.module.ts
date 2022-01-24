@@ -61,6 +61,7 @@ import {UserDetailsFormComponent} from "./components/user-details-form/user-deta
 import {BackgroundPatternComponent} from "./components/background-pattern/background-pattern.component";
 import { NoDataComponent } from './components/no-data/no-data.component';
 import {CookieService} from "ngx-cookie-service";
+import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -105,6 +106,7 @@ function tokenGetter() {
     UserDetailsFormComponent,
     BackgroundPatternComponent,
     NoDataComponent,
+    PasswordResetFormComponent,
   ],
   imports: [
     BrowserModule,

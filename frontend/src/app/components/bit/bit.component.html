@@ -3,15 +3,15 @@
   <div class="flex bit-subtitle">
 
     <div class="vertical-center mb">
-      <a class="link" routerLink="/user/{{bit?.user_details?.username}}" class="user-thumbnail user-thumbnail-s"
-         draggable="false" unselectable>
+      <a class="link" routerLink="/user/{{bit?.user_details?.username}}" class="user-thumbnail user-thumbnail-s" draggable="false"
+        unselectable>
         <app-user-thumbnail [user]="bit?.user_details"></app-user-thumbnail>
       </a>
       <div>
         <mat-card-content class="bit-user">
-          <!-- <a class="link" routerLink="/user/{{bit?.user_details?.username}}"> -->
-          {{bit?.user_details?.first_name}} {{bit?.user_details?.last_name}}
-          <!-- </a> -->
+          <a class="link" routerLink="/user/{{bit?.user_details?.username}}">
+            {{bit?.user_details?.first_name}} {{bit?.user_details?.last_name}}
+          </a>
         </mat-card-content>
         <mat-card-subtitle class="bit-user-subtitle">
           <div class="bit-username">@{{bit?.user_details?.username}}
@@ -52,8 +52,7 @@
         {{likes?.length ?? 0}}
       </button>
 
-      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()"
-              [class.bit-bookmarked]="bookmarkedByCurrentUser">
+      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()" [class.bit-bookmarked]="bookmarkedByCurrentUser">
         <mat-icon>bookmark_border</mat-icon>
         <!-- bookmark_border / bookmark -->
         {{bookmarks?.length ?? 0}}
