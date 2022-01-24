@@ -20,11 +20,10 @@ export class ProfileFormComponent implements OnInit {
     private router: Router,
   ) {
     this.profileFormGroup = new FormGroup({
-      first_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-      last_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-      username: new FormControl("", [Validators.required, Validators.minLength(4)], [userValidator(userService)]),
+      first_name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.pattern(appService.NAME_PATTERN)]),
+      last_name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.pattern(appService.NAME_PATTERN)]),
+      username: new FormControl("", [Validators.required, Validators.minLength(4), Validators.pattern(appService.USERNAME_PATTERN)], [userValidator(userService)]),
       email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(appService.EMAIL_PATTERN)], [emailValidator(userService)]),
-      aboutme: new FormControl(""),
     })
 
   }
@@ -69,6 +68,9 @@ export class ProfileFormComponent implements OnInit {
     if (firstname.hasError('required'))
       return 'First name is required'
 
+    if (firstname.hasError('pattern'))
+      return 'May only contain letters'
+
     if (firstname.hasError('minlength'))
       return 'Must be at least 2 Characters longs'
 
@@ -80,6 +82,9 @@ export class ProfileFormComponent implements OnInit {
 
     if (lastname.hasError('required'))
       return 'First name is required'
+
+    if (lastname.hasError('pattern'))
+      return 'May only contain letters'
 
     if (lastname.hasError('minlength'))
       return 'Must be at least 2 Characters longs'
@@ -95,6 +100,9 @@ export class ProfileFormComponent implements OnInit {
 
     if (username.hasError('minlength'))
       return 'Must be at least 4 characters long'
+
+    if (username.hasError('pattern'))
+      return 'May only contain letters, digits and underline (_)'
 
     if (username.hasError('userAlreadyExists'))
       return 'Username already taken';

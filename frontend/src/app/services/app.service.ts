@@ -9,10 +9,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AppService {
 
   baseUrl = '/api';
-
   
   // minLength part: (?=.{8,})
   readonly PASSWORD_PATTERN = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/
+  readonly USERNAME_PATTERN = /^\w+$/ // \w -> [A-Za-z0-9_]
+  readonly NAME_PATTERN = /^[A-ZÄÖÜÁÀÉÈÍÌÓÒÚÙa-zäöüäáàéèíìóòúùß]+$/
   readonly EMAIL_PATTERN = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {

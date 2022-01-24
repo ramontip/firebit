@@ -25,9 +25,9 @@ export class RegisterFormComponent implements OnInit {
     private jwtHelperService: JwtHelperService,
   ) {
     this.registerFormGroup = new FormGroup({
-      username: new FormControl("", [Validators.required, Validators.minLength(4)], [userValidator(userService)]),
-      first_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-      last_name: new FormControl("", [Validators.required, Validators.minLength(2)]),
+      username: new FormControl("", [Validators.required, Validators.minLength(4), Validators.pattern(appService.USERNAME_PATTERN)], [userValidator(userService)]),
+      first_name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.pattern(appService.NAME_PATTERN)]),
+      last_name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.pattern(appService.NAME_PATTERN)]),
       email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(this.appService.EMAIL_PATTERN)], [emailValidator(userService)]),
       password: new FormControl("", [Validators.required, Validators.pattern(this.appService.PASSWORD_PATTERN)]),
       confirmPassword: new FormControl("", [Validators.required, matchValidator("password")]),
@@ -92,6 +92,9 @@ export class RegisterFormComponent implements OnInit {
     if (firstname.hasError('minlength'))
       return 'Must be at least 2 Characters longs'
 
+    if (firstname.hasError('pattern'))
+      return 'May only contain letters'
+
     return ""
   }
 
@@ -103,6 +106,9 @@ export class RegisterFormComponent implements OnInit {
 
     if (lastname.hasError('minlength'))
       return 'Must be at least 2 Characters longs'
+
+    if (lastname.hasError('pattern'))
+      return 'May only contain letters'
 
     return ""
   }
@@ -145,6 +151,9 @@ export class RegisterFormComponent implements OnInit {
 
     if (username.hasError('minlength'))
       return 'Must be at least 4 characters long'
+
+    if (username.hasError('pattern'))
+      return 'May only contain letters, digits and underline (_)'
 
     if (username.hasError('userAlreadyExists'))
       return 'Username already taken';
