@@ -3,10 +3,14 @@
   <div class="flex container">
 
     <div class="flex name-container">
-      <app-user-thumbnail [user]="friendUser" class="user-thumbnail user-thumbnail-xs" *ngIf="friendUser"></app-user-thumbnail>
+      <a href="/user/{{friendUser?.username}}" class="link user-thumbnail user-thumbnail-xs">
+        <app-user-thumbnail [user]="friendUser" class="user-thumbnail user-thumbnail-xs" *ngIf="friendUser"></app-user-thumbnail>
+      </a>
 
       <mat-card-content class="name">
-        {{friendUser?.first_name}} {{friendUser?.last_name}}
+        <a href="/user/{{friendUser?.username}}" class="link">
+          {{friendUser?.first_name}} {{friendUser?.last_name}}
+        </a>
       </mat-card-content>
       <mat-card-subtitle class="username">
         @{{friendUser?.username}}

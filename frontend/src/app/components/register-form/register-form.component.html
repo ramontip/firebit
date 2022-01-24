@@ -12,42 +12,42 @@
 
         <mat-form-field>
           <input matInput placeholder="Username" formControlName="username" name="username" required>
-          <mat-error *ngIf="this.registerFormGroup.controls['username'].invalid">{{getUserErrorMessage()}}</mat-error>
+          <mat-error *ngIf="registerFormGroup.controls['username'].invalid">{{usernameErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <input matInput placeholder="Firstname" formControlName="first_name" name="first_name" required>
-          <mat-error *ngIf="this.registerFormGroup.controls['first_name'].invalid">{{firstnameErrorMessage()}}</mat-error>
+          <mat-error *ngIf="registerFormGroup.controls['first_name'].invalid">{{firstnameErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <input matInput placeholder="Lastname" formControlName="last_name" name="last_name" required>
-          <mat-error *ngIf="this.registerFormGroup.controls['last_name'].invalid">{{lastnameErrorMessage()}}</mat-error>
+          <mat-error *ngIf="registerFormGroup.controls['last_name'].invalid">{{lastnameErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <input matInput placeholder="Email" formControlName="email" type="email" name="email" required>
-          <mat-error *ngIf="this.registerFormGroup.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+          <mat-error *ngIf="registerFormGroup.controls['email'].invalid">{{emailErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" type="password"
-            name="password" required>
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
-            tabindex="-1">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password" formControlName="password" type="password"
+            name="password" required (input)="updateConfirmPassword()">
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword" tabindex="-1">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="this.registerFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}</mat-error>
+          <mat-error *ngIf="registerFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm password" formControlName="confirmPassword"
-            type="password" name="confirmPassword" required>
-          <mat-error *ngIf="this.registerFormGroup.controls['confirmPassword'].invalid">{{passwordConfirmErrorMessage()}}</mat-error>
+          <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" type="password"
+            name="confirmPassword" required>
+          <mat-error *ngIf="registerFormGroup.controls['confirmPassword'].invalid">{{passwordConfirmErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-checkbox color="primary" class="mb"
-          [class.text-warn]="this.registerFormGroup.controls['acceptTos'].touched && this.registerFormGroup.controls['acceptTos'].invalid"
+          [class.text-warn]="registerFormGroup.controls['acceptTos'].touched && registerFormGroup.controls['acceptTos'].invalid"
           formControlName="acceptTos">
           I have read and accept the <a class="link text-primary" routerLink="/terms">terms of service</a>.
         </mat-checkbox>

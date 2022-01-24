@@ -7,16 +7,19 @@
       <mat-form-field appearance="fill">
         <mat-label>First name</mat-label>
         <input matInput type="text" formControlName="first_name">
+        <mat-error *ngIf="profileFormGroup.controls['first_name'].invalid">{{firstnameErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Last name</mat-label>
         <input matInput type="text" formControlName="last_name">
+        <mat-error *ngIf="profileFormGroup.controls['last_name'].invalid">{{lastnameErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
         <input matInput type="text" formControlName="username">
+        <mat-error *ngIf="profileFormGroup.controls['username'].invalid">{{usernameErrorMessage()}}</mat-error>
       </mat-form-field>
 
     </div>
@@ -25,6 +28,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput type="text" formControlName="email">
+        <mat-error *ngIf="profileFormGroup.controls['email'].invalid">{{emailErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
