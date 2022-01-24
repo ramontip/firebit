@@ -15,7 +15,7 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class UserService {
 
-  readonly ACCESS_TOKEN_KEY = 'accessToken';
+  readonly ACCESS_TOKEN_KEY = 'access_token';
 
   isLoggedIn = new BehaviorSubject(false);
   currentUser = new BehaviorSubject<User | null>(null)
@@ -45,7 +45,7 @@ export class UserService {
         console.log({loginResponse: res})
 
         this.isLoggedIn.next(true);
-        localStorage.setItem('accessToken', res.token);
+        localStorage.setItem('access_token', res.token);
 
         this.setCurrentUser()
         return res

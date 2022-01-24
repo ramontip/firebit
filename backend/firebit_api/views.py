@@ -18,10 +18,13 @@ from .serializers import *
 class BitViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
+        current_user = self.request.user
 
-        queryset = models.Bit.objects.all()
-
-        # TODO: "type" filter -> [own,other,liked,commented,bookmarked]
+        # get bits from friends only
+        queryset = models.Bit.objects.filter(
+            Q(auth_user_id=current_user.id) | Q(
+                auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
+                auth_user__to_auth_user__from_auth_user_id=current_user.id)).distinct()
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
@@ -52,10 +55,15 @@ class BitViewSet(viewsets.ViewSet):
             return Response(serializer.errors, status=400)
 
     def retrieve(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             bit = models.Bit.objects.get(
-                pk=pk
+                Q(pk=pk) & (Q(auth_user_id=current_user.id) | Q(
+                    auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
+                    auth_user__to_auth_user__from_auth_user_id=current_user.id))
             )
+
             serializer = BitSerializer(bit)
             return Response(serializer.data, status=200)
 
@@ -63,9 +71,11 @@ class BitViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def update(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             bit = models.Bit.objects.get(
-                pk=pk
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             )
             serializer = BitSerializer(bit, data=request.data)
             if serializer.is_valid():
@@ -83,9 +93,11 @@ class BitViewSet(viewsets.ViewSet):
         return Response(status=405)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             bit = models.Bit.objects.get(
-                pk=pk
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             )
             for image in bit.image_set.all():
                 if os.path.isfile(image.file.path):
@@ -98,6 +110,7 @@ class BitViewSet(viewsets.ViewSet):
         return Response(status=204)
 
     # this creates the url: bits/{bitId}/comments/
+    '''
     @action(methods=['get'], detail=True, url_path='comments', url_name='comments')
     def list_comments(self, request, pk=None):
         try:
@@ -112,8 +125,10 @@ class BitViewSet(viewsets.ViewSet):
 
         except models.Bit.DoesNotExist:
             return Response(status=404)
+    '''
 
     # this creates the url: bits/{bitId}/likes/
+    '''
     @action(methods=['get'], detail=True, url_path='likes', url_name='likes')
     def list_likes(self, request, pk=None):
         try:
@@ -128,8 +143,10 @@ class BitViewSet(viewsets.ViewSet):
 
         except models.Bit.DoesNotExist:
             return Response(status=404)
+    '''
 
     # this creates the url: bits/{bitId}/bookmarks/
+    '''
     @action(methods=['get'], detail=True, url_path='bookmarks', url_name='bookmarks')
     def list_bookmarks(self, request, pk=None):
         try:
@@ -145,6 +162,7 @@ class BitViewSet(viewsets.ViewSet):
 
         except models.Bit.DoesNotExist:
             return Response(status=404)
+    '''
 
 
 class ImageViewSet(viewsets.ViewSet):
@@ -192,14 +210,16 @@ class ImageViewSet(viewsets.ViewSet):
 class CommentViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
+        '''
         queryset = models.Comment.objects.all()
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = CommentSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
+        '''
+        return Response(status=405)
 
     def create(self, request, format=None):
-
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -211,6 +231,9 @@ class CommentViewSet(viewsets.ViewSet):
             return Response(serializer.errors, status=400)
 
     def retrieve(self, request, pk=None, format=None):
+        '''
+        current_user = self.request.user
+
         try:
             comment = models.Comment.objects.get(
                 pk=pk
@@ -220,6 +243,8 @@ class CommentViewSet(viewsets.ViewSet):
 
         except models.Comment.DoesNotExist:
             return Response(status=404)
+        '''
+        return Response(status=405)
 
     def update(self, request, pk=None, format=None):
         return Response(status=405)
@@ -228,9 +253,11 @@ class CommentViewSet(viewsets.ViewSet):
         return Response(status=405)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             comment = models.Comment.objects.filter(
-                pk=pk
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             ).delete()
         except models.Comment.DoesNotExist:
             return Response(status=404)
@@ -338,9 +365,11 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def update(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             user = models.User.objects.get(
-                pk=pk
+                Q(pk=pk) & Q(id=current_user.id)
             )
             serializer = UserSerializer(user, data=request.data)
             if serializer.is_valid():
@@ -355,8 +384,12 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def partial_update(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
-            user = models.User.objects.get(pk=pk)
+            user = models.User.objects.get(
+                Q(pk=pk) & Q(id=current_user.id)
+            )
 
             # update password
             if "password" in request.data:
@@ -365,7 +398,6 @@ class UserViewSet(viewsets.ViewSet):
 
             serializer = UserSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
-
                 serializer.save()
                 return Response(serializer.data, status=201)
             else:
@@ -374,9 +406,11 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             user = models.User.objects.filter(
-                pk=pk
+                Q(pk=pk) & Q(id=current_user.id)
             ).delete()
         except models.User.DoesNotExist:
             return Response(status=404)
@@ -392,8 +426,7 @@ class UserViewSet(viewsets.ViewSet):
                 like_count = models.Like.objects.filter(auth_user=pk).count()
                 return Response({"liked_bits": like_count}, status=200)
 
-            likes = models.Like.objects.filter(auth_user=pk)
-            likes = likes.order_by(request.GET.get("order_by") or "pk")
+            likes = models.Like.objects.filter(auth_user=pk).order_by(request.GET.get("order_by") or "pk")
 
             # print(likes)
             # "map" likes to the respective bits
@@ -416,8 +449,7 @@ class UserViewSet(viewsets.ViewSet):
                 return Response({"commented_bits": comment_count}, status=200)
 
             # TODO: Comments have no auth_user attribute yet
-            comments = models.Comment.objects.filter(auth_user=pk)
-            comments = comments.order_by(request.GET.get("order_by") or "pk")
+            comments = models.Comment.objects.filter(auth_user=pk).order_by(request.GET.get("order_by") or "pk")
 
             # "map" likes to the respective bits
             # convert to a set to remove duplicates
@@ -512,9 +544,11 @@ class UserDetailsViewSet(viewsets.ViewSet):
         return Response(status=405)
 
     def partial_update(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             userdetails = models.UserDetails.objects.get(
-                pk=pk
+                Q(pk=pk) & Q(id=current_user.id)
             )
 
             serializer = UserDetailsSerializer(userdetails, data=request.data, partial=True)
@@ -538,9 +572,11 @@ class UserDetailsViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             userdetails = models.UserDetails.objects.get(
-                pk=pk
+                Q(pk=pk) & Q(id=current_user.id)
             )
             if os.path.isfile(userdetails.file.path):
                 os.remove(userdetails.file.path)
@@ -569,7 +605,6 @@ class FriendshipViewSet(viewsets.ViewSet):
         # with username to request 
         if auth_user is not None:
             queryset = queryset.filter(Q(from_auth_user__username=auth_user) | Q(to_auth_user__username=auth_user))
-
         if from_auth_user is not None:
             queryset = queryset.filter(from_auth_user=from_auth_user)
         if to_auth_user is not None:
@@ -611,9 +646,11 @@ class FriendshipViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def update(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             friendship = models.Friendship.objects.get(
-                pk=pk
+                Q(pk=pk) & (Q(to_auth_user_id=current_user.id) | Q(from_auth_user_id=current_user.id))
             )
             serializer = FriendshipSerializer(friendship, data=request.data)
             if serializer.is_valid():
@@ -643,8 +680,12 @@ class FriendshipViewSet(viewsets.ViewSet):
     # this creates the url: friendships/{Id}/accept/
     @action(methods=['post'], detail=True, url_path='accept', url_name='accept')
     def accept(self, request, pk=None):
+        current_user = self.request.user
+
         try:
-            friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
+            friendship: Friendship = models.Friendship.objects.filter(
+                Q(pk=pk) & Q(to_auth_user_id=current_user.id)
+            ).first()
 
             if friendship.friendship_status.id != 1:
                 return Response({"error": "Must be a request to accept"}, status=400)
@@ -661,8 +702,12 @@ class FriendshipViewSet(viewsets.ViewSet):
     # this creates the url: friendships/{Id}/decline/
     @action(methods=['post'], detail=True, url_path='decline', url_name='decline')
     def decline(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
-            friendship: Friendship = models.Friendship.objects.filter(pk=pk).first()
+            friendship: Friendship = models.Friendship.objects.filter(
+                Q(pk=pk) & Q(from_auth_user_id=current_user.id)
+            ).first()
 
             if friendship.friendship_status.id != 1:
                 return Response({"error": "Must be a request to decline"}, status=400)
@@ -676,13 +721,14 @@ class FriendshipViewSet(viewsets.ViewSet):
 class LikeViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        # return Response(status=405)
-
+        '''
         queryset = models.Like.objects.all()
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = LikeSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
+        '''
+        return Response(status=405)
 
     def create(self, request, format=None):
         serializer = LikeSerializer(data=request.data)
@@ -710,9 +756,11 @@ class LikeViewSet(viewsets.ViewSet):
         return Response(status=405)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             like = models.Like.objects.filter(
-                pk=pk
+                Q(pk=pk) & Q(from_auth_user_id=current_user.id)
             ).delete()
         except models.Like.DoesNotExist:
             return Response(status=404)
@@ -723,13 +771,14 @@ class LikeViewSet(viewsets.ViewSet):
 class BookmarkViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        # return Response(status=405)
-
+        '''
         queryset = models.Bookmark.objects.all()
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
         serializer = BookmarkSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
+        '''
+        return Response(status=405)
 
     def create(self, request, format=None):
         serializer = BookmarkSerializer(data=request.data)
@@ -760,9 +809,11 @@ class BookmarkViewSet(viewsets.ViewSet):
         return Response(status=405)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             bookmark = models.Bookmark.objects.filter(
-                pk=pk
+                Q(pk=pk) & Q(from_auth_user_id=current_user.id)
             ).delete()
         except models.Bookmark.DoesNotExist:
             return Response(status=404)
