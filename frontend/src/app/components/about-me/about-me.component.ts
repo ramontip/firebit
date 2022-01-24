@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FriendshipService } from 'src/app/services/friendship.service';
-import { UserService } from 'src/app/services/user.service';
-import { Friendship, User } from 'src/types';
+import {Component, Input, OnInit} from '@angular/core';
+import {FriendshipService} from 'src/app/services/friendship.service';
+import {UserService} from 'src/app/services/user.service';
+import {Friendship, User} from 'src/types';
 
 type Action = "none" | "edit" | "friend"
 
@@ -26,10 +26,11 @@ export class AboutMeComponent implements OnInit {
   constructor(
     private friendshipService: FriendshipService,
     private userService: UserService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    console.log({ f: this.friendship })
+    console.log({f: this.friendship})
 
     this.userService.currentUser.subscribe(user => {
       if (user)

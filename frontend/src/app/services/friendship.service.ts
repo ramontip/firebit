@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Friendship, User } from 'src/types';
-import { UserService } from './user.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {Friendship, User} from 'src/types';
+import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class FriendshipService {
   constructor(
     private http: HttpClient,
     private userService: UserService,
-  ) { }
+  ) {
+  }
 
   getFriendships() {
     return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.userService.currentUser.value?.username}`)
@@ -31,7 +32,7 @@ export class FriendshipService {
   // Friend requests
 
   // TODO: Refactor passing in the current user instead of getting it directly
-  // because currentUser.value is still undefined by the time this is called in onInit of profile friends page 
+  // because currentUser.value is still undefined by the time this is called in onInit of profile friends page
   getFriendRequests() {
     return this.http.get<Friendship[]>(`/api/friendships/?auth_user=${this.userService.currentUser.value?.username ?? ""}&status=1`)
 
@@ -85,7 +86,7 @@ export class FriendshipService {
   otherUser(friend?: Friendship) {
     const otherId = friend?.from_auth_user === this.userService.currentUser.value?.id
       ? friend?.to_auth_user : friend?.from_auth_user
-
+    
     return this.userService.getUser(otherId ?? -1)
   }
 
