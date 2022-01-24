@@ -1,19 +1,16 @@
 import os
 
+from django.contrib.auth import authenticate
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
+from django.dispatch import receiver
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
-from django.contrib.auth import authenticate
-
-from django.core.mail import EmailMultiAlternatives
-from django.dispatch import receiver
-from django.template.loader import render_to_string
-from django.urls import reverse
-
-from django_rest_passwordreset.signals import reset_password_token_created
 
 from . import models
 from .serializers import *
@@ -22,7 +19,6 @@ from .serializers import *
 class BitViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-
         queryset = models.Bit.objects.all()
 
         # TODO: "type" filter -> [own,other,liked,commented,bookmarked]
@@ -466,13 +462,13 @@ class UserViewSet(viewsets.ViewSet):
             error["password"] = "Password is required"
 
         if error != {}:
-            return Response({"field_error":error} ,status=400)
+            return Response({"field_error": error}, status=400)
 
         # Check credentials
         user = authenticate(username=request.data["username"], password=request.data["password"])
 
         if user is None:
-            return Response({"error":"Invalid username or password"} ,status=200)
+            return Response({"error": "Invalid username or password"}, status=200)
         else:
             return Response({}, status=200)
 
