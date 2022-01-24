@@ -1,34 +1,46 @@
-<app-background-pattern></app-background-pattern>
+<mat-sidenav-container>
+  <app-background-pattern></app-background-pattern>
+  <div class="flex center wrapper">
+    <div class="inner intro">
+      <h1 class="logo text-accent">
+        <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" draggable="false">
+      </h1>
+      <h3 class="text-white mb-2">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam et
+        dolore magna aliquyam erat, sed diam magna. At vero eos et accusam et
+        justo duo dolores et ea rebum.
+      </h3>
+      <button mat-flat-button color="accent" routerLink="/register">
+        Get started
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+    <div class="inner">
 
-<div class="flex center wrapper">
-  <div class="inner intro">
-    <h1 class="logo text-accent">
-      <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" draggable="false">
-    </h1>
-    <h3 class="text-white mb-2">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam et
-      dolore magna aliquyam erat, sed diam magna. At vero eos et accusam et
-      justo duo dolores et ea rebum.
-    </h3>
-    <button mat-flat-button color="accent" routerLink="/register">
-      Get started
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
+      <div *ngIf="path === '' || path === 'login'">
+        <app-login-form></app-login-form>
+      </div>
+
+      <div *ngIf="path === 'register'">
+        <app-register-form></app-register-form>
+      </div>
+
+      <div *ngIf="path === 'reset-password'">
+        <app-forgot-password-form></app-forgot-password-form>
+      </div>
+
+    </div>
   </div>
-
-  <div class="inner">
-
-    <div *ngIf="path === '' || path === 'login'">
-      <app-login-form></app-login-form>
+  <div class="footer" #footer>
+    <div class="bottom-list">
+      <ul id="horizontal-list">
+        <li class="seperator">
+          <a href="/about-us">About us</a>
+        </li>
+        <li>
+          <a href="/terms">Terms of Service</a>
+        </li>
+      </ul>
     </div>
-
-    <div *ngIf="path === 'register'">
-      <app-register-form></app-register-form>
-    </div>
-
-    <div *ngIf="path === 'reset-password'">
-      <app-forgot-password-form></app-forgot-password-form>
-    </div>
-
   </div>
-</div>
+</mat-sidenav-container>
