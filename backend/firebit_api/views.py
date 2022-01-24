@@ -24,7 +24,7 @@ class BitViewSet(viewsets.ViewSet):
         queryset = models.Bit.objects.filter(
             Q(auth_user_id=current_user.id) | Q(
                 auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
-                auth_user__to_auth_user__from_auth_user_id=current_user.id))
+                auth_user__to_auth_user__from_auth_user_id=current_user.id)).distinct()
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
@@ -684,7 +684,7 @@ class FriendshipViewSet(viewsets.ViewSet):
 
         try:
             friendship: Friendship = models.Friendship.objects.filter(
-                Q(pk=pk) & Q(from_auth_user_id=current_user.id)
+                Q(pk=pk) & Q(to_auth_user_id=current_user.id)
             ).first()
 
             if friendship.friendship_status.id != 1:
