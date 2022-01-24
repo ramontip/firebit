@@ -111,6 +111,12 @@ export class UserService {
     )
   }
 
+  getUserByEmail(email: string) {
+    return this.http.get<User[]>(`/api/users/?email=${email}`).pipe(
+      map(users => users.length ? users[0] : undefined)
+    )
+  }
+
   // return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
 
   resetUserPassword(email: string) {
