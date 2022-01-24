@@ -63,9 +63,17 @@ export class BitComponent implements OnInit {
       this.bookmarkedByCurrentUser = this.bookmarks.find(bookmarks => bookmarks.auth_user == currentUser.id) != null;
     })
 
-    // manage hashtags
-    // ToDo: optimize hashtag extraction
-    this.contentFormatted = this.bit?.content.replace(/#(\S*)/g, '<a class="text-accent" href="/hashtag/$1">#$1</a>');
+    // manage hashtags and @
+
+    // console.log({ content: this.bit?.content })
+
+    this.contentFormatted = this.appService.replaceTags(this.bit?.content ?? "")
+
+    // console.log({ formatted: this.contentFormatted })
+
+    // const classes = "text-accent fw-medium"
+    // this.contentFormatted = this.bit?.content.replace(this.appService.HASHTAG_PATTERN, ` <a class="${classes}" href="/hashtag/$1">#$1</a>`)
+    // this.contentFormatted = this.contentFormatted?.replace(this.appService.USERTAG_PATTERN, ` <a class="${classes}" href="/user/$1">@$1</a>`)
 
   }
 
