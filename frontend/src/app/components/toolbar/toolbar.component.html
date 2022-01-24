@@ -6,7 +6,7 @@
     <mat-form-field appearance="fill" class="search-form-field">
       <mat-label>Search ...</mat-label>
       <input matInput type="text" [formControl]="searchForm" (keyup)="handleKeyUp($event)">
-      <mat-error *ngIf="searchForm.hasError('minLength')">
+      <mat-error *ngIf="searchForm.invalid">
         Searchterm must be at least 3 characters long.
       </mat-error>
       <button *ngIf="searchForm.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchForm.setValue('')">
