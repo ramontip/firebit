@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from rest_framework import serializers
-import random
 
 from firebit_api.models import Bit, Bookmark, Category, Comment, Image, Like, Friendship, FriendshipStatus, UserDetails
 
@@ -85,6 +84,7 @@ class LikeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         like = Like.objects.create(**validated_data)
         return like
+
 
 class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
