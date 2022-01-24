@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="frontend/src/assets/firebit-logo-full.svg" height="50px">
+    <img src="frontend/src/assets/firebit-logo-full.svg" height="62px">
 </h1>
 
 <p align="center">
