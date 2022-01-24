@@ -17,8 +17,8 @@
           <app-about-me [user]="user" action="friend"></app-about-me>
         </div>
       </div>
-      <app-no-data *ngIf="searchResultUsers.length === 0" title="No users found"
-                   image="undraw_void-accent.svg"></app-no-data>
+      <app-no-data title="We searched everywhere, but couldn't find anyone." message="Not a single user." image="undraw_void-accent.svg"
+        *ngIf="searchResultUsers.length === 0"></app-no-data>
     </div>
   </mat-tab>
   <mat-tab>
@@ -32,10 +32,8 @@
           <app-bit [bit]="bit"></app-bit>
         </div>
       </div>
-      <app-no-data *ngIf="searchResultUsers.length === 0" title="No Bits found"
-                   image="undraw_void-accent.svg"></app-no-data>
+      <app-no-data title="We searched everywhere, but couldn't find anything." message="Not a single bit." image="undraw_void-accent.svg"
+        *ngIf="searchResultBits.length === 0"></app-no-data>
     </div>
   </mat-tab>
 </mat-tab-group>
-
-

@@ -1,15 +1,15 @@
-<app-background-pattern></app-background-pattern>
+<app-background-pattern *ngIf="!(userService.isLoggedIn | async)"></app-background-pattern>
 
-<div class="flex center wrapper">
+<div class="flex center wrapper container-xl">
   <div class="inner">
     <mat-card class="terms-card">
       <!-- <mat-card-header class="login-card"> -->
       <mat-card-title>
         Terms of Service
         <div class="align-left">
-          <button mat-button color="accent" routerLink="/register">
-            Go back to registration
-            <mat-icon>arrow_forward</mat-icon>
+          <button mat-button color="accent" (click)="goBack()">
+            <mat-icon>undo</mat-icon>
+            Go back
           </button>
         </div>
       </mat-card-title>

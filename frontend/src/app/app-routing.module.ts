@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: "register", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "reset-password", component: IndexComponent},
   {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
-  {path: "terms", component: TermsPageComponent, canActivate: [NotAuthGuard]},
+  {path: "terms", component: TermsPageComponent},
   {
     path: "bit/:id", canActivate: [AuthGuard], children: [
       {path: "", component: BitPageComponent},
