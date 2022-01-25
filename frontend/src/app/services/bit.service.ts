@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Bit, Bookmark, Comment, Like} from 'src/types';
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
-import {AppService} from "./app.service";
+import { Injectable } from '@angular/core';
+import { Bit, Bookmark, Comment, Like } from 'src/types';
+import { HttpClient } from "@angular/common/http";
+import { UserService } from "./user.service";
+import { AppService } from "./app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,9 @@ export class BitService {
 
   // Bit
 
-  getBits() {
-    return this.http.get<Bit[]>(this.appService.baseUrl + `/bits/?order_by=-created_at`);
+  // all option only works for admins (backend side)
+  getBits(opts?: { all?: boolean }) {
+    return this.http.get<Bit[]>(this.appService.baseUrl + `/bits/?order_by=-created_at${opts?.all ? "&all=true" : ""}`);
   }
 
   getBit(id: number) {

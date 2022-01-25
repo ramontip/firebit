@@ -14,6 +14,7 @@ import { BookmarkService } from "../../services/bookmark.service";
 export class BitComponent implements OnInit {
 
   user?: User;
+  currentUser?: User
 
   likes: Like[] = [];
   likedByCurrentUser = false;
@@ -25,42 +26,54 @@ export class BitComponent implements OnInit {
   @Input()
   bit?: Bit
 
-  constructor(public userService: UserService, public appService: AppService, private bitService: BitService, private likeService: LikeService, private bookmarkService: BookmarkService) {
-  }
+  constructor(
+    public userService: UserService,
+    public appService: AppService,
+    private bitService: BitService,
+    private likeService: LikeService,
+    private bookmarkService: BookmarkService
+  ) { }
 
   ngOnInit(): void {
     // get current user
-    let currentUser = this.userService.currentUser.value!;
+    this.userService.currentUser.subscribe(currentUser => {
 
-    // check if created by currentUser
-    if (this.bit?.auth_user === currentUser.id) {
-      this.createdByCurrentUser = true;
-    }
+      if (!currentUser) {
+        return
+      }
 
-    // check if liked
-    this.likes = this.bit?.likes ?? []
-    this.likedByCurrentUser = this.likes?.find(like => like.auth_user == currentUser.id) != null;
+      this.currentUser = currentUser
 
-    // check if bookmarked
-    this.bookmarks = this.bit?.bookmarks ?? []
-    this.bookmarkedByCurrentUser = this.likes?.find(bookmark => bookmark.auth_user == currentUser.id) != null;
+      // check if created by currentUser
+      if (this.bit?.auth_user === currentUser.id) {
+        this.createdByCurrentUser = true;
+      }
 
-    // manage hashtags and @
+      // check if liked
+      this.likes = this.bit?.likes ?? []
+      this.likedByCurrentUser = this.likes?.find(like => like.auth_user == currentUser.id) != null;
 
-    // console.log({ content: this.bit?.content })
+      // check if bookmarked
+      this.bookmarks = this.bit?.bookmarks ?? []
+      this.bookmarkedByCurrentUser = this.likes?.find(bookmark => bookmark.auth_user == currentUser.id) != null;
 
-    this.contentFormatted = this.appService.replaceTags(this.bit?.content ?? "")
+      // manage hashtags and @
 
-    // console.log({ formatted: this.contentFormatted })
+      // console.log({ content: this.bit?.content })
 
-    // const classes = "text-accent fw-medium"
-    // this.contentFormatted = this.bit?.content.replace(this.appService.HASHTAG_PATTERN, ` <a class="${classes}" href="/hashtag/$1">#$1</a>`)
-    // this.contentFormatted = this.contentFormatted?.replace(this.appService.USERTAG_PATTERN, ` <a class="${classes}" href="/user/$1">@$1</a>`)
+      this.contentFormatted = this.appService.replaceTags(this.bit?.content ?? "")
 
+      // console.log({ formatted: this.contentFormatted })
+
+      // const classes = "text-accent fw-medium"
+      // this.contentFormatted = this.bit?.content.replace(this.appService.HASHTAG_PATTERN, ` <a class="${classes}" href="/hashtag/$1">#$1</a>`)
+      // this.contentFormatted = this.contentFormatted?.replace(this.appService.USERTAG_PATTERN, ` <a class="${classes}" href="/user/$1">@$1</a>`)
+
+    })
   }
 
   createOrDeleteLike() {
-    let auth_user = this.userService.currentUser.value!.id;
+    let auth_user = this.currentUser?.id;
 
     let like = this.likes?.find(like => like.auth_user == auth_user)
 
@@ -74,7 +87,7 @@ export class BitComponent implements OnInit {
     } else {
       like = {
         bit: this.bit?.id,
-        auth_user: auth_user
+        auth_user
       }
 
       this.likeService.createLike(like).subscribe(l => {
@@ -109,4 +122,22 @@ export class BitComponent implements OnInit {
       })
     }
   }
+
+  deleteBit() {
+    if (!this.bit || !confirm("Do you really want to delete this bit?")) {
+      return
+    }
+
+    this.bitService.deleteBit(this.bit).subscribe(
+      () => {
+        this.appService.showSnackBar("Bit deleted successfully", "Hide")
+      },
+      err => {
+        console.log({ err })
+        this.appService.showSnackBar("Could not delete bit", "Hide")
+      }
+    )
+
+  }
+
 }

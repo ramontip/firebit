@@ -71,6 +71,11 @@
         </button>
       </a>
     </div>
+    <div *ngIf="!createdByCurrentUser && (userService.isAdmin | async)">
+      <button mat-icon-button (click)="deleteBit()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </mat-card-actions>
 
 </mat-card>

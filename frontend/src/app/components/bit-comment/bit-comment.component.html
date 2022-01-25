@@ -3,8 +3,8 @@
   <div class="flex space-between header-container">
 
     <div class="flex user-container">
-      <a class="link" routerLink="/user/{{comment?.user_details?.username}}" class="user-thumbnail user-thumbnail-xs"
-         draggable="false" unselectable>
+      <a class="link" routerLink="/user/{{comment?.user_details?.username}}" class="user-thumbnail user-thumbnail-xs" draggable="false"
+        unselectable>
         <app-user-thumbnail [user]="comment?.user_details"></app-user-thumbnail>
       </a>
 
@@ -32,7 +32,8 @@
       {{comment?.content}}
     </mat-card-content>
 
-    <button mat-icon-button class="delete-btn" (click)="deleteComment(comment?.id!)">
+    <button mat-icon-button class="delete-btn" (click)="deleteComment(comment?.id!)"
+      *ngIf="(comment?.id === (userService.currentUser | async)?.id) || (userService.isAdmin | async)">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

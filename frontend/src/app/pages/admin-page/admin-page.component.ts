@@ -49,7 +49,7 @@ export class AdminPageComponent implements OnInit {
 
     })
 
-    this.bitService.getBits().subscribe(bits => {
+    this.bitService.getBits({ all: true }).subscribe(bits => {
       this.bits = bits
     })
 
@@ -76,12 +76,13 @@ export class AdminPageComponent implements OnInit {
   }
 
   deleteBit(bit: Bit) {
-    if (!confirm(`Do you really want to delete bit ${bit.id}?`)) {
+    if (!confirm(`Do you really want to delete bit ${bit.id} and all its comments?`)) {
       return
     }
 
     this.bitService.deleteBit(bit).subscribe(() => {
       this.bits = this.bits.filter(b => b.id !== bit.id)
+      this.comments = this.comments.filter(c => c.bit !== bit.id)
       this.appService.showSnackBar("Bit deleted sucessfully", "Hide")
     }, err => {
       console.log({ err })
@@ -91,7 +92,7 @@ export class AdminPageComponent implements OnInit {
   }
 
   deleteComment(comment: Comment) {
-    if (!confirm(`Do you really want to delete bit ${comment.id}?`)) {
+    if (!confirm(`Do you really want to delete comment ${comment.id}?`)) {
       return
     }
 

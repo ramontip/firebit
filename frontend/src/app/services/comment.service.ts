@@ -13,7 +13,7 @@ export class CommentService {
   }
 
   getComments() {
-    return this.http.get<Comment[]>(this.appService.baseUrl + `/comments/`)
+    return this.http.get<Comment[]>(this.appService.baseUrl + `/comments/?order_by=-created_at`)
   }
 
   createComment(comment: Comment) {

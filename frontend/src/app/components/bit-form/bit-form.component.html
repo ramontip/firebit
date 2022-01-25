@@ -45,8 +45,7 @@
         <button mat-mini-fab color="primary" class="rounded-btn" (click)="fileUpload.click()" type="button">
           <mat-icon>photo_camera</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" class="rounded-btn" [disabled]="!(this.files.length > 0)" type="button"
-                (click)="removeFiles()">
+        <button mat-mini-fab color="warn" class="rounded-btn" [disabled]="!(this.files.length > 0)" type="button" (click)="removeFiles()">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

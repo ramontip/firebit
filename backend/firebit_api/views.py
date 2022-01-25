@@ -20,11 +20,16 @@ class BitViewSet(viewsets.ViewSet):
     def list(self, request, format=None):
         current_user = self.request.user
 
+        # admins can list all bits
+        if (current_user.is_superuser or current_user.is_staff) and request.GET.get("all") == "true":
+            queryset = models.Bit.objects.all()
+
         # get bits from friends only
-        queryset = models.Bit.objects.filter(
-            Q(auth_user_id=current_user.id) | Q(
-                auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
-                auth_user__to_auth_user__from_auth_user_id=current_user.id)).distinct()
+        else:
+            queryset = models.Bit.objects.filter(
+                Q(auth_user_id=current_user.id) | Q(
+                    auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
+                    auth_user__to_auth_user__from_auth_user_id=current_user.id)).distinct()
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
@@ -58,11 +63,14 @@ class BitViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            bit = models.Bit.objects.filter(
-                Q(pk=pk) & (Q(auth_user_id=current_user.id) | Q(
-                    auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
-                    auth_user__to_auth_user__from_auth_user_id=current_user.id))
-            ).distinct()[0]
+            if (current_user.is_superuser or current_user.is_staff):
+                bit = models.Bit.objects.get(pk=pk)
+            else:
+                bit = models.Bit.objects.filter(
+                    Q(pk=pk) & (Q(auth_user_id=current_user.id) | Q(
+                        auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
+                        auth_user__to_auth_user__from_auth_user_id=current_user.id))
+                ).distinct()[0]
 
             serializer = BitSerializer(bit)
             return Response(serializer.data, status=200)
@@ -96,9 +104,13 @@ class BitViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            bit = models.Bit.objects.get(
-                Q(pk=pk) & Q(auth_user_id=current_user.id)
-            )
+            if current_user.is_superuser or current_user.is_staff:
+                bit = models.Bit.objects.get(pk=pk)
+            else:
+                bit = models.Bit.objects.get(
+                    Q(pk=pk) & (Q(auth_user_id=current_user.id))
+                )
+
             for image in bit.image_set.all():
                 if os.path.isfile(image.file.path):
                     os.remove(image.file.path)
@@ -211,6 +223,15 @@ class CommentViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
         
+        current_user = self.request.user
+        print(self.request.user)
+        print(request.user)
+
+        # only admins need to list all comments on this endpoint
+        # for bits its already contained in the bit
+        if not (current_user.is_superuser or current_user.is_staff):
+            return Response(status=403)
+
         queryset = models.Comment.objects.all()
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
@@ -256,9 +277,13 @@ class CommentViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            comment = models.Comment.objects.filter(
-                Q(pk=pk) & Q(auth_user_id=current_user.id)
-            ).delete()
+            if current_user.is_superuser or current_user.is_staff:
+                models.Comment.objects.get(pk=pk).delete()
+            else:
+                models.Comment.objects.filter(
+                    Q(pk=pk) & Q(auth_user_id=current_user.id)
+                ).delete()
+
         except models.Comment.DoesNotExist:
             return Response(status=404)
 
@@ -400,9 +425,13 @@ class UserViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            user = models.User.objects.filter(
-                Q(pk=pk) & Q(id=current_user.id)
-            ).delete()
+            if current_user.is_superuser or current_user.is_staff:
+                models.User.objects.filter(pk=pk)
+            else:
+                models.User.objects.filter(
+                    Q(pk=pk) & Q(id=current_user.id)
+                ).delete()
+
         except models.User.DoesNotExist:
             return Response(status=404)
 
