@@ -1,10 +1,5 @@
 <mat-card>
-  <mat-chip-list class="stat-wrapper">
-    <mat-chip *ngFor="let stat of stats" class="stat pointer" [routerLink]="stat.link">
-      <mat-chip-avatar *ngIf="stat.icon">
-        <mat-icon>{{stat.icon}}</mat-icon>
-      </mat-chip-avatar>
-      {{stat.description(stat.amount)}}
-    </mat-chip>
+  <mat-chip-list>
+    <app-stat-chip *ngFor="let stat of stats" [stat]="stat"></app-stat-chip>
   </mat-chip-list>
 </mat-card>

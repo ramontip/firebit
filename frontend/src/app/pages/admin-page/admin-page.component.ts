@@ -4,7 +4,7 @@ import { AppService } from 'src/app/services/app.service';
 import { BitService } from 'src/app/services/bit.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
-import { Bit, Comment, User } from 'src/types';
+import { Bit, Comment, Stat, User } from 'src/types';
 
 @Component({
   selector: 'app-admin-page',
@@ -17,6 +17,8 @@ import { Bit, Comment, User } from 'src/types';
 })
 export class AdminPageComponent implements OnInit {
 
+  currentUser?: User
+
   users: User[] = []
   bits: Bit[] = []
   comments: Comment[] = []
@@ -25,7 +27,13 @@ export class AdminPageComponent implements OnInit {
   bitColumns = ["id", "user", "title", "content", "hashtags", "created_at", "view", "delete"]
   commentColumns = ["id", "bit", "user", "content", "created_at", "view", "delete"]
 
-  currentUser?: User
+  stats: Stat[] = [
+    { description: a => `${a} total user${a !== 1 ? "s" : ""}`, amount: 0, icon: "people" },
+    { description: a => `${a} total bit${a !== 1 ? "s" : ""}`, amount: 0, icon: "article" },
+    { description: a => `${a} total comment${a !== 1 ? "s" : ""}`, amount: 0, icon: "forum" },
+    // { description: a => `${a} like${a !== 1 ? "s" : ""}`, amount: 0, icon: "local_fire_department" },
+    // { description: a => `${a} bookmark${a !== 1 ? "s" : ""}`, amount: 0, icon: "bookmark" },
+  ]
 
   constructor(
     public userService: UserService,
@@ -44,20 +52,18 @@ export class AdminPageComponent implements OnInit {
     })
 
     this.userService.getAllUsers().subscribe(users => {
-      // Redirect to error, because adminGuard is not working (too late updated)
-      console.log({ adminPage: users })
-
       this.users = users
-
+      this.stats[0].amount = users.length
     })
 
     this.bitService.getBits({ all: true }).subscribe(bits => {
       this.bits = bits
+      this.stats[1].amount = bits.length
     })
 
     this.commentService.getComments().subscribe(comments => {
       this.comments = comments
-      console.log({ comments })
+      this.stats[2].amount = comments.length
     })
 
   }
