@@ -235,3 +235,9 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-item-tooltip {
   font-size: 0.75em !important;
 }
+
+app-sidebar {
+  .mat-list-item-content {
+    padding: 0 0.75rem !important;
+  }
+}
