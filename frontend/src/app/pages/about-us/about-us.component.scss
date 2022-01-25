@@ -16,20 +16,27 @@
 }
 
 .about-us-card {
-  padding: 2rem;
-  max-width: 42rem;
+  padding: 1rem;
+  max-width: 45rem;
+  margin: 0 auto;
 }
 
 .about-img {
   text-align: center;
 
   img {
-    max-height: 18rem;
+    max-height: 30rem;
+    padding-right: 3rem;
   }
 }
 
-.no-bullets {
+.team-list {
   list-style: none;
+
+  li {
+    margin-top: 10px;
+
+  }
 
 }
 
@@ -39,7 +46,5 @@
 }
 
 .list-items {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  margin-top: 10px;
 }
