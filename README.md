@@ -34,26 +34,34 @@ The search functionality enables users to find new friends or lookup bits, categ
 Users can sign up and login on Firebit. If they forgot their password, they can easily reset it by using the email password reset. Administrators may delete inappropriate bits or comments and may update user information.
 
 ## Required Features
-| Type     |      Feature      |    Status  |
-|----------|:-------------:|------:|
-| Backend | RESTful API | x |
-| Backend | Filter Functionality | x |
-| Backend | X | x |
-| Backend | X | x |
-| Backend | X | x |
-| Backend | X | x |
-| Backend | X | x |
-| Frontend |  x | x |
-| Frontend |  x | x |
-| Frontend |  x | x |
-| Frontend |  x | x |
-| Frontend |  x | x |
+
+| Type                  | Feature                           | Status              |
+|-----------------------|:---------------------------------:|--------------------:|
+| Backend               | RESTful API                       | :white_check_mark:  |
+| Backend               | Authentication system             | :white_check_mark:  |
+| Backend               | Multiple models                   | :white_check_mark:  |
+| Backend               | Database                          | :white_check_mark:  |
+| Backend               | Authorization system              | :white_check_mark:  |
+| Frontend              | Interaction with API              | :white_check_mark:  |
+| Frontend              | CRUD functionality                | :white_check_mark:  |
+| Frontend              | Form validation                   | :white_check_mark:  |
+| Frontend              | Filter data                       | :white_check_mark:  |
+| Frontend              | Authentication (register & login) | :white_check_mark:  |
+| Frontend              | Authorization and multiple roles  | :white_check_mark:  |
+| Frontend              | Multiple Components               | :white_check_mark:  |
+| Frontend              | Multiple Services                 | :white_check_mark:  |
+| Frontend              | Angular Router                    | :white_check_mark:  |
 
 ## Additional Features
-| Type     |      Feature      |    Status  |
-|----------|:-------------:|------:|
-| Backend | X | x |
-| Backend | X | x |
+| Type                  | Feature                           | Status              |
+|-----------------------|:---------------------------------:|--------------------:|
+| Backend               | File upload and handling          | :white_check_mark:  |
+| Backend               | Password reset with email support | :white_check_mark:  |
+| Backend               | Implement nested serializer       | :white_check_mark:  |
+| Frontend              | Custom UI, design and branding    | :white_check_mark:  |
+| Frontend              | Terms of Service and About Us     | :white_check_mark:  |
+| Both                  | Search multiple models            | :white_check_mark:  |
+| Both                  | Social networking functionality   | :white_check_mark:  |
 
 # Instructions
 
