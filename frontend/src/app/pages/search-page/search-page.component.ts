@@ -31,9 +31,9 @@ export class SearchPageComponent implements OnInit {
       if (this.query) {
         this.searchService.getSearchResults(this.query).subscribe(
           (searchResult) => {
-            console.log(searchResult);
+            // console.log(searchResult);
             this.searchResultUsers = searchResult.users;
-            console.log(this.searchResultUsers)
+            // console.log(this.searchResultUsers)
             this.searchResultBits = searchResult.bits;
           });
       }
