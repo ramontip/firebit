@@ -269,22 +269,15 @@ class SearchViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
         query = request.GET.get("q", None)
-        print(query)
 
-        if len(query) > 2:
-            users = models.User.objects.filter(
-                Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
-            bits = models.Bit.objects.filter(title__icontains=query)
-            users = UserSerializer(users, many=True).data
-            bits = BitSerializer(bits, many=True).data
+        users = models.User.objects.filter(
+            Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+        bits = models.Bit.objects.filter(title__icontains=query)
+        users = UserSerializer(users, many=True).data
+        bits = BitSerializer(bits, many=True).data
 
-            response = {'users': users, 'bits': bits}
-            return Response(response, status=200)
-        elif len(query) < 2:
-            response = "Search term must be at least 3 characters long"
-            return Response(response, status=404)
-        else:
-            return Response(status=404)
+        response = {'users': users, 'bits': bits}
+        return Response(response, status=200)
 
 
 class CategoryViewSet(viewsets.ViewSet):
