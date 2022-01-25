@@ -61,12 +61,14 @@ import {UserDetailsFormComponent} from "./components/user-details-form/user-deta
 import {BackgroundPatternComponent} from "./components/background-pattern/background-pattern.component";
 import {NoDataComponent} from './components/no-data/no-data.component';
 import {CookieService} from "ngx-cookie-service";
+import {AboutUsComponent} from './pages/about-us/about-us.component';
 import {PasswordResetFormComponent} from './components/password-reset-form/password-reset-form.component';
 import {SearchPageComponent} from './pages/search-page/search-page.component';
 import {TermsPageComponent} from './pages/terms-page/terms-page.component';
 import {AdminPageComponent} from './pages/admin-page/admin-page.component';
 import {MatTableModule} from "@angular/material/table"
-import {MatTooltipModule} from "@angular/material/tooltip"
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {FooterComponent} from './components/footer/footer.component'
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -112,9 +114,11 @@ function tokenGetter() {
     BackgroundPatternComponent,
     NoDataComponent,
     PasswordResetFormComponent,
+    AboutUsComponent,
     SearchPageComponent,
     TermsPageComponent,
     AdminPageComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

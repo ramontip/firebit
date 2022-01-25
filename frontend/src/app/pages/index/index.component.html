@@ -1,33 +1,38 @@
-<app-background-pattern></app-background-pattern>
+<mat-sidenav-container fullscreen>
+  <app-background-pattern></app-background-pattern>
 
-<div class="flex center wrapper">
-  <div class="inner intro">
-    <h1 class="logo text-accent">
-      <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" draggable="false">
-    </h1>
-    <h3 class="text-white mb-2">
-      Firebit is a Django and Angular powered web application, where users can share and browse meaningful
-      recommendations or experiences from their mainly trusted source: their friends.
-    </h3>
-    <button mat-flat-button color="accent" routerLink="/register">
-      Get started
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
+  <div class="flex center wrapper">
+    <div class="inner intro">
+      <h1 class="logo text-accent">
+        <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" draggable="false">
+      </h1>
+      <h3 class="text-white mb-2">
+        Firebit is a Django and Angular powered web application, where users can share and browse meaningful
+        recommendations or experiences from their mainly trusted source: their friends.
+      </h3>
+      <button mat-flat-button color="accent" routerLink="/register">
+        Get started
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+
+    <div class="inner">
+
+      <div *ngIf="path === '' || path === 'login'">
+        <app-login-form></app-login-form>
+      </div>
+
+      <div *ngIf="path === 'register'">
+        <app-register-form></app-register-form>
+      </div>
+
+      <div *ngIf="path === 'reset-password'">
+        <app-forgot-password-form></app-forgot-password-form>
+      </div>
+
+    </div>
   </div>
 
-  <div class="inner">
+  <app-footer></app-footer>
 
-    <div *ngIf="path === '' || path === 'login'">
-      <app-login-form></app-login-form>
-    </div>
-
-    <div *ngIf="path === 'register'">
-      <app-register-form></app-register-form>
-    </div>
-
-    <div *ngIf="path === 'reset-password'">
-      <app-forgot-password-form></app-forgot-password-form>
-    </div>
-
-  </div>
-</div>
+</mat-sidenav-container>

@@ -1,6 +1,7 @@
 .terms-card {
   padding: 2rem;
   max-width: 48rem;
+  margin: 2rem auto;
 }
 
 .hint mat-hint {
@@ -20,9 +21,4 @@
   max-width: 100%;
   z-index: inherit;
   padding: 1rem;
-}
-
-.align-left {
-  display: flex;
-  justify-content: flex-end;
 }
