@@ -46,7 +46,7 @@ export class UserService {
 
   login(userData: Credentials) {
     return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
-      // Set logged in 
+      // Set logged in
       // map((res) => {
       //   console.log({ loginResponse: res })
 
@@ -68,8 +68,8 @@ export class UserService {
             this.currentUser.next(user)
             this.isAdmin.next(user.is_superuser || user.is_staff)
 
-            console.log({ currentUserSwitch: this.currentUser.value })
-            console.log({ isAdminSwitch: this.isAdmin.value })
+            // console.log({ currentUserSwitch: this.currentUser.value })
+            // console.log({ isAdminSwitch: this.isAdmin.value })
 
             return user
           })
@@ -106,10 +106,10 @@ export class UserService {
 
     this.http.get<User>(this.appService.baseUrl + `/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
-      console.log({ currentUser: this.currentUser.value })
+      // console.log({ currentUser: this.currentUser.value })
 
       this.isAdmin.next(user.is_superuser || user.is_staff)
-      console.log({ isAdmin: this.isAdmin.value })
+      // console.log({ isAdmin: this.isAdmin.value })
     })
   }
 
@@ -162,7 +162,7 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({ email }), { headers: headers }).pipe(
       map(res => {
-        console.log({ resetUserPasswordResponse: res })
+        // console.log({ resetUserPasswordResponse: res })
         return res
       })
     )
@@ -223,7 +223,7 @@ export class UserService {
   getFriendCount(username: string) {
     return this.http.get<{ friendships: number }>(`/api/friendships/?auth_user=${username}&status=2&count=true`)
       .pipe(map(res => {
-        console.log({ res })
+        // console.log({ res })
         return res.friendships
       }))
   }
@@ -231,7 +231,7 @@ export class UserService {
   getLikeCount(id: number) {
     return this.http.get<{ liked_bits: number }>(this.appService.baseUrl + `/users/${id}/liked_bits/?count=true`)
       .pipe(map(res => {
-        console.log({ res })
+        // console.log({ res })
         return res.liked_bits
       }))
   }
@@ -239,7 +239,7 @@ export class UserService {
   getBookmarkCount(id: number) {
     return this.http.get<{ bookmarks: number }>(this.appService.baseUrl + `/users/${id}/bookmarks/?count=true`)
       .pipe(map(res => {
-        console.log({ res })
+        // console.log({ res })
         return res.bookmarks
       }))
   }

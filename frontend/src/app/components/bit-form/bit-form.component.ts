@@ -69,7 +69,7 @@ export class BitFormComponent implements OnInit {
     const id = this.bitFormGroup.controls['id'].value
 
     if (id) {
-      console.log({form: this.bitFormGroup.value})
+      // console.log({form: this.bitFormGroup.value})
 
       let bitValue = {
         ...this.bitFormGroup.value,
@@ -101,7 +101,7 @@ export class BitFormComponent implements OnInit {
         formData.append('file', file, uniqueFileName);
 
         this.bitService.createImage(formData).subscribe(() => {
-          console.log("Image should have been stored.");
+          // console.log("Image should have been stored.");
           this.appService.refreshRoute();
         })
       });

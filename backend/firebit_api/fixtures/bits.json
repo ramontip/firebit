@@ -5,11 +5,11 @@
     "fields": {
       "title": "What does a good Spiderman need?",
       "content": "1. Nicholas Hammond\n2. Tobey Maguire\n3. Andrew Garfield\n4. Tom Holland\n",
-      "hashtags": "#Spidy #Webshooter",
+      "hashtags": "",
       "created_at": "2022-01-24T00:00:00Z",
       "updated_at": "2022-01-24T00:00:00Z",
       "auth_user_id": 2,
-      "category_id": 2
+      "category_id": 3
     }
   },
   {
@@ -17,8 +17,8 @@
     "pk": 3,
     "fields": {
       "title": "New Arc-Reactor for the future",
-      "content": "Hey made a new arc reactor for the future.\nIs it cool?\n",
-      "hashtags": "#ToTheMoon #ArcReactor #Fancy #FancyFuture #BillionaireBoy",
+      "content": "Hey made a new arc reactor for the future.\nIs it cool?\n#ToTheMoon",
+      "hashtags": " ToTheMoon ",
       "created_at": "2022-01-25T00:00:00Z",
       "updated_at": "2022-01-25T00:00:00Z",
       "auth_user_id": 3,
@@ -31,7 +31,7 @@
     "fields": {
       "title": "My favorite cake from ma mum",
       "content": "This apple pie is so good.\nI love it.\n",
-      "hashtags": "#Mum #ApplePie #Cake #Fancy #FancyFuture",
+      "hashtags": "",
       "created_at": "2022-01-03T00:00:00Z",
       "updated_at": "2022-01-03T00:00:00Z",
       "auth_user_id": 5,
@@ -43,12 +43,12 @@
     "pk": 5,
     "fields": {
       "title": "Music is my Life but Python is my Passion",
-      "content": "I love music.\nBut with Python in my heard I feel more alive.\n",
-      "hashtags": "#Python #Music #Fancy #FancyFuture #Coder #BoomBoom",
+      "content": "I love #music.\nBut with Python in my heard I feel more alive.\n",
+      "hashtags": " music ",
       "created_at": "2022-01-14T00:00:00Z",
       "updated_at": "2022-01-14T00:00:00Z",
       "auth_user_id": 4,
-      "category_id": 4
+      "category_id": 1
     }
   },
   {
@@ -56,12 +56,12 @@
     "pk": 6,
     "fields": {
       "title": "Found new DJ",
-      "content": "As all of you know, I have found a new DJ.\nI am a DJ.\nSo my new DJ-name is DJ Nagooooo.\n",
-      "hashtags": "#DJ #Fancy #BoomBoom #TheseNuts #MoreNutsForTheFuture",
+      "content": "As all of you know, I have found a new #fancy DJ.\nI am a DJ.\nSo my new DJ-name is DJ Nagooooo.\n",
+      "hashtags": " fancy ",
       "created_at": "2022-01-14T00:00:00Z",
       "updated_at": "2022-01-14T00:00:00Z",
       "auth_user_id": 4,
-      "category_id": 1
+      "category_id": 8
     }
   }
 ]

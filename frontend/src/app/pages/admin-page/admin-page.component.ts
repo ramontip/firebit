@@ -40,7 +40,8 @@ export class AdminPageComponent implements OnInit {
     private bitService: BitService,
     private commentService: CommentService,
     private appService: AppService,
-  ) { }
+  ) {
+  }
 
   // TODO: Add authentication only for admins!
 
@@ -95,8 +96,8 @@ export class AdminPageComponent implements OnInit {
     this.userService.deleteUser(user).subscribe(() => {
       this.users = this.users.filter(u => u.id !== user.id)
       this.appService.showSnackBar("User deleted sucessfully", "Hide")
-    }, err => {
-      console.log({ err })
+    }, () => {
+      // console.log({ err })
       this.appService.showSnackBar("Could not delete user", "Hide")
     })
 
@@ -111,8 +112,8 @@ export class AdminPageComponent implements OnInit {
       this.bits = this.bits.filter(b => b.id !== bit.id)
       this.comments = this.comments.filter(c => c.bit !== bit.id)
       this.appService.showSnackBar("Bit deleted sucessfully", "Hide")
-    }, err => {
-      console.log({ err })
+    }, () => {
+      // console.log({err})
       this.appService.showSnackBar("Could not delete bit", "Hide")
     })
 
@@ -126,8 +127,8 @@ export class AdminPageComponent implements OnInit {
     this.commentService.deleteComment(comment.id!).subscribe(() => {
       this.comments = this.comments.filter(c => c.id !== comment.id)
       this.appService.showSnackBar("Comment deleted sucessfully", "Hide")
-    }, err => {
-      console.log({ err })
+    }, () => {
+      // console.log({err})
       this.appService.showSnackBar("Could not delete comment", "Hide")
     })
 

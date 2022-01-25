@@ -1,12 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { from, Observable } from 'rxjs';
-import { catchError, delay, map, switchMap } from 'rxjs/operators';
-import { AppService } from 'src/app/services/app.service';
-import { matchValidator } from 'src/app/validators/validators';
-import { UserService } from "../../services/user.service"
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {from, Observable} from 'rxjs';
+import {catchError, delay, map, switchMap} from 'rxjs/operators';
+import {AppService} from 'src/app/services/app.service';
+import {matchValidator} from 'src/app/validators/validators';
+import {UserService} from "../../services/user.service"
 
 @Component({
   selector: 'app-password-form',
@@ -28,13 +28,14 @@ export class PasswordFormComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.pattern(this.appService.PASSWORD_PATTERN),
-        matchValidator("oldPassword", { not: true }),
+        matchValidator("oldPassword", {not: true}),
       ]),
       confirmPassword: new FormControl("", [Validators.required, matchValidator("newPassword")]),
     })
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   updatePassword() {
     const password: string = this.passwordFormGroup.controls["newPassword"].value
@@ -49,11 +50,11 @@ export class PasswordFormComponent implements OnInit {
     const userId = this.userService.currentUser.value?.id
 
     if (!userId) {
-      console.log(`user id is ${userId}`)
+      // console.log(`user id is ${userId}`)
       return
     }
 
-    this.userService.updateUser(userId, { password }).subscribe(user => {
+    this.userService.updateUser(userId, {password}).subscribe(user => {
       // console.log({ userPassword: user })
 
       // Reset all passwords
@@ -77,25 +78,25 @@ export class PasswordFormComponent implements OnInit {
       // User shouldnt be null anyway
       const username = this.userService.currentUser.value?.username
       if (!username) {
-        console.log(`username is ${username}`)
+        // console.log(`username is ${username}`)
         return new Observable<null>()
       }
 
       return from([control.value]).pipe(
         delay(500),
         switchMap<string, Observable<ValidationErrors | null>>(password => {
-          return this.userService.checkPassword({ username, password }).pipe(
-            map(res => {
-              return res.error ? { password: true } : null
-            }),
+            return this.userService.checkPassword({username, password}).pipe(
+              map(res => {
+                return res.error ? {password: true} : null
+              }),
 
-            // catch error response
-            catchError((err: HttpErrorResponse) => {
-              console.log({ passwordError: err })
-              return from([{ passwordError: true }])
-            })
-          )
-        }
+              // catch error response
+              catchError((err: HttpErrorResponse) => {
+                // console.log({passwordError: err})
+                return from([{passwordError: true}])
+              })
+            )
+          }
         )
       )
 

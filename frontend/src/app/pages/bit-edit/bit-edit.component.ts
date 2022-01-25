@@ -18,7 +18,8 @@ export class BitEditComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.bitService.getBit(this.route.snapshot.params.id).subscribe(

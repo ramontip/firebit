@@ -18,6 +18,8 @@ import {ActivitiesLikedComponent} from './components/activities-liked/activities
 import {ActivitiesCommentedComponent} from './components/activities-commented/activities-commented.component';
 import {ErrorNotFoundComponent} from './pages/error-not-found/error-not-found.component';
 import {HashtagPageComponent} from "./pages/hashtag-page/hashtag-page.component";
+import {AboutUsComponent} from "./pages/about-us/about-us.component";
+
 import {SearchPageComponent} from "./pages/search-page/search-page.component";
 import {TermsPageComponent} from "./pages/terms-page/terms-page.component";
 import {AdminPageComponent} from './pages/admin-page/admin-page.component';
@@ -29,9 +31,10 @@ const routes: Routes = [
   {path: "", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "login", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "register", component: IndexComponent, canActivate: [NotAuthGuard]},
-  {path: "reset-password", component: IndexComponent},
-  {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
+  {path: "reset-password", component: IndexComponent, canActivate: [NotAuthGuard]},
+  {path: "about-us", component: AboutUsComponent},
   {path: "terms", component: TermsPageComponent},
+  {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
   {
     path: "bit/:id", canActivate: [AuthGuard], children: [
       {path: "", component: BitPageComponent},
@@ -71,9 +74,9 @@ const routes: Routes = [
     ]
     // data: { breadcrumbs: "Activities" }
   },
-  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
-  { path: "admin", component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard], data: { breadcrumbs: "Admin" } },
-  { path: "**", component: ErrorNotFoundComponent } // 404 Must be the last entry, because "**" matches everything
+  {path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: {breadcrumbs: "Bookmarks"}},
+  {path: "admin", component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard], data: {breadcrumbs: "Admin"}},
+  {path: "**", component: ErrorNotFoundComponent} // 404 Must be the last entry, because "**" matches everything
 ]
 
 @NgModule({

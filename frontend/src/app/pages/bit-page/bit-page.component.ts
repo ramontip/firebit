@@ -31,11 +31,11 @@ export class BitPageComponent implements OnInit {
   ngOnInit(): void {
 
     const id = parseInt(this.route.snapshot.params.id)
-    console.log({id})
+    // console.log({id})
 
     this.bitService.getBit(id).subscribe(
       bit => {
-        console.log({bit})
+        // console.log({bit})
         this.bit = bit
       },
       err => {

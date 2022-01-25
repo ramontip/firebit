@@ -27,9 +27,10 @@ class BitViewSet(viewsets.ViewSet):
         # get bits from friends only
         else:
             queryset = models.Bit.objects.filter(
-                Q(auth_user_id=current_user.id) | Q(
-                    auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
-                    auth_user__to_auth_user__from_auth_user_id=current_user.id)).distinct()
+                Q(auth_user_id=current_user.id) | 
+                Q(auth_user__from_auth_user__to_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2) | 
+                Q(auth_user__to_auth_user__from_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2)
+            ).distinct()
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
@@ -37,7 +38,6 @@ class BitViewSet(viewsets.ViewSet):
 
         if category is not None:
             queryset = queryset.filter(category__title__iexact=category)
-            # queryset = models.Bit.objects.filter(Q(category__pk=category) | Q(category__title=category))
         if user is not None:
             queryset = queryset.filter(auth_user__username__iexact=user)
         if hashtag:
@@ -67,9 +67,9 @@ class BitViewSet(viewsets.ViewSet):
                 bit = models.Bit.objects.get(pk=pk)
             else:
                 bit = models.Bit.objects.filter(
-                    Q(pk=pk) & (Q(auth_user_id=current_user.id) | Q(
-                        auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
-                        auth_user__to_auth_user__from_auth_user_id=current_user.id))
+                    Q(pk=pk) & (Q(auth_user_id=current_user.id) | 
+                    Q(auth_user__from_auth_user__to_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2) | 
+                    Q(auth_user__to_auth_user__from_auth_user_id=current_user.id, auth_user__to_auth_user__friendship_status_id=2))
                 ).distinct()[0]
 
             serializer = BitSerializer(bit)
@@ -205,9 +205,11 @@ class ImageViewSet(viewsets.ViewSet):
         return Response(status=405)
 
     def destroy(self, request, pk=None, format=None):
+        current_user = self.request.user
+
         try:
             image = models.Image.objects.get(
-                pk=pk
+                Q(pk=pk) & Q(bit__auth_user_id=current_user.id)
             )
             if os.path.isfile(image.file.path):
                 os.remove(image.file.path)
@@ -221,6 +223,7 @@ class ImageViewSet(viewsets.ViewSet):
 
 class CommentViewSet(viewsets.ViewSet):
 
+    # TODO: Admin only
     def list(self, request, format=None):
         
         current_user = self.request.user
@@ -235,7 +238,7 @@ class CommentViewSet(viewsets.ViewSet):
 
         serializer = CommentSerializer(queryset, many=True)
         return Response(serializer.data, status=200)
-        
+
         # return Response(status=405)
 
     def create(self, request, format=None):
@@ -291,11 +294,29 @@ class CommentViewSet(viewsets.ViewSet):
 class SearchViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-        query = request.GET.get("q", None)
+        current_user = self.request.user
 
+        query = request.GET.get("q", None)
+        print(query)
+
+        # search for users
         users = models.User.objects.filter(
             Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
-        bits = models.Bit.objects.filter(title__icontains=query)
+
+        # search for bit titles and hashtags
+        bits = models.Bit.objects.filter(
+            (
+                    Q(title__icontains=query) |
+                    Q(hashtags__contains=' ' + query + ' ')
+            ) & (
+                    Q(auth_user_id=current_user.id) |
+                    Q(auth_user__from_auth_user__to_auth_user_id=current_user.id,
+                      auth_user__from_auth_user__friendship_status_id=2) |
+                    Q(auth_user__to_auth_user__from_auth_user_id=current_user.id,
+                      auth_user__from_auth_user__friendship_status_id=2)
+            )
+        ).distinct()
+
         users = UserSerializer(users, many=True).data
         bits = BitSerializer(bits, many=True).data
 
@@ -306,7 +327,6 @@ class SearchViewSet(viewsets.ViewSet):
 class CategoryViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
-
         if request.GET.get("title") is None:
             queryset = models.Category.objects.all()
         else:
@@ -428,6 +448,7 @@ class UserViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None, format=None):
         current_user = self.request.user
 
+        # TODO: admin/staff should also be able to destroy user (same for bits and comments)
         try:
             if current_user.is_superuser or current_user.is_staff:
                 models.User.objects.filter(pk=pk)
@@ -472,7 +493,6 @@ class UserViewSet(viewsets.ViewSet):
                 comment_count = models.Comment.objects.filter(auth_user=pk).count()
                 return Response({"commented_bits": comment_count}, status=200)
 
-            # TODO: Comments have no auth_user attribute yet
             comments = models.Comment.objects.filter(auth_user=pk).order_by(request.GET.get("order_by") or "pk")
 
             # "map" likes to the respective bits
@@ -506,7 +526,6 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # Check password without generating a token
-    # Not sure if this is the optimal way
     @action(methods=['post'], detail=False, url_path='check_password', url_name='Check password')
     def check_password(self, request, pk=None):
         # Check required fields
@@ -530,9 +549,6 @@ class UserViewSet(viewsets.ViewSet):
 
 
 class PasswordResetViewSet(viewsets.ViewSet):
-    """
-    API endpoint that allows users to reset their password.
-    """
 
     def retrieve(self, request, email=''):
         try:
@@ -616,6 +632,7 @@ class FriendshipViewSet(viewsets.ViewSet):
 
     def list(self, request, format=None):
 
+        # TODO: not sure if this is needed -> auth_user might be replaced by self.request.user
         auth_user = request.GET.get("auth_user")
         from_auth_user = request.GET.get("from_auth_user")
         to_auth_user = request.GET.get("to_auth_user")
@@ -762,6 +779,7 @@ class LikeViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=400)
 
+    # TODO: is this implementation needed? likes are only received through bit object (nested), aren't they?
     def retrieve(self, request, pk=None, format=None):
         try:
             like = models.Like.objects.get(
@@ -815,6 +833,7 @@ class BookmarkViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=400)
 
+    # TODO: is this implementation needed? bookmarks are only received through bit object (nested), aren't they?
     def retrieve(self, request, pk=None, format=None):
         try:
             bookmark = models.Bookmark.objects.get(

@@ -13,7 +13,12 @@
         </mat-form-field>
         <mat-form-field class="hint mb">
           <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
-          <mat-error *ngIf="this.loginFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}</mat-error>
+          <mat-error *ngIf="this.loginFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}
+            <mat-hint>
+              <br>Forgot your password?
+              <a class="link text-primary fw-medium" routerLink="/reset-password">Reset</a>
+            </mat-hint>
+          </mat-error>
           <mat-hint>
             Forgot your password?
             <a class="link text-primary fw-medium" routerLink="/reset-password">Reset</a>

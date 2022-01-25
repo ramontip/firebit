@@ -18,8 +18,8 @@ export class SearchService {
   }
 
   getSearchResults(q: string) {
-    return this.http.get<SearchResult>(this.appService.baseUrl + `/search/?q=${q}`)
-
+    const query = q.replace('#', '');
+    return this.http.get<SearchResult>(this.appService.baseUrl + `/search/?q=${query}`)
   }
 
 }
