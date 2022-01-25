@@ -5,7 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AppService } from "./app.service";
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { CookieService } from "ngx-cookie-service";
 
 //import * as url from "url";
@@ -34,6 +34,10 @@ export class UserService {
       const tokenValid = !this.jwtHelperService.isTokenExpired(token);
       this.isLoggedIn.next(tokenValid);
 
+      if (!tokenValid) {
+        appService.showSnackBar("Your token has expired, please log in again", "Hide")
+      }
+
       this.setCurrentUser()
     }
   }
@@ -42,14 +46,34 @@ export class UserService {
 
   login(userData: Credentials) {
     return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
-      map((res) => {
-        console.log({ loginResponse: res })
+      // Set logged in 
+      // map((res) => {
+      //   console.log({ loginResponse: res })
 
-        this.isLoggedIn.next(true);
-        localStorage.setItem('access_token', res.token);
+      //   this.isLoggedIn.next(true);
+      //   localStorage.setItem('access_token', res.token);
 
-        this.setCurrentUser()
-        return res
+      //   this.setCurrentUser()
+      //   return res
+      // }),
+      // Set user
+      switchMap(res => {
+        const token = this.jwtHelperService.decodeToken<JWTToken>(res.token ?? undefined)
+
+        return this.getUser(token.user_id).pipe(
+          map(user => {
+            localStorage.setItem('access_token', res.token);
+            this.isLoggedIn.next(true)
+
+            this.currentUser.next(user)
+            this.isAdmin.next(user.is_superuser || user.is_staff)
+
+            console.log({ currentUserSwitch: this.currentUser.value })
+            console.log({ isAdminSwitch: this.isAdmin.value })
+
+            return user
+          })
+        )
       })
     );
   }

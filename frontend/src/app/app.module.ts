@@ -64,6 +64,7 @@ import {CookieService} from "ngx-cookie-service";
 import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import {MatTableModule} from "@angular/material/table"
+import {MatTooltipModule} from "@angular/material/tooltip"
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -135,6 +136,7 @@ function tokenGetter() {
     MatBadgeModule,
     MatSlideToggleModule,
     MatTableModule,
+    MatTooltipModule,
     JwtModule.forRoot({
       config: {tokenGetter: tokenGetter}
     }),
