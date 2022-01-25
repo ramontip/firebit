@@ -4,11 +4,11 @@
   height: 100%;
   flex-wrap: wrap;
   z-index: 1;
-
+  row-gap: 2rem;
+  column-gap: 3rem;
 }
 
 .inner {
-
   min-width: 24rem;
   max-width: 100%;
   z-index: inherit;
@@ -18,33 +18,49 @@
 .about-us-card {
   padding: 1rem;
   max-width: 45rem;
-  margin: 0 auto;
+  // margin: 0 auto;
 }
 
 .about-img {
   text-align: center;
 
   img {
-    max-height: 30rem;
+    max-height: 24rem;
     padding-right: 3rem;
   }
 }
 
 .team-list {
-  list-style: none;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-  li {
-    margin-top: 10px;
-
-  }
-
+.team-item {
+  align-items: center;
 }
 
 .avatar-image {
   max-height: 4rem;
   max-width: 4rem;
+  margin-right: 1rem;
 }
 
 .list-items {
   margin-top: 10px;
+}
+
+.title-container {
+  align-items: center;
+}
+
+.logo {
+  font-weight: 700;
+
+  img {
+    height: 3rem;
+  }
+}
+
+.align-right {
+  text-align: right;
 }
