@@ -3,9 +3,27 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-      "username": "testicles",
-      "first_name": "John",
-      "last_name": "Test-Snow",
+      "username": "spidy",
+      "first_name": "Peter",
+      "last_name": "Parker",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$260000$7wSaUNg2PJYCpsCJ6a9GTB$VGTWDVcCbAW4XCMnfHx5x4aWZdLanQaltCzMRG7glm4=",
+      "email": "web.shooter@gmail.com",
+      "date_joined": "2022-01-23T01:13:43.233Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "username": "techfreak",
+      "first_name": "Tony",
+      "last_name": "Stark",
       "is_active": true,
       "is_superuser": false,
       "is_staff": true,
@@ -13,8 +31,44 @@
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$260000$7wSaUNg2PJYCpsCJ6a9GTB$VGTWDVcCbAW4XCMnfHx5x4aWZdLanQaltCzMRG7glm4=",
-      "email": "a@a.co",
-      "date_joined": "2015-04-23T01:13:43.233Z"
+      "email": "flying.can@hotmail.com",
+      "date_joined": "2022-01-24T01:13:43.233Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "username": "musician",
+      "first_name": "Bruce",
+      "last_name": "Boom",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$260000$7wSaUNg2PJYCpsCJ6a9GTB$VGTWDVcCbAW4XCMnfHx5x4aWZdLanQaltCzMRG7glm4=",
+      "email": "music.makesboom@gmx.at",
+      "date_joined": "2022-01-10T01:13:43.233Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "username": "RickTheBlade",
+      "first_name": "Harrison",
+      "last_name": "Ford",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$260000$7wSaUNg2PJYCpsCJ6a9GTB$VGTWDVcCbAW4XCMnfHx5x4aWZdLanQaltCzMRG7glm4=",
+      "email": "h.ford@aon.at",
+      "date_joined": "2022-01-02T01:13:43.233Z"
     }
   }
 ]

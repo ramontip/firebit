@@ -1,27 +1,14 @@
 [
   {
     "model": "firebit_api.bit",
-    "pk": 1,
-    "fields": {
-      "title": "Meine lieblings Grafikkarte",
-      "content": "Diese Grafikkarte ist meine Lieblingskarte. Sie ist einzigartig und hat eine sehr hohe Leistung.",
-      "hashtags": "#Grafikkarte",
-      "created_at": "2016-01-01T00:00:00Z",
-      "updated_at": "2017-01-01T00:00:00Z",
-      "auth_user_id": 1,
-      "category_id": 1
-    }
-  },
-  {
-    "model": "firebit_api.bit",
     "pk": 2,
     "fields": {
-      "title": "Beschte Film",
-      "content": "Matrix Resurrection ist echt ein guter Film!",
-      "hashtags": "#Matrix",
-      "created_at": "2021-12-01T00:00:00Z",
-      "updated_at": "2021-12-12T00:00:00Z",
-      "auth_user_id": 1,
+      "title": "What does a good Spiderman need?",
+      "content": "1. Nicholas Hammond\n2. Tobey Maguire\n3. Andrew Garfield\n4. Tom Holland\n",
+      "hashtags": "#Spidy #Webshooter",
+      "created_at": "2022-01-24T00:00:00Z",
+      "updated_at": "2022-01-24T00:00:00Z",
+      "auth_user_id": 2,
       "category_id": 2
     }
   },
@@ -29,26 +16,52 @@
     "model": "firebit_api.bit",
     "pk": 3,
     "fields": {
-      "title": "Nice Serie gefunden",
-      "content": "Diese Serie ist echt ein guter Film! Bitte was?!",
-      "hashtags": "#Serie #Film",
-      "created_at": "2018-01-01T00:00:00Z",
-      "updated_at": "2020-01-01T00:00:00Z",
-      "auth_user_id": 2,
-      "category_id": 3
+      "title": "New Arc-Reactor for the future",
+      "content": "Hey made a new arc reactor for the future.\nIs it cool?\n",
+      "hashtags": "#ToTheMoon #ArcReactor #Fancy #FancyFuture #BillionaireBoy",
+      "created_at": "2022-01-25T00:00:00Z",
+      "updated_at": "2022-01-25T00:00:00Z",
+      "auth_user_id": 3,
+      "category_id": 1
     }
   },
   {
     "model": "firebit_api.bit",
     "pk": 4,
     "fields": {
-      "title": "Python ist gar nicht schleimig",
-      "content": "Alle sagen Schlangen sind schleimig, is aber gar nt so! Übrigens: Ein Mann wird in einen Heißluftballon abgetrieben. Als er völlig die Orientierung verloren hat, reduziert er die Höhe und sieht einen Mann auf einem Feld. Er ruft ihm zu: „Entschuldigung, können Sie mir sagen, wo ich bin?“\n\nDer Mann unten antwortet: „Ja, Sie schweben mit einem Heißluftballon ca. 20m über diesem Feld.“\n\n„Sie müssen in der EDV Branche arbeiten“, sagt der Mann im Heißluftballon.\n\n„Stimmt, woher wissen Sie das?“\n\n„Naja, alles was Sie mir gesagt haben, ist aus technischer Sicht richtig, aber kein Mensch kann damit etwas anfangen.“\n\nDer Mann von unten antwortet: „Und Sie müssen im Marketing arbeiten!“\n\n„Ja stimmt, aber wie kommen Sie darauf?“, fragt der Ballonfahrer.\n\n„Wissen Sie, Sie wissen weder wo Sie sind, noch wo Sie hin wollen, aber erwarten von mir, dass ich Ihnen helfen kann. Jetzt sind Sie in der gleichen Lage wie bevor wir uns getroffen haben, aber jetzt geben Sie mir die Schuld daran.“\n",
-      "hashtags": "#Python",
-      "created_at": "2016-01-01T00:00:00Z",
-      "updated_at": "2017-01-01T00:00:00Z",
-      "auth_user_id": 1,
+      "title": "My favorite cake from ma mum",
+      "content": "This apple pie is so good.\nI love it.\n",
+      "hashtags": "#Mum #ApplePie #Cake #Fancy #FancyFuture",
+      "created_at": "2022-01-03T00:00:00Z",
+      "updated_at": "2022-01-03T00:00:00Z",
+      "auth_user_id": 5,
+      "category_id": 5
+    }
+  },
+  {
+    "model": "firebit_api.bit",
+    "pk": 5,
+    "fields": {
+      "title": "Music is my Life but Python is my Passion",
+      "content": "I love music.\nBut with Python in my heard I feel more alive.\n",
+      "hashtags": "#Python #Music #Fancy #FancyFuture #Coder #BoomBoom",
+      "created_at": "2022-01-14T00:00:00Z",
+      "updated_at": "2022-01-14T00:00:00Z",
+      "auth_user_id": 4,
       "category_id": 4
+    }
+  },
+  {
+    "model": "firebit_api.bit",
+    "pk": 6,
+    "fields": {
+      "title": "Found new DJ",
+      "content": "As all of you know, I have found a new DJ.\nI am a DJ.\nSo my new DJ-name is DJ Nagooooo.\n",
+      "hashtags": "#DJ #Fancy #BoomBoom #TheseNuts #MoreNutsForTheFuture",
+      "created_at": "2022-01-14T00:00:00Z",
+      "updated_at": "2022-01-14T00:00:00Z",
+      "auth_user_id": 4,
+      "category_id": 1
     }
   }
 ]

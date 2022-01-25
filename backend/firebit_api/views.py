@@ -58,11 +58,11 @@ class BitViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            bit = models.Bit.objects.get(
+            bit = models.Bit.objects.filter(
                 Q(pk=pk) & (Q(auth_user_id=current_user.id) | Q(
                     auth_user__from_auth_user__to_auth_user_id=current_user.id) | Q(
                     auth_user__to_auth_user__from_auth_user_id=current_user.id))
-            )
+            ).distinct()[0]
 
             serializer = BitSerializer(bit)
             return Response(serializer.data, status=200)
@@ -758,7 +758,7 @@ class LikeViewSet(viewsets.ViewSet):
 
         try:
             like = models.Like.objects.filter(
-                Q(pk=pk) & Q(from_auth_user_id=current_user.id)
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             ).delete()
         except models.Like.DoesNotExist:
             return Response(status=404)
@@ -811,7 +811,7 @@ class BookmarkViewSet(viewsets.ViewSet):
 
         try:
             bookmark = models.Bookmark.objects.filter(
-                Q(pk=pk) & Q(from_auth_user_id=current_user.id)
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             ).delete()
         except models.Bookmark.DoesNotExist:
             return Response(status=404)
