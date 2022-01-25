@@ -43,7 +43,6 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Backend | X | x |
 | Backend | X | x |
 | Backend | X | x |
-| Frontend |  CRUD Functionality | x |
 | Frontend |  x | x |
 | Frontend |  x | x |
 | Frontend |  x | x |
