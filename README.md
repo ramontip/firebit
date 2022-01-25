@@ -43,11 +43,11 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Backend               | Database                          | :white_check_mark:  |
 | Backend               | Authorization system              | :white_check_mark:  |
 | Frontend              | Interaction with API              | :white_check_mark:  |
+| Frontend              | Authentication (register & login) | :white_check_mark:  |
+| Frontend              | Authorization for multiple roles  | :white_check_mark:  |
 | Frontend              | CRUD functionality                | :white_check_mark:  |
 | Frontend              | Form validation                   | :white_check_mark:  |
 | Frontend              | Filter data                       | :white_check_mark:  |
-| Frontend              | Authentication (register & login) | :white_check_mark:  |
-| Frontend              | Authorization and multiple roles  | :white_check_mark:  |
 | Frontend              | Multiple Components               | :white_check_mark:  |
 | Frontend              | Multiple Services                 | :white_check_mark:  |
 | Frontend              | Angular Router                    | :white_check_mark:  |
