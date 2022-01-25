@@ -1,10 +1,10 @@
 import os
 from configparser import ConfigParser
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+dirname = os.path.dirname(__file__)
 
 
-def config(filename=BASE_DIR + '\config\smtp.ini', section='SMTP'):
+def config(filename=os.path.join(dirname, 'smtp.ini'), section='SMTP'):
     parser = ConfigParser()
 
     parser.read(filename)
