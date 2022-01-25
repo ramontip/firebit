@@ -1,0 +1,39 @@
+<div class="container-xl">
+
+  <div class="section">
+    <h2>Search results for <i>{{query}}</i></h2>
+
+  </div>
+</div>
+
+<mat-tab-group dynamicHeight>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span>Users</span>
+    </ng-template>
+    <div class="flex container">
+      <div *ngFor="let user of searchResultUsers">
+        <div class="mb">
+          <app-about-me [user]="user" action="friend"></app-about-me>
+        </div>
+      </div>
+      <app-no-data title="We searched everywhere, but couldn't find anyone." message="Not a single user." image="undraw_void-accent.svg"
+        *ngIf="searchResultUsers.length === 0"></app-no-data>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span>Bits</span>
+    </ng-template>
+
+    <div class="flex container">
+      <div *ngFor="let bit of searchResultBits">
+        <div class="mb">
+          <app-bit [bit]="bit"></app-bit>
+        </div>
+      </div>
+      <app-no-data title="We searched everywhere, but couldn't find anything." message="Not a single bit." image="undraw_void-accent.svg"
+        *ngIf="searchResultBits.length === 0"></app-no-data>
+    </div>
+  </mat-tab>
+</mat-tab-group>

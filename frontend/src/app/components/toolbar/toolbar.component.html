@@ -1,14 +1,17 @@
 <mat-toolbar color="primary" class="flex">
 
-  <div>
+  <a routerLink="/">
     <img src="../../../assets/firebit-logo.svg" alt="Firebit Logo" class="logo logo-only" draggable="false">
     <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" class="logo logo-full" draggable="false">
-  </div>
+  </a>
 
   <div class="search-container">
     <mat-form-field appearance="fill" class="search-form-field">
       <mat-label class="fw-medium search-placeholder">Search ...</mat-label>
       <input matInput type="text" [formControl]="searchForm" (keyup)="handleKeyUp($event)">
+      <mat-error *ngIf="searchForm.invalid">
+        Searchterm must be at least 3 characters long.
+      </mat-error>
       <button *ngIf="searchForm.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchForm.setValue('')">
         <mat-icon>close</mat-icon>
       </button>
