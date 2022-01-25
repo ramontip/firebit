@@ -12,6 +12,10 @@ export class CommentService {
   constructor(private http: HttpClient, private appService: AppService, private userService: UserService) {
   }
 
+  getComments() {
+    return this.http.get<Comment[]>(this.appService.baseUrl + `/comments/`)
+  }
+
   createComment(comment: Comment) {
     comment.auth_user = this.userService.currentUser.value?.id!;
     return this.http.post(this.appService.baseUrl + `/comments/`, comment);

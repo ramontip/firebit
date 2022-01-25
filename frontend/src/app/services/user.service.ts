@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Credentials, Friendship, JWTToken, User, UserDetails} from 'src/types';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {AppService} from "./app.service";
-import {map} from 'rxjs/operators';
-import {CookieService} from "ngx-cookie-service";
+import { Injectable } from '@angular/core';
+import { Credentials, Friendship, JWTToken, User, UserDetails } from 'src/types';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { AppService } from "./app.service";
+import { map, switchMap } from 'rxjs/operators';
+import { CookieService } from "ngx-cookie-service";
 
 //import * as url from "url";
 
@@ -18,6 +18,7 @@ export class UserService {
   readonly ACCESS_TOKEN_KEY = 'access_token';
 
   isLoggedIn = new BehaviorSubject(false);
+  isAdmin = new BehaviorSubject(false)
   currentUser = new BehaviorSubject<User | null>(null)
 
   constructor(
@@ -33,6 +34,10 @@ export class UserService {
       const tokenValid = !this.jwtHelperService.isTokenExpired(token);
       this.isLoggedIn.next(tokenValid);
 
+      if (!tokenValid) {
+        appService.showSnackBar("Your token has expired, please log in again", "Hide")
+      }
+
       this.setCurrentUser()
     }
   }
@@ -41,14 +46,34 @@ export class UserService {
 
   login(userData: Credentials) {
     return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
-      map((res) => {
-        console.log({loginResponse: res})
+      // Set logged in 
+      // map((res) => {
+      //   console.log({ loginResponse: res })
 
-        this.isLoggedIn.next(true);
-        localStorage.setItem('access_token', res.token);
+      //   this.isLoggedIn.next(true);
+      //   localStorage.setItem('access_token', res.token);
 
-        this.setCurrentUser()
-        return res
+      //   this.setCurrentUser()
+      //   return res
+      // }),
+      // Set user
+      switchMap(res => {
+        const token = this.jwtHelperService.decodeToken<JWTToken>(res.token ?? undefined)
+
+        return this.getUser(token.user_id).pipe(
+          map(user => {
+            localStorage.setItem('access_token', res.token);
+            this.isLoggedIn.next(true)
+
+            this.currentUser.next(user)
+            this.isAdmin.next(user.is_superuser || user.is_staff)
+
+            console.log({ currentUserSwitch: this.currentUser.value })
+            console.log({ isAdminSwitch: this.isAdmin.value })
+
+            return user
+          })
+        )
       })
     );
   }
@@ -60,6 +85,7 @@ export class UserService {
 
     this.isLoggedIn.next(false);
     this.currentUser.next(null)
+    this.isAdmin.next(false)
 
     this.router.navigate(['/login']);
 
@@ -80,20 +106,27 @@ export class UserService {
 
     this.http.get<User>(this.appService.baseUrl + `/users/${decodedToken.user_id}/`).subscribe(user => {
       this.currentUser.next(user)
-      console.log({currentUser: this.currentUser.value})
+      console.log({ currentUser: this.currentUser.value })
+
+      this.isAdmin.next(user.is_superuser || user.is_staff)
+      console.log({ isAdmin: this.isAdmin.value })
     })
   }
 
   updateUser(id: number, userData: User | { password: string }) {
     return this.http.patch<User>(`/api/users/${id}/`, userData, {
-      headers: {"X-CSRFToken": this.cookieService.get('csrftoken')}
+      headers: { "X-CSRFToken": this.cookieService.get('csrftoken') }
     }).pipe(
       map(user => {
-        console.log({nextUser: user});
+        console.log({ nextUser: user });
         this.currentUser.next(user)
         return user
       })
     )
+  }
+
+  deleteUser(user: User) {
+    return this.http.delete(this.appService.baseUrl + `/users/${user.id}/`)
   }
 
   checkPassword(credentials: Credentials) {
@@ -122,9 +155,9 @@ export class UserService {
 
   resetUserPassword(email: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({email}), {headers: headers}).pipe(
+    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({ email }), { headers: headers }).pipe(
       map(res => {
-        console.log({resetUserPasswordResponse: res})
+        console.log({ resetUserPasswordResponse: res })
         return res
       })
     )
@@ -135,14 +168,14 @@ export class UserService {
     return this.http.post<{ status: string }>(this.appService.baseUrl + '/password_reset/confirm/', JSON.stringify({
       token,
       password
-    }), {headers: headers})
+    }), { headers: headers })
   }
 
   validateResetToken(token: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     return this.http.post<{ status: string }>(this.appService.baseUrl + '/password_reset/validate_token/', JSON.stringify({
       token
-    }), {headers: headers})
+    }), { headers: headers })
   }
 
   // getCurrentUser() {
@@ -185,7 +218,7 @@ export class UserService {
   getFriendCount(username: string) {
     return this.http.get<{ friendships: number }>(`/api/friendships/?auth_user=${username}&status=2&count=true`)
       .pipe(map(res => {
-        console.log({res})
+        console.log({ res })
         return res.friendships
       }))
   }
@@ -193,7 +226,7 @@ export class UserService {
   getLikeCount(id: number) {
     return this.http.get<{ liked_bits: number }>(this.appService.baseUrl + `/users/${id}/liked_bits/?count=true`)
       .pipe(map(res => {
-        console.log({res})
+        console.log({ res })
         return res.liked_bits
       }))
   }
@@ -201,7 +234,7 @@ export class UserService {
   getBookmarkCount(id: number) {
     return this.http.get<{ bookmarks: number }>(this.appService.baseUrl + `/users/${id}/bookmarks/?count=true`)
       .pipe(map(res => {
-        console.log({res})
+        console.log({ res })
         return res.bookmarks
       }))
   }

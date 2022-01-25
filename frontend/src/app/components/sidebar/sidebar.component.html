@@ -1,8 +1,8 @@
 <mat-list class="bg-secondary">
   <mat-list-item *ngFor="let item of sidebarItems" class="list-item">
-    <a mat-icon-button class="item-button" [routerLink]="item.link">
+    <a mat-icon-button class="item-button" [routerLink]="item.link" [matTooltip]="item.name" matTooltipPosition="right"
+      matTooltipShowDelay="500" matTooltipClass="sidebar-item-tooltip" *ngIf="item.show || item.show === undefined">
       <mat-icon>{{item.icon}}</mat-icon>
-      <!-- <span>{{item.name}}</span> -->
     </a>
   </mat-list-item>
 </mat-list>

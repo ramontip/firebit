@@ -1,10 +1,13 @@
 <mat-toolbar color="primary" class="flex">
-  <a href="/">
-    <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" class="logo" draggable="false">
+
+  <a routerLink="/">
+    <img src="../../../assets/firebit-logo.svg" alt="Firebit Logo" class="logo logo-only" draggable="false">
+    <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" class="logo logo-full" draggable="false">
   </a>
+
   <div class="search-container">
     <mat-form-field appearance="fill" class="search-form-field">
-      <mat-label>Search ...</mat-label>
+      <mat-label class="fw-medium search-placeholder">Search ...</mat-label>
       <input matInput type="text" [formControl]="searchForm" (keyup)="handleKeyUp($event)">
       <mat-error *ngIf="searchForm.invalid">
         Searchterm must be at least 3 characters long.
@@ -31,6 +34,10 @@
     </button>
     <!-- </span> -->
     <mat-menu #menu="matMenu" xPosition="before" class="profile-menu">
+      <div class="profile-menu-header flex">
+        <span class="profile-name fw-medium">{{user?.first_name}} {{user?.last_name}}</span>
+        <span class="profile-username mat-card-subtitle">@{{user?.username}}</span>
+      </div>
       <a mat-menu-item routerLink="/profile">
         <mat-icon>person</mat-icon>
         <span>Profile</span>
