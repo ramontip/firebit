@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-Firebit is a Django and Angular powered web application, where users can share and browse meaningful recommendations or experiences from their mainly trusted source: their friends.
+Firebit is a Django and Angular based web application, where users can share and browse meaningful recommendations or experiences from their most trusted sources: their friends.
 </p>
 
 <p align="center">
@@ -91,7 +91,7 @@ python manage.py migrate
 ````
 python manage.py createsuperuser
 ````
-5. Populate the database: navigate to `backend/firebit_api/fixtures` and run*
+5. Populate the database*
 ````
 python manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json likes.json
 ````
