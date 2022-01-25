@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { AppService } from 'src/app/services/app.service';
-import { Router } from '@angular/router';
-import { emailValidator, userValidator } from 'src/app/validators/validators';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
+import {AppService} from 'src/app/services/app.service';
+import {Router} from '@angular/router';
+import {emailValidator, userValidator} from 'src/app/validators/validators';
 
 @Component({
   selector: 'app-profile-form',
@@ -36,7 +36,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log({ submit: this.profileFormGroup.value })
+    // console.log({ submit: this.profileFormGroup.value })
 
     const user = this.userService.currentUser.value
 
@@ -53,8 +53,7 @@ export class ProfileFormComponent implements OnInit {
           this.profileFormGroup.patchValue(user)
           this.appService.showSnackBar("Profile updated successfully", "Hide")
           this.router.navigate(["/profile"])
-        },
-        err => { console.log({ err }) }
+        }
       )
     }
 

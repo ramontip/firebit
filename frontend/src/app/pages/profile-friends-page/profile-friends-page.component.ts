@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FriendshipService } from 'src/app/services/friendship.service';
-import { UserService } from 'src/app/services/user.service';
-import { Friendship } from 'src/types';
+import {Component, OnInit} from '@angular/core';
+import {FriendshipService} from 'src/app/services/friendship.service';
+import {UserService} from 'src/app/services/user.service';
+import {Friendship} from 'src/types';
 
 @Component({
   selector: 'app-profile-friends-page',
@@ -19,7 +19,8 @@ export class ProfileFriendsPageComponent implements OnInit {
   constructor(
     public friendshipService: FriendshipService,
     public userService: UserService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
 
@@ -36,7 +37,7 @@ export class ProfileFriendsPageComponent implements OnInit {
           this.friendRequestsTabIndex = 1
         }
 
-        console.log({ requests })
+        // console.log({ requests })
       })
 
       this.friendshipService.getFriends(user).subscribe(friends => {

@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { HttpClient } from "@angular/common/http";
-import { UserService } from "../../services/user.service";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Router } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../services/user.service";
+import {Router} from '@angular/router';
+import {AppService} from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-login-form',
@@ -32,10 +30,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    console.log("logging in...")
+    // console.log("logging in...")
     this.userService.login(this.loginFormGroup.value).subscribe(
       res => {
-        console.log({ loginFormResponse: res })
+        // console.log({loginFormResponse: res})
 
         this.appService.showSnackBar('Logged in successfully', 'Hide');
 
@@ -44,7 +42,7 @@ export class LoginFormComponent implements OnInit {
       (err) => {
         this.appService.showSnackBar('Invalid username or password', 'Hide')
         this.loginFormGroup.controls["password"].setValue("")
-        console.log({ loginError: err })
+        // console.log({loginError: err})
       }
     );
   }
