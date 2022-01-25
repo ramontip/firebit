@@ -20,7 +20,8 @@ import {ErrorNotFoundComponent} from './pages/error-not-found/error-not-found.co
 import {HashtagPageComponent} from "./pages/hashtag-page/hashtag-page.component";
 import {SearchPageComponent} from "./pages/search-page/search-page.component";
 import {TermsPageComponent} from "./pages/terms-page/terms-page.component";
-
+import {AdminPageComponent} from './pages/admin-page/admin-page.component';
+import {AdminGuard} from './guards/admin.guard';
 
 const routes: Routes = [
   // TODO: Guard for logged in -> redirect login/redirect to bitmap
@@ -70,8 +71,9 @@ const routes: Routes = [
     ]
     // data: { breadcrumbs: "Activities" }
   },
-  {path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: {breadcrumbs: "Bookmarks"}},
-  {path: "**", component: ErrorNotFoundComponent} // 404 Must be the last entry, because "**" matches everything
+  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
+  { path: "admin", component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard], data: { breadcrumbs: "Admin" } },
+  { path: "**", component: ErrorNotFoundComponent } // 404 Must be the last entry, because "**" matches everything
 ]
 
 @NgModule({

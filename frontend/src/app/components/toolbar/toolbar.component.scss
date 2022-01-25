@@ -1,7 +1,12 @@
 .search-container {
   margin: 1rem 0;
   display: flex;
-  min-width: 15rem;
+  max-width: 20rem;
+  width: 100%;
+}
+
+.search-placeholder {
+  opacity: 0.8;
 }
 
 mat-form-field {
@@ -18,6 +23,18 @@ mat-form-field {
   height: 2rem;
 }
 
+@media (max-width: 599px) {
+  .logo-full {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .logo-only {
+    display: none;
+  }
+}
+
 .profile-menu-btn {
   margin-left: 1rem;
   margin-right: 0.25rem;
@@ -26,6 +43,20 @@ mat-form-field {
   .mat-icon {
     transform: scale(1.75);
     margin-bottom: 0.5rem;
+  }
+}
+
+.profile-menu-header {
+  padding: 0 2rem;
+  margin: 0.5rem 0;
+  flex-direction: column;
+
+  .profile-name {
+    margin-bottom: 0.25rem;
+  }
+
+  .profile-username.mat-card-subtitle {
+    margin-bottom: 0;
   }
 }
 
