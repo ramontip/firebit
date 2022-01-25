@@ -224,8 +224,6 @@ class CommentViewSet(viewsets.ViewSet):
     def list(self, request, format=None):
         
         current_user = self.request.user
-        print(self.request.user)
-        print(request.user)
 
         # only admins need to list all comments on this endpoint
         # for bits its already contained in the bit
@@ -403,9 +401,15 @@ class UserViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            user = models.User.objects.get(
-                Q(pk=pk) & Q(id=current_user.id)
-            )
+            if current_user.is_superuser:
+                user = models.User.objects.get(pk=pk)
+                if "is_staff" in request.data:
+                    user.is_staff = request.data["is_staff"]
+                    user.save()
+
+            else:
+                # restrict is_superuser / is_staff
+                user = models.User.objects.get(Q(pk=pk) & Q(id=current_user.id))
 
             # update password
             if "password" in request.data:

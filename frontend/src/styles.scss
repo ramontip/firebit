@@ -241,3 +241,14 @@ app-sidebar {
     padding: 0 0.75rem !important;
   }
 }
+
+// Disable ripple hover on checkbox, add provider for action, see admin-page
+.hide-ripple {
+  .mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple {
+    opacity: 0 !important;
+  }
+  
+  .mat-checkbox-layout {
+    cursor: default !important;
+  }
+}

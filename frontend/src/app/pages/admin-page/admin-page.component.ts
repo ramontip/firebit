@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCheckboxDefaultOptions, MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
-import { Router } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { BitService } from 'src/app/services/bit.service';
 import { CommentService } from 'src/app/services/comment.service';
@@ -26,9 +25,10 @@ export class AdminPageComponent implements OnInit {
   bitColumns = ["id", "user", "title", "content", "hashtags", "created_at", "view", "delete"]
   commentColumns = ["id", "bit", "user", "content", "created_at", "view", "delete"]
 
+  currentUser?: User
+
   constructor(
-    private router: Router,
-    private userService: UserService,
+    public userService: UserService,
     private bitService: BitService,
     private commentService: CommentService,
     private appService: AppService,
@@ -37,15 +37,17 @@ export class AdminPageComponent implements OnInit {
   // TODO: Add authentication only for admins!
 
   ngOnInit(): void {
+
+    this.userService.currentUser.subscribe(user => {
+      if (user)
+        this.currentUser = user
+    })
+
     this.userService.getAllUsers().subscribe(users => {
       // Redirect to error, because adminGuard is not working (too late updated)
       console.log({ adminPage: users })
 
       this.users = users
-
-      // if (!user?.is_staff || !user?.is_superuser) {
-      //   this.router.navigate(["**"], { skipLocationChange: true })
-      // }
 
     })
 
@@ -60,8 +62,27 @@ export class AdminPageComponent implements OnInit {
 
   }
 
+  updateStaffStatus(user: User) {
+
+    if (!this.currentUser?.is_superuser) {
+      return
+    }
+
+    this.userService.updateUser(user.id, { is_staff: !user.is_staff }).subscribe(user => {
+      this.users = this.users.map(u => u.id === user.id ? user : u)
+
+      const message = user.is_staff ? `Promoted ${user.username} to staff member` : `Removed ${user.username} from staff`
+      this.appService.showSnackBar(message, "Hide")
+    },
+      err => {
+        console.log({ err })
+        this.appService.showSnackBar("Could not update user", "Hide")
+      }
+    )
+  }
+
   deleteUser(user: User) {
-    if (!confirm(`Do you really want to delete user '${user.username}'?`)) {
+    if ((user.id === this.currentUser?.id) || !confirm(`Do you really want to delete user '${user.username}'?`)) {
       return
     }
 

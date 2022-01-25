@@ -113,13 +113,18 @@ export class UserService {
     })
   }
 
-  updateUser(id: number, userData: User | { password: string }) {
+  updateUser(id: number, userData: User | { password?: string, is_staff?: boolean }) {
     return this.http.patch<User>(`/api/users/${id}/`, userData, {
       headers: { "X-CSRFToken": this.cookieService.get('csrftoken') }
     }).pipe(
       map(user => {
         console.log({ nextUser: user });
-        this.currentUser.next(user)
+
+        // Only change current user if the current user is updated
+        if (this.currentUser.value?.id === user.id) {
+          this.currentUser.next(user)
+        }
+
         return user
       })
     )
