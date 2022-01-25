@@ -33,6 +33,24 @@ The search functionality enables users to find new friends or lookup bits, categ
 
 Users can sign up and login on Firebit. If they forgot their password, they can easily reset it by using the email password reset. Administrators may delete inappropriate bits or comments and may update user information.
 
+## Required Features
+| Type     |      Feature      |    Implemented  |
+|----------|:-------------:|------:|
+| Backend | RESTful API | x |
+| Backend | Filter Functionality | x |
+| Backend | X | x |
+| Backend | X | x |
+| Backend | X | x |
+| Backend | X | x |
+| Backend | X | x |
+| Frontend |  CRUD Functionality | x |
+| Frontend |  x | x |
+| Frontend |  x | x |
+| Frontend |  x | x |
+| Frontend |  x | x |
+| Frontend |  x | x |
+
+## Additional Features
 
 # Instructions
 
