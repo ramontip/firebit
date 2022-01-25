@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AppService } from 'src/app/services/app.service';
-import { FriendshipService } from 'src/app/services/friendship.service';
-import { Friendship, User } from 'src/types';
+import {Component, Input, OnInit} from '@angular/core';
+import {AppService} from 'src/app/services/app.service';
+import {FriendshipService} from 'src/app/services/friendship.service';
+import {Friendship, User} from 'src/types';
 
 @Component({
   selector: 'app-friend',
@@ -21,7 +21,8 @@ export class FriendComponent implements OnInit {
   constructor(
     private friendshipService: FriendshipService,
     public appService: AppService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     // temp
@@ -32,7 +33,7 @@ export class FriendComponent implements OnInit {
   }
 
   acceptRequest() {
-    console.log({ f: this.friendship })
+    // console.log({ f: this.friendship })
     if (this.friendship) {
       this.friendshipService.acceptFriendRequest(this.friendship).subscribe(friend => {
         // console.log({ friend })

@@ -1,20 +1,21 @@
 <mat-sidenav-container fullscreen>
   <app-background-pattern></app-background-pattern>
+
   <div class="flex center wrapper">
     <div class="inner intro">
       <h1 class="logo text-accent">
         <img src="../../../assets/firebit-logo-full.svg" alt="Firebit Logo" draggable="false">
       </h1>
       <h3 class="text-white mb-2">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam et
-        dolore magna aliquyam erat, sed diam magna. At vero eos et accusam et
-        justo duo dolores et ea rebum.
+        Firebit is a Django and Angular powered web application, where users can share and browse meaningful
+        recommendations or experiences from their mainly trusted source: their friends.
       </h3>
       <button mat-flat-button color="accent" routerLink="/register">
         Get started
         <mat-icon>arrow_forward</mat-icon>
       </button>
     </div>
+
     <div class="inner">
 
       <div *ngIf="path === '' || path === 'login'">
@@ -31,16 +32,16 @@
 
     </div>
   </div>
+
   <div class="footer" #footer>
-    <div class="bottom-list">
-      <ul id="horizontal-list">
-        <li class="seperator">
-          <a class="footerLink" href="/about-us">About us</a>
-        </li>
-        <li>
-          <a class="footerLink" href="/terms">Terms of Service</a>
-        </li>
-      </ul>
-    </div>
+    <ul class="horizontal-list fw-medium">
+      <li>
+        <a class="link text-accent fw-medium" href="/about-us">About us</a>
+      </li>
+      <li>
+        <a class="link text-accent fw-medium" href="/terms">Terms of Service</a>
+      </li>
+    </ul>
   </div>
+
 </mat-sidenav-container>

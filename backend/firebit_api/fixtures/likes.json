@@ -3,10 +3,80 @@
     "model": "firebit_api.like",
     "pk": 1,
     "fields": {
-      "bit_id": 1,
+      "bit_id": 2,
+      "auth_user_id": 5,
+      "created_at": "2022-01-25T00:00:00Z",
+      "updated_at": "2022-01-25T00:00:00Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 2,
+    "fields": {
+      "bit_id": 6,
       "auth_user_id": 2,
-      "created_at": "2017-01-01T00:00:00Z",
-      "updated_at": "2017-01-01T00:00:00Z"
+      "created_at": "2022-01-15T10:00:00Z",
+      "updated_at": "2022-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 3,
+    "fields": {
+      "bit_id": 6,
+      "auth_user_id": 3,
+      "created_at": "2022-01-15T01:00:00Z",
+      "updated_at": "2022-01-15T01:00:00Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 4,
+    "fields": {
+      "bit_id": 6,
+      "auth_user_id": 5,
+      "created_at": "2022-01-15T05:00:00Z",
+      "updated_at": "2022-01-15T05:00:00Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 5,
+    "fields": {
+      "bit_id": 4,
+      "auth_user_id": 5,
+      "created_at": "2022-01-10T00:00:00Z",
+      "updated_at": "2022-01-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 6,
+    "fields": {
+      "bit_id": 2,
+      "auth_user_id": 4,
+      "created_at": "2022-01-25T22:21:20Z",
+      "updated_at": "2022-01-25T22:21:20Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 7,
+    "fields": {
+      "bit_id": 3,
+      "auth_user_id": 2,
+      "created_at": "2022-01-25T10:00:00Z",
+      "updated_at": "2022-01-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "firebit_api.like",
+    "pk": 8,
+    "fields": {
+      "bit_id": 3,
+      "auth_user_id": 5,
+      "created_at": "2022-01-25T12:00:00Z",
+      "updated_at": "2022-01-25T12:00:00Z"
     }
   }
 ]

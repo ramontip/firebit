@@ -76,6 +76,12 @@ a {
   margin: 0 auto;
 }
 
+.container-fluid {
+  max-width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
 .section {
   margin-bottom: 2rem;
 }
@@ -224,4 +230,14 @@ h1, h2, h3, h4, h5, h6 {
 .user-thumbnail-m {
   width: 5rem;
   height: 5rem;
+}
+
+.sidebar-item-tooltip {
+  font-size: 0.75em !important;
+}
+
+app-sidebar {
+  .mat-list-item-content {
+    padding: 0 0.75rem !important;
+  }
 }

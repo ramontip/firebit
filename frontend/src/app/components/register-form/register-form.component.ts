@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from "../../services/user.service";
-import { AppService } from "../../services/app.service";
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { JWTToken } from 'src/types';
-import { emailValidator, matchValidator, userValidator } from 'src/app/validators/validators';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from "../../services/user.service";
+import {AppService} from "../../services/app.service";
+import {Router} from '@angular/router';
+import {JwtHelperService} from '@auth0/angular-jwt';
+// import { JWTToken } from 'src/types';
+import {emailValidator, matchValidator, userValidator} from 'src/app/validators/validators';
 
 @Component({
   selector: 'app-register-form',
@@ -46,31 +46,36 @@ export class RegisterFormComponent implements OnInit {
     }
 
     this.userService.registerUser(this.registerFormGroup.value).subscribe((user) => {
-      console.log(user);
+      // console.log(user);
 
       // console.log(this.registerFormGroup.controls["password"].value);
       this.userService.login({
         username: user.username,
         password: this.registerFormGroup.controls["password"].value
-      }).subscribe(res => {
-        console.log({ registerLoginResponse: res })
+      })
+        // .subscribe(res => {
+        //   console.log({ registerLoginResponse: res })
 
-        const decodedToken = this.jwtHelperService.decodeToken<JWTToken>(res.token)
+        //   const decodedToken = this.jwtHelperService.decodeToken<JWTToken>(res.token)
 
-        this.userService.getUser(decodedToken.user_id).subscribe(user => {
-          this.userService.currentUser.next(user)
-          console.log("finally set currentUser", { user })
+        //   this.userService.getUser(decodedToken.user_id).subscribe(user => {
+        //     this.userService.currentUser.next(user)
+        //     console.log("finally set currentUser", { user })
 
+        //     this.appService.showSnackBar('Registered successfully', 'Hide');
+
+        //     this.router.navigate(["/bitmap"])
+        //   })
+
+        // })
+        .subscribe(() => {
           this.appService.showSnackBar('Registered successfully', 'Hide');
-
           this.router.navigate(["/bitmap"])
         })
 
-      })
-
-    }, error => {
+    }, () => {
       this.appService.showSnackBar("An error occured while registering", "Hide")
-      console.log(error);
+      // console.log(error);
       this.registerFormGroup.controls["password"].setValue("")
       this.registerFormGroup.controls["confirmPassword"].setValue("")
     })

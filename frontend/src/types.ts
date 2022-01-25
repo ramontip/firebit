@@ -105,3 +105,8 @@ export interface JWTToken {
   exp: number // seconds since 1970 -> Date(exp * 1000)
   email: string
 }
+
+export interface SearchResult {
+  users: User[]
+  bits: Bit[]
+}

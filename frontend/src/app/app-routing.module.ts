@@ -20,6 +20,10 @@ import {ErrorNotFoundComponent} from './pages/error-not-found/error-not-found.co
 import {HashtagPageComponent} from "./pages/hashtag-page/hashtag-page.component";
 import {AboutUsComponent} from "./pages/about-us/about-us.component";
 
+import {SearchPageComponent} from "./pages/search-page/search-page.component";
+import {TermsPageComponent} from "./pages/terms-page/terms-page.component";
+import {AdminPageComponent} from './pages/admin-page/admin-page.component';
+import {AdminGuard} from './guards/admin.guard';
 
 const routes: Routes = [
   // TODO: Guard for logged in -> redirect login/redirect to bitmap
@@ -27,8 +31,9 @@ const routes: Routes = [
   {path: "", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "login", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "register", component: IndexComponent, canActivate: [NotAuthGuard]},
-  {path: "reset-password", component: IndexComponent},
-  {path: "about-us", component: AboutUsComponent, canActivate: [NotAuthGuard]},
+  {path: "reset-password", component: IndexComponent, canActivate: [NotAuthGuard]},
+  {path: "about-us", component: AboutUsComponent},
+  {path: "terms", component: TermsPageComponent},
   {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
   {
     path: "bit/:id", canActivate: [AuthGuard], children: [
@@ -53,6 +58,7 @@ const routes: Routes = [
     data: {breadcrumbs: "User", isLink: false}
   },
   {path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard]},
+  {path: "search/:query", component: SearchPageComponent, canActivate: [AuthGuard]},
   {path: "hashtag/:hashtag", component: HashtagPageComponent, canActivate: [AuthGuard]},
   {
     // path: "", children: [
@@ -69,6 +75,7 @@ const routes: Routes = [
     // data: { breadcrumbs: "Activities" }
   },
   {path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: {breadcrumbs: "Bookmarks"}},
+  {path: "admin", component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard], data: {breadcrumbs: "Admin"}},
   {path: "**", component: ErrorNotFoundComponent} // 404 Must be the last entry, because "**" matches everything
 ]
 

@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import datetime
+import sys
 from pathlib import Path
+
+sys.path.insert(0, "..")
+
+from config import config as cfg
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -138,12 +143,16 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3)
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = '4env.com'
-EMAIL_HOST_USER = 'firebit@4env.com'  # your email-id
-EMAIL_HOST_PASSWORD = 'Ksm@w&*HA5'  # your password
-EMAIL_PORT = 465
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+try:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = cfg.config().get('email_host')
+    EMAIL_HOST_USER = cfg.config().get('email_host_user')
+    EMAIL_HOST_PASSWORD = cfg.config().get('email_host_password')
+    EMAIL_PORT = cfg.config().get('email_port')
+    EMAIL_USE_TLS = True if cfg.config().get('email_use_tls') == 'True' else False
+    EMAIL_USE_SSL = True if cfg.config().get('email_use_ssl') == 'True' else False
+except Exception as e:
+    print("Exception: " + str(e))
+    print("-" * 20)
+    print("No email settings found. Using default settings.")
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

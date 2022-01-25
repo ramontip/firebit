@@ -3,10 +3,55 @@
     "model": "firebit_api.comment",
     "pk": 1,
     "fields": {
-      "bit_id": 1,
-      "content": "This is an amazing comment, like your graphic card!",
-      "created_at": "2021-01-01T00:00:00Z",
-      "updated_at": "2021-01-01T00:00:00Z"
+      "bit_id": 6,
+      "content": "Love this!",
+      "created_at": "2022-01-14T08:15:20Z",
+      "updated_at": "2022-01-14T08:15:20Z",
+      "auth_user_id": 2
+    }
+  },
+  {
+    "model": "firebit_api.comment",
+    "pk": 2,
+    "fields": {
+      "bit_id": 6,
+      "content": "This is so cool!",
+      "created_at": "2022-01-14T08:25:20Z",
+      "updated_at": "2022-01-14T08:25:20Z",
+      "auth_user_id": 3
+    }
+  },
+  {
+    "model": "firebit_api.comment",
+    "pk": 3,
+    "fields": {
+      "bit_id": 6,
+      "content": "Awesome!",
+      "created_at": "2022-01-15T08:15:20Z",
+      "updated_at": "2022-01-15T08:15:20Z",
+      "auth_user_id": 5
+    }
+  },
+  {
+    "model": "firebit_api.comment",
+    "pk": 4,
+    "fields": {
+      "bit_id": 2,
+      "content": "You should work more, than surfing through the web! Peter!",
+      "created_at": "2022-01-24T08:15:20Z",
+      "updated_at": "2022-01-24T08:15:20Z",
+      "auth_user_id": 3
+    }
+  },
+  {
+    "model": "firebit_api.comment",
+    "pk": 5,
+    "fields": {
+      "bit_id": 4,
+      "content": "Need this one for chewie too! Or was it Rachael?",
+      "created_at": "2022-01-05T09:15:20Z",
+      "updated_at": "2022-01-05T09:15:20Z",
+      "auth_user_id": 5
     }
   }
 ]

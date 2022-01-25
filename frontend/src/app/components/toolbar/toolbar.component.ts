@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/types';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
+import {User} from 'src/types';
+import {SearchService} from "../../services/search.service";
+import {Router} from "@angular/router";
+import {AppService} from "../../services/app.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -10,12 +13,16 @@ import { User } from 'src/types';
 })
 export class ToolbarComponent implements OnInit {
 
-  searchForm = new FormControl("")
+  searchForm = new FormControl("", Validators.minLength(3));
   user?: User
 
   constructor(
-    public userService: UserService
-  ) { }
+    public userService: UserService,
+    private searchService: SearchService,
+    private router: Router,
+    private appService: AppService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user => {
@@ -28,7 +35,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchForm.value)
+    if (this.searchForm.valid) {
+      this.router.navigate(['/search/' + this.searchForm.value])
+    } else {
+      this.appService.showSnackBar("Search term must be at least 3 characters long", "Hide")
+    }
   }
 
   handleKeyUp(e: { keyCode: number; }) {
