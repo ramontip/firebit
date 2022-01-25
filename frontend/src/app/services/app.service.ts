@@ -16,7 +16,7 @@ export class AppService {
   readonly NAME_PATTERN = /^[A-ZÄÖÜÁÀÉÈÍÌÓÒÚÙa-zäöüäáàéèíìóòúùß]+$/
   readonly EMAIL_PATTERN = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 
-  readonly HASHTAG_PATTERN = /\s#([A-Za-z0-9]+)/g
+  readonly HASHTAG_PATTERN = /\s#([A-ZÄÖÜa-zäöü0-9]+)/g
   readonly USERTAG_PATTERN = /\s@([A-Za-z0-9_]+)/g
 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {

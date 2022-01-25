@@ -1,0 +1,6 @@
+<mat-chip class="stat pointer" [routerLink]="stat.link" *ngIf="stat">
+  <mat-chip-avatar *ngIf="stat.icon">
+    <mat-icon>{{stat.icon}}</mat-icon>
+  </mat-chip-avatar>
+  {{stat.description(stat.amount)}}
+</mat-chip>

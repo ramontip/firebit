@@ -25,7 +25,7 @@
     </mat-card-subtitle>
 
     <!-- Friend Button -->
-    <mat-card-subtitle class="friend-button-container" *ngIf="action === 'friend' && currentUser?.id !== user?.id">
+    <mat-card-subtitle class="mt-0" *ngIf="action === 'friend' && currentUser?.id !== user?.id">
       <button mat-flat-button color="primary" (click)="this.addFriend()" *ngIf="friendship === undefined">
         <mat-icon>person_add</mat-icon>
         Add as friend
@@ -38,6 +38,14 @@
         <mat-icon>person_remove</mat-icon>
         Remove friend
       </button>
+    </mat-card-subtitle>
+
+    <!-- Profile Button -->
+    <mat-card-subtitle class="mt-0" *ngIf="action === 'profile' && user">
+      <a mat-flat-button color="primary" routerLink="/user/{{user?.username}}">
+        <mat-icon>person</mat-icon>
+        Profile
+      </a>
     </mat-card-subtitle>
 
   </div>

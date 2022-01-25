@@ -20,14 +20,17 @@ class BitViewSet(viewsets.ViewSet):
     def list(self, request, format=None):
         current_user = self.request.user
 
-        # get bits from friends only and remove duplicates
-        queryset = models.Bit.objects.filter(
-            Q(auth_user_id=current_user.id) |
-            Q(auth_user__from_auth_user__to_auth_user_id=current_user.id,
-              auth_user__from_auth_user__friendship_status_id=2) |
-            Q(auth_user__to_auth_user__from_auth_user_id=current_user.id,
-              auth_user__from_auth_user__friendship_status_id=2)
-        ).distinct()
+        # admins can list all bits
+        if (current_user.is_superuser or current_user.is_staff) and request.GET.get("all") == "true":
+            queryset = models.Bit.objects.all()
+
+        # get bits from friends only
+        else:
+            queryset = models.Bit.objects.filter(
+                Q(auth_user_id=current_user.id) | 
+                Q(auth_user__from_auth_user__to_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2) | 
+                Q(auth_user__to_auth_user__from_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2)
+            ).distinct()
 
         category = request.GET.get("category")
         user = request.GET.get("auth_user")
@@ -60,15 +63,14 @@ class BitViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            # get bit, check authorization and remove duplicates
-            bit = models.Bit.objects.filter(
-                Q(pk=pk) &
-                (Q(auth_user_id=current_user.id) |
-                 Q(auth_user__from_auth_user__to_auth_user_id=current_user.id,
-                   auth_user__from_auth_user__friendship_status_id=2) |
-                 Q(auth_user__to_auth_user__from_auth_user_id=current_user.id,
-                   auth_user__from_auth_user__friendship_status_id=2))
-            ).distinct()[0]
+            if (current_user.is_superuser or current_user.is_staff):
+                bit = models.Bit.objects.get(pk=pk)
+            else:
+                bit = models.Bit.objects.filter(
+                    Q(pk=pk) & (Q(auth_user_id=current_user.id) | 
+                    Q(auth_user__from_auth_user__to_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2) | 
+                    Q(auth_user__to_auth_user__from_auth_user_id=current_user.id, auth_user__to_auth_user__friendship_status_id=2))
+                ).distinct()[0]
 
             serializer = BitSerializer(bit)
             return Response(serializer.data, status=200)
@@ -102,9 +104,13 @@ class BitViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            bit = models.Bit.objects.get(
-                Q(pk=pk) & Q(auth_user_id=current_user.id)
-            )
+            if current_user.is_superuser or current_user.is_staff:
+                bit = models.Bit.objects.get(pk=pk)
+            else:
+                bit = models.Bit.objects.get(
+                    Q(pk=pk) & (Q(auth_user_id=current_user.id))
+                )
+
             for image in bit.image_set.all():
                 if os.path.isfile(image.file.path):
                     os.remove(image.file.path)
@@ -219,6 +225,14 @@ class CommentViewSet(viewsets.ViewSet):
 
     # TODO: Admin only
     def list(self, request, format=None):
+        
+        current_user = self.request.user
+
+        # only admins need to list all comments on this endpoint
+        # for bits its already contained in the bit
+        if not (current_user.is_superuser or current_user.is_staff):
+            return Response(status=403)
+
         queryset = models.Comment.objects.all()
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 
@@ -264,9 +278,13 @@ class CommentViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            comment = models.Comment.objects.filter(
-                Q(pk=pk) & Q(auth_user_id=current_user.id)
-            ).delete()
+            if current_user.is_superuser or current_user.is_staff:
+                models.Comment.objects.get(pk=pk).delete()
+            else:
+                models.Comment.objects.filter(
+                    Q(pk=pk) & Q(auth_user_id=current_user.id)
+                ).delete()
+
         except models.Comment.DoesNotExist:
             return Response(status=404)
 
@@ -403,9 +421,15 @@ class UserViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         try:
-            user = models.User.objects.get(
-                Q(pk=pk) & Q(id=current_user.id)
-            )
+            if current_user.is_superuser:
+                user = models.User.objects.get(pk=pk)
+                if "is_staff" in request.data:
+                    user.is_staff = request.data["is_staff"]
+                    user.save()
+
+            else:
+                # restrict is_superuser / is_staff
+                user = models.User.objects.get(Q(pk=pk) & Q(id=current_user.id))
 
             # update password
             if "password" in request.data:
@@ -426,9 +450,13 @@ class UserViewSet(viewsets.ViewSet):
 
         # TODO: admin/staff should also be able to destroy user (same for bits and comments)
         try:
-            user = models.User.objects.filter(
-                Q(pk=pk) & Q(id=current_user.id)
-            ).delete()
+            if current_user.is_superuser or current_user.is_staff:
+                models.User.objects.filter(pk=pk)
+            else:
+                models.User.objects.filter(
+                    Q(pk=pk) & Q(id=current_user.id)
+                ).delete()
+
         except models.User.DoesNotExist:
             return Response(status=404)
 
@@ -560,7 +588,7 @@ class UserDetailsViewSet(viewsets.ViewSet):
 
         try:
             userdetails = models.UserDetails.objects.get(
-                Q(pk=pk) & Q(id=current_user.id)
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             )
 
             serializer = UserDetailsSerializer(userdetails, data=request.data, partial=True)

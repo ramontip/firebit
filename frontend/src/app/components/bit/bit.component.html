@@ -46,14 +46,17 @@
   </div>
 
   <mat-card-actions class="space-between">
-    <div>
-      <button mat-stroked-button color="warn" (click)="createOrDeleteLike()" [class.bit-liked]="likedByCurrentUser">
+    <!-- TODO: To make buttons gray: <mat-card-subtitle>  -->
+    <mat-card-subtitle class="mb-0">
+      <button mat-stroked-button [color]="likedByCurrentUser ? 'warn' : ''" (click)="createOrDeleteLike()"
+        [class.bit-liked]="likedByCurrentUser">
         <mat-icon>local_fire_department</mat-icon>
         {{likes?.length ?? 0}}
       </button>
 
-      <button mat-stroked-button color="primary" (click)="createOrDeleteBookmark()" [class.bit-bookmarked]="bookmarkedByCurrentUser">
-        <mat-icon>bookmark_border</mat-icon>
+      <button mat-stroked-button [color]="bookmarkedByCurrentUser ? 'primary' : ''" (click)="createOrDeleteBookmark()"
+        [class.bit-bookmarked]="bookmarkedByCurrentUser">
+        <mat-icon>{{bookmarkedByCurrentUser ? "bookmark" : "bookmark_border"}}</mat-icon>
         <!-- bookmark_border / bookmark -->
         {{bookmarks?.length ?? 0}}
       </button>
@@ -63,13 +66,19 @@
           {{bit?.comments?.length ?? 0}}
         </button>
       </a>
-    </div>
+    </mat-card-subtitle>
+    <!-- </mat-card-subtitle> -->
     <div *ngIf="createdByCurrentUser">
       <a class="link" routerLink="/bit/{{bit?.id}}/edit">
         <button mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
       </a>
+    </div>
+    <div *ngIf="!createdByCurrentUser && (userService.isAdmin | async)">
+      <button mat-icon-button (click)="deleteBit()">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
   </mat-card-actions>
 

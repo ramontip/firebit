@@ -14,7 +14,10 @@ export class BitCommentComponent implements OnInit {
   @Input()
   comment?: Comment
 
-  constructor(private userService: UserService, private commentService: CommentService, private appService: AppService) {
+  constructor(
+    public userService: UserService,
+    private commentService: CommentService,
+    private appService: AppService) {
   }
 
   ngOnInit(): void {

@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Credentials, Friendship, JWTToken, User, UserDetails} from 'src/types';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {AppService} from "./app.service";
-import {map, switchMap} from 'rxjs/operators';
-import {CookieService} from "ngx-cookie-service";
+import { Injectable } from '@angular/core';
+import { Credentials, Friendship, JWTToken, User, UserDetails } from 'src/types';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { AppService } from "./app.service";
+import { map, switchMap } from 'rxjs/operators';
+import { CookieService } from "ngx-cookie-service";
 
 //import * as url from "url";
 
@@ -113,13 +113,18 @@ export class UserService {
     })
   }
 
-  updateUser(id: number, userData: User | { password: string }) {
+  updateUser(id: number, userData: User | { password?: string, is_staff?: boolean }) {
     return this.http.patch<User>(`/api/users/${id}/`, userData, {
-      headers: {"X-CSRFToken": this.cookieService.get('csrftoken')}
+      headers: { "X-CSRFToken": this.cookieService.get('csrftoken') }
     }).pipe(
       map(user => {
-        // console.log({ nextUser: user });
-        this.currentUser.next(user)
+        console.log({ nextUser: user });
+
+        // Only change current user if the current user is updated
+        if (this.currentUser.value?.id === user.id) {
+          this.currentUser.next(user)
+        }
+
         return user
       })
     )
@@ -155,7 +160,7 @@ export class UserService {
 
   resetUserPassword(email: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({email}), {headers: headers}).pipe(
+    return this.http.post(this.appService.baseUrl + '/password_reset/', JSON.stringify({ email }), { headers: headers }).pipe(
       map(res => {
         // console.log({ resetUserPasswordResponse: res })
         return res
@@ -168,14 +173,14 @@ export class UserService {
     return this.http.post<{ status: string }>(this.appService.baseUrl + '/password_reset/confirm/', JSON.stringify({
       token,
       password
-    }), {headers: headers})
+    }), { headers: headers })
   }
 
   validateResetToken(token: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     return this.http.post<{ status: string }>(this.appService.baseUrl + '/password_reset/validate_token/', JSON.stringify({
       token
-    }), {headers: headers})
+    }), { headers: headers })
   }
 
   // getCurrentUser() {

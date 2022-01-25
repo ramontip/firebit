@@ -68,6 +68,7 @@ import {TermsPageComponent} from './pages/terms-page/terms-page.component';
 import {AdminPageComponent} from './pages/admin-page/admin-page.component';
 import {MatTableModule} from "@angular/material/table"
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {StatChipComponent} from './components/stat-chip/stat-chip.component'
 import {FooterComponent} from './components/footer/footer.component'
 
 function tokenGetter() {
@@ -118,6 +119,7 @@ function tokenGetter() {
     SearchPageComponent,
     TermsPageComponent,
     AdminPageComponent,
+    StatChipComponent,
     FooterComponent,
   ],
   imports: [

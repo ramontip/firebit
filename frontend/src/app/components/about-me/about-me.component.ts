@@ -4,7 +4,7 @@ import {FriendshipService} from 'src/app/services/friendship.service';
 import {UserService} from 'src/app/services/user.service';
 import {Friendship, User} from 'src/types';
 
-type Action = "none" | "edit" | "friend"
+type Action = "none" | "edit" | "friend" | "profile"
 
 @Component({
   selector: 'app-about-me',
