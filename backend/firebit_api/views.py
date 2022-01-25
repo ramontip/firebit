@@ -588,7 +588,7 @@ class UserDetailsViewSet(viewsets.ViewSet):
 
         try:
             userdetails = models.UserDetails.objects.get(
-                Q(pk=pk) & Q(id=current_user.id)
+                Q(pk=pk) & Q(auth_user_id=current_user.id)
             )
 
             serializer = UserDetailsSerializer(userdetails, data=request.data, partial=True)
