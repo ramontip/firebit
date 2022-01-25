@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-Firebit is a Django and Angular powered web application, where users can share and browse meaningful recommendations or experiences from their mainly trusted source: their friends.
+Firebit is a Django and Angular based web application, where users can share and browse meaningful recommendations or experiences from their most trusted sources: their friends.
 </p>
 
 <p align="center">
@@ -53,15 +53,16 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Frontend              | Angular Router                    | :white_check_mark:  |
 
 ## Additional Features
-| Type                  | Feature                           | Status              |
+| Type                  |              Feature              | Status              |
 |-----------------------|:---------------------------------:|--------------------:|
-| Backend               | File upload and handling          | :white_check_mark:  |
+| Backend               |     File upload and handling      | :white_check_mark:  |
 | Backend               | Password reset with email support | :white_check_mark:  |
-| Backend               | Implement nested serializer       | :white_check_mark:  |
-| Frontend              | Custom UI, design and branding    | :white_check_mark:  |
-| Frontend              | Terms of Service and About Us     | :white_check_mark:  |
-| Both                  | Search multiple models            | :white_check_mark:  |
-| Both                  | Social networking functionality   | :white_check_mark:  |
+| Backend               |    Configparser for SMTP data     | :white_check_mark:  |
+| Backend               |    Implement nested serializer    | :white_check_mark:  |
+| Frontend              |  Custom UI, design and branding   | :white_check_mark:  |
+| Frontend              |   Terms of Service and About Us   | :white_check_mark:  |
+| Both                  |      Search multiple models       | :white_check_mark:  |
+| Both                  |  Social networking functionality  | :white_check_mark:  |
 
 # Instructions
 
@@ -90,7 +91,7 @@ python manage.py migrate
 ````
 python manage.py createsuperuser
 ````
-5. Populate the database: navigate to `backend/firebit_api/fixtures` and run*
+5. Populate the database*
 ````
 python manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json likes.json
 ````
