@@ -101,6 +101,10 @@ export class UserService {
     )
   }
 
+  deleteUser(user: User) {
+    return this.http.delete(this.appService.baseUrl + `/users/${user.id}/`)
+  }
+
   checkPassword(credentials: Credentials) {
     return this.http.post<{ error?: string }>(this.appService.baseUrl + "/users/check_password/", credentials)
   }

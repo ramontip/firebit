@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
     {name: "Friends", icon: "people", link: "/profile/friends"},
     {name: "Activities", icon: "history", link: "/activities"},
     {name: "Bookmarks", icon: "bookmark", link: "/bookmarks"},
+    {name: "Admin Dashboard", icon: "admin_panel_settings", link: "/admin"}, // TODO: Hide if not admin
     // { name: "Notifications", icon: "notifications" }
   ]
 
