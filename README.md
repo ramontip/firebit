@@ -34,7 +34,7 @@ The search functionality enables users to find new friends or lookup bits, categ
 Users can sign up and login on Firebit. If they forgot their password, they can easily reset it by using the email password reset. Administrators may delete inappropriate bits or comments and may update user information.
 
 ## Required Features
-| Type     |      Feature      |    Implemented  |
+| Type     |      Feature      |    Status  |
 |----------|:-------------:|------:|
 | Backend | RESTful API | x |
 | Backend | Filter Functionality | x |
@@ -50,6 +50,10 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Frontend |  x | x |
 
 ## Additional Features
+| Type     |      Feature      |    Status  |
+|----------|:-------------:|------:|
+| Backend | X | x |
+| Backend | X | x |
 
 # Instructions
 
@@ -65,24 +69,37 @@ Once you have created a local copy of this repository, you may follow these inst
 
 ### Installation
 
-1. Configure IDE properly - plugins, project structure, SDK, VENV, module, manage.py path
-2. Install requirements 
-   - `pip install -r backend/requirements.txt`
-3. Migrate the database
-   - `python manage.py migrate`
-4. Create superuser
-   - `python manage.py createsuperuser`
-5. Populate the database
-   - Navigate to `backend/firebit_api/fixtures` and run:
-   - `python manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json images.json likes.json user_thumbnails.json`
-6. Run server
-   - `python manage.py runserver`
-7. Go to http://localhost:8000
+1. Configure IDE properly - plugins, project structure, SDK, VENV, module
+2. Install requirements
+````
+pip install -r backend/requirements.txt
+````
+3. Migrate the database*
+````
+python manage.py migrate
+````
+4. Create superuser*
+````
+python manage.py createsuperuser
+````
+5. Populate the database: navigate to `backend/firebit_api/fixtures` and run*
+````
+python manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json likes.json
+````
+6. Run backend server
+````
+python manage.py runserver
+````
+7. Go to http://localhost:8000 to find the API endpoints
 
-To use the password reset functionality, you have to set your own SMTP configuration.
+*The `python` command may vary on your system - e.g. `py` on Windows, `python3` on MacOS when using brew
+
+### Configure Mailing
+
+To use the password reset functionality with real emails, you need to set your own SMTP configuration. If no SMTP configuration is found, the password reset email is rendered in the python console.
 1. Navigate to `backend/config`
 2. Rename `smtp.ini.example` to `smpt.ini`
-3. Insert your own SMTP configuration
+3. Insert your own SMTP configuration into `smpt.ini`
 
 
 ## Frontend
@@ -96,10 +113,15 @@ To use the password reset functionality, you have to set your own SMTP configura
 ### Installation
 
 1. Configure IDE properly (e.g. install plugins)
-2. Navigate to `frontend` and run `npm install`
-3. Run server
-    - `ng serve`
-4. Go to http://localhost:4200
+2. Navigate to `frontend` and run
+```` 
+npm install
+````
+3. Run frontend server
+````
+ng serve
+````
+4. Go to http://localhost:4200 to find the web application
 
 ---
 > FH Joanneum, Information Management (IMA19), SWENGS
