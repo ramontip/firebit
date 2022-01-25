@@ -3,7 +3,7 @@
     "model": "firebit_api.category",
     "pk": 1,
     "fields": {
-      "title": "Technical",
+      "title": "Technology",
       "color": 1
     }
   },
@@ -11,7 +11,7 @@
     "model": "firebit_api.category",
     "pk": 2,
     "fields": {
-      "title": "Movie",
+      "title": "Travelling",
       "color": 2
     }
   },
@@ -19,7 +19,7 @@
     "model": "firebit_api.category",
     "pk": 3,
     "fields": {
-      "title": "Series",
+      "title": "Watching",
       "color": 3
     }
   },
@@ -27,7 +27,7 @@
     "model": "firebit_api.category",
     "pk": 4,
     "fields": {
-      "title": "Coding",
+      "title": "Restaurants",
       "color": 4
     }
   },
@@ -37,6 +37,30 @@
     "fields": {
       "title": "Food",
       "color": 5
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 6,
+    "fields": {
+      "title": "Games",
+      "color": 6
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 7,
+    "fields": {
+      "title": "Sports",
+      "color": 7
+    }
+  },
+  {
+    "model": "firebit_api.category",
+    "pk": 8,
+    "fields": {
+      "title": "Other",
+      "color": 8
     }
   }
 ]
