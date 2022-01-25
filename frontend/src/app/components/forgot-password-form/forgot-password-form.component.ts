@@ -31,9 +31,6 @@ export class ForgotPasswordFormComponent implements OnInit {
     this.userService.resetUserPassword(this.resetPasswordFormGroup.controls["email"].value).subscribe(
       (data) => {
         this.appService.showSnackBar("Password reset email sent", "Hide")
-      },
-      (error) => {
-        console.log(error)
       }
     )
 

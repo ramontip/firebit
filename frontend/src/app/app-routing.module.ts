@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: "", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "login", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "register", component: IndexComponent, canActivate: [NotAuthGuard]},
-  {path: "reset-password", component: IndexComponent},
+  {path: "reset-password", component: IndexComponent, canActivate: [NotAuthGuard]},
   {path: "bitmap", component: HomeComponent, canActivate: [AuthGuard]},
   {path: "terms", component: TermsPageComponent},
   {
@@ -71,9 +71,9 @@ const routes: Routes = [
     ]
     // data: { breadcrumbs: "Activities" }
   },
-  { path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: { breadcrumbs: "Bookmarks" } },
-  { path: "admin", component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard], data: { breadcrumbs: "Admin" } },
-  { path: "**", component: ErrorNotFoundComponent } // 404 Must be the last entry, because "**" matches everything
+  {path: "bookmarks", component: BookmarksPageComponent, canActivate: [AuthGuard], data: {breadcrumbs: "Bookmarks"}},
+  {path: "admin", component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard], data: {breadcrumbs: "Admin"}},
+  {path: "**", component: ErrorNotFoundComponent} // 404 Must be the last entry, because "**" matches everything
 ]
 
 @NgModule({

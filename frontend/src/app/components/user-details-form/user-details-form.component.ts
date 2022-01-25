@@ -49,7 +49,7 @@ export class UserDetailsFormComponent implements OnInit {
     }
 
     if (this.userDetails) {
-      console.log(formData.get('file'))
+      // console.log(formData.get('file'))
       this.userService.updateUserDetails(this.userDetails.auth_user!, formData).subscribe(details => {
         this.updateDetails(details);
       })
@@ -80,8 +80,8 @@ export class UserDetailsFormComponent implements OnInit {
       this.userDetails = details
       this.userService.currentUser.next(user)
     }
-    console.log("Details updated");
-    console.log({details});
+    // console.log("Details updated");
+    // console.log({details});
 
     this.appService.showSnackBar("Profile updated successfully", "Hide")
     this.router.navigate(['/profile']);
