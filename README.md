@@ -53,15 +53,16 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Frontend              | Angular Router                    | :white_check_mark:  |
 
 ## Additional Features
-| Type                  | Feature                           | Status              |
+| Type                  |              Feature              | Status              |
 |-----------------------|:---------------------------------:|--------------------:|
-| Backend               | File upload and handling          | :white_check_mark:  |
+| Backend               |     File upload and handling      | :white_check_mark:  |
 | Backend               | Password reset with email support | :white_check_mark:  |
-| Backend               | Implement nested serializer       | :white_check_mark:  |
-| Frontend              | Custom UI, design and branding    | :white_check_mark:  |
-| Frontend              | Terms of Service and About Us     | :white_check_mark:  |
-| Both                  | Search multiple models            | :white_check_mark:  |
-| Both                  | Social networking functionality   | :white_check_mark:  |
+| Backend               |    Configparser for SMTP data     | :white_check_mark:  |
+| Backend               |    Implement nested serializer    | :white_check_mark:  |
+| Frontend              |  Custom UI, design and branding   | :white_check_mark:  |
+| Frontend              |   Terms of Service and About Us   | :white_check_mark:  |
+| Both                  |      Search multiple models       | :white_check_mark:  |
+| Both                  |  Social networking functionality  | :white_check_mark:  |
 
 # Instructions
 
