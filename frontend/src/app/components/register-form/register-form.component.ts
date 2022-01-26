@@ -41,6 +41,8 @@ export class RegisterFormComponent implements OnInit {
 
   registerUser() {
 
+    this.registerFormGroup.controls["acceptTos"].markAsTouched()
+
     if (this.registerFormGroup.invalid) {
       return
     }

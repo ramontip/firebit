@@ -5,3 +5,10 @@
 .register-card {
   padding: 2rem;
 }
+
+.form-checkbox {
+  .mat-form-field-subscript-wrapper {
+    margin-top: 0.25rem !important;
+  }
+  margin-bottom: 0.5rem;
+}
