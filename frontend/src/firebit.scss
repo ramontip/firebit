@@ -1,0 +1,94 @@
+@use '~@angular/material' as mat;
+
+@include mat.core();
+
+// Define Theme
+$firebit-primary-palette: (
+  50 : #e5eaed,
+  100 : #bfcbd2,
+  200 : #94a9b4,
+  300 : #698795,
+  400 : #486d7f,
+  500 : #285368,
+  600 : #244c60,
+  700 : #1e4255,
+  800 : #18394b,
+  900 : #0f293a,
+  A100 : #75c6ff,
+  A200 : #42b0ff,
+  A400 : #0f9bff,
+  A700 : #008ff5,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$firebit-secondary-palette: (
+  50 : #ffeee8,
+  100 : #ffd4c7,
+  200 : #ffb8a1,
+  300 : #ff9b7b,
+  400 : #ff855f,
+  500 : #ff7043,
+  600 : #ff683d,
+  700 : #ff5d34,
+  800 : #ff532c,
+  900 : #ff411e,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffd4ce,
+  A700 : #ffbeb4,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$firebit-primary: mat.define-palette($firebit-primary-palette, 500);
+$firebit-accent: mat.define-palette($firebit-secondary-palette, 500, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$firebit-warn: mat.define-palette(mat.$red-palette);
+
+$firebit-theme: mat.define-light-theme((
+  color: (
+    primary: $firebit-primary,
+    accent: $firebit-accent,
+    warn: $firebit-warn,
+  )
+));
+
+// Define Additional Colors
+$primary: #285368;
+$primary-lighter: #94a9b4;
+$secondary: #214557;
+$accent: #ff7043;
+$accent-lighter: #ffb8a1;
+$warn: #ff411e;
+
+@include mat.all-component-themes($firebit-theme);

@@ -1,0 +1,4 @@
+<mat-chip-list aria-label="Fish selection">
+  <app-category *ngFor="let category of categoryService.availableCategories" [category]="category"
+                cssClass="category-list-chip"></app-category>
+</mat-chip-list>

@@ -1,0 +1,9 @@
+.flex {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex > * {
+  margin-right: 1rem;
+}

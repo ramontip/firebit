@@ -1,0 +1,62 @@
+[
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 1,
+    "fields": {
+      "bit_id": 2,
+      "auth_user_id": 3,
+      "created_at": "2022-01-24T10:10:10Z",
+      "updated_at": "2022-01-24T10:10:10Z"
+    }
+  },
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 2,
+    "fields": {
+      "bit_id": 4,
+      "auth_user_id": 5,
+      "created_at": "2022-01-03T11:12:13Z",
+      "updated_at": "2022-01-03T11:12:13Z"
+    }
+  },
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 3,
+    "fields": {
+      "bit_id": 6,
+      "auth_user_id": 2,
+      "created_at": "2022-01-04T11:12:13Z",
+      "updated_at": "2022-01-04T11:12:13Z"
+    }
+  },
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 4,
+    "fields": {
+      "bit_id": 6,
+      "auth_user_id": 3,
+      "created_at": "2022-01-03T10:11:12Z",
+      "updated_at": "2022-01-03T10:11:12Z"
+    }
+  },
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 5,
+    "fields": {
+      "bit_id": 6,
+      "auth_user_id": 5,
+      "created_at": "2022-01-03T08:09:10Z",
+      "updated_at": "2022-01-03T08:09:10Z"
+    }
+  },
+  {
+    "model": "firebit_api.bookmark",
+    "pk": 6,
+    "fields": {
+      "bit_id": 3,
+      "auth_user_id": 4,
+      "created_at": "2022-01-25T08:08:08Z",
+      "updated_at": "2022-01-25T08:08:08Z"
+    }
+  }
+]

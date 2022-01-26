@@ -1,0 +1,14 @@
+<div class="container-xl" *ngIf="category">
+  <app-breadcrumbs></app-breadcrumbs>
+
+  <h2>Category {{category?.title}}</h2>
+
+  <div class="flex">
+    <div *ngFor="let bit of bits" class="flex-item">
+      <app-bit [bit]="bit"></app-bit>
+    </div>
+  </div>
+
+  <app-no-data title="We searched everywhere, but couldn't find anything." message="Not a single bit." *ngIf="bits.length === 0">
+  </app-no-data>
+</div>

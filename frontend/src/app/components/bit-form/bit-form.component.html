@@ -1,0 +1,61 @@
+<div class="w-100">
+
+  <div *ngIf="bit" class="w-100 space-between mb">
+    <div class="form-title">Edit your Bit</div>
+    <button mat-stroked-button color="warn" (click)="deleteBit()">
+      Delete
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="bitFormGroup" (ngSubmit)="createOrUpdateBit()" class="w-100">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>What do you want to share?</mat-label>
+      <textarea matInput cdkTextareaAutosize formControlName="content"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select placeholder="Category" formControlName="category">
+        <mat-option *ngFor="let category of categoryService.availableCategories" [value]="category.id">{{category.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex image-form-container form-field-min-content" *ngIf="bit">
+      <mat-form-field appearance="fill" *ngFor="let image of bit.images">
+        <img src="{{this.appService.baseUrl + image.file}}" alt="Bit Image" class="form-image">
+        <input matInput type="text" readonly>
+        <button matSuffix mat-icon-button aria-label="delete" type="button" (click)="deleteImage(image.id!)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="mb flex-start" *ngIf="(bit?.images?.length ?? 0) < this.imageLimit">
+      <input type="file" class="file-input" (change)="onFileSelected($event)" accept="image/*" multiple #fileUpload>
+
+      <div class="file-upload">
+        <span class="file-label">{{imageField || "Add images to your Bit"}}</span>
+        <button mat-mini-fab color="primary" class="rounded-btn" (click)="fileUpload.click()" type="button">
+          <mat-icon>photo_camera</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" class="rounded-btn" [disabled]="!(this.files.length > 0)" type="button" (click)="removeFiles()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button mat-flat-button color="primary" [disabled]="!bitFormGroup.valid" type="submit">
+      <span *ngIf="!bit">Create</span>
+      <span *ngIf="bit">Update</span>
+    </button>
+
+  </form>
+
+</div>

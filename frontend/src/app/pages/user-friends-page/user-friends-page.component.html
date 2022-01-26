@@ -1,0 +1,13 @@
+<div class="container-xl" *ngIf="user">
+  <app-breadcrumbs></app-breadcrumbs>
+
+  <div class="section">
+    <h3>{{user?.first_name}}'s friends</h3>
+    <app-friend *ngFor="let friend of friends" [friendship]="friend" [user]="user"></app-friend>
+
+    <app-no-data title="{{user?.first_name}} does not have any friends yet." message="Be the first one to send a friend request!"
+      image="undraw_friendship-accent.svg" *ngIf="friends?.length === 0 && friends">
+    </app-no-data>
+  </div>
+
+</div>

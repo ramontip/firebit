@@ -1,0 +1,42 @@
+.wrapper {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.inner {
+  margin: 1rem 2rem;
+  min-width: 24rem;
+  max-width: 100%;
+  z-index: inherit;
+  padding: 1rem;
+}
+
+.intro {
+  max-width: 30rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.3em;
+}
+
+.subtitle {
+  font-weight: 400;
+  font-size: 1.05em;
+  line-height: 1.4em;
+}
+
+.hidden {
+  display: none;
+}
+
+.logo {
+  font-weight: 700;
+
+  img {
+    max-height: 6rem;
+  }
+}

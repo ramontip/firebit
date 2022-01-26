@@ -1,4 +1,13 @@
+.full-height {
+  height: 100%;
+}
+
 .sidebar-container {
   // toolbar height is 4rem
-  height: calc(100% - 4rem);
+  height: calc(100% - 4rem) !important;
+}
+
+.content-container {
+  padding: 1rem;
+  height: calc(100% - 2rem) !important;
 }

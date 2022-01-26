@@ -1,0 +1,41 @@
+<mat-card class="card">
+
+  <div class="flex space-between header-container">
+
+    <div class="flex user-container">
+      <a class="link" routerLink="/user/{{comment?.user_details?.username}}" class="user-thumbnail user-thumbnail-xs" draggable="false"
+        unselectable>
+        <app-user-thumbnail [user]="comment?.user_details"></app-user-thumbnail>
+      </a>
+
+      <div class="flex name-container">
+        <mat-card-content class="user">
+          <a class="link" routerLink="/user/{{comment?.user_details?.username}}">
+            {{comment?.user_details?.first_name}} {{comment?.user_details?.last_name}}
+          </a>
+        </mat-card-content>
+        <mat-card-subtitle class="username">
+          <span>@{{comment?.user_details?.username}}</span>
+        </mat-card-subtitle>
+      </div>
+    </div>
+
+    <!-- <div class="flex"> -->
+    <mat-card-subtitle>
+      <span>{{comment?.created_at | date : 'dd.MM.yyyy, HH:mm'}}</span>
+    </mat-card-subtitle>
+    <!-- </div> -->
+  </div>
+
+  <div class="flex content-container">
+    <mat-card-content class="content">
+      {{comment?.content}}
+    </mat-card-content>
+
+    <button mat-icon-button class="delete-btn" (click)="deleteComment(comment?.id!)"
+      *ngIf="(comment?.id === (userService.currentUser | async)?.id) || (userService.isAdmin | async)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+</mat-card>

@@ -1,0 +1,16 @@
+[
+  {
+    "model": "firebit_api.friendshipstatus",
+    "pk": 1,
+    "fields": {
+      "status": "active"
+    }
+  },
+  {
+    "model": "firebit_api.friendshipstatus",
+    "pk": 2,
+    "fields": {
+      "status": "pending"
+    }
+  }
+]

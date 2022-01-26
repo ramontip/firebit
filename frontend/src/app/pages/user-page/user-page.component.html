@@ -1,0 +1,41 @@
+<div class="container-xl" *ngIf="user">
+  <app-breadcrumbs></app-breadcrumbs>
+
+  <!-- About me -->
+  <div class="section">
+    <!-- <app-breadcrumbs></app-breadcrumbs> -->
+
+    <h2>About</h2>
+    <app-about-me [user]="user" action="friend" [friendship]="friendship" *ngIf="user"></app-about-me>
+  </div>
+
+  <!-- Stats -->
+  <div class="section" *ngIf="user">
+    <h3>Stats</h3>
+    <app-profile-stats [user]="user"></app-profile-stats>
+  </div>
+
+  <div class="section">
+    <h3>Bits</h3>
+    <mat-card *ngIf="friendship?.friendship_status !== 2 && user">
+      <div class="flex">
+        <mat-icon>lock</mat-icon>
+        <div>
+          Only friends can see {{user?.username}}'s bits.
+        </div>
+      </div>
+    </mat-card>
+
+    <div class="bit-list" *ngIf="(friendship?.friendship_status === 2 || user?.id === (userService.currentUser | async)?.id) && friendship">
+      <div *ngFor="let bit of bits" class="mb">
+        <app-bit [bit]="bit"></app-bit>
+      </div>
+
+      <app-no-data title="{{user?.first_name}} has not posted any bits yet." image="undraw_post-accent.svg"
+        *ngIf="bits?.length === 0 && bits">
+      </app-no-data>
+    </div>
+
+  </div>
+
+</div>

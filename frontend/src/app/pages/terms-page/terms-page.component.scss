@@ -1,0 +1,24 @@
+.terms-card {
+  padding: 2rem;
+  max-width: 48rem;
+  margin: 2rem auto;
+}
+
+.hint mat-hint {
+  font-size: 1.1em;
+}
+
+.wrapper {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.inner {
+  min-width: 12rem;
+  max-width: 100%;
+  z-index: inherit;
+  padding: 1rem;
+}

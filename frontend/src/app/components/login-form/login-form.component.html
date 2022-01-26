@@ -1,0 +1,39 @@
+<form [formGroup]="loginFormGroup" (ngSubmit)="login()">
+  <mat-card class="login-card">
+    <!-- <mat-card-header class="login-card"> -->
+    <mat-card-title>
+      Login
+    </mat-card-title>
+    <!-- </mat-card-header> -->
+    <mat-card-content>
+      <div class="flex form-content">
+        <mat-form-field>
+          <input matInput placeholder="Username" formControlName="username" name="username" required>
+          <mat-error *ngIf="this.loginFormGroup.controls['username'].invalid">{{usernameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="hint password-hint">
+          <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+          <mat-error *ngIf="this.loginFormGroup.controls['password'].invalid">{{passwordErrorMessage()}}
+            <mat-hint>
+              <br>Forgot your password?
+              <a class="link text-primary fw-medium" routerLink="/reset-password">Reset</a>
+            </mat-hint>
+          </mat-error>
+          <mat-hint>
+            Forgot your password?
+            <a class="link text-primary fw-medium" routerLink="/reset-password">Reset</a>
+          </mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-card-actions> -->
+        <button mat-flat-button type="submit" color="primary">Login</button>
+      </div>
+      <!-- </mat-card-actions> -->
+      <p class="center">
+        Don't have an account?
+        <a class="link text-primary fw-medium" routerLink="/register">Register</a>
+      </p>
+
+    </mat-card-content>
+  </mat-card>
+</form>

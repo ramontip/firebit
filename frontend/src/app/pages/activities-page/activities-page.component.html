@@ -1,0 +1,17 @@
+<div class="container-xl">
+  <div class="section">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h2>Your Activities</h2>
+
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link [routerLink]="l.path" [active]="l.path === activeLink" (click)="activeLink = l.path" *ngFor="let l of links">
+        {{l.name}}
+      </a>
+
+    </nav>
+
+    <router-outlet></router-outlet>
+
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container-xl">
+
+  <!-- Chip List -->
+  <div class="section flex center">
+    <app-category-list></app-category-list>
+  </div>
+
+  <!-- Create bit form -->
+  <div class="section">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+
+        <mat-panel-title>
+          <h3>Tell your friends a Bit ...</h3>
+        </mat-panel-title>
+
+        <!-- <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description> -->
+      </mat-expansion-panel-header>
+      <app-bit-form></app-bit-form>
+    </mat-expansion-panel>
+  </div>
+
+  <!-- Bit list -->
+  <div class="section">
+    <h2>Discover your Bitmap</h2>
+    <div class="flex flex-container">
+      <!-- <div fxFlex="1 1 49%" class="item" *ngFor="let bit of bits"> -->
+      <app-bit class="flex-item item" *ngFor="let bit of bits" [bit]="bit"></app-bit>
+      <!-- </div> -->
+    </div>
+    <div class="mt">
+      <!--
+         Welcome to your bitmap.
+         Here you see the latest bits of your friends.
+         -->
+      <app-no-data title="Your bitmap is totally not connected."
+        message="But don't worry! Just start by exploring Firebit and adding your friends." image="undraw_into_the_night-accent.svg"
+        *ngIf="bits?.length === 0 && bits"></app-no-data>
+    </div>
+  </div>
+
+</div>

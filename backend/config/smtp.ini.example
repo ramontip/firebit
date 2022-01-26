@@ -1,0 +1,7 @@
+[SMTP]
+EMAIL_HOST = your_email_host
+EMAIL_HOST_USER = your_email_host_user
+EMAIL_HOST_PASSWORD = your_email_host_password
+EMAIL_PORT = your_email_port
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

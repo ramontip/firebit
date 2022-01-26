@@ -1,0 +1,8 @@
+<div class="flex no-data pb-2">
+  <div class="text-container mb">
+    <h4 class="title" *ngIf="title">{{title}}</h4>
+    <div class="message" *ngIf="message">{{message}}</div>
+  </div>
+  <img class="no-data-image" alt="No data" draggable="false"
+    [src]="image ? '../../../assets/' + image : '../../../assets/undraw_void-accent.svg'">
+</div>

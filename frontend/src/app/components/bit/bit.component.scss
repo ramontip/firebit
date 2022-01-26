@@ -1,0 +1,52 @@
+.card {
+  padding: 1.5rem;
+}
+
+.bit-owned {
+  border-bottom: 1px solid #285368;
+}
+
+.bit-user {
+  font-size: 1.05rem;
+  font-weight: 500;
+  // margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.bit-user-subtitle {
+  margin-bottom: 0;
+}
+
+.bit-category {
+  font-size: 0.8rem;
+}
+
+.bit-category-chip {
+  background-color: #FF855F !important;
+  color: #fff !important;
+}
+
+.bit-subtitle {
+  justify-content: space-between;
+}
+
+.bit-liked {
+  background: #FEE7E4 !important;
+}
+
+.bit-bookmarked {
+  background: #E3E8EB !important;
+}
+
+.bit-image {
+  border-radius: 4px;
+  max-width: 100%; // max-width maybe
+  max-height: 18rem;
+  object-fit: scale-down;
+}
+
+.bit-image-container {
+  justify-content: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}

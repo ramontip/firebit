@@ -1,0 +1,59 @@
+<mat-card class="card">
+
+  <div class="flex container">
+
+    <div class="flex name-container">
+      <a routerLink="/user/{{friendUser?.username}}" class="link user-thumbnail user-thumbnail-xs">
+        <app-user-thumbnail [user]="friendUser" class="user-thumbnail user-thumbnail-xs" *ngIf="friendUser"></app-user-thumbnail>
+      </a>
+
+      <mat-card-content class="name">
+        <a routerLink="/user/{{friendUser?.username}}" class="link">
+          {{friendUser?.first_name}} {{friendUser?.last_name}}
+        </a>
+      </mat-card-content>
+      <mat-card-subtitle class="username">
+        @{{friendUser?.username}}
+      </mat-card-subtitle>
+    </div>
+
+    <div class="action">
+
+      <!-- Friend requests -->
+      <button mat-flat-button color="primary" (click)="this.acceptRequest()"
+        *ngIf="friendship?.friendship_status === 1 && friendship?.from_auth_user === friendUser?.id">
+        <mat-icon>checkmark</mat-icon>
+        Accept
+      </button>
+
+      <button mat-flat-button color="warn" (click)="this.declineRequest()"
+        *ngIf="friendship?.friendship_status === 1 && friendship?.from_auth_user === friendUser?.id">
+        <mat-icon>close</mat-icon>
+        Decline
+      </button>
+
+      <button mat-flat-button color="warn" (click)="this.declineRequest()"
+        *ngIf="friendship?.friendship_status === 1 && friendship?.to_auth_user === friendUser?.id">
+        <mat-icon>close</mat-icon>
+        Reject
+      </button>
+
+      <!-- Friends -->
+      <!-- TODO: which user to display? to_auth_user or from_auth_user -->
+      <a mat-flat-button color="primary" routerLink="/user/{{friendUser?.username}}" *ngIf="friendship?.friendship_status === 2">
+        <mat-icon>person</mat-icon>
+        Profile
+      </a>
+
+      <button mat-stroked-button color="warn" (click)="this.removeFriend()" *ngIf="editable && friendship?.friendship_status === 2">
+        Remove
+      </button>
+
+      <!-- "More" menu -->
+      <!-- <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button> -->
+    </div>
+
+  </div>
+</mat-card>

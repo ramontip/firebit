@@ -1,0 +1,9 @@
+<div class="section mt">
+  <div class="mb" *ngFor="let bit of commentedBits">
+    <app-bit [bit]="bit"></app-bit>
+  </div>
+
+  <app-no-data title="You have not commented any bits." image="undraw_personal_opinions-accent.svg"
+    *ngIf="commentedBits?.length === 0 && commentedBits">
+  </app-no-data>
+</div>

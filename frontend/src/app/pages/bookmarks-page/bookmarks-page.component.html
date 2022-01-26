@@ -1,0 +1,18 @@
+<div class="container-xl">
+  <div class="section">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h2>Your Bookmarks</h2>
+
+    <div class="section mt">
+      <div class="mb" *ngFor="let bit of bookmarkedBits">
+        <app-bit [bit]="bit"></app-bit>
+      </div>
+
+      <app-no-data title="You have not bookmarked any bits." image="undraw_bookmarks-accent.svg"
+        *ngIf="bookmarkedBits?.length === 0 && bookmarkedBits">
+      </app-no-data>
+    </div>
+
+  </div>
+</div>

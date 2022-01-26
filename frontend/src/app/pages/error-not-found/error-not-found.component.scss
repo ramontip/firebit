@@ -1,0 +1,54 @@
+.wrapper {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-wrap: wrap;
+  z-index: 1;
+
+}
+
+.inner {
+  margin: 1rem 2rem;
+  min-width: 24rem;
+  max-width: 100%;
+  z-index: inherit;
+  padding: 1rem;
+}
+
+.error-text {
+  max-width: 30rem;
+  text-align: center;
+
+  @media (max-width: 1063px) {
+   order: -1;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.logo {
+  font-weight: 700;
+
+  img {
+    max-height: 6rem;
+  }
+}
+
+.error-img {
+  text-align: center;
+  
+  img {
+    max-height: 18rem;
+  }
+}
+
+.remove-margin {
+  margin: -1rem;
+}
+
+.register-link {
+  margin-top: 0.75rem;
+  font-size: 0.9em;
+}
