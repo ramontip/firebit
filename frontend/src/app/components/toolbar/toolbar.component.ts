@@ -15,6 +15,8 @@ export class ToolbarComponent implements OnInit {
   searchForm = new FormControl("", [Validators.required, Validators.minLength(3)]);
   user?: User
 
+  thumbnailPath = ""
+
   constructor(
     public userService: UserService,
     private router: Router,
@@ -25,6 +27,11 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user => {
       this.user = user ?? undefined
+      if (this.user?.userdetails?.file) {
+        this.thumbnailPath = this.appService.baseUrl + this.user.userdetails.file;
+      } else {
+        this.thumbnailPath = `https://avatars.dicebear.com/api/pixel-art/${this.user?.username ?? "firebit"}.svg?translateY=-5`;
+      }
     })
   }
 

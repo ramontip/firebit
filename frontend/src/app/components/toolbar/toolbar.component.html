@@ -9,9 +9,6 @@
     <mat-form-field appearance="fill" class="search-form-field">
       <mat-label class="fw-medium search-placeholder">Search ...</mat-label>
       <input matInput type="text" [formControl]="searchForm" (keyup)="handleKeyUp($event)">
-      <mat-error *ngIf="searchForm.invalid">
-        Searchterm must be at least 3 characters long.
-      </mat-error>
       <button *ngIf="searchForm.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchForm.setValue('')">
         <mat-icon>close</mat-icon>
       </button>
@@ -27,8 +24,9 @@
 
     <!-- <span matBadge="0" matBadgeColor="warn" matBadgeSize="small"> -->
     <button mat-icon-button [matMenuTriggerFor]="menu" class="profile-menu-btn">
-      <app-user-thumbnail [user]="user" class="user-thumbnail user-thumbnail-s" *ngIf="user">
-      </app-user-thumbnail>
+      <span class="user-thumbnail user-thumbnail-s">
+        <img src="{{thumbnailPath}}" alt="" class="thumbnail" draggable="false" *ngIf="thumbnailPath">
+      </span>
 
       <mat-icon class="profile-imgage-alt" *ngIf="!user">person</mat-icon>
     </button>
@@ -49,6 +47,7 @@
         <!-- Ugly spacing, because width/min-width doesnt work -->
         <span style="visibility: hidden">______________</span>
       </a>
+      <!--
       <div mat-menu-item disabled>
         <div class="flex menu-list-spacer">
           <div>
@@ -59,6 +58,7 @@
           <mat-slide-toggle color="primary"></mat-slide-toggle>
         </div>
       </div>
+      -->
 
       <p></p>
       <mat-divider></mat-divider>

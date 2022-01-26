@@ -210,6 +210,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.thumbnail {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .user-thumbnail {
   margin-right: 1rem;
 }
@@ -260,11 +266,11 @@ app-sidebar {
 
 .search-form-field {
   margin-top: 0.25rem !important;
-  
+
   .mat-form-field-wrapper {
     margin-bottom: -0.75rem !important;
   }
-  
+
   .mat-form-field-flex {
     background: $secondary !important;
     padding-bottom: 0.5rem;
