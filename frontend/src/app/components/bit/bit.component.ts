@@ -51,11 +51,11 @@ export class BitComponent implements OnInit {
 
       // check if liked
       this.likes = this.bit?.likes ?? []
-      this.likedByCurrentUser = this.likes?.find(like => like.auth_user == currentUser.id) !== undefined;
+      this.likedByCurrentUser = this.likes?.some(l => l.auth_user === currentUser.id)
 
       // check if bookmarked
       this.bookmarks = this.bit?.bookmarks ?? []
-      this.bookmarkedByCurrentUser = this.likes?.find(bookmark => bookmark.auth_user == currentUser.id) !== undefined;
+      this.bookmarkedByCurrentUser = this.bookmarks?.some(b => b.auth_user === currentUser.id);
 
       // manage hashtags and @
 
