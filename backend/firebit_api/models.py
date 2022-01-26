@@ -53,7 +53,7 @@ class Category(models.Model):
 
 
 class Bit(models.Model):
-    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
     hashtags = models.TextField(null=True)
@@ -71,7 +71,7 @@ class Bit(models.Model):
 
 class Comment(models.Model):
     bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
-    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -85,7 +85,7 @@ class Comment(models.Model):
 
 class Like(models.Model):
     bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
-    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -98,7 +98,7 @@ class Like(models.Model):
 
 class Bookmark(models.Model):
     bit = models.ForeignKey(Bit, on_delete=models.CASCADE)
-    auth_user = models.ForeignKey(User, on_delete=models.PROTECT)
+    auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
