@@ -131,7 +131,7 @@
         <ng-container matColumnDef="user">
           <th mat-header-cell *matHeaderCellDef>Author</th>
           <td mat-cell *matCellDef="let bit">
-            <a class="link" routerLink="/users/{{bit.user_details.username}}">{{bit.user_details.username}}</a>
+            <a class="link" routerLink="/user/{{bit.user_details.username}}">{{bit.user_details.username}}</a>
           </td>
         </ng-container>
 
@@ -204,7 +204,7 @@
         <ng-container matColumnDef="user">
           <th mat-header-cell *matHeaderCellDef>Author</th>
           <td mat-cell *matCellDef="let comment">
-            <a class="link" routerLink="/users/{{comment.user_details.username}}">{{comment.user_details.username}}</a>
+            <a class="link" routerLink="/user/{{comment.user_details.username}}">{{comment.user_details.username}}</a>
           </td>
         </ng-container>
 

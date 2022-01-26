@@ -82,11 +82,11 @@ export class FriendshipService {
   }
 
 
-  // temp
-  otherUser(friend?: Friendship) {
-    const otherId = friend?.from_auth_user === this.userService.currentUser.value?.id
+  // return friend of user, compare to current user if from is undefined
+  otherUser(friend?: Friendship, from?: User) {
+    const otherId = friend?.from_auth_user === (from?.id ?? this.userService.currentUser.value?.id)
       ? friend?.to_auth_user : friend?.from_auth_user
-    
+
     return this.userService.getUser(otherId ?? -1)
   }
 

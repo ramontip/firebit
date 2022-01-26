@@ -18,6 +18,9 @@ export class FriendComponent implements OnInit {
   @Input()
   editable = false
 
+  @Input()
+  user?: User
+
   constructor(
     private friendshipService: FriendshipService,
     public appService: AppService,
@@ -26,7 +29,7 @@ export class FriendComponent implements OnInit {
 
   ngOnInit(): void {
     // temp
-    this.friendshipService.otherUser(this.friendship).subscribe(user => {
+    this.friendshipService.otherUser(this.friendship, this.user).subscribe(user => {
       this.friendUser = user
       // console.log({ friendUser: user })
     })
