@@ -57,7 +57,7 @@ const routes: Routes = [
     ],
     data: {breadcrumbs: "User", isLink: false}
   },
-  {path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard]},
+  {path: "category/:name", component: CategoryPageComponent, canActivate: [AuthGuard], data: {breadcrumbs: "Category", isLink: false}},
   {path: "search/:query", component: SearchPageComponent, canActivate: [AuthGuard]},
   {path: "hashtag/:hashtag", component: HashtagPageComponent, canActivate: [AuthGuard]},
   {
