@@ -125,6 +125,7 @@ h1, h2, h3, h4, h5, h6 {
 .mat-button-base {
   mat-icon {
     font-size: 1.5em;
+    height: 22px;
   }
 }
 
@@ -247,7 +248,7 @@ app-sidebar {
   .mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple {
     opacity: 0 !important;
   }
-  
+
   .mat-checkbox-layout {
     cursor: default !important;
   }

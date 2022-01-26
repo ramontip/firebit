@@ -29,7 +29,7 @@ Firebit is a Django and Angular based web application, where users can share and
 
 Firebit enables users to share experiences as “bits”. A bit consists of a title, description, category and multiple images. Users may like, bookmark or comment these bits. In addition, users can add new friends and customize their profile page with a thumbnail and about me section. 
 
-The search functionality enables users to find new friends or lookup bits, categories or hashtags. Moreover, the activities page gives an overview of recent interactions on the platform. 
+The search functionality enables users to find new friends or lookup bits by title or hashtags. Moreover, the activities page gives an overview of recent interactions on the platform. 
 
 Users can sign up and login on Firebit. If they forgot their password, they can easily reset it by using the email password reset. Administrators may delete inappropriate bits or comments and may update user information.
 
@@ -48,21 +48,21 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Frontend              | CRUD functionality                | :white_check_mark:  |
 | Frontend              | Form validation                   | :white_check_mark:  |
 | Frontend              | Filter data                       | :white_check_mark:  |
-| Frontend              | Multiple Components               | :white_check_mark:  |
-| Frontend              | Multiple Services                 | :white_check_mark:  |
+| Frontend              | Multiple components               | :white_check_mark:  |
+| Frontend              | Multiple services                 | :white_check_mark:  |
 | Frontend              | Angular Router                    | :white_check_mark:  |
 
 ## Additional Features
 | Type                  |              Feature              | Status              |
 |-----------------------|:---------------------------------:|--------------------:|
-| Backend               |     File upload and handling      | :white_check_mark:  |
+| Backend               | File upload and handling          | :white_check_mark:  |
 | Backend               | Password reset with email support | :white_check_mark:  |
-| Backend               |    Configparser for SMTP data     | :white_check_mark:  |
-| Backend               |    Implement nested serializer    | :white_check_mark:  |
-| Frontend              |  Custom UI, design and branding   | :white_check_mark:  |
-| Frontend              |   Terms of Service and About Us   | :white_check_mark:  |
-| Both                  |      Search multiple models       | :white_check_mark:  |
-| Both                  |  Social networking functionality  | :white_check_mark:  |
+| Backend               | Configparser for SMTP data        | :white_check_mark:  |
+| Backend               | Nested serializers                | :white_check_mark:  |
+| Frontend              | Custom UI, design and branding    | :white_check_mark:  |
+| Frontend              | Terms of Service and About Us     | :white_check_mark:  |
+| Both                  | Search multiple models            | :white_check_mark:  |
+| Both                  | Social networking functionality   | :white_check_mark:  |
 
 # Instructions
 
@@ -83,25 +83,31 @@ Once you have created a local copy of this repository, you may follow these inst
 ````
 pip install -r backend/requirements.txt
 ````
-3. Migrate the database*
+3. Migrate the database<sup>1</sup>
 ````
 python manage.py migrate
 ````
-4. Create superuser*
+4. Create superuser<sup>1</sup> (firstname and lastname should be set in the user profile later)
 ````
 python manage.py createsuperuser
 ````
-5. Populate the database*
+5. Prepopulate the database<sup>1</sup>
 ````
-python manage.py loaddata auth_users.json categories.json bits.json bookmarks.json comments.json friendship_status.json friendships.json likes.json
+python manage.py loaddata categories.json friendship_status.json
 ````
-6. Run backend server
+6. Create mock data<sup>1,2</sup> (optional)
+````
+python manage.py loaddata auth_users.json bits.json bookmarks.json comments.json friendships.json likes.json
+````
+7. Run backend server<sup>1</sup>
 ````
 python manage.py runserver
 ````
-7. Go to http://localhost:8000 to find the API endpoints
+8. Go to http://localhost:8000 to find the API endpoints
 
-*The `python` command may vary on your system - e.g. `py` on Windows, `python3` on MacOS when using brew
+<sup>1</sup> The `python` command may vary on your system - e.g. `py` on Windows, `python3` on MacOS when using brew
+
+<sup>2</sup> You may create some mock data (e.g. other users, bits and friendships) that is connected with the superuser account.
 
 ### Configure Mailing
 
@@ -130,7 +136,7 @@ npm install
 ````
 ng serve
 ````
-4. Go to http://localhost:4200 to find the web application
+4. Go to http://localhost:4200 to find the web application (you may login using your superuser credentials)
 
 ---
 > FH Joanneum, Information Management (IMA19), SWENGS
