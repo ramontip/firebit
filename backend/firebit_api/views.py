@@ -302,7 +302,7 @@ class SearchViewSet(viewsets.ViewSet):
         current_user = self.request.user
 
         query = request.GET.get("q", None)
-        print(query)
+        # print(query)
 
         # search for users
         users = models.User.objects.filter(

@@ -133,7 +133,7 @@ export class BitComponent implements OnInit {
         this.appService.showSnackBar("Bit deleted successfully", "Hide")
       },
       err => {
-        console.log({ err })
+        // console.log({ err })
         this.appService.showSnackBar("Could not delete bit", "Hide")
       }
     )

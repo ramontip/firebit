@@ -60,7 +60,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         # Check that to and from users are different
-        print(data)
+        # print(data)
         if data["from_auth_user"] == data["to_auth_user"]:
             raise serializers.ValidationError("'from_auth_user' and 'to_auth_user' must be different")
         return data

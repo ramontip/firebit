@@ -47,7 +47,9 @@ export class ProfileFormComponent implements OnInit {
     }
 
     if (!user) {
-      return console.error(`Could not update profile, user is ${user}`)
+      // console.error(`Could not update profile, user is ${user}`)
+      this.appService.showSnackBar("Could not update profile", "Hide")
+      return
     } else {
 
       this.userService.updateUser(user.id, this.profileFormGroup.value).subscribe(

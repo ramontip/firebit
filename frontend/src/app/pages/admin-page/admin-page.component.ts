@@ -82,7 +82,7 @@ export class AdminPageComponent implements OnInit {
       this.appService.showSnackBar(message, "Hide")
     },
       err => {
-        console.log({ err })
+        // console.log({ err })
         this.appService.showSnackBar("Could not update user", "Hide")
       }
     )

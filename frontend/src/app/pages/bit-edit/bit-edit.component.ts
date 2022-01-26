@@ -34,7 +34,7 @@ export class BitEditComponent implements OnInit {
         })
       },
       err => {
-        console.log({ err })
+        // console.log({ err })
         this.router.navigate(["**"], { skipLocationChange: true })
       }
     )
