@@ -7,9 +7,9 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django_rest_passwordreset.signals import reset_password_token_created
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import action, permission_classes
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from . import models
@@ -29,9 +29,11 @@ class BitViewSet(viewsets.ViewSet):
         # get bits from friends only
         else:
             queryset = models.Bit.objects.filter(
-                Q(auth_user_id=current_user.id) | 
-                Q(auth_user__from_auth_user__to_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2) | 
-                Q(auth_user__to_auth_user__from_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2)
+                Q(auth_user_id=current_user.id) |
+                Q(auth_user__from_auth_user__to_auth_user_id=current_user.id,
+                  auth_user__from_auth_user__friendship_status_id=2) |
+                Q(auth_user__to_auth_user__from_auth_user_id=current_user.id,
+                  auth_user__to_auth_user__friendship_status_id=2)
             ).distinct()
 
         category = request.GET.get("category")
@@ -69,9 +71,11 @@ class BitViewSet(viewsets.ViewSet):
                 bit = models.Bit.objects.get(pk=pk)
             else:
                 bit = models.Bit.objects.filter(
-                    Q(pk=pk) & (Q(auth_user_id=current_user.id) | 
-                    Q(auth_user__from_auth_user__to_auth_user_id=current_user.id, auth_user__from_auth_user__friendship_status_id=2) | 
-                    Q(auth_user__to_auth_user__from_auth_user_id=current_user.id, auth_user__to_auth_user__friendship_status_id=2))
+                    Q(pk=pk) & (Q(auth_user_id=current_user.id) |
+                                Q(auth_user__from_auth_user__to_auth_user_id=current_user.id,
+                                  auth_user__from_auth_user__friendship_status_id=2) |
+                                Q(auth_user__to_auth_user__from_auth_user_id=current_user.id,
+                                  auth_user__to_auth_user__friendship_status_id=2))
                 ).distinct()[0]
 
             serializer = BitSerializer(bit)
@@ -229,7 +233,7 @@ class CommentViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
-        
+
         current_user = self.request.user
 
         # only admins need to list all comments on this endpoint
@@ -318,7 +322,7 @@ class SearchViewSet(viewsets.ViewSet):
                     Q(auth_user__from_auth_user__to_auth_user_id=current_user.id,
                       auth_user__from_auth_user__friendship_status_id=2) |
                     Q(auth_user__to_auth_user__from_auth_user_id=current_user.id,
-                      auth_user__from_auth_user__friendship_status_id=2)
+                      auth_user__to_auth_user__friendship_status_id=2)
             )
         ).distinct()
 
@@ -485,14 +489,14 @@ class UserViewSet(viewsets.ViewSet):
                 # Admins/statt cannot delete themselves
                 if int(current_user.pk) == int(pk):
                     return Response({"error": "You cannot delete yourself."}, status=400)
-                
+
                 user = models.User.objects.filter(pk=pk)[0]
                 # Staff cannot delete other staff, only admins
                 if (not current_user.is_superuser) and user.is_staff:
                     return Response(status=403)
 
                 user.delete()
-   
+
             else:
                 models.User.objects.filter(
                     Q(pk=pk) & Q(id=current_user.id)
@@ -504,7 +508,8 @@ class UserViewSet(viewsets.ViewSet):
         return Response(status=204)
 
     # this creates the url: user/{userId}/liked_bits/
-    @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits', permission_classes=[IsAuthenticated])
+    @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits',
+            permission_classes=[IsAuthenticated])
     def list_liked_bits(self, request, pk=None):
         try:
             # only get count
@@ -526,7 +531,8 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # this creates the url: user/{userId}/liked_bits/
-    @action(methods=['get'], detail=True, url_path='commented_bits', url_name='Commented Bits', permission_classes=[IsAuthenticated])
+    @action(methods=['get'], detail=True, url_path='commented_bits', url_name='Commented Bits',
+            permission_classes=[IsAuthenticated])
     def list_commented_bits(self, request, pk=None):
         try:
             # only get count
@@ -547,7 +553,8 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # this creates the url: user/{userId}/bookmarks/
-    @action(methods=['get'], detail=True, url_path='bookmarks', url_name='Bookmarks', permission_classes=[IsAuthenticated])
+    @action(methods=['get'], detail=True, url_path='bookmarks', url_name='Bookmarks',
+            permission_classes=[IsAuthenticated])
     def list_bookmarks(self, request, pk=None):
         try:
             # only get count
@@ -567,7 +574,8 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # Check password without generating a token
-    @action(methods=['post'], detail=False, url_path='check_password', url_name='Check password', permission_classes=[IsAuthenticated])
+    @action(methods=['post'], detail=False, url_path='check_password', url_name='Check password',
+            permission_classes=[IsAuthenticated])
     def check_password(self, request, pk=None):
         # Check required fields
         error = {}
