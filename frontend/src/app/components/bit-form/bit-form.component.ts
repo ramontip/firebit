@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {BitService} from "../../services/bit.service";
 import {HttpClient} from "@angular/common/http";
@@ -13,6 +13,8 @@ import {AppService} from "../../services/app.service";
   styleUrls: ['./bit-form.component.scss']
 })
 export class BitFormComponent implements OnInit {
+
+  @ViewChild('fileUpload') fileUpload?: ElementRef;
 
   bit?: Bit;
   bitFormGroup: FormGroup;
@@ -63,6 +65,8 @@ export class BitFormComponent implements OnInit {
   removeFiles() {
     this.files = [];
     this.imageField = "Add images to your Bit";
+    if (this.fileUpload)
+      this.fileUpload.nativeElement.value = '';
   }
 
   createOrUpdateBit() {
