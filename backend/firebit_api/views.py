@@ -6,8 +6,9 @@ from django.db.models import Q
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django_rest_passwordreset.signals import reset_password_token_created
-from rest_framework import viewsets
-from rest_framework.decorators import action
+from rest_framework import viewsets, permissions
+from rest_framework.decorators import action, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 
@@ -16,6 +17,7 @@ from .serializers import *
 
 
 class BitViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
         current_user = self.request.user
@@ -178,6 +180,8 @@ class BitViewSet(viewsets.ViewSet):
 
 
 class ImageViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+
     parser_class = (FileUploadParser,)
 
     def list(self, request, format=None):
@@ -222,8 +226,8 @@ class ImageViewSet(viewsets.ViewSet):
 
 
 class CommentViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
-    # TODO: Admin only
     def list(self, request, format=None):
         
         current_user = self.request.user
@@ -292,6 +296,7 @@ class CommentViewSet(viewsets.ViewSet):
 
 
 class SearchViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
         current_user = self.request.user
@@ -325,6 +330,7 @@ class SearchViewSet(viewsets.ViewSet):
 
 
 class CategoryViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
         if request.GET.get("title") is None:
@@ -362,8 +368,12 @@ class CategoryViewSet(viewsets.ViewSet):
 
 
 class UserViewSet(viewsets.ViewSet):
+    # permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
+        if not request.user.is_authenticated:
+            return Response(status=401)
+
         queryset = models.User.objects.all()
 
         if request.GET.get("username") is not None:
@@ -377,6 +387,7 @@ class UserViewSet(viewsets.ViewSet):
         return Response(serializer.data, status=200)
 
     def create(self, request, format=None):
+
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -388,6 +399,9 @@ class UserViewSet(viewsets.ViewSet):
             return Response(serializer.errors, status=400)
 
     def retrieve(self, request, pk=None, format=None):
+        if not request.user.is_authenticated:
+            return Response(status=401)
+
         try:
             user = models.User.objects.get(
                 pk=pk
@@ -399,6 +413,9 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def update(self, request, pk=None, format=None):
+        if not request.user.is_authenticated:
+            return Response(status=401)
+
         current_user = self.request.user
 
         try:
@@ -418,6 +435,9 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def partial_update(self, request, pk=None, format=None):
+        if not request.user.is_authenticated:
+            return Response(status=401)
+
         current_user = self.request.user
 
         try:
@@ -446,12 +466,25 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     def destroy(self, request, pk=None, format=None):
+        if not request.user.is_authenticated:
+            return Response(status=401)
+
         current_user = self.request.user
 
-        # TODO: admin/staff should also be able to destroy user (same for bits and comments)
         try:
             if current_user.is_superuser or current_user.is_staff:
-                models.User.objects.filter(pk=pk)
+
+                # Admins/statt cannot delete themselves
+                if int(current_user.pk) == int(pk):
+                    return Response({"error": "You cannot delete yourself."}, status=400)
+                
+                user = models.User.objects.filter(pk=pk)[0]
+                # Staff cannot delete other staff, only admins
+                if (not current_user.is_superuser) and user.is_staff:
+                    return Response(status=403)
+
+                user.delete()
+   
             else:
                 models.User.objects.filter(
                     Q(pk=pk) & Q(id=current_user.id)
@@ -463,7 +496,7 @@ class UserViewSet(viewsets.ViewSet):
         return Response(status=204)
 
     # this creates the url: user/{userId}/liked_bits/
-    @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits')
+    @action(methods=['get'], detail=True, url_path='liked_bits', url_name='Liked Bits', permission_classes=[IsAuthenticated])
     def list_liked_bits(self, request, pk=None):
         try:
             # only get count
@@ -485,7 +518,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # this creates the url: user/{userId}/liked_bits/
-    @action(methods=['get'], detail=True, url_path='commented_bits', url_name='Commented Bits')
+    @action(methods=['get'], detail=True, url_path='commented_bits', url_name='Commented Bits', permission_classes=[IsAuthenticated])
     def list_commented_bits(self, request, pk=None):
         try:
             # only get count
@@ -506,7 +539,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # this creates the url: user/{userId}/bookmarks/
-    @action(methods=['get'], detail=True, url_path='bookmarks', url_name='Bookmarks')
+    @action(methods=['get'], detail=True, url_path='bookmarks', url_name='Bookmarks', permission_classes=[IsAuthenticated])
     def list_bookmarks(self, request, pk=None):
         try:
             # only get count
@@ -526,7 +559,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=404)
 
     # Check password without generating a token
-    @action(methods=['post'], detail=False, url_path='check_password', url_name='Check password')
+    @action(methods=['post'], detail=False, url_path='check_password', url_name='Check password', permission_classes=[IsAuthenticated])
     def check_password(self, request, pk=None):
         # Check required fields
         error = {}
@@ -549,6 +582,7 @@ class UserViewSet(viewsets.ViewSet):
 
 
 class PasswordResetViewSet(viewsets.ViewSet):
+    # permission_classes = [permissions.IsAuthenticated]
 
     def retrieve(self, request, email=''):
         try:
@@ -560,6 +594,8 @@ class PasswordResetViewSet(viewsets.ViewSet):
 
 
 class UserDetailsViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+
     parser_class = (FileUploadParser,)
 
     def list(self, request, format=None):
@@ -629,10 +665,12 @@ class UserDetailsViewSet(viewsets.ViewSet):
 
 
 class FriendshipViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
 
         # TODO: not sure if this is needed -> auth_user might be replaced by self.request.user
+        # I'm also not sure, but I think it is needed, so I leave it here
         auth_user = request.GET.get("auth_user")
         from_auth_user = request.GET.get("from_auth_user")
         to_auth_user = request.GET.get("to_auth_user")
@@ -760,6 +798,7 @@ class FriendshipViewSet(viewsets.ViewSet):
 
 
 class LikeViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
         '''
@@ -779,17 +818,18 @@ class LikeViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=400)
 
-    # TODO: is this implementation needed? likes are only received through bit object (nested), aren't they?
     def retrieve(self, request, pk=None, format=None):
-        try:
-            like = models.Like.objects.get(
-                pk=pk
-            )
-            serializer = LikeSerializer(like)
-            return Response(serializer.data, status=200)
+        return Response(status=405)
 
-        except models.Like.DoesNotExist:
-            return Response(status=404)
+        # try:
+        #     like = models.Like.objects.get(
+        #         pk=pk
+        #     )
+        #     serializer = LikeSerializer(like)
+        #     return Response(serializer.data, status=200)
+
+        # except models.Like.DoesNotExist:
+        #     return Response(status=404)
 
     def update(self, request, pk=None, format=None):
         return Response(status=405)
@@ -811,6 +851,7 @@ class LikeViewSet(viewsets.ViewSet):
 
 
 class BookmarkViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
         '''
@@ -833,17 +874,18 @@ class BookmarkViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=400)
 
-    # TODO: is this implementation needed? bookmarks are only received through bit object (nested), aren't they?
     def retrieve(self, request, pk=None, format=None):
-        try:
-            bookmark = models.Bookmark.objects.get(
-                pk=pk
-            )
-            serializer = BookmarkSerializer(bookmark)
-            return Response(serializer.data, status=200)
+        return Response(status=405)
 
-        except models.Bookmark.DoesNotExist:
-            return Response(status=404)
+        # try:
+        #     bookmark = models.Bookmark.objects.get(
+        #         pk=pk
+        #     )
+        #     serializer = BookmarkSerializer(bookmark)
+        #     return Response(serializer.data, status=200)
+
+        # except models.Bookmark.DoesNotExist:
+        #     return Response(status=404)
 
     def update(self, request, pk=None, format=None):
         return Response(status=405)

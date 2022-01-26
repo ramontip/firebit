@@ -89,7 +89,9 @@ export class AdminPageComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    if ((user.id === this.currentUser?.id) || !confirm(`Do you really want to delete user '${user.username}'?`)) {
+    if ((user.id === this.currentUser?.id) || // dont delete self
+      (!this.currentUser?.is_superuser && (user.is_staff || user.is_superuser)) || // only delete staff if admin
+      !confirm(`Do you really want to delete user '${user.username}'?`)) {
       return
     }
 
