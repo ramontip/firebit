@@ -24,9 +24,10 @@ export class AppService {
 
   refreshRoute() {
     const currentRoute = this.router.url
+    const navigateTo = currentRoute === "/bitmap" ? "/**" : "/"
 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
+    this.router.navigateByUrl(navigateTo, { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl(currentRoute); // navigate to same route
     });
   }
 
