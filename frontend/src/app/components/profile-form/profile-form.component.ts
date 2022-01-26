@@ -26,6 +26,8 @@ export class ProfileFormComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.email, Validators.pattern(appService.EMAIL_PATTERN)], [emailValidator(userService)]),
     })
 
+    this.profileFormGroup.controls["username"].disable()
+
   }
 
   ngOnInit(): void {

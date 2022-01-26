@@ -46,23 +46,15 @@ export class UserService {
 
   login(userData: Credentials) {
     return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
-      // Set logged in
-      // map((res) => {
-      //   console.log({ loginResponse: res })
-
-      //   this.isLoggedIn.next(true);
-      //   localStorage.setItem('access_token', res.token);
-
-      //   this.setCurrentUser()
-      //   return res
-      // }),
       // Set user
       switchMap(res => {
         const token = this.jwtHelperService.decodeToken<JWTToken>(res.token ?? undefined)
 
+        // Set access token before making any other requests
+        localStorage.setItem('access_token', res.token);
+
         return this.getUser(token.user_id).pipe(
           map(user => {
-            localStorage.setItem('access_token', res.token);
             this.isLoggedIn.next(true)
 
             this.currentUser.next(user)

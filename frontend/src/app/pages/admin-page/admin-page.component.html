@@ -79,7 +79,8 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let user">
-            <button mat-icon-button color="warn" (click)="deleteUser(user)" [disabled]="user.id === (userService.currentUser | async)?.id">
+            <button mat-icon-button color="warn" (click)="deleteUser(user)"
+              [disabled]="!currentUser?.is_superuser && (user.is_staff || user.is_superuser)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
