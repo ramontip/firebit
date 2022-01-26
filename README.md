@@ -29,7 +29,7 @@ Firebit is a Django and Angular based web application, where users can share and
 
 Firebit enables users to share experiences as “bits”. A bit consists of a title, description, category and multiple images. Users may like, bookmark or comment these bits. In addition, users can add new friends and customize their profile page with a thumbnail and about me section. 
 
-The search functionality enables users to find new friends or lookup bits by title or hashtags. Moreover, the activities page gives an overview of recent interactions on the platform. 
+The search functionality enables users to find new friends or lookup bits by title or hashtags. Moreover, the activities page gives an overview of your interactions on the platform. 
 
 Users can sign up and login on Firebit. If they forgot their password, they can easily reset it by using the email password reset. Administrators may delete inappropriate bits or comments and may update user information.
 
@@ -61,6 +61,7 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Backend               | Nested serializers                | :white_check_mark:  |
 | Frontend              | Custom UI, design and branding    | :white_check_mark:  |
 | Frontend              | Terms of Service and About Us     | :white_check_mark:  |
+| Both                  | Admin dashboard with stats        | :white_check_mark:  |
 | Both                  | Search multiple models            | :white_check_mark:  |
 | Both                  | Social networking functionality   | :white_check_mark:  |
 
