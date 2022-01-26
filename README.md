@@ -36,7 +36,7 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 ## Required Features
 
 | Type                  | Feature                           | Status              |
-|-----------------------|:---------------------------------:|--------------------:|
+|-----------------------|-----------------------------------|:-------------------:|
 | Backend               | RESTful API                       | :white_check_mark:  |
 | Backend               | Authentication system             | :white_check_mark:  |
 | Backend               | Multiple models                   | :white_check_mark:  |
@@ -54,7 +54,7 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 
 ## Additional Features
 | Type                  |              Feature              | Status              |
-|-----------------------|:---------------------------------:|--------------------:|
+|-----------------------|-----------------------------------|:-------------------:|
 | Backend               | File upload and handling          | :white_check_mark:  |
 | Backend               | Password reset with email support | :white_check_mark:  |
 | Backend               | Configparser for SMTP data        | :white_check_mark:  |
