@@ -46,4 +46,10 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
+  blurSearch() {
+    if (!this.searchForm.value) {
+      this.searchForm.reset()
+    }
+  }
+
 }
