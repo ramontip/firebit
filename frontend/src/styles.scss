@@ -257,3 +257,16 @@ app-sidebar {
 .mb-0 {
   margin-bottom: 0 !important;
 }
+
+.search-form-field {
+  margin-top: 0.25rem !important;
+  
+  .mat-form-field-wrapper {
+    margin-bottom: -0.75rem !important;
+  }
+  
+  .mat-form-field-flex {
+    background: $secondary !important;
+    padding-bottom: 0.5rem;
+  }
+}
