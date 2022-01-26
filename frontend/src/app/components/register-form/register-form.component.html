@@ -48,9 +48,19 @@
 
         <mat-checkbox color="primary" class="mb"
           [class.text-warn]="registerFormGroup.controls['acceptTos'].touched && registerFormGroup.controls['acceptTos'].invalid"
-          formControlName="acceptTos">
+          formControlName="acceptTos" matInput>
           I have read and accept the <a class="link text-primary fw-medium" routerLink="/terms">terms of service</a>.
         </mat-checkbox>
+
+        <div class="mat-form-field form-checkbox">
+          <div class="mat-form-field-subscript-wrapper">
+            <div class="">
+              <mat-error *ngIf="registerFormGroup.controls['acceptTos'].touched && registerFormGroup.controls['acceptTos'].invalid">
+                {{acceptTosErrorMessage()}}
+              </mat-error>
+            </div>
+          </div>
+        </div>
 
         <!-- <mat-card-actions> -->
         <button mat-flat-button type="submit" color="primary">Register</button>
