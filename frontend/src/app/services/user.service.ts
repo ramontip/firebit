@@ -148,6 +148,19 @@ export class UserService {
     )
   }
 
+  // TODO for validators
+  checkUserByUsername(username: string) {
+    return this.http.get<{ users: number }>(`/api/users/?username=${username}&count=true`).pipe(
+      map(res => res.users)
+    )
+  }
+
+  checkUserByEmail(email: string) {
+    return this.http.get<{ users: number }>(`/api/users/?email=${email}&count=true`).pipe(
+      map(res => res.users)
+    )
+  }
+
   // return this.http.post<{ token: string }>(this.appService.baseUrl + '/token/', userData).pipe( //.subscribe(
 
   resetUserPassword(email: string) {

@@ -371,8 +371,12 @@ class UserViewSet(viewsets.ViewSet):
     # permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, format=None):
-        if not request.user.is_authenticated:
-            return Response(status=401)
+
+        is_count = request.GET.get("count") == "true"
+
+        # TODO: Possibility to check if username exists: return id, user and email
+        # if not request.user.is_authenticated and (not is_count):
+        #     return Response(status=401)
 
         queryset = models.User.objects.all()
 
@@ -380,6 +384,10 @@ class UserViewSet(viewsets.ViewSet):
             queryset = queryset.filter(username=request.GET.get("username"))
         if request.GET.get("email") is not None:
             queryset = queryset.filter(email=request.GET.get("email"))
+
+        if is_count:
+            user_count = queryset.count()
+            return Response({"users": user_count}, status=200)
 
         queryset = queryset.order_by(request.GET.get("order_by") or "pk")
 

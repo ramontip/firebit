@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {UserService} from 'src/app/services/user.service';
 import {User} from 'src/types';
-import {SearchService} from "../../services/search.service";
 import {Router} from "@angular/router";
 import {AppService} from "../../services/app.service";
 
@@ -13,12 +12,11 @@ import {AppService} from "../../services/app.service";
 })
 export class ToolbarComponent implements OnInit {
 
-  searchForm = new FormControl("", Validators.minLength(3));
+  searchForm = new FormControl("", [Validators.required, Validators.minLength(3)]);
   user?: User
 
   constructor(
     public userService: UserService,
-    private searchService: SearchService,
     private router: Router,
     private appService: AppService,
   ) {
