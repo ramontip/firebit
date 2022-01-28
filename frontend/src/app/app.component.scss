@@ -9,5 +9,16 @@
 
 .content-container {
   padding: 1rem;
+  padding-left: 2rem;
   height: calc(100% - 2rem) !important;
+}
+
+.mat-drawer-side {
+  border-right-width: 0;
+}
+
+.sidebar-pattern {
+  position: fixed;
+  height: 100vh;
+  left: 60px;
 }
