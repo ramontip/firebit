@@ -23,13 +23,23 @@
   </div>
 
   <!-- Bit list -->
+  <!-- <div class="section"> -->
+  <h2>Discover your Bitmap</h2>
+  <!-- </div> -->
+</div>
+
+<div class="container-xxl">
   <div class="section">
-    <h2>Discover your Bitmap</h2>
-    <div class="flex flex-container">
-      <!-- <div fxFlex="1 1 49%" class="item" *ngFor="let bit of bits"> -->
+    <ngx-masonry [options]="masonryOptions" [ordered]="true">
+      <div class="masonry-gutter"></div>
+      <app-bit ngxMasonryItem class="masonry-item" *ngFor="let bit of bits" [bit]="bit"></app-bit>
+    </ngx-masonry>
+
+    <!-- <div class="flex flex-container masonry-container">
+      <div fxFlex="1 1 49%" class="item" *ngFor="let bit of bits">
       <app-bit class="flex-item item" *ngFor="let bit of bits" [bit]="bit"></app-bit>
-      <!-- </div> -->
-    </div>
+      </div>
+    </div> -->
     <div class="mt">
       <!--
          Welcome to your bitmap.

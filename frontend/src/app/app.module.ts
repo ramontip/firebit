@@ -70,6 +70,7 @@ import {MatTableModule} from "@angular/material/table"
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {StatChipComponent} from './components/stat-chip/stat-chip.component'
 import {FooterComponent} from './components/footer/footer.component'
+import { NgxMasonryModule } from "ngx-masonry"
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -147,6 +148,7 @@ function tokenGetter() {
     MatSlideToggleModule,
     MatTableModule,
     MatTooltipModule,
+    NgxMasonryModule,
     JwtModule.forRoot({
       config: {tokenGetter: tokenGetter}
     }),
