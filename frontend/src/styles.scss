@@ -300,3 +300,32 @@ app-sidebar {
     stroke: currentColor !important;
   }
 }
+
+// Masonry Layout
+.masonry {
+  --cols: 1;
+  --gutter: 16px;
+
+  // Set columns based on screen width
+  @media (min-width: 800px) { --cols: 2; }
+  @media (min-width: 1200px) { --cols: 3; }
+
+  // Optionally constraint max columns
+  &.cols-3 { --cols: 3 }
+  &.cols-2 { --cols: 2 }
+
+  .masonry-item {    
+    // Distribute gutter spacce equally on all column
+    --gutter-adjust: var(--gutter) * (var(--cols) - 1);
+    
+    width: calc((100% - var(--gutter-adjust)) / var(--cols));
+    margin-bottom: 1rem;
+    
+    // Moving animation
+    transition: top 0.4s ease-in-out, left 0.4s ease-in-out;
+  }
+
+  .masonry-gutter {
+    width: var(--gutter);
+  }
+}

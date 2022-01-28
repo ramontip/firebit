@@ -30,7 +30,7 @@
 
 <div class="container-xxl">
   <div class="section">
-    <ngx-masonry [options]="masonryOptions" [ordered]="true">
+    <ngx-masonry class="masonry" [options]="masonryOptions" [ordered]="true">
       <div class="masonry-gutter"></div>
       <app-bit ngxMasonryItem class="masonry-item" *ngFor="let bit of bits" [bit]="bit"></app-bit>
     </ngx-masonry>
