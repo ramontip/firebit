@@ -13,6 +13,7 @@ import {AppService} from 'src/app/services/app.service';
 export class LoginFormComponent implements OnInit {
 
   loginFormGroup: FormGroup
+  isLoading = false
 
   constructor(
     private http: HttpClient,
@@ -31,15 +32,18 @@ export class LoginFormComponent implements OnInit {
 
   login() {
     // console.log("logging in...")
+    this.isLoading = true
     this.userService.login(this.loginFormGroup.value).subscribe(
       res => {
         // console.log({loginFormResponse: res})
 
+        this.isLoading = false
         this.appService.showSnackBar('Logged in successfully', 'Hide');
 
         this.router.navigate(["/bitmap"])
       },
       (err) => {
+        this.isLoading = false
         this.appService.showSnackBar('Invalid username or password', 'Hide')
         this.loginFormGroup.controls["password"].setValue("")
         // console.log({loginError: err})

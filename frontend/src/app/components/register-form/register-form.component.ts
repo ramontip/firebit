@@ -17,6 +17,7 @@ export class RegisterFormComponent implements OnInit {
 
   registerFormGroup: FormGroup
   hidePassword = true;
+  isLoading = false
 
   constructor(
     private userService: UserService,
@@ -47,6 +48,7 @@ export class RegisterFormComponent implements OnInit {
       return
     }
 
+    this.isLoading = true
     this.userService.registerUser(this.registerFormGroup.value).subscribe((user) => {
       // console.log(user);
 
@@ -71,11 +73,13 @@ export class RegisterFormComponent implements OnInit {
 
         // })
         .subscribe(() => {
+          this.isLoading = false
           this.appService.showSnackBar('Registered successfully', 'Hide');
           this.router.navigate(["/bitmap"])
         })
 
     }, () => {
+      this.isLoading = false
       this.appService.showSnackBar("An error occured while registering", "Hide")
       // console.log(error);
       this.registerFormGroup.controls["password"].setValue("")

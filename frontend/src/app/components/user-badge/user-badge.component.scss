@@ -1,0 +1,13 @@
+.user-badge {
+  display: flex;
+  flex-direction: row;
+  
+  .mat-icon {
+    height: 1em;
+    width: 1em;
+  }
+
+  .material-icons {
+    font-size: 1.125em;
+  }
+}

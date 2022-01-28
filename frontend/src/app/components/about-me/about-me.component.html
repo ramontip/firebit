@@ -7,8 +7,9 @@
       <div class="mb vertical-center">
         <app-user-thumbnail [user]="user!" class="user-thumbnail user-thumbnail-m"></app-user-thumbnail>
         <div>
-          <mat-card-title class="user">
+          <mat-card-title class="user inline-flex vertical-center">
             {{user?.first_name}} {{user?.last_name}}
+            <app-user-badge [user]="user" *ngIf="user"></app-user-badge>
           </mat-card-title>
           <mat-card-subtitle class="username">
             @{{user?.username}}

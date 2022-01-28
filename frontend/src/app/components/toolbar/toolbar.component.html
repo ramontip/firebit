@@ -33,7 +33,10 @@
     <!-- </span> -->
     <mat-menu #menu="matMenu" xPosition="before" class="profile-menu">
       <div class="profile-menu-header flex">
-        <span class="profile-name fw-medium">{{user?.first_name}} {{user?.last_name}}</span>
+        <div class="profile-name fw-medium inline-flex vertical-center">
+          {{user?.first_name}} {{user?.last_name}}
+          <app-user-badge [user]="user"></app-user-badge>
+        </div>
         <span class="profile-username mat-card-subtitle">@{{user?.username}}</span>
       </div>
       <a mat-menu-item routerLink="/profile">

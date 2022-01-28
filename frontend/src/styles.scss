@@ -71,6 +71,10 @@ a {
   display: flex;
 }
 
+.inline-flex {
+  display: inline-flex !important;
+}
+
 .container-xl {
   max-width: 1080px;
   margin: 0 auto;
@@ -101,6 +105,11 @@ a {
 
 .mt {
   margin-top: 1rem;
+}
+
+.mx-025 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .mt-2 {
@@ -279,5 +288,15 @@ app-sidebar {
   .mat-form-field-flex {
     background: $secondary !important;
     padding-bottom: 0.5rem;
+  }
+}
+
+.loading-spinner {
+  display: inline-block !important;
+  margin: 0 0.25rem;
+  margin-bottom: 2px;
+
+  circle {
+    stroke: currentColor !important;
   }
 }

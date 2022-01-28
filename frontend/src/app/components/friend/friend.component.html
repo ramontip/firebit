@@ -7,10 +7,11 @@
         <app-user-thumbnail [user]="friendUser" class="user-thumbnail user-thumbnail-xs" *ngIf="friendUser"></app-user-thumbnail>
       </a>
 
-      <mat-card-content class="name">
+      <mat-card-content class="name inline-flex vertical-center">
         <a routerLink="/user/{{friendUser?.username}}" class="link">
           {{friendUser?.first_name}} {{friendUser?.last_name}}
         </a>
+        <app-user-badge [user]="friendUser"></app-user-badge>
       </mat-card-content>
       <mat-card-subtitle class="username">
         @{{friendUser?.username}}

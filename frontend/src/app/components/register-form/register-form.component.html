@@ -63,7 +63,10 @@
         </div>
 
         <!-- <mat-card-actions> -->
-        <button mat-flat-button type="submit" color="primary">Register</button>
+        <button mat-flat-button type="submit" color="primary" [disabled]="isLoading">
+          Register
+          <mat-spinner diameter="18" class="loading-spinner" *ngIf="isLoading"></mat-spinner>
+        </button>
 
       </div>
     </form>
