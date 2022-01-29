@@ -6,7 +6,7 @@
 $firebit-primary-palette: (
   50 : #e5eaed,
   100 : #bfcbd2,
-  200 : #94a9b4,
+  200 : #80acc5,
   300 : #698795,
   400 : #486d7f,
   500 : #285368,
@@ -75,7 +75,13 @@ $firebit-accent: mat.define-palette($firebit-secondary-palette, 500, A100, A400)
 // The "warn" palette is optional and defaults to red if not specified.
 $firebit-warn: mat.define-palette(mat.$red-palette);
 
-$firebit-theme: mat.define-light-theme((
+// For dark theme
+$firebit-primary-light: mat.define-palette($firebit-primary-palette, 400);
+$firebit-accent-light: mat.define-palette($firebit-secondary-palette, 400);
+$firebit-warn-light: mat.define-palette(mat.$red-palette, 400, A100, A400);
+
+
+$firebit-light-theme: mat.define-light-theme((
   color: (
     primary: $firebit-primary,
     accent: $firebit-accent,
@@ -83,12 +89,29 @@ $firebit-theme: mat.define-light-theme((
   )
 ));
 
+$firebit-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $firebit-primary-light,
+    accent: $firebit-accent,
+    warn: $firebit-warn-light,
+  )
+));
+
+// Change background color of theme
+// $firebit-dark-theme: modify-background($firebit-dark-theme, #202020);
+
 // Define Additional Colors
 $primary: #285368;
-$primary-lighter: #94a9b4;
+$primary-lighter: #80acc5; // #94a9b4, #83b2cc
 $secondary: #214557;
 $accent: #ff7043;
 $accent-lighter: #ffb8a1;
 $warn: #ff411e;
 
-@include mat.all-component-themes($firebit-theme);
+// Light theme by default ._.
+@include mat.all-component-themes($firebit-light-theme);
+
+// ~ is the general sibling operator
+.darkmode, .darkmode ~ .cdk-overlay-container {
+  @include mat.all-component-themes($firebit-dark-theme);
+}

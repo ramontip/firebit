@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
+
+  readonly DARKMODE_KEY = "darkmode"
+  isDarkmode = new BehaviorSubject(false)
 
   baseUrl = '/api';
 
@@ -20,6 +24,9 @@ export class AppService {
   readonly USERTAG_PATTERN = /\s@([A-Za-z0-9_]+)/g
 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
+    // Dark mode
+    const darkmode = localStorage.getItem(this.DARKMODE_KEY)
+    this.isDarkmode.next(darkmode === "true")
   }
 
   refreshRoute() {
@@ -65,6 +72,12 @@ export class AppService {
       .replace(/'/g, "&#039;")
     // TODO: new line doesnt work
     // .replace(/\n/g, "<br>")
+  }
+
+  setDarkmode(darkmode: boolean) {
+    console.log({ darkmode })
+    this.isDarkmode.next(darkmode)
+    localStorage.setItem(this.DARKMODE_KEY, `${darkmode}`)
   }
 }
 

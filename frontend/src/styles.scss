@@ -2,11 +2,56 @@
 
 @import "firebit.scss";
 
+// Dark mode adjustments
+.darkmode, .darkmode ~ .cdk-overlay-container {
+  color: #fff;
+
+  .mat-drawer-container {
+    background-color: #2d2e31 !important;
+  }
+
+  // Elevated content container (cards, tables, etc.)
+  .mat-card, .mat-expansion-panel, .mat-table {
+    background-color: #36373a !important;
+  }
+  
+  // Popup
+  .mat-menu-panel {
+    background-color: #3c3d41 !important;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #ffffff0c !important;
+  }
+
+  .mat-chip.mat-standard-chip {
+    background-color: #ffffff10 !important;
+  }
+
+  .mat-toolbar.mat-primary {
+    color: #fff !important;
+    background-color: $primary !important;
+  }
+
+  .search-form-field .mat-form-field-wrapper .mat-form-field-flex {
+    background-color: $secondary !important;
+  }
+
+  .mat-slide-toggle.mat-primary.mat-checked {
+    .mat-slide-toggle-thumb {
+      background-color: #80acc5 !important;
+    }
+    .mat-slide-toggle-bar {
+      background-color: #80acc580 !important;
+    }
+  }
+}
+
 .text-primary {
   color: $primary !important;
 }
 
-.text-primary-lighter {
+.text-primary-lighter, .darkmode .text-primary {
   color: $primary-lighter !important;
 }
 
@@ -261,6 +306,10 @@ app-sidebar {
   .mat-list-item-content {
     padding: 0 0.75rem !important;
   }
+}
+
+.mat-drawer-side {
+  border-right-width: 0 !important;
 }
 
 // Disable ripple hover on checkbox, add provider for action, see admin-page

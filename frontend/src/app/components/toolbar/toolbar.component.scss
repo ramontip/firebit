@@ -79,3 +79,11 @@ mat-form-field {
   justify-content: space-between;
   align-items: center;
 }
+
+.menu-item-nolink {
+  cursor: default;
+
+  &:hover {
+    background-color: inherit !important;
+  }
+}

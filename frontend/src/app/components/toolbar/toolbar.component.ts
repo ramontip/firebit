@@ -4,6 +4,7 @@ import {UserService} from 'src/app/services/user.service';
 import {User} from 'src/types';
 import {Router} from "@angular/router";
 import {AppService} from "../../services/app.service";
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,7 +21,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     public userService: UserService,
     private router: Router,
-    private appService: AppService,
+    public appService: AppService,
   ) {
   }
 
@@ -57,6 +58,10 @@ export class ToolbarComponent implements OnInit {
     if (!this.searchForm.value) {
       this.searchForm.reset()
     }
+  }
+
+  toggleDarkmode(ev: MatSlideToggleChange) {
+    this.appService.setDarkmode(ev.checked)
   }
 
 }
