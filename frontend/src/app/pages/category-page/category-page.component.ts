@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { BitService } from 'src/app/services/bit.service';
 import { Bit, Category } from 'src/types';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-category-page',
@@ -14,6 +15,13 @@ export class CategoryPageComponent implements OnInit {
   category?: Category
 
   bits: Bit[] = []
+
+  masonryOptions: NgxMasonryOptions = {
+    itemSelector: ".masonry-item",
+    columnWidth: ".masonry-item",
+    gutter: ".masonry-gutter",
+    percentPosition: true
+  }
 
   constructor(
     public route: ActivatedRoute,

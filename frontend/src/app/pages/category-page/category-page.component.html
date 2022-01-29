@@ -3,11 +3,19 @@
 
   <h2>Category {{category?.title}}</h2>
 
-  <div class="flex">
+  <!-- </div>
+  <div class="container-xxl"> -->
+
+  <!-- <div class="flex">
     <div *ngFor="let bit of bits" class="flex-item">
       <app-bit [bit]="bit"></app-bit>
     </div>
-  </div>
+  </div> -->
+
+  <ngx-masonry class="masonry cols-2" [options]="masonryOptions" [ordered]="true">
+    <div class="masonry-gutter"></div>
+    <app-bit ngxMasonryItem class="masonry-item" *ngFor="let bit of bits" [bit]="bit"></app-bit>
+  </ngx-masonry>
 
   <app-no-data title="We searched everywhere, but couldn't find anything." message="Not a single bit." *ngIf="bits.length === 0">
   </app-no-data>

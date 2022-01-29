@@ -32,8 +32,11 @@
     </button>
     <!-- </span> -->
     <mat-menu #menu="matMenu" xPosition="before" class="profile-menu">
-      <div class="profile-menu-header flex">
-        <span class="profile-name fw-medium">{{user?.first_name}} {{user?.last_name}}</span>
+      <div class="profile-menu-header flex" (click)="$event.stopPropagation()">
+        <div class="profile-name fw-medium inline-flex vertical-center">
+          {{user?.first_name}} {{user?.last_name}}
+          <app-user-badge [user]="user"></app-user-badge>
+        </div>
         <span class="profile-username mat-card-subtitle">@{{user?.username}}</span>
       </div>
       <a mat-menu-item routerLink="/profile">
@@ -47,18 +50,17 @@
         <!-- Ugly spacing, because width/min-width doesnt work -->
         <span style="visibility: hidden">______________</span>
       </a>
-      <!--
-      <div mat-menu-item disabled>
+
+      <div mat-menu-item disableRipple class="menu-item-nolink" (click)="$event.stopPropagation()">
         <div class="flex menu-list-spacer">
           <div>
             <mat-icon>nights_stay</mat-icon>
             <span>Dark Mode</span>
           </div>
 
-          <mat-slide-toggle color="primary"></mat-slide-toggle>
+          <mat-slide-toggle color="primary" [checked]="appService.isDarkmode | async" (change)="toggleDarkmode($event)"></mat-slide-toggle>
         </div>
       </div>
-      -->
 
       <p></p>
       <mat-divider></mat-divider>

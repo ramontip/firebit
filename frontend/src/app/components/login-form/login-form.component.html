@@ -26,7 +26,10 @@
         </mat-form-field>
 
         <!-- <mat-card-actions> -->
-        <button mat-flat-button type="submit" color="primary">Login</button>
+        <button mat-flat-button type="submit" color="primary" [disabled]="isLoading">
+          Login
+          <mat-spinner diameter="18" class="loading-spinner" *ngIf="isLoading"></mat-spinner>
+        </button>
       </div>
       <!-- </mat-card-actions> -->
       <p class="center">

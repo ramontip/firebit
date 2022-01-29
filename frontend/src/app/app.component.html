@@ -1,12 +1,14 @@
 <app-toolbar *ngIf="userService.isLoggedIn | async"></app-toolbar>
 
 <mat-sidenav-container class="full-height" [class.sidebar-container]="userService.isLoggedIn | async">
-  <mat-sidenav mode="side" opened class="bg-primary" *ngIf="userService.isLoggedIn | async">
+  <mat-sidenav mode="side" opened *ngIf="userService.isLoggedIn | async">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <!-- <p style="margin-left: 1rem;">Main content</p> -->
+    <!-- <img src="../../../assets/sidebar-blocks.svg" class="sidebar-pattern" draggable="false" unselectable="true" alt=""> -->
+
     <div class="full-height" [class.content-container]="userService.isLoggedIn | async">
       <router-outlet></router-outlet>
     </div>

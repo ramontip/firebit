@@ -1,0 +1,9 @@
+<div class="mx-025 flex user-badge" *ngIf="user?.is_superuser || user?.is_staff">
+  <mat-icon color="warn" matTooltip="Admin" matTooltipPosition="above" matTooltipShowDelay="500" *ngIf="user?.is_superuser">
+    verified_user
+  </mat-icon>
+  <mat-icon color="primary" class="text-primary" matTooltip="Staff" matTooltipPosition="above" matTooltipShowDelay="500"
+    *ngIf="user?.is_staff && !user?.is_superuser">
+    verified
+  </mat-icon>
+</div>

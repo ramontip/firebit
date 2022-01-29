@@ -2,11 +2,56 @@
 
 @import "firebit.scss";
 
+// Dark mode adjustments
+.darkmode, .darkmode ~ .cdk-overlay-container {
+  color: #fff;
+
+  .mat-drawer-container {
+    background-color: #2d2e31 !important;
+  }
+
+  // Elevated content container (cards, tables, etc.)
+  .mat-card, .mat-expansion-panel, .mat-table {
+    background-color: #36373a !important;
+  }
+  
+  // Popup
+  .mat-menu-panel {
+    background-color: #3c3d41 !important;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #ffffff0c !important;
+  }
+
+  .mat-chip.mat-standard-chip {
+    background-color: #ffffff10 !important;
+  }
+
+  .mat-toolbar.mat-primary {
+    color: #fff !important;
+    background-color: $primary !important;
+  }
+
+  .search-form-field .mat-form-field-wrapper .mat-form-field-flex {
+    background-color: $secondary !important;
+  }
+
+  .mat-slide-toggle.mat-primary.mat-checked {
+    .mat-slide-toggle-thumb {
+      background-color: #80acc5 !important;
+    }
+    .mat-slide-toggle-bar {
+      background-color: #80acc580 !important;
+    }
+  }
+}
+
 .text-primary {
   color: $primary !important;
 }
 
-.text-primary-lighter {
+.text-primary-lighter, .darkmode .text-primary {
   color: $primary-lighter !important;
 }
 
@@ -71,8 +116,17 @@ a {
   display: flex;
 }
 
+.inline-flex {
+  display: inline-flex !important;
+}
+
 .container-xl {
   max-width: 1080px;
+  margin: 0 auto;
+}
+
+.container-xxl {
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -96,6 +150,11 @@ a {
 
 .mt {
   margin-top: 1rem;
+}
+
+.mx-025 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .mt-2 {
@@ -249,6 +308,10 @@ app-sidebar {
   }
 }
 
+.mat-drawer-side {
+  border-right-width: 0 !important;
+}
+
 // Disable ripple hover on checkbox, add provider for action, see admin-page
 .hide-ripple {
   .mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple {
@@ -274,5 +337,44 @@ app-sidebar {
   .mat-form-field-flex {
     background: $secondary !important;
     padding-bottom: 0.5rem;
+  }
+}
+
+.loading-spinner {
+  display: inline-block !important;
+  margin: 0 0.25rem;
+  margin-bottom: 2px;
+
+  circle {
+    stroke: currentColor !important;
+  }
+}
+
+// Masonry Layout
+.masonry {
+  --cols: 1;
+  --gutter: 16px;
+
+  // Set columns based on screen width
+  @media (min-width: 800px) { --cols: 2; }
+  @media (min-width: 1200px) { --cols: 3; }
+
+  // Optionally constraint max columns
+  &.cols-3 { --cols: 3 }
+  &.cols-2 { --cols: 2 }
+
+  .masonry-item {    
+    // Distribute gutter spacce equally on all column
+    --gutter-adjust: var(--gutter) * (var(--cols) - 1);
+    
+    width: calc((100% - var(--gutter-adjust)) / var(--cols));
+    margin-bottom: 1rem;
+    
+    // Moving animation
+    transition: top 0.4s ease-in-out, left 0.4s ease-in-out;
+  }
+
+  .masonry-gutter {
+    width: var(--gutter);
   }
 }

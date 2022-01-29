@@ -68,8 +68,11 @@ import {TermsPageComponent} from './pages/terms-page/terms-page.component';
 import {AdminPageComponent} from './pages/admin-page/admin-page.component';
 import {MatTableModule} from "@angular/material/table"
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner"
 import {StatChipComponent} from './components/stat-chip/stat-chip.component'
 import {FooterComponent} from './components/footer/footer.component'
+import { NgxMasonryModule } from "ngx-masonry";
+import { UserBadgeComponent } from './components/user-badge/user-badge.component'
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -121,6 +124,7 @@ function tokenGetter() {
     AdminPageComponent,
     StatChipComponent,
     FooterComponent,
+    UserBadgeComponent,
   ],
   imports: [
     BrowserModule,
@@ -147,6 +151,8 @@ function tokenGetter() {
     MatSlideToggleModule,
     MatTableModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
+    NgxMasonryModule,
     JwtModule.forRoot({
       config: {tokenGetter: tokenGetter}
     }),
