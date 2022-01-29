@@ -60,6 +60,7 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 | Backend               | Configparser for SMTP data        | :white_check_mark:  |
 | Backend               | Nested serializers                | :white_check_mark:  |
 | Frontend              | Custom UI, design and branding    | :white_check_mark:  |
+| Frontend              | Dark mode                         | :white_check_mark:  |
 | Frontend              | Terms of Service and About Us     | :white_check_mark:  |
 | Both                  | Admin dashboard with stats        | :white_check_mark:  |
 | Both                  | Search multiple models            | :white_check_mark:  |
@@ -67,7 +68,7 @@ Users can sign up and login on Firebit. If they forgot their password, they can 
 
 # Instructions
 
-Once you have created a local copy of this repository, you may follow these instructions to set up the backend and frontend of the project. 
+Once you have created a local copy of the [latest release](https://github.com/ramontip/firebit/releases/latest), you may follow these instructions to set up the backend and frontend of the project. 
 
 ## Backend
 
