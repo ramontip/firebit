@@ -11,10 +11,10 @@ Firebit is a Django and Angular based web application, where users can share and
 </p>
 
 <p align="center">
-  <a href="https://www.dropbox.com/s/2wr57ehgqwck8si/G6_Project_Proposal.pdf?dl=0">Proposal</a> •
   <a href="#team">Team</a> •
   <a href="#features">Features</a> •
-  <a href="#instructions">Instructions</a>
+  <a href="#instructions">Instructions</a> •
+  <a href="#screenshots">Screenshots</a>
 </p>
 
 # Team
@@ -140,5 +140,23 @@ ng serve
 ````
 4. Go to http://localhost:4200 to find the web application (you may login using your superuser credentials)
 
+# Screenshots
+
+![home](https://user-images.githubusercontent.com/50173436/164892814-2cecf317-bb46-45cf-b80a-66c41baf61e1.png)
+
+![bitmap](https://user-images.githubusercontent.com/50173436/164892825-97d9b240-22c0-4076-a7ad-660847a2862e.png)
+
+![comment](https://user-images.githubusercontent.com/50173436/164892837-ad33a5dc-14dd-462f-8b69-ec7c0c30dd75.png)
+
+![profile](https://user-images.githubusercontent.com/50173436/164892838-e2eb2d07-56c1-4cef-a51d-ecd294527258.png)
+
+![profile-other](https://user-images.githubusercontent.com/50173436/164892840-6717be4b-b6ab-4b44-8094-abe123381798.png)
+
+![friends](https://user-images.githubusercontent.com/50173436/164892835-cd9272dc-6959-47a2-9651-792a2034c0ee.png)
+
+![activities](https://user-images.githubusercontent.com/50173436/164892831-a94bc5b8-1531-4111-9fbb-c112f14463b4.png)
+
+![admin](https://user-images.githubusercontent.com/50173436/164892834-99bd81bb-9525-4b69-89d5-67cec4ba3a1b.png)
+
 ---
-> FH Joanneum, Information Management (IMA19), SWENGS
+> FH Joanneum, Information Management (IMA19), Software Engineering Selective
